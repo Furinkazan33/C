@@ -1,0 +1,48 @@
+F_LIB=../lib
+F_LSRC=$(F_LIB)/src
+F_LINC=$(F_LIB)/include
+F_LOBJ=$(F_LIB)/obj
+
+F_SRC=./src
+F_OBJ=./obj
+
+MAKE=make
+CC=gcc
+CFLAGS=-I$(F_LINC) -Wall
+
+vpath %.c $(F_SRC)
+vpath %.h $(F_LINC)
+vpath %.o $(F_lOBJ)
+vpath %.a $(F_LIB)
+
+
+LIBS_DEP=$(F_LIB)/string.a
+LIBS_TARGET=string
+
+all: test.o $(LIBS_DEP)
+
+test.o: test.c $(LIBS_DEP)
+	$(CC) -o $@ $^ $(CFLAGS)
+
+$(LIBS_DEP):
+	$(MAKE) $(LIBS_TARGET) -C $(F_LIB) -f Makefile
+
+
+.PHONY: clean cleanall
+clean:
+	rm -f *.o *~ core $(F_INC)/*~
+cleanall:
+	rm -f *.o *~ core $(F_INC)/*~
+	$(MAKE) clean -C $(F_LIB) -f Makefile
+
+#cleanlib:
+#	rm -f *.o *~ core $(INC)/*~ $(LOBJ)/*.o
+
+
+# $@: the target filename.
+# $*: the target filename without the file extension.
+# $<: the first prerequisite filename.
+# $^: the filenames of all the prerequisites, separated by spaces, discard duplicates.
+# $+: similar to $^, but includes duplicates.
+# $?: the names of all prerequisites that are newer than the target, separated by spaces.
+
