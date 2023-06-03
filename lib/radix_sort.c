@@ -83,26 +83,26 @@ void radix() {
             result[r++] = i;
         }
     }
-    }
+}
 
-    int main (void) {
-        int i;
-        generate();
-        minmax();
-        radix();
-        printf("min=%d, max=%d, moy=%d\n", mmm[0], mmm[1], mmm[2]);
+int main (void) {
+    int i;
+    generate();
+    minmax();
+    radix();
+    printf("min=%d, max=%d, moy=%d\n", mmm[0], mmm[1], mmm[2]);
 
-        printf("Sans doublon :\n");
+    printf("Sans doublon :\n");
 
-        for (i = 0; i < SIZE; i++) {
-            if (result[i]) {
-                printf("%d ", result[i]);
-            }
+    for (i = 0; i < SIZE; i++) {
+        if (result[i]) {
+            printf("%d ", result[i]);
         }
-        printf("\n");
-
-        draw();
-
-
-        return 0;
     }
+    printf("\n");
+
+    draw();
+
+
+    return 0;
+}
