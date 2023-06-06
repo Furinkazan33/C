@@ -13,7 +13,7 @@
  * priorité de boot à l'USB.  
  */
 
-#include "glut.h"
+#include "GL/glut.h"
 
 int firstPass = 1; // simule le « once » d'Eiffel
 
