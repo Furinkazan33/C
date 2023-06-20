@@ -6,7 +6,7 @@ DIR_SRC=./src
 DIR_INC=$(DIR_SRC)/include
 DIR_OBJ=obj
 
-EXEC=main.exe
+EXEC=main
 
 # $@ Le nom de la cible
 # $< Le nom de la première dépendance
@@ -18,20 +18,18 @@ all: $(EXEC)
 
 
 # Sources dependencies
-triangle.c: $(DIR_INC)/triangle.c $(DIR_INC)/triangle.h
-main.c: triangle.c $(DIR_SRC)/main.c
+object.c: $(DIR_SRC)/object.c $(DIR_SRC)/object.h
+main.c: object.c $(DIR_SRC)/main.c
 
 
 # Objects dependencies
-triangle.o: triangle.c
-	$(CC) $(CFLAGS) -I$(DIR_INC) -c $(DIR_INC)/triangle.c -o $(DIR_OBJ)/$@
-	
-$(EXEC): triangle.c main.c
-	$(CC) $(CFLAGS) -I$(DIR_INC) $(DIR_SRC)/main.c $(DIR_INC)/triangle.c -o $@
+$(EXEC): object.c main.c
+	$(CC) $(CFLAGS) -I$(DIR_INC) $(DIR_SRC)/main.c $(DIR_SRC)/object.c -o $@
 	
 # Cleaning
 clean: 
 	rm -rf $(DIR_OBJ)/*.o
+	rm -rf *.obj.sav
 	rm -rf *.exe *.stackdump
 	rm -rf $(EXEC)
 

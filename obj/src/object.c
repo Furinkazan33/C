@@ -132,7 +132,7 @@ void token_to_idx(char *token, int *v, int *t, int *n) {
 	*n = atoi(result[2]);
 }
 
-void *vertex_to_string(char *s, vector v) {
+void vertex_to_string(char *s, vector v) {
 	sprintf(s, "%f %f %f", v.x, v.y, v.z);
 }
 
