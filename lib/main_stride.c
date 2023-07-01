@@ -8,6 +8,7 @@ typedef struct player {
 	char name[40];
 } player;
 
+
 void player_init(player *p, int i) {
 	p->id = i;
 	strcpy(p->pseudo, "Pseudo");
@@ -22,26 +23,41 @@ void player_inc_id(player *p, int __attribute__((unused)) n) {
 	p->id++;
 }
 
-void players_do(void *p, void (func)(player *, int), int size, int n) {
+void run(void *p, void (func)(void *, int), int size, int n) {
 	char *pc = (char *)p;
 
 	for(int i = 0; i < n; i++) {
-		func((player *)pc, i);
+		func(pc, i);
 		pc += size;
 	}
 }
 
+int is_null(player *p) {
+	return p->id == 0 && p->name[0] == '\0' && p->pseudo[0] == '\0';
+}
+
+int player_cmp(player *p1, player *p2) {
+	return p1->id - p2->id;
+}
 
 int main(void) {
-	player *p = (player *)malloc(sizeof(player) * 10);
+	int MAX_PLAYERS = 10;
+	player *p = (player *)malloc(sizeof(player) *MAX_PLAYERS);
+	memset(p, 0, sizeof(player) * MAX_PLAYERS);
 
-	players_do(p, player_init, sizeof(player), 10);
-	players_do(p, player_print, sizeof(player), 10);
+	run(p, (void(*)(void *, int))player_init, sizeof(player), MAX_PLAYERS);
+	run(p, (void(*)(void *, int))player_print, sizeof(player), MAX_PLAYERS);
 
 	puts("");
 
-	players_do(p, player_inc_id, sizeof(player), 10);
-	players_do(p, player_print, sizeof(player), 10);
+	run(p, (void(*)(void *, int))player_inc_id, sizeof(player), MAX_PLAYERS);
+	run(p, (void(*)(void *, int))player_print, sizeof(player), MAX_PLAYERS);
+
+	memset(p+5, 0, sizeof(player));
+	player *pp = p;
+	while(pp->id != 0) {
+		printf("%d\n", pp++->id);
+	}
 
 	free(p);
 

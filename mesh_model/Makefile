@@ -19,12 +19,12 @@ all: $(EXEC)
 
 # Sources dependencies
 object.c: $(DIR_SRC)/object.c $(DIR_SRC)/object.h
-main.c: object.c $(DIR_SRC)/main.c
+load_save.c: object.c $(DIR_SRC)/load_save.c
 
 
 # Objects dependencies
-$(EXEC): object.c main.c
-	$(CC) $(CFLAGS) -I$(DIR_INC) $(DIR_SRC)/main.c $(DIR_SRC)/object.c -o $@
+$(EXEC): object.c load_save.c
+	$(CC) $(CFLAGS) -I$(DIR_INC) $(DIR_SRC)/load_save.c $(DIR_SRC)/object.c -o $@
 	
 # Cleaning
 clean: 
