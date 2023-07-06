@@ -8,19 +8,18 @@
 #define NAME_LEN 32
 #define PERSONS_SIZE 10
 
+#define any uint8_t
+
 typedef struct {
 	uint32_t id;
 	char name[NAME_LEN];
 } Person;
 
-
-void print_char(void *s) {
-	printf("%s", (char *)s);
-
-	printf("\n");
+void print_char(any *s) {
+	printf("%s\n", (char *)s);
 }
 
-void print_uint4(void *s) {
+void print_uint32(any *s) {
 	printf("%d\n", *(uint32_t *)s);
 }
 
@@ -28,7 +27,7 @@ void print_uint4(void *s) {
 Call {n} times function {function} over {offset}
 incrementing by {stride}
 */
-void tab_sweep(uint8_t *offset, int n, int stride, void (*function)(void *)) {
+void tab_sweep(any *offset, int n, int stride, void (*function)(any *)) {
 	int i;
 
 	for(i = 0; i < n; i++) {
@@ -36,6 +35,7 @@ void tab_sweep(uint8_t *offset, int n, int stride, void (*function)(void *)) {
 		offset += stride;
 	}
 }
+
 
 int main(void) {
 	Person structures[PERSONS_SIZE];
@@ -50,8 +50,8 @@ int main(void) {
 	}
 
 	/* Printing every ids and names */
-	tab_sweep((uint8_t *)&structures[0], PERSONS_SIZE, sizeof(Person), print_uint4);
-	tab_sweep((uint8_t *)structures[0].name, PERSONS_SIZE, sizeof(Person), print_char);
+	tab_sweep((any *)structures, PERSONS_SIZE, sizeof(Person), print_uint32);
+	tab_sweep((any *)structures[0].name, PERSONS_SIZE, sizeof(Person), print_char);
 
 
 	return 0;
