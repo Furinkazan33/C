@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "config.h"
+#include "../include/config.h"
 
 
 void usage(char *exec) {
@@ -12,13 +12,17 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	config_read("config/init.cfg");
+	config *conf = config_read("config/init.cfg", "config");
 
-	config_print();
+	if(conf) {
+		conf_print(conf);
 
-	config_write();
+		conf_free(conf);
+	}
+	else {
+		return 1;
+	}
 
 	return 0;
-
 }
 

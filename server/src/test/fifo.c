@@ -3,11 +3,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-#include "fifo.h"
-
-#define BUF_LEN 64
-#define MESS_LEN 20
-#define CHAR_EOM ';'
+#include "../include/fifo.h"
 
 int mess_treat(char *message) {
 	//fprintf(stderr, "[FIFO_RD]:%s:\n", message);
@@ -20,7 +16,6 @@ int mess_treat(char *message) {
 
 int main(void) {
 	int fd_rd;
-	static char message[MESS_LEN];
 
 	fd_rd = open("./dev/fifo_rd", O_RDONLY);
 	if(!fd_rd) {
@@ -29,10 +24,12 @@ int main(void) {
 	}
 
 	while(1) {
-		fifo_read(fd_rd, message, MESS_LEN, mess_treat);
+		fifo_read(fd_rd, ';', mess_treat);
 
 		sleep(1);
 	}
+
+	close(fd_rd);
 
 	return 0;
 }

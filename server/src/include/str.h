@@ -2,6 +2,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int str_add(char *buffer, size_t max_len, char *src, int len) {
+	if(strlen(buffer) + len >= max_len) {
+		fprintf(stderr, "Message too long !\n");
+		return 0;
+	}
+
+	strncat(buffer, src, len);
+	return 1;
+}
+
+int add_while() {
+	int max = 256;
+	char buffer[max];
+	char *found;
+
+	/* read */
+	while(1) {
+		char *read = "sdfsdfsdf";
+
+		found = strchr(read, ';');
+
+		if(found) {
+			if(!str_add(buffer, max, read, found - read)) {
+				return 1;
+			}
+
+			/* treat */
+
+			memset(buffer, 0, max);
+		}
+		else {
+			if(!str_add(buffer, max, read, strlen(read))) {
+				return 1;
+			}
+		}
+	}
+}
+
+
+
+
 /* returns a copy of the src string with the given pattern replaced */
 char *str_rpl(char *src, char *pattern, char *rpl) {
 	char *res, *found;

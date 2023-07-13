@@ -1,6 +1,4 @@
-#include "tb.h"
-
-
+#include "../include/tb.h"
 
 
 int main(int argc, char **argv) {
@@ -14,6 +12,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 	if(!tb_load(buf)) {
+		tb_free(buf);
 		return 1;
 	}
 
@@ -24,6 +23,13 @@ int main(int argc, char **argv) {
 	for(size_t i = 0; i < buf->n; i++) {
 		printf(":%s:\n", buf->lines[i]->content);
 	}
+
+	if(!tb_save(buf)) {
+		tb_free(buf);
+		return 1;
+	}
+
+	tb_free(buf);
 
 	return 0;
 }

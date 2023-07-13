@@ -1,74 +1,122 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "tb.h"
 
-#define CONF_STR_LEN 32
-#define CONF_N 5
+#define PROP_NAME_LEN 32
+#define PROP_VALUE_LEN 128
+#define CONF_ALLOC 10
 
-static int config_write();
-static int config_read(char *path);
-static void config_print();
+typedef struct property {
+	char name[PROP_NAME_LEN];
+	char value[PROP_VALUE_LEN];
+} property;
 
-static char CONFIG_names[CONF_N][CONF_STR_LEN] = {
-	/* config file path */
-	"FILEPATH",
+typedef struct config {
+	size_t size;
+	size_t n;
+	property **properties;
+} config;
 
-	/* Admin access */
-	"FIFO_ADM_RD",
-	"FIFO_ADM_WR",
+config *config_read(const char *path, const char *name);
+void conf_free(config *conf);
+property *prop_new(line *l, char **found);
+void conf_print(config *c);
 
-	/* Clients */
-	"CL_PORT",
-	"CL_MAX",
-};
-static char CONFIG_values[CONF_N][CONF_STR_LEN] = {
-	"",
-	"",
-	"",
-	"",
-	"",
-};
-
-int config_write() {
-	FILE *f = fopen(CONFIG_values[0], "w");
-
-	for(int i = 1; i < CONF_N; i++) {
-		fprintf(f, "%s\n", CONFIG_values[i]);
+void conf_print(config *c) {
+	for(size_t i = 0; i < c->n; i++) {
+		fprintf(stdout, "%s=%s\n", c->properties[i]->name, c->properties[i]->value);
 	}
-	return 0;
+}
+void conf_free(config *conf) {
+	for(size_t i = 0; i < conf->n; i++) {
+		free(conf->properties[i]);
+	}
+	free(conf->properties);
+	free(conf);
 }
 
-int config_read(char *path) {
-	char c;
-	int i, k;
+property *prop_new(line *l, char **found) {
+	size_t len;
+	property *res;
+
+	if(strlen(l->content) <= 3) {
+		*found = NULL;
+		return NULL;
+	}
+
+	res = (property *)malloc(sizeof(property));
+	if(!res) {
+		perror("prop_new : alloc failed");
+		return NULL;
+	}
+
+	(*found) = strchr(l->content, ':');
+	if(!found) {
+		fprintf(stderr, "prop_new : property assignation not found\n");
+		return NULL;
+	}
+	len = (*found) - l->content;
+
+	if(len >= PROP_NAME_LEN) {
+		len = PROP_NAME_LEN - 1;
+	}
+	strncpy(res->name, l->content, len);
+	strncpy(res->value, (*found) + 1, PROP_VALUE_LEN - 1);
+
+	return res;
+}
+
+config *config_read(const char *path, const char *name) {
+	tb *buf;
+	config *conf;
+	char *found;
 	FILE *f = fopen(path, "r");
 	if(!f) {
 		perror("");
-		return 1;
+		return NULL;
 	}
 
-	strcpy(CONFIG_values[0], path);
-
-	for(i = 1; i < CONF_N; i++) {
-   		c = fgetc(f);
-
-		for(k = 0; c != '\n' && c != '\0' && k < CONF_STR_LEN; k++) {
-			CONFIG_values[i][k] = c;
-			c = fgetc(f);
-		}
-		if(k >= CONF_STR_LEN) {
-			fprintf(stderr, "Config value too long [%d]", k);
-			return 1;
-		}
-		CONFIG_values[i][k] = '\0';
+	buf = tb_new(path, name);
+	if(!buf) {
+		return NULL;
 	}
 
-	return 0;
+	if(!tb_load(buf)) {
+		return NULL;
+	}
+
+	/* new config */
+	conf = (config *)malloc(sizeof(config));
+	conf->size = CONF_ALLOC;
+	conf->properties = (property **) malloc(sizeof(property *) * conf->size);
+	conf->n = 0;
+
+	for(size_t i = 0; i < buf->n; i++) {
+		conf->properties[conf->n] = prop_new(buf->lines[i], &found);
+
+		if(found) {
+			if(!conf->properties[conf->n]) {
+				fprintf(stderr, "config_read : property creation error\n");
+				return NULL;
+			}
+			conf->n++;
+
+			/* realloc */
+			if(conf->n >= conf->size) {
+				conf->size *= 2;
+				conf->properties = (property **)realloc(conf->properties, sizeof(property *) * conf->size);
+				if(!conf->properties) {
+					perror("config_read : properties realloc failed");
+					return NULL;
+				}
+			}
+		}
+	}
+
+	tb_free(buf);
+
+	return conf;
 }
 
-void config_print() {
-	for(int i = 0; i < CONF_N; i++) {
-		printf("%s=%s\n", CONFIG_names[i], CONFIG_values[i]);
-	}
-}
 
