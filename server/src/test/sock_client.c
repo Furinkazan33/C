@@ -1,24 +1,29 @@
 #include "../include/sock_client.h"
 
+#define CLI_BUF_SIZE 1024
+#define CLI_MESS_SIZE 10
+
 int mess_treat(char *message, int fd) {
-	printf("[%d] received [%s] from server\n", fd, message);
+	printf("client received [%s] from server on [%d]\n", message, fd);
 
 	if(strcmp(message, "MESSOK") == 0 || strcmp(message, "CONOK") == 0) {
-		
+
 	}
 	else {
-		write(fd, "MESSOK;", 8);
+		write(fd, "MESSOK", 7);
 	}
-
 	return 1;
 }
 
 int main(int argc, char **argv) {
-	int fd;
+	int fd, ret, eot;
 	struct sockaddr_in sa;
 	fd_set read_set;
-	char buffer[MESS_BUF_LEN];
-	memset(buffer, 0, MESS_BUF_LEN);
+	char message[CLI_MESS_SIZE];
+	char buffer[CLI_BUF_SIZE];
+	size_t m_pos = 0;
+	size_t b_pos = 0;
+
 
 	if(argc < 2) {
 		fprintf(stderr, "usage : %s client_id\n", argv[0]);
@@ -29,20 +34,44 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	int test = 0;
-	while(1) {
-		/* send message to server */
-		if(!sock_cli_rw(fd, &read_set, buffer, mess_treat)) {
-			break;
-		}
+	eot = 1;
+	while(eot) {
+		if(FD_ISSET(fd, &read_set)) {
+			ret = frd_read(fd, mess_treat, &message[0], CLI_MESS_SIZE, &m_pos, &buffer[0], CLI_BUF_SIZE, &b_pos);
 
-		if(test++ == 0) {
-			puts("cli test");
-			char m[10];
-			sprintf(m, "client %s", argv[1]);
-			write(fd, m, sizeof(char) * (strlen(m) + 1));
-			write(fd, ";", sizeof(char) * 2);
+			switch(ret) {
+				case FRD_NOT_FINISHED:
+				fprintf(stdout, "cli_main : message not finished. Waiting for the rest.\n");
+				break;
+
+				case FRD_EOB:
+				fprintf(stdout, "cli_main : end of buffer. All messages treated.\n");
+				break;
+
+				case FRD_READ_ERROR:
+				perror("cli_main : read error. END.");
+				eot = 0;
+				break;
+
+				case FRD_EOF:
+				fprintf(stdout, "cli_main : server disconnected. END.\n");
+				eot = 0;
+				break;
+
+				case FRD_TOO_LONG:
+				fprintf(stderr, "cli_main : message too long from server. Reporting this. END.\n");
+				/* TODO: impossible ? */
+				eot = 0;
+				break;
+
+				default:
+				fprintf(stderr, "cli_main : unknown return code : %d. END.\n", ret);
+				eot = 0;
+				break;
+			}
 		}
+		write(fd, "test AAA", 9);
+		write(fd, "test BBB too long !", 20);
 	}
 
 	close(fd);

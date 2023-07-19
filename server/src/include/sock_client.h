@@ -6,8 +6,8 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/select.h>
+#include "frd.h"
 
-#define MESS_BUF_LEN 10
 
 int sock_cli_connect(char *adress, int port, int fd, struct sockaddr_in *sa) {
 	memset(sa, 0, sizeof(*sa));
@@ -16,11 +16,11 @@ int sock_cli_connect(char *adress, int port, int fd, struct sockaddr_in *sa) {
 	sa->sin_port = htons(port);
 
 	if(connect(fd, (struct sockaddr *)sa, sizeof(*sa)) < 0) {
-		perror("sock_connect_to_server : connection failed");
+		perror("sock_cli_connect : connection failed");
 		return 0;
 	}
 
-	printf("Connected to server [%s]:[%d]\n", adress, port);
+	printf("sock_cli_connect : Connected to server [%s]:[%d]\n", adress, port);
 	return 1;
 }
 
@@ -45,59 +45,6 @@ int sock_cli_init_select(int fd, fd_set *read_set) {
 		return 0;
 	}
 
-	return 1;
-}
-
-int sock_cli_rw(int fd, fd_set *read_set, char *buffer, int (*mess_handler)(char *, int)) {
-	size_t bytesRead;
-	char tmp[MESS_BUF_LEN];
-	char *eom;
-	int len;
-
-	if(FD_ISSET(fd, read_set)) {
-		memset(tmp, 0, MESS_BUF_LEN);
-		bytesRead = read(fd, tmp, MESS_BUF_LEN);
-
-		if (bytesRead > 0) {
-			eom = strchr(tmp, '\0');
-
-			/* delim found => buffer is now a complete message */
-			if(eom) {
-				if(strlen(buffer) + eom - tmp >= MESS_BUF_LEN - 1) {
-					fprintf(stderr, "Message too long from server :%s:%s:\n", buffer, tmp);
-					memset(buffer, 0, MESS_BUF_LEN);
-					return 0;
-				}
-
-				strncat(buffer, tmp, eom - tmp);
-				mess_handler(buffer, fd);
-				memset(buffer, 0, MESS_BUF_LEN);
-
-				eom++;
-				if(eom - tmp < bytesRead) {
-					strcpy(buffer, eom);
-				}
-			}
-			else {
-				if(strlen(buffer) + strlen(tmp) >= MESS_BUF_LEN - 1) {
-					fprintf(stderr, "Message too long from server :%s:%s:\n", buffer, tmp);
-					memset(buffer, 0, MESS_BUF_LEN);
-					return 0;
-				}
-				strncat(buffer, tmp, strlen(tmp));
-			}
-		}
-		else if (bytesRead == 0) {
-			printf("Server disconnected\n");
-			memset(buffer, 0, MESS_BUF_LEN);
-			return 0;
-		}
-		else {
-			perror("sock_read_write : read failed");
-			memset(buffer, 0, MESS_BUF_LEN);
-			return 0;
-		}
-	}
 	return 1;
 }
 
