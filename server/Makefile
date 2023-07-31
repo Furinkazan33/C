@@ -2,77 +2,22 @@ CC=gcc
 CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
 LDFLAGS=
 
-DIR_LIB=../lib
-DIR_BIN=./bin
-DIR_SRC=./src
-DIR_SRC_TEST=$(DIR_SRC)/test
-DIR_DEV=./dev
-DIR_INC=$(DIR_SRC)/include
-DIR_OBJ=$(DIR_SRC)/obj
-DIR_CFG=./config
+INC=/usr/local/include
+LIB=/usr/local/lib
+SRC=/usr/local/src
 
-MAIN=server
-TEST=test_fifo test_config test_sockets
-EXEC=exec_tests
+all: server
 
-all: $(MAIN) $(TEST) $(EXEC)
-main: $(MAIN)
-test: $(TEST)
-exec: $(EXEC) 
+socket:
+	cp ./src/include/socket.h $(INC)/
 
-# $@ Le nom de la cible
-# $< Le nom de la première dépendance
-# $^ La liste des dépendances
-# $? La liste des dépendances plus récentes que la cible
-# $* Le nom du fichier sans suffixe
+server: socket
+	$(CC) $(CFLAGS) -I $(INC) -I ./src/include ./src/server.c $(SRC)/config.c $(SRC)/frd.c \
+		-L $(LIB) -ltb -lcjson \
+		-o ./bin/$@
 
-# Sources dependencies
-test_frd.c: $(DIR_INC)/frd.h $(DIR_INC)/frd.c $(DIR_SRC_TEST)/frd.c
-test_fifo.c: $(DIR_SRC_TEST)/fifo.c
-tb.c: $(DIR_LIB)/tb/$(DIR_INC)/tb.h $(DIR_LIB)/tb/$(DIR_INC)/tb.c
-config.c: $(DIR_LIB)/config/$(DIR_INC)/config.h $(DIR_LIB)/config/$(DIR_INC)/config.c
-test_sock_cli.c: $(DIR_INC)/sock_client.h $(DIR_SRC_TEST)/sock_client.c
-test_sock_serv.c: $(DIR_INC)/sock_server.h $(DIR_SRC_TEST)/sock_server.c
-server.c: $(DIR_SRC)/server.c $(DIR_INC)/usage.h
-
-# Objects dependencies
-test_frd: test_frd.c
-	$(CC) $(CFLAGS) -I$(DIR_INC) $(DIR_SRC_TEST)/frd.c $(DIR_INC)/frd.c -o $(DIR_BIN)/$@
-
-test_fifo: test_frd test_fifo.c
-	$(CC) $(CFLAGS) -I$(DIR_INC) $(DIR_SRC_TEST)/fifo.c $(DIR_INC)/frd.c -o $(DIR_BIN)/$@
-
-test_tb: tb.c
-	$(CC) $(CFLAGS) -I$(DIR_LIB)/tb/$(DIR_INC) \
-		$(DIR_LIB)/tb/$(DIR_SRC)/main.c $(DIR_LIB)/tb/$(DIR_INC)/tb.c \
-		-o $(DIR_BIN)/$@
-
-test_config: test_tb config.c
-	$(CC) $(CFLAGS) -I$(DIR_INC) -I$(DIR_LIB)/tb/$(DIR_INC) -I$(DIR_LIB)/config/$(DIR_INC) \
-		$(DIR_LIB)/tb/$(DIR_INC)/tb.c $(DIR_LIB)/config/$(DIR_INC)/config.c $(DIR_LIB)/config/$(DIR_SRC)/main.c \
-		-o $(DIR_BIN)/$@
-
-test_sock_cli: test_frd test_sock_cli.c
-	$(CC) $(CFLAGS) -I$(DIR_INC) $(DIR_SRC_TEST)/sock_client.c $(DIR_INC)/frd.c \
-		-o $(DIR_BIN)/$@
-
-test_sock_serv: test_frd test_sock_serv.c
-	$(CC) $(CFLAGS) -I$(DIR_INC) $(DIR_SRC_TEST)/sock_server.c $(DIR_INC)/frd.c \
-		-o $(DIR_BIN)/$@
-
-test_sockets: test_sock_cli test_sock_serv
-
-server: test_sockets test_config test_fifo server.c
-	$(CC) $(CFLAGS) -I$(DIR_INC) -I$(DIR_LIB)/tb/$(DIR_INC) -I$(DIR_LIB)/config/$(DIR_INC) \
-		$(DIR_SRC)/server.c $(DIR_INC)/frd.c $(DIR_LIB)/tb/$(DIR_INC)/tb.c $(DIR_LIB)/config/$(DIR_INC)/config.c \
-		-o $(DIR_BIN)/$@
-
-exec_tests:
-	$(DIR_BIN)/test_frd ressources/frd.txt 					> /dev/null  	|| echo "frd ko"
-
-# Cleaning
 clean: 
-	rm -rf *.stackdump
-	rm -rf $(DIR_BIN)/*
+	rm -f *.stackdump
+	rm -f ./bin/server
 
 

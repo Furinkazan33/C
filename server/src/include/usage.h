@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 
-static void usage(int argc, char **argv, char *mess) {
+static void usage(int argc, char **argv, char *mess, char *params) {
 	int i;
 
 	if(strlen(mess) > 0) {
@@ -18,6 +18,6 @@ static void usage(int argc, char **argv, char *mess) {
 	}
 	fprintf(stderr, "]\n");
 
-	fprintf(stderr, "usage: %s\n", argv[0]);
+	fprintf(stderr, "usage: %s %s\n", argv[0], params);
 }
 

@@ -1,10 +1,14 @@
 #include <fcntl.h>
 #include <signal.h>
-#include "include/sock_server.h"
-#include "config.h"
+#include <config.h>
+#include <cJSON.h>
+#include <socket.h>
+#include <frd.h>
+#include "include/usage.h"
 
 #define SERV_BUF_SIZE 1024
 #define SERV_MESS_SIZE 10
+#define SERV_MAX_CLI 2
 
 int serv_mess_handler(char *message, int fd) {
 	printf("server received [%s] from client on [%d]\n", message, fd);
@@ -25,8 +29,13 @@ static int adm_quit = 0;
 static int adm_handler(char *message, int fd);
 static void sig_catch(int signal);
 
-int main() {
-	config *conf;
+int main(int argc, char **argv) {
+	if(argc != 2) {
+		usage(argc, argv, "", "config_file_path");
+		exit(1);
+	}
+
+	cJSON *conf;
 
 	/* admin messages */
 	int adm_fd;
@@ -37,28 +46,28 @@ int main() {
 
 	/* clients connections */
 	/* +1 for server socket */
-	struct pollfd fds[MAX_CLIENTS + 1];
-	char messages[MAX_CLIENTS + 1][SERV_MESS_SIZE];
-	char buffers[MAX_CLIENTS + 1][SERV_BUF_SIZE];
-	size_t m_pos[MAX_CLIENTS + 1] = { 0 };
-	size_t b_pos[MAX_CLIENTS + 1] = { 0 };
+	struct pollfd fds[SERV_MAX_CLI + 1];
+	char messages[SERV_MAX_CLI + 1][SERV_MESS_SIZE];
+	char buffers[SERV_MAX_CLI + 1][SERV_BUF_SIZE];
+	size_t m_pos[SERV_MAX_CLI + 1] = { 0 };
+	size_t b_pos[SERV_MAX_CLI + 1] = { 0 };
 	int ret;
 
 	signal(SIGINT, sig_catch);
 
-	conf = config_read("config/init.cfg", "config");
+	conf = config_new(argv[1]);
 	if(!conf) {
 		return 1;
 	}
-	conf_print(conf);
+	printf("%s\n", cJSON_Print(conf));
 
-	adm_fd = open("./dev/fifo_rd", O_RDONLY);
+	adm_fd = open("./dev/fifo_rd", O_RDONLY | O_NONBLOCK);
 	if(!adm_fd) {
 		perror("");
 		return 1;
 	}
 
-	if(!sock_serv_init(fds, 12345)) {
+	if(!sock_init_poll(fds, 12345, SERV_MAX_CLI)) {
 		return 1;
 	}
 
@@ -68,24 +77,26 @@ int main() {
 		}
 
 		/* handle fifo messages */
-		switch(frd_read(adm_fd, adm_handler, &adm_m[0], SERV_MESS_SIZE, &adm_m_pos, &adm_b[0], SERV_BUF_SIZE, &adm_b_pos)) {
+		int frd_rc = frd_read(adm_fd, adm_handler, &adm_m[0], SERV_MESS_SIZE, &adm_m_pos, &adm_b[0], SERV_BUF_SIZE, &adm_b_pos);
+
+		switch(frd_rc) {
 			default:
 			break;
 		}
 
 		// Use poll to wait for activity on sockets
-		if (poll(fds, MAX_CLIENTS + 1, -1) < 0) {
+		if (poll(fds, SERV_MAX_CLI + 1, -1) < 0) {
 			perror("Poll failed");
 			return 0;
 		}
 
 		// if server socket has activity, try to accept new connections
 		if (fds->revents & POLLIN) {
-			sock_serv_accept(&fds[0]);
+			sock_accept(&fds[0], SERV_MAX_CLI);
 		}
 
 		/* Read sockets and response to incoming messages */
-		for (int i = 1; i < MAX_CLIENTS + 1; i++) {
+		for (int i = 1; i < SERV_MAX_CLI + 1; i++) {
 			if(fds[i].fd > 0 && fds[i].revents & POLLIN) {
 
 				ret = frd_read(fds[i].fd, serv_mess_handler, messages[i], SERV_MESS_SIZE, &m_pos[i], buffers[i], SERV_BUF_SIZE, &b_pos[i]);
@@ -118,8 +129,8 @@ int main() {
 	}
 
 	close(adm_fd);
-	conf_free(conf);
-	sock_serv_close(fds);
+	cJSON_Delete(conf);
+	sock_close_poll(fds, SERV_MAX_CLI);
 
 	return 0;
 }

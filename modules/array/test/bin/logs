@@ -1,0 +1,35 @@
+0 Momo
+1 Momo
+2 Momo
+3 Momo
+4 Momo
+5 Momo
+6 Momo
+7 Momo
+8 Momo
+9 Momo
+-----------------
+0 Momo
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+NULL
+9 Momo
+-----------------
+resizing from 10 to 5
+0 Momo
+9 Momo
+-----------------
+realloc : n=5 s=5 new_size=10
+0 Momo
+1 Momo
+2 Momo
+3 Momo
+4 Momo
+5 Momo
+9 Momo
+-----------------
