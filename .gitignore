@@ -1,4 +1,10 @@
-# Prerequisites
+# logs and tmp files
+log/*
+logs/*
+bin/*
+build/*
+
+## Prerequisites
 *.d
 
 # Object files
