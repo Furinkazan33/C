@@ -13,7 +13,7 @@ tests: test
 
 
 $(DIR_BUILD):
-	mkdir $(DIR_BUILD)
+	mkdir -p $(DIR_BUILD)
 
 
 $(DIR_BUILD)/btree.o: ./src/btree.c

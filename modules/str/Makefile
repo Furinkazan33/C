@@ -11,7 +11,7 @@ dirs: $(DIR_BUILD)
 builds: $(DIR_BUILD)/str.o $(DIR_BUILD)/libstr.a
 
 $(DIR_BUILD):
-	mkdir $(DIR_BUILD)
+	mkdir -p $(DIR_BUILD)
 
 $(DIR_BUILD)/str.o: $(DIR_SRC)/str.c $(DIR_SRC)/str.h
 	$(CC) $(CFLAGS) -c $(DIR_SRC)/str.c -o $@

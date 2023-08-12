@@ -2,10 +2,6 @@ CC=gcc
 CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
 LDFLAGS=
 
-INC=/usr/local/include
-LIB=/usr/local/lib
-SRC=/usr/local/src
-
 
 DIR_BIN=./bin
 DIR_LOG=./log
@@ -19,24 +15,20 @@ tests: $(DIR_LOG)/btree_char.log $(DIR_LOG)/btree_person.log
 
 
 $(DIR_BIN):
-	mkdir $(DIR_BIN)
+	mkdir -p $(DIR_BIN)
 
 $(DIR_LOG):
-	mkdir $(DIR_LOG)
+	mkdir -p $(DIR_LOG)
 
 
-$(DIR_BIN)/btree_person: ./src/btree_person.c $(SRC)/person.c ../build/libbtree.a
-	$(CC) $(CFLAGS) -I $(INC) \
-			./src/btree_person.c $(SRC)/person.c \
+$(DIR_BIN)/btree_person: ./src/btree_person.c ./src/person.c ../build/libbtree.a
+	$(CC) $(CFLAGS) ./src/btree_person.c ./src/person.c \
 			-L ../build -lbtree \
-			-L $(LIB) -lcjson \
 			-o $@
 
 $(DIR_BIN)/btree_char: ./src/btree_char.c ../build/libbtree.a
-	$(CC) $(CFLAGS) -I $(INC) \
-			./src/btree_char.c \
+	$(CC) $(CFLAGS) ./src/btree_char.c \
 			-L ../build -lbtree \
-			-L $(LIB) -lcjson \
 			-o $@
 
 
@@ -49,7 +41,7 @@ $(DIR_LOG)/btree_person.log: $(DIR_BIN)/btree_person
 
 
 clean:
-	rm -f $(DIR_BIN)/*	
-	rm -f $(DIR_LOG)/*	
+	rm -f $(DIR_BIN)/*
+	rm -f $(DIR_LOG)/*
 	rm -f *.stackdump
 

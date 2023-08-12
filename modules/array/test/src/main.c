@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <fcntl.h>
-#include <sf.h>
 #include "array.h"
-#include <person.h>
+#include "person.h"
 
 #define INIT_SIZE 10
 
@@ -10,8 +9,8 @@
 
 
 int main(int argc, char **argv) {
-	if(argc != 2) {
-		fprintf(stderr, "usage : %s json_file", argv[0]);
+	if(argc != 1) {
+		fprintf(stderr, "usage : %s", argv[0]);
 		exit(1);
 	}
 	array *l = array_new(INIT_SIZE,\

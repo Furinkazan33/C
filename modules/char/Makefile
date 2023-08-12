@@ -13,7 +13,7 @@ dirs: $(DIR_BUILD)
 builds: $(DIR_BUILD)/char.o $(DIR_BUILD)/libchar.a
 
 $(DIR_BUILD):
-	mkdir $(DIR_BUILD)
+	mkdir -p $(DIR_BUILD)
 
 
 $(DIR_BUILD)/char.o: $(DIR_SRC)/char.c $(DIR_SRC)/char.h

@@ -9,7 +9,7 @@ all: $(LBUILD) $(LBUILD)/array.o $(LBUILD)/libarray.a test
 
 
 $(LBUILD):
-	mkdir $(LBUILD)
+	mkdir -p $(LBUILD)
 
 $(LBUILD)/array.o: ./src/array.c ./src/array.h
 	$(CC) $(CFLAGS) -c ./src/array.c -o $@

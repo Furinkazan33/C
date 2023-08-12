@@ -2,9 +2,6 @@ CC=gcc
 CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
 LDFLAGS=
 
-INC=/usr/local/include
-LIB=/usr/local/lib
-SRC=/usr/local/src
 
 DIR_BIN=./bin
 DIR_LOG=./log
@@ -13,23 +10,23 @@ all: $(DIR_BIN) $(DIR_LOG) tests
 
 
 $(DIR_BIN):
-	mkdir $(DIR_BIN)
+	mkdir -p $(DIR_BIN)
 
 $(DIR_LOG):
-	mkdir $(DIR_LOG)
+	mkdir -p $(DIR_LOG)
 
 
-message.c: $(SRC)/message.c $(INC)/message.h
+message.c: ./src/message.c ./src/message.h
 
-$(DIR_BIN)/main_person: $(SRC)/person.c $(INC)/person.h ../build/liblist.a ../src/list.h
-	$(CC) $(CFLAGS) -I$(INC) -I ../src \
-			./src/test_person.c $(SRC)/person.c \
-			-L $(LIB) -lcjson -L ../build -llist \
+$(DIR_BIN)/main_person: ./src/person.c ./src/person.h ../build/liblist.a ../src/list.h
+	$(CC) $(CFLAGS) -I ./src -I ../src \
+			./src/test_person.c ./src/person.c \
+			-L ../build -llist \
 			-o $@
 
-$(DIR_BIN)/main_message: $(SRC)/message.c $(INC)/message.h ../build/liblist.a
-	$(CC) $(CFLAGS) -I$(INC) -I ../src \
-			./src/test_message.c $(SRC)/message.c \
+$(DIR_BIN)/main_message: ./src/message.c ./src/message.h ../build/liblist.a
+	$(CC) $(CFLAGS) -I ./src -I ../src \
+			./src/test_message.c ./src/message.c \
 			-L ../build -llist \
 			-o $@
 

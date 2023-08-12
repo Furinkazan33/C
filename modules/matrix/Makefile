@@ -11,7 +11,7 @@ builds: $(DIR_BUILD)/matrix.o $(DIR_BUILD)/libmatrix.a
 
 
 $(DIR_BUILD):
-	mkdir $(DIR_BUILD)
+	mkdir -p $(DIR_BUILD)
 
 
 $(DIR_BUILD)/matrix.o: ./src/matrix.c ./src/matrix.h

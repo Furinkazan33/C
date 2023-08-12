@@ -4,8 +4,8 @@ LDFLAGS=
 
 TARGET=config
 
-LIB=/usr/local/lib
-
+DIR_LIB=./src/lib
+DIR_INC=./src/include
 DIR_BUILD=./build
 
 
@@ -16,12 +16,13 @@ builds: $(DIR_BUILD)/config.o $(DIR_BUILD)/libconfig.a
 
 
 $(DIR_BUILD):
-	mkdir $(DIR_BUILD)
+	mkdir -p $(DIR_BUILD)
 
 
-$(DIR_BUILD)/config.o: ./src/config.c ./src/config.h
-	$(CC) $(CFLAGS) -c ./src/$(TARGET).c \
-			-L $(LIB)/ -lcjson \
+$(DIR_BUILD)/config.o: ./src/config.c ./src/config.h ./Makefile
+	$(CC) $(CFLAGS) -I $(DIR_INC) \
+			-c ./src/config.c \
+			-L $(DIR_LIB)/ -lcjson \
 			-o $@
 
 $(DIR_BUILD)/libconfig.a: $(DIR_BUILD)/config.o
