@@ -1,3 +1,0 @@
-creating 5000 messages in fifo
-poping every mesasges from fifo
-Asserting that fifo is empty
