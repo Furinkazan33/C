@@ -11,12 +11,15 @@ INC=/usr/local/include
 RES=/usr/local/ressources
 
 
-all: $(LBUILD)/fr.o
+all: $(LBUILD)/fr.o $(LBUILD)/libfr.a
 
 
-$(LBUILD)/fr.o:
+$(LBUILD)/fr.o: ./src/fr.c ./src/fr.h
 	$(CC) $(CFLAGS) -c ./src/fr.c -o $@
 
+./build/libfr.a: ./build/fr.o
+	ar ruv ./build/libfr.a ./build/fr.o
+	ranlib ./build/libfr.a
 
 
 

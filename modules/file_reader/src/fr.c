@@ -4,12 +4,12 @@
 
 #define FB_RC_FINISHED 3
 
-char *fr_readnextline(FILE *f, size_t init_size, int *n_read) {
+char *fr_readnextline(FILE *f, size_t alloc, size_t realloc_coef, int *n_read) {
 	char *res;
 	char c;
 	size_t i;
 
-	res = malloc(sizeof(char) * (init_size + 1));
+	res = malloc(sizeof(char) * (alloc + 1));
 	if(!res) {
 		perror("fr_readline : alloc failed");
 		return NULL;
@@ -17,9 +17,9 @@ char *fr_readnextline(FILE *f, size_t init_size, int *n_read) {
 
 	c = fgetc(f);
 	for(i = 0; c != EOF && c !='\0'; i++) {
-		if(i >= init_size) {
-			init_size *= 2;
-			res = realloc(res, sizeof(char) * (init_size + 1));
+		if(i >= alloc) {
+			alloc *= realloc_coef;
+			res = realloc(res, sizeof(char) * (alloc + 1));
 			if(!res) {
 				perror("fr_readnextline : realloc failed");
 				return NULL;
@@ -124,7 +124,7 @@ int _fr_part_next(char *line, size_t lsize, size_t *llen, \
 	return FB_RC_FINISHED;
 }
 
-int fr_part_read(int fd, void (*handler)(char *, int), \
+int fr_part_read(int fd, void (*handler)(int, char *, int), \
 				char *line, size_t lsize, size_t *llen, \
 				char *buffer, size_t bsize, size_t *bpos) {
 	int ret;
@@ -138,7 +138,7 @@ int fr_part_read(int fd, void (*handler)(char *, int), \
 		ret = _fr_part_next(line, lsize, llen, buffer, bsize, bpos, n_read);
 
 		while(ret == FB_RC_FINISHED) {
-			handler(line, *llen);
+			handler(fd, line, *llen);
 			*llen = 0;
 
 			ret = _fr_part_next(line, lsize, llen, buffer, bsize, bpos, n_read);

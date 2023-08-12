@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "fifo.h"
 
-fifo *fifo_new(sf *sf) {
+fifo *fifo_new() {
 	fifo *f = (fifo *)malloc(sizeof(*f));
 	if(!f) {
 		perror("fifo_new : alloc failed");
@@ -10,7 +10,6 @@ fifo *fifo_new(sf *sf) {
 	f->n = 0;
 	f->head = NULL;
 	f->tail = NULL;
-	f->sf =sf;
 
 	return f;
 }
@@ -61,14 +60,14 @@ FIFO_DATA_TYPE *fifo_pop(fifo *f) {
 	return res;
 }
 
-void fifo_free(fifo *f) {
+void fifo_free(fifo *f, void (*free_data)(FIFO_DATA_TYPE *)) {
 	FIFO_DATA_TYPE *m;
 	container *c = f->head;
 
 	while(c) {
 		m = c->data;
 		f->head = f->head->next;
-		f->sf->free(m);
+		free_data(m);
 		free(c);
 		c = f->head;
 	}

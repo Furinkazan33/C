@@ -19,8 +19,11 @@ all: test
 			-L $(LIB)/ -lcjson \
 			-o $@
 
+./build/libconfig.a: ./build/config.o
+	ar ruv ./build/libconfig.a ./build/config.o
+	ranlib ./build/libconfig.a
 
-test: ./build/config.o
+test: ./build/libconfig.a
 	make -C test
 
 

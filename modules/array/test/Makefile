@@ -10,9 +10,9 @@ LIB=/usr/local/lib
 INC=/usr/local/include
 RES=/usr/local/ressources
 
-LOGFILE=./bin/logs
+LOG=./log
 
-EXEC=$(LBIN)/main $(LOGFILE)
+EXEC=$(LBIN)/main $(LOG)/main $(LOG)/map_reduce
 
 all: $(EXEC)
 
@@ -25,10 +25,21 @@ $(LBIN)/main: ./src/main.c ../build/array.o $(SRC)/person.c $(LIB)/libcjson.a
 		-o $@
 
 
-$(LOGFILE): $(LBIN)/main $(RES)/persons.json
-	$(LBIN)/main $(RES)/persons.json \
-				> $(LOGFILE) \
-				|| exit 1
+$(LOG)/main: $(LBIN)/main $(RES)/persons.json
+		$(LBIN)/main $(RES)/persons.json > $(LOG)/main \
+		|| (rm -f $(LOG)/main; exit 1;)
+
+
+$(LBIN)/map_reduce: ./src/map_reduce.c ../build/array.o
+		$(CC) $(CFLAGS) \
+		-I$(INC) -I ../src \
+		./src/map_reduce.c ../build/array.o \
+		-o $@
+
+$(LOG)/map_reduce: $(LBIN)/map_reduce
+		$(LBIN)/map_reduce > $(LOG)/map_reduce \
+		|| (rm -f $(LOG)/map_reduce; exit 1;)
+
 
 
 clean:

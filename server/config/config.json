@@ -2,5 +2,6 @@
 	"name":	"server",
 	"port":	8080,
 	"host":	"localhost",
-	"max_clients":	256
+	"max_clients":	256,
+	"adm_rd": "/usr/local/dev/fifo_rd"
 }

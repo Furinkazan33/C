@@ -5,11 +5,16 @@ LSRC=./src
 LBUILD=./build
 
 
-all: ./build/str.o
+all: ./build/str.o ./build/libstr.a
 
 
 ./build/str.o: $(LSRC)/str.c $(LSRC)/str.h
 	$(CC) $(CFLAGS) -c $(LSRC)/str.c -o $@
+
+$(LBUILD)/libstr.a: $(LBUILD)/str.o
+	ar ruv $(LBUILD)/libstr.a $(LBUILD)/str.o
+	ranlib $(LBUILD)/libstr.a
+
 
 
 clean:

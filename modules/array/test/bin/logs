@@ -1,35 +1,41 @@
-0 Momo
-1 Momo
-2 Momo
-3 Momo
-4 Momo
-5 Momo
-6 Momo
-7 Momo
-8 Momo
-9 Momo
+Adding 10 :
+0 10 Momo route du truc
+1 20 Momo route du truc
+2 30 Momo route du truc
+3 40 Momo route du truc
+4 50 Momo route du truc
+5 60 Momo route du truc
+6 70 Momo route du truc
+7 80 Momo route du truc
+8 90 Momo route du truc
+9 100 Momo route du truc
 -----------------
-0 Momo
+Removing 1->4(keep null), 7, 8->9 (keep null) :
+0 10 Momo route du truc
 NULL
 NULL
 NULL
 NULL
+5 60 Momo route du truc
+6 70 Momo route du truc
 NULL
 NULL
-NULL
-NULL
-9 Momo
 -----------------
-resizing from 10 to 5
-0 Momo
-9 Momo
+Searching 5 :
+found : 5
 -----------------
-realloc : n=5 s=5 new_size=10
-0 Momo
-1 Momo
-2 Momo
-3 Momo
-4 Momo
-5 Momo
-9 Momo
+Removing nulls :
+0 10 Momo route du truc
+5 60 Momo route du truc
+6 70 Momo route du truc
+-----------------
+Adding p[1], p[2], p[3], p[4], p[8] :
+0 10 Momo route du truc
+1 20 Momo route du truc
+2 30 Momo route du truc
+3 40 Momo route du truc
+4 50 Momo route du truc
+5 60 Momo route du truc
+6 70 Momo route du truc
+8 90 Momo route du truc
 -----------------

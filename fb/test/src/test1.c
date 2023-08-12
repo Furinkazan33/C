@@ -6,18 +6,20 @@
 
 int main(int argc, char **argv) {
 
-	if(argc != 2) {
-		printf("usage : %s filepath\n", argv[0]);
+	if(argc != 3) {
+		printf("usage : %s loadfilepath savefilepath\n", argv[0]);
 		return -1;
 	}
-	char sav[64];
-	strcpy(sav, argv[1]);
-	strcat(sav, ".sav");
 
-	fb *buf = fb_new(argv[1], "", 32);
-	fb_load(buf);
-	fb_save(buf, sav);
+	fb *buf = fb_new(argv[1], "Toto", 32);
+	if(!buf) { return 1; }
+
+	if(!fb_load(buf)) { return 1; }
+
+	if(!fb_save(buf, argv[2])) { return 1; }
+
 	fb_print(buf);
+
 	fb_free(buf);
 
 

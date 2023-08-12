@@ -7,7 +7,6 @@
 #define INIT_SIZE 10
 
 
-FUNC_SF(person)
 
 
 int main(int argc, char **argv) {
@@ -15,7 +14,10 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "usage : %s json_file", argv[0]);
 		exit(1);
 	}
-	array *l = array_new_sorted(person_sf(), INIT_SIZE);
+	array *l = array_new(INIT_SIZE,\
+					(int (*)(void *, void *))person_cmp,\
+					(void (*)(void *))person_free,\
+			   		(void (*)(void *))person_print);
 	if(!l) {
 		return 1;
 	}
@@ -33,42 +35,47 @@ int main(int argc, char **argv) {
 	p[9] = person_new(9, 100, "Momo", "route du truc");
 
 
+	printf("Adding 10 :\n");
 	for(int i = 0; i < 10; i++) {
-		array_add(l, p[i]);
+		array_add_keep_sorted(l, p[i]);
 	}
+	array_map(l, (void (*)(void *)) person_print);
+	puts("-----------------");
+
+	printf("Removing 1->4(keep null), 7, 8->9 (keep null) :\n");
+	array_remove_idx(l, 1, 1);
+	array_remove_idx(l, 2, 1);
+	array_remove_idx(l, 3, 1);
+	array_remove_idx(l, 4, 1);
+	array_remove_idx(l, 7, 0);
+	array_remove_idx(l, 7, 1);
+	person_free(l->data[8]);
+	array_remove_idx(l, 8, 1);
 	array_print(l);
 	puts("-----------------");
 
-	array_remove_keep_nulls(l, 1, 0);
-	array_remove_keep_nulls(l, 2, 0);
-	array_remove_keep_nulls(l, 3, 0);
-	array_remove_keep_nulls(l, 4, 0);
-	array_remove_keep_nulls(l, 5, 0);
-	array_remove_keep_nulls(l, 6, 1);
-	array_remove_keep_nulls(l, 7, 1);
-	array_remove_keep_nulls(l, 8, 1);
-	array_print(l);
-	puts("-----------------");
-
-	person *found = array_find(l, p[4]);
+  	printf("Searching 5 :\n");
+	person *found = array_find(l, p[5]);
 	if(found) {
 		printf("found : %d\n", found->id);
 		puts("-----------------");
 	}
 
-	array_remove_nulls(l, 1);
+	printf("Removing nulls :\n");
+	array_remove_nulls(l);
 	array_print(l);
 	puts("-----------------");
 
-	array_add(l, p[1]);
-	array_add(l, p[2]);
-	array_add(l, p[3]);
-	array_add(l, p[4]);
-	array_add(l, p[5]);
+	printf("Adding p[1], p[2], p[3], p[4], p[8] :\n");
+	array_add_keep_sorted(l, p[1]);
+	array_add_keep_sorted(l, p[2]);
+	array_add_keep_sorted(l, p[3]);
+	array_add_keep_sorted(l, p[4]);
+	array_add_keep_sorted(l, p[8]);
 	array_print(l);
 	puts("-----------------");
 
-	array_free(l, 1);
+	//array_free(l, 1);
 
 	return 0;
 }
