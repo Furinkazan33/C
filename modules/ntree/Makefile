@@ -7,12 +7,11 @@ TARGET=ntree
 LSRC=./src
 LBUILD=./build
 
-SRC=/usr/local/src
-INC=/usr/local/include
-LIB=/usr/local/lib
 
-all: $(LBUILD)/$(TARGET).o $(LBUILD)/lib$(TARGET).a test
+all: $(LBUILD) $(LBUILD)/$(TARGET).o $(LBUILD)/lib$(TARGET).a test
 
+$(LBUILD):
+	mkdir $(LBUILD)
 
 $(LBUILD)/$(TARGET).o: $(LSRC)/$(TARGET).c $(LSRC)/$(TARGET).h
 	$(CC) $(CFLAGS) -c $(LSRC)/$(TARGET).c -o $@

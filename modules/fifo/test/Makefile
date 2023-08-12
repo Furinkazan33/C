@@ -4,27 +4,41 @@ LDFLAGS=
 
 SRC=/usr/local/src
 INC=/usr/local/include
-OBJ=/usr/local/obj
 
-all: exec
+DIR_BIN=./bin
+DIR_LOG=./log
 
 
-./bin/main: ./src/main.c $(SRC)/message.c
+all: dirs builds test
+
+dirs: $(DIR_BIN) $(DIR_LOG)
+builds: $(DIR_BIN)/main
+test: $(DIR_LOG)/main.log
+
+
+$(DIR_BIN):
+	mkdir $(DIR_BIN)
+
+$(DIR_LOG):
+	mkdir $(DIR_LOG)
+
+
+$(DIR_BIN)/main: ./src/main.c $(SRC)/message.c
 	$(CC) $(CFLAGS) ./src/main.c \
 			-I../src/ -I $(INC) \
 			-L../build/ -lfifo \
 			$(SRC)/message.c \
 			-o $@
 
-./log/main.log: ./bin/main
+$(DIR_LOG)/main.log: $(DIR_BIN)/main
 	@echo "############ test fifo #############"
-	./bin/main > ./log/main.log || exit 1
+	$(DIR_BIN)/main > $(DIR_LOG)/main.log || exit 1
 	@echo "############ test end ##############"
 
 
-exec: ./log/main.log
 
 clean:
-	rm -f ./bin/* ./log/*
+	rm -f $(DIR_BIN)/*
+	rm -f $(DIR_LOG)/*
 	rm -f *.stackdump
 

@@ -4,31 +4,36 @@ LDFLAGS=
 
 TARGET=config
 
-INC=/usr/local/include
 LIB=/usr/local/lib
-SRC=/usr/local/src
-OBJ=/usr/local/obj
+
+DIR_BUILD=./build
 
 
-all: test
+all: dirs builds test
+
+dirs: $(DIR_BUILD)
+builds: $(DIR_BUILD)/config.o $(DIR_BUILD)/libconfig.a
 
 
+$(DIR_BUILD):
+	mkdir $(DIR_BUILD)
 
-./build/config.o: ./src/config.c ./src/config.h
+
+$(DIR_BUILD)/config.o: ./src/config.c ./src/config.h
 	$(CC) $(CFLAGS) -c ./src/$(TARGET).c \
 			-L $(LIB)/ -lcjson \
 			-o $@
 
-./build/libconfig.a: ./build/config.o
-	ar ruv ./build/libconfig.a ./build/config.o
-	ranlib ./build/libconfig.a
+$(DIR_BUILD)/libconfig.a: $(DIR_BUILD)/config.o
+	ar ruv $(DIR_BUILD)/libconfig.a $(DIR_BUILD)/config.o
+	ranlib $(DIR_BUILD)/libconfig.a
 
-test: ./build/libconfig.a
+test: $(DIR_BUILD)/libconfig.a
 	make -C test
 
 
 clean:
-	rm ./build/*
+	rm $(DIR_BUILD)/*
 	make -C test clean
 
 

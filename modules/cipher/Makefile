@@ -3,6 +3,7 @@ CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
 LDFLAGS=
 
 
+DIR_BIN=./bin
 
 # $@ Le nom de la cible
 # $< Le nom de la première dépendance
@@ -10,16 +11,21 @@ LDFLAGS=
 # $? La liste des dépendances plus récentes que la cible
 # $* Le nom du fichier sans suffixe
 
-all: ./bin/encode
+all: dirs builds
+
+builds: $(DIR_BIN)/encode
+dirs: $(DIR_BIN)
 
 
-# Objects dependencies
-./bin/encode: ./src/encode.c ./src/cipher.c
+$(DIR_BIN):
+	mkdir $(DIR_BIN)
+
+
+$(DIR_BIN)/encode: ./src/encode.c ./src/cipher.c
 	$(CC) $(CFLAGS) ./src/encode.c ./src/cipher.c -o $@
 
 
-# Cleaning
 clean: 
-	rm ./bin/*
+	rm $(DIR_BIN)/*
 	rm -f *.stackdump
 

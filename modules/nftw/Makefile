@@ -10,9 +10,10 @@ EXEC=main
 # $? La liste des dépendances plus récentes que la cible
 # $* Le nom du fichier sans suffixe
 
-all: ./build/main
+all: ./build ./build/main
 	
-
+./build:
+	mkdir ./build
 
 # Objects dependencies
 ./build/main: ./src/main.c

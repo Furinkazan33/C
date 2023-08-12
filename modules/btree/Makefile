@@ -2,28 +2,33 @@ CC=gcc
 CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
 LDFLAGS=
 
-SRC=/usr/local/src
-INC=/usr/local/include
-LIB=/usr/local/lib
-OBJ=/usr/local/obj
+
+DIR_BUILD=./build
 
 
-all: ./build/libbtree.a ./build/btree.o test
+all: dirs builds tests
+dirs: $(DIR_BUILD)
+builds: $(DIR_BUILD)/libbtree.a $(DIR_BUILD)/btree.o
+tests: test
 
 
-./build/btree.o: ./src/btree.c
+$(DIR_BUILD):
+	mkdir $(DIR_BUILD)
+
+
+$(DIR_BUILD)/btree.o: ./src/btree.c
 	$(CC) $(CFLAGS) -I./src -c ./src/btree.c -o $@
 
-./build/libbtree.a: ./build/btree.o
-	ar ruv ./build/libbtree.a ./build/btree.o
-	ranlib ./build/libbtree.a
+$(DIR_BUILD)/libbtree.a: $(DIR_BUILD)/btree.o
+	ar ruv $(DIR_BUILD)/libbtree.a $(DIR_BUILD)/btree.o
+	ranlib $(DIR_BUILD)/libbtree.a
 
-test: ./build/libbtree.a
+test: $(DIR_BUILD)/libbtree.a
 	make -C test
 
 
 clean:
-	rm -f ./build/*
+	rm -f $(DIR_BUILD)/*
 	make -C test clean
 	rm -f *.stackdump
 	

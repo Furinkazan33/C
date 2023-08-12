@@ -2,29 +2,29 @@ CC=gcc
 CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
 LDFLAGS=
 
-SRC=/usr/local/src
-INC=/usr/local/include
-OBJ=/usr/local/obj
-LIB=/usr/local/lib
-SRCL=./src
-BINL=./bin
+DIR_BUILD=./build
 
-all: ./build/fifo.o ./build/libfifo.a test
+all: dirs builds test
+dirs: $(DIR_BUILD)
+builds: $(DIR_BUILD)/fifo.o $(DIR_BUILD)/libfifo.a
 
 
+$(DIR_BUILD):
+	mkdir $(DIR_BUILD)
 
-./build/fifo.o: ./src/fifo.c ./src/fifo.h
+
+$(DIR_BUILD)/fifo.o: ./src/fifo.c ./src/fifo.h
 	$(CC) $(CFLAGS) -c ./src/fifo.c -o $@
 
-./build/libfifo.a: ./build/fifo.o
-	ar ruv ./build/libfifo.a ./build/fifo.o
-	ranlib ./build/libfifo.a
+$(DIR_BUILD)/libfifo.a: $(DIR_BUILD)/fifo.o
+	ar ruv $(DIR_BUILD)/libfifo.a $(DIR_BUILD)/fifo.o
+	ranlib $(DIR_BUILD)/libfifo.a
 
-test: ./build/libfifo.a
+test: $(DIR_BUILD)/libfifo.a
 	make -C test
 
 clean:
-	rm -f ./build/*
+	rm -f $(DIR_BUILD)/*
 	make -C test clean	
 	rm -f *.stackdump
 

@@ -1,22 +1,27 @@
 CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
 LDFLAGS=
 
-LSRC=./src
-LBUILD=./build
+DIR_SRC=./src
+DIR_BUILD=./build
 
 
-all: ./build/str.o ./build/libstr.a
+all: dirs builds
 
+dirs: $(DIR_BUILD)
+builds: $(DIR_BUILD)/str.o $(DIR_BUILD)/libstr.a
 
-./build/str.o: $(LSRC)/str.c $(LSRC)/str.h
-	$(CC) $(CFLAGS) -c $(LSRC)/str.c -o $@
+$(DIR_BUILD):
+	mkdir $(DIR_BUILD)
 
-$(LBUILD)/libstr.a: $(LBUILD)/str.o
-	ar ruv $(LBUILD)/libstr.a $(LBUILD)/str.o
-	ranlib $(LBUILD)/libstr.a
+$(DIR_BUILD)/str.o: $(DIR_SRC)/str.c $(DIR_SRC)/str.h
+	$(CC) $(CFLAGS) -c $(DIR_SRC)/str.c -o $@
+
+$(DIR_BUILD)/libstr.a: $(DIR_BUILD)/str.o
+	ar ruv $(DIR_BUILD)/libstr.a $(DIR_BUILD)/str.o
+	ranlib $(DIR_BUILD)/libstr.a
 
 
 
 clean:
-	rm -f $(LBUILD)/*
+	rm -f $(DIR_BUILD)/*
 

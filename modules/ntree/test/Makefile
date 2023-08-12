@@ -7,10 +7,15 @@ DIR_SRC=/usr/local/src
 DIR_INC=/usr/local/include
 DIR_LIB=/usr/local/lib
 DIR_BIN=./bin
+DIR_LOG=./log
 
+all: $(DIR_BIN) $(DIR_LOG) tests
 
-all: tests
+$(DIR_BIN):
+	mkdir $(DIR_BIN)
 
+$(DIR_LOG):
+	mkdir $(DIR_LOG)
 
 # Objects dependencies
 $(DIR_BIN)/ntree_char: ./src/ntree_char.c ../build/libntree.a
@@ -26,23 +31,23 @@ $(DIR_BIN)/ntree_person: ./src/ntree_person.c
 			-o $@
 
 
-./log/ntree_char.log: $(DIR_BIN)/ntree_char
+$(DIR_LOG)/ntree_char.log: $(DIR_BIN)/ntree_char
 	@echo "########### testing ntree_char #########"
-	$(DIR_BIN)/ntree_char > ./log/ntree_char.log || exit 1
+	$(DIR_BIN)/ntree_char > $(DIR_LOG)/ntree_char.log || exit 1
 	@echo "########### end testing ntree #####"
 
-./log/ntree_person.log: $(DIR_BIN)/ntree_person
+$(DIR_LOG)/ntree_person.log: $(DIR_BIN)/ntree_person
 	@echo "########### testing ntree_person #########"
-	$(DIR_BIN)/ntree_person > ./log/ntree_person.log|| exit 1
+	$(DIR_BIN)/ntree_person > $(DIR_LOG)/ntree_person.log|| exit 1
 	@echo "########### end testing ntree #####"
 
 
-tests: ./log/ntree_char.log ./log/ntree_person.log
+tests: $(DIR_LOG)/ntree_char.log $(DIR_LOG)/ntree_person.log
 
 
 # Cleaning
 clean: 
 	rm -f $(DIR_BIN)/*
-	rm -f ./log/*
+	rm -f $(DIR_LOG)/*
 	rm -f *.stackdump
 

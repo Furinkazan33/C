@@ -2,36 +2,38 @@ CC=gcc
 CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
 LDFLAGS=
 
-LBIN=./bin
-LLOG=../log
-
-SRC=/usr/local/src
-LIB=/usr/local/lib
-INC=/usr/local/include
-RES=/usr/local/ressources
-
-LOG=./log
-
-EXEC=$(LBIN)/main $(LOG)/main
-
-all: $(EXEC)
+DIR_BIN=./bin
+DIR_LOG=./log
 
 
-$(LBIN)/main: ./src/main.c
+all: dirs builds
+dirs: $(DIR_BIN) $(DIR_LOG)
+builds: $(DIR_BIN)/main $(DIR_LOG)/main
+
+
+$(DIR_BIN):
+	mkdir $(DIR_BIN)
+
+$(DIR_LOG):
+	mkdir $(DIR_LOG)
+
+
+
+$(DIR_BIN)/main: ./src/main.c
 	$(CC) $(CFLAGS) \
-		-I$(INC) -I ../src \
+		-I ../src \
 		./src/main.c ../build/matrix.o \
 		-o $@
 
 
-$(LOG)/main: $(LBIN)/main
-		$(LBIN)/main > $(LOG)/main \
-		|| (rm -f $(LOG)/main; exit 1;)
+$(DIR_LOG)/main: $(DIR_BIN)/main
+		$(DIR_BIN)/main > $(DIR_LOG)/main \
+		|| (rm -f $(DIR_LOG)/main; exit 1;)
 
 
 
 clean:
-	rm -f $(LBIN)/*
-	rm -f $(LOG)/*
+	rm -f $(DIR_BIN)/*
+	rm -f $(DIR_LOG)/*
 	rm -f *.stackdump
 

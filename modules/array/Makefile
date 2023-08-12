@@ -4,14 +4,12 @@ LDFLAGS=
 
 LBUILD=./build
 
-SRC=/usr/local/src
-LIB=/usr/local/lib
-INC=/usr/local/include
-RES=/usr/local/ressources
+
+all: $(LBUILD) $(LBUILD)/array.o $(LBUILD)/libarray.a test
 
 
-all: $(LBUILD)/array.o $(LBUILD)/libarray.a test
-
+$(LBUILD):
+	mkdir $(LBUILD)
 
 $(LBUILD)/array.o: ./src/array.c ./src/array.h
 	$(CC) $(CFLAGS) -c ./src/array.c -o $@

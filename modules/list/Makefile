@@ -2,25 +2,29 @@ CC=gcc
 CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
 LDFLAGS=
 
-SRCL=./src
-SRC=/usr/local/src
-INC=/usr/local/include
-LIB=/usr/local/lib
-
-all: test
+DIR_SRC=./src
+DIR_BUILD=./build
 
 
-./build/list.o: ./src/list.c ./src/list.h
-	$(CC) $(CFLAGS) -c ./src/list.c -o $@
+all: $(DIR_BUILD) builds test
 
-./build/liblist.a: ./build/list.o
-	ar ruv ./build/liblist.a ./build/list.o
-	ranlib ./build/liblist.a
+builds: $(DIR_BUILD)/list.o $(DIR_BUILD)/liblist.a  
 
-test: ./build/liblist.a
+$(DIR_BUILD):
+	mkdir $(DIR_BUILD)
+
+
+$(DIR_BUILD)/list.o: $(DIR_SRC)/list.c $(DIR_SRC)/list.h
+	$(CC) $(CFLAGS) -c $(DIR_SRC)/list.c -o $@
+
+$(DIR_BUILD)/liblist.a: $(DIR_BUILD)/list.o
+	ar ruv $(DIR_BUILD)/liblist.a $(DIR_BUILD)/list.o
+	ranlib $(DIR_BUILD)/liblist.a
+
+test: $(DIR_BUILD)/liblist.a
 	make -C test
 
 clean:
-	rm -f ./build/*
+	rm -f $(DIR_BUILD)/*
 	make -C test clean
 

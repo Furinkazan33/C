@@ -2,28 +2,29 @@ CC=gcc
 CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
 LDFLAGS=
 
-LBUILD=./build
-LBIN=./bin
-
-SRC=/usr/local/src
-LIB=/usr/local/lib
-INC=/usr/local/include
-RES=/usr/local/ressources
+DIR_BUILD=./build
 
 
-all: $(LBUILD)/fr.o $(LBUILD)/libfr.a
+all: dirs builds
+
+dirs: $(DIR_BUILD)
+builds: $(DIR_BUILD)/fr.o $(DIR_BUILD)/libfr.a
 
 
-$(LBUILD)/fr.o: ./src/fr.c ./src/fr.h
+$(DIR_BUILD):
+	mkdir $(DIR_BUILD)
+
+
+$(DIR_BUILD)/fr.o: ./src/fr.c ./src/fr.h
 	$(CC) $(CFLAGS) -c ./src/fr.c -o $@
 
-./build/libfr.a: ./build/fr.o
-	ar ruv ./build/libfr.a ./build/fr.o
-	ranlib ./build/libfr.a
+$(DIR_BUILD)/libfr.a: $(DIR_BUILD)/fr.o
+	ar ruv $(DIR_BUILD)/libfr.a $(DIR_BUILD)/fr.o
+	ranlib $(DIR_BUILD)/libfr.a
 
 
 
 clean:
-	rm -f $(LBUILD)/*
+	rm -f $(DIR_BUILD)/*
 	rm -f *.stackdump
 
