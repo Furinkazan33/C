@@ -21,6 +21,6 @@ test: ./build/liblist.a
 	make -C test
 
 clean:
-	rm ./build/*
+	rm -f ./build/*
 	make -C test clean
 

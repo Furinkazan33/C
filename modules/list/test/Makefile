@@ -38,5 +38,6 @@ message.c: $(SRC)/message.c $(INC)/message.h
 tests: ./log/message.log ./log/person.log
 
 clean: 
-	rm -rf $(BIN)/*
+	rm -f $(BIN)/*
+	rm -f ./log/*
 

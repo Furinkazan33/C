@@ -42,6 +42,7 @@ tests: ./log/ntree_char.log ./log/ntree_person.log
 
 # Cleaning
 clean: 
-	rm -rf $(DIR_BIN)/*
-	rm -rf *.stackdump
+	rm -f $(DIR_BIN)/*
+	rm -f ./log/*
+	rm -f *.stackdump
 

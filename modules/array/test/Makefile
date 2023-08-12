@@ -43,5 +43,7 @@ $(LOG)/map_reduce: $(LBIN)/map_reduce
 
 
 clean:
+	rm -f $(LBIN)/*
+	rm -f $(LOG)/*
 	rm -f *.stackdump
 

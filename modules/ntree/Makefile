@@ -26,7 +26,7 @@ test: $(LBUILD)/lib$(TARGET).a
 
 
 clean: 
-	rm $(LBUILD)/*
+	rm -f $(LBUILD)/*
 	make -C test clean
 	rm -f *.stackdump
 

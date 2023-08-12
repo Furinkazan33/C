@@ -38,5 +38,6 @@ tests: ./log/btree_char.log ./log/btree_person.log
 
 clean:
 	rm -f ./bin/*	
+	rm -f ./log/*	
 	rm -f *.stackdump
 

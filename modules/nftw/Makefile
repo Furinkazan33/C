@@ -21,6 +21,6 @@ all: ./build/main
 
 # Cleaning
 clean: 
-	rm ./bin/*
+	rm ./build/*
 	rm -f *.stackdump
 
