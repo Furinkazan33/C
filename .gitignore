@@ -1,8 +1,8 @@
 # logs and tmp files
-log/*
-logs/*
-bin/*
-build/*
+*/log/*
+*/logs/*
+*/bin/*
+*/build/*
 
 ## Prerequisites
 *.d
