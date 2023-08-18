@@ -6,20 +6,15 @@
 
 
 static array *_array_alloc(size_t size) {
-	array *res = malloc(sizeof(array));
+	assert(size > 0);
 
+	array *res = malloc(sizeof(array));
 	if(!res) {
 		perror("array_alloc : alloc failed");
 		return NULL;
 	}
 
-	if(size == 0) {
-		res->data = NULL;
-	}
-	else {
-		res->data = malloc(sizeof(void *) * size);
-	}
-
+	res->data = malloc(sizeof(void *) * size);
 	if(!res->data) {
 		perror("array_alloc : alloc data failed");
 		free(res);
@@ -46,10 +41,7 @@ static array *_array_realloc(array *a) {
 	return a;
 }
 
-array *array_new(size_t init_size,\
-				int (*cmp)(void *, void *),\
-				void (*free_data)(void *),\
-				void (*print_data)(void *)) {
+array *array_new(size_t init_size) {
 	array *res = _array_alloc(init_size);
 
 	if(!res) {
@@ -57,11 +49,25 @@ array *array_new(size_t init_size,\
 	}
 	res->size = init_size;
 	res->n = 0;
-	res->cmp = cmp;
-	res->free = free_data;
-	res->print = print_data;
+	res->cmp = NULL;
+	res->free = NULL;
+	res->print = NULL;
+	res->tos = NULL;
 
 	return res;
+}
+
+void array_set_cmp(array *a, int (*cmp_data)(void *, void *)) {
+	a->cmp = cmp_data;
+}
+void array_set_free(array *a, void (*free_data)(void *)) {
+	a->free = free_data;
+}
+void array_set_print(array *a, void (*print_data)(void *)) {
+	a->print = print_data;
+}
+void array_set_tos(array *a, void (*tos_data)(void *)) {
+	a->tos = tos_data;
 }
 
 array *array_add_at(array *a, void *d, size_t idx) {
@@ -88,12 +94,27 @@ array *array_append(array *a, void *d) {
 		return NULL;
 	}
 
-	a->data[a->n++] = d;
+	a->data[a->n] = d;
+	a->n++;
 
 	return a;
 }
 
+array *array_concat(array *res, array *add) {
+	assert(res);
+	assert(add);
+
+	for(size_t i = 0; i < add->n; i++) {
+		if(!array_append(res, add->data[i])) {
+			return NULL;
+		}
+	}
+	return res;
+}
+
 array *array_add_keep_sorted(array *a, void *d) {
+	assert(a);
+	assert(a->cmp);
 	size_t i;
 
 	for(i = 0; i < a->n; i++) {
@@ -105,43 +126,46 @@ array *array_add_keep_sorted(array *a, void *d) {
 	return array_add_at(a, d, i);
 }
 
-array *array_swap(array *a, void *d1, void *d2) {
+
+void array_sort(array *res) {
+	size_t min = 0;
+	for(size_t i = 0; i < res->n; i++) {
+		// looking for min
+		for(size_t j = i + 1; j < res->n; j++) {
+			if(res->cmp(res->data[min], res->data[j]) > 0) {
+				min = j;
+			}
+		}
+		array_swap_idx(res, min, i);
+	}
+}
+
+void array_swap(array *a, void *d1, void *d2) {
 	assert(a);
+	assert(d1);
+	assert(d2);
+
 	void *tmp = d1;
 	d1 = d2;
 	d2 = tmp;
-
-	return a;
 }
 
-array *array_swap_idx(array *a, size_t idx1, size_t idx2) {
+void array_swap_idx(array *a, size_t idx1, size_t idx2) {
 	assert(a);
-	return array_swap(a, a->data[idx1], a->data[idx2]);
-}
+	assert(idx1 < a->n);
+	assert(idx2 < a->n);
 
-
-size_t array_idx(array *a, void *search) {
-	assert(a);
-	for(size_t i = 0; i < a->n; i++) {
-		if(a->data[i]) {
-			if(a->cmp(a->data[i], search) > 0) {
-				return -1;
-			}
-			if(!a->cmp(a->data[i], search)) {
-				return i;
-			}
-		}
-	}
-	return -1;
+	void *tmp = a->data[idx1];
+	a->data[idx1] = a->data[idx2];
+	a->data[idx2] = tmp;
 }
 
 void *array_find(array *a, void *search) {
 	assert(a);
+	assert(a->cmp);
+
 	for(size_t i = 0; i < a->n; i++) {
 		if(a->data[i]) {
-			if(a->cmp(a->data[i], search) > 0) {
-				return NULL;
-			}
 			if(!a->cmp(a->data[i], search)) {
 				return a->data[i];
 			}
@@ -209,6 +233,8 @@ array *array_remove_nulls(array *a) {
 
 void array_print(array *a) {
 	assert(a);
+	assert(a->print);
+
 	for(size_t i = 0; i < a->n; i++) {
 		if(a->data[i]) {
 			a->print(a->data[i]);
@@ -218,6 +244,8 @@ void array_print(array *a) {
 
 void array_free(array *a, int with_data) {
 	assert(a);
+	assert(a->free);
+
 	for(size_t i = 0; i < a->n; i++) {
 		if(a->data[i] && with_data) {
 			a->free(a->data[i]);
@@ -229,11 +257,16 @@ void array_free(array *a, int with_data) {
 
 array *array_copy(array *a) {
 	assert(a);
-	array *res = array_new(a->size, a->cmp, a->free, a->print);
+
+	array *res = array_new(a->size);
 	if(!res) {
 		perror("array_copy : call to _array_new returned NULL");
 		return NULL;
 	}
+	res->cmp = a->cmp;
+	res->free = a->free;
+	res->print = a->print;
+
 	memcpy(res->data, a->data, sizeof(void **) * a->size);
 	res->n = a->n;
 

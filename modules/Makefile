@@ -11,7 +11,7 @@ all:
 	done 
 	@echo "" 
 	@echo "" 
-	@echo "               ALL COMPILATIONS OK" 
+	@echo "               ALL MODULES COMPILATIONS OK" 
 	@echo "" 
 	@echo ""
 

@@ -15,10 +15,10 @@ test: $(DIR_LOG)/main.log
 
 
 $(DIR_BIN):
-	mkdir -p $(DIR_BIN)
+	test -d $(DIR_BIN) || mkdir -p $(DIR_BIN)
 
 $(DIR_LOG):
-	mkdir -p $(DIR_LOG)
+	test -d $(DIR_LOG) || mkdir -p $(DIR_LOG)
 
 
 $(DIR_BIN)/main: ./src/main.c ./src/message.c

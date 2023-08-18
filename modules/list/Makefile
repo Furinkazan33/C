@@ -11,7 +11,7 @@ all: $(DIR_BUILD) builds test
 builds: $(DIR_BUILD)/list.o $(DIR_BUILD)/liblist.a  
 
 $(DIR_BUILD):
-	mkdir -p $(DIR_BUILD)
+	test -d $(DIR_BUILD) || mkdir -p $(DIR_BUILD)
 
 
 $(DIR_BUILD)/list.o: $(DIR_SRC)/list.c $(DIR_SRC)/list.h

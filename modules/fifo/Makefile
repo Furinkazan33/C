@@ -10,7 +10,7 @@ builds: $(DIR_BUILD)/fifo.o $(DIR_BUILD)/libfifo.a
 
 
 $(DIR_BUILD):
-	mkdir -p $(DIR_BUILD)
+	test -d $(DIR_BUILD) || mkdir -p $(DIR_BUILD)
 
 
 $(DIR_BUILD)/fifo.o: ./src/fifo.c ./src/fifo.h

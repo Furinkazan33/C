@@ -9,10 +9,10 @@ DIR_LOG=./log
 all: $(DIR_BIN) $(DIR_LOG) tests
 
 $(DIR_BIN):
-	mkdir -p $(DIR_BIN)
+	test -d $(DIR_BIN) || mkdir -p $(DIR_BIN)
 
 $(DIR_LOG):
-	mkdir -p $(DIR_LOG)
+	test -d $(DIR_LOG) || mkdir -p $(DIR_LOG)
 
 # Objects dependencies
 $(DIR_BIN)/ntree_char: ./src/ntree_char.c ../build/libntree.a

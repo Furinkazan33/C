@@ -1,35 +1,68 @@
 #include <stdlib.h>
-#include "sf.h"
+
+/*
+ * array manipulation.
+ *
+ * array is an array of void *
+ *
+ * types defined : array
+ * prefix used for functions : array.
+ *
+ */
+
+
+//TODO: improve searching by adding a boolean whether the array is sorted or not :
+// after calling sort => bool is true
+// when adding an element that unsorted the array => false
+//
+// When searching for an element, if cmp returns > 0, then return NULL
 
 #define ARRAY_REALLOC_COEF 1.5
 
 typedef struct array {
-	int sorted;
 	size_t size;
 	size_t n;
-	sf *sf;
+	int (*cmp)(void *, void *);
+	void (*free)(void *);
+	void (*print)(void *);
+	void (*tos)(void *);
 	void **data;
 } array;
 
+ /* allocations */
+array *array_new(size_t init_size);
+array *array_copy(array *a);
+array *array_resize(array *a, size_t newsize);
+void array_free(array *a, int with_data);
 
-array *array_new_sorted(sf *sf, size_t init_size);
-array *array_new(sf *sf, size_t init_size);
+/* functions iterated through all elements when needed */
+void array_set_cmp(array *a, int (*cmp_data)(void *, void *));
+void array_set_free(array *a, void (*free_data)(void *));
+void array_set_print(array *a, void (*print_data)(void *));
+void array_set_tos(array *a, void (*tos_data)(void *)); //TODO
 
-/* assert sorted */
-array *array_add(array *l, void *c);
-/* assert not sorted */
+/* adding */
+array *array_add_keep_sorted(array *a, void *d); // a->cmp is called
 array *array_add_at(array *a, void *d, size_t idx);
 array *array_append(array *a, void *d);
+array *array_concat(array *res, array *add); //TODO
 
-size_t array_idx(array *l, void *search);
-void *array_find(array *l, void *search);
+/* moving elements */
+array *array_sort(array *a); // a->cmp is called, TODO
+array *array_swap(array *a, void *d1, void *d2);
+array *array_swap_idx(array *a, size_t idx1, size_t idx2);
 
+/* searching */
+void *array_find(array *a, void *search);
 
-void array_remove(array *l, size_t idx, int with_free);
-void array_remove_keep_nulls(array *l, size_t idx, int with_free);
-array *array_remove_nulls(array *a, int with_resize);
+/* removing */
+void array_remove_idx(array *l, size_t idx, int keep_null);
+void array_remove(array *l, void *p, int keep_null);
+array *array_remove_nulls(array *a);
 
-void array_free(array *l, int with_data);
+/* run through functions */
+void array_print(array *a);
+void array_map(array *a, void (*map)(void *));/* call map on every array elements */
+void array_reduce(array *a, void *result, void (*reduce)(void *, void *));/* reduce to a unique element */
 
-void array_print(array *l);
 

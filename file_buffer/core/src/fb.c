@@ -6,9 +6,6 @@
 #include "fb.h"
 #include "fr.h"
 
-/* str functions for array init */
-FUNC_SF(str)
-
 
 fb *fb_new(char *path, char *name, size_t init_size) {
 	fb *res = (fb *)malloc(sizeof(*res));
@@ -32,11 +29,14 @@ fb *fb_new(char *path, char *name, size_t init_size) {
 		res->name[0] = '\0';
 	}
 
-	res->lines = array_new(str_sf(), init_size);
+	res->lines = array_new(init_size);
 	if(!res->lines) {
 		free(res);
 		return NULL;
 	}
+	array_set_cmp(res->lines, (int (*)(void *, void *))str_cmp);
+	array_set_free(res->lines, (void (*)(void *))str_free);
+	array_set_print(res->lines, (void (*)(void *))str_print);
 
 	return res;
 }

@@ -12,7 +12,7 @@ builds: $(DIR_BUILD)/fr.o $(DIR_BUILD)/libfr.a
 
 
 $(DIR_BUILD):
-	mkdir -p $(DIR_BUILD)
+	test -d $(DIR_BUILD) || mkdir -p $(DIR_BUILD)
 
 
 $(DIR_BUILD)/fr.o: ./src/fr.c ./src/fr.h

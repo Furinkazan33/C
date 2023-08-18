@@ -11,7 +11,7 @@ LBUILD=./build
 all: $(LBUILD) $(LBUILD)/$(TARGET).o $(LBUILD)/lib$(TARGET).a test
 
 $(LBUILD):
-	mkdir -p $(LBUILD)
+	test -d $(LBUILD) || mkdir -p $(LBUILD)
 
 $(LBUILD)/$(TARGET).o: $(LSRC)/$(TARGET).c $(LSRC)/$(TARGET).h
 	$(CC) $(CFLAGS) -c $(LSRC)/$(TARGET).c -o $@

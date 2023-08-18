@@ -15,10 +15,10 @@ tests: $(DIR_LOG)/btree_char.log $(DIR_LOG)/btree_person.log
 
 
 $(DIR_BIN):
-	mkdir -p $(DIR_BIN)
+	test -d $(DIR_BIN) || mkdir -p $(DIR_BIN)
 
 $(DIR_LOG):
-	mkdir -p $(DIR_LOG)
+	test -d $(DIR_LOG) || mkdir -p $(DIR_LOG)
 
 
 $(DIR_BIN)/btree_person: ./src/btree_person.c ./src/person.c ../build/libbtree.a

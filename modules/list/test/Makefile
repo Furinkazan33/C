@@ -10,10 +10,10 @@ all: $(DIR_BIN) $(DIR_LOG) tests
 
 
 $(DIR_BIN):
-	mkdir -p $(DIR_BIN)
+	test -d $(DIR_BIN) || mkdir -p $(DIR_BIN)
 
 $(DIR_LOG):
-	mkdir -p $(DIR_LOG)
+	test -d $(DIR_LOG) || mkdir -p $(DIR_LOG)
 
 
 message.c: ./src/message.c ./src/message.h

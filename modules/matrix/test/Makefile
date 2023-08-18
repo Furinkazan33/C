@@ -12,10 +12,10 @@ builds: $(DIR_BIN)/main $(DIR_LOG)/main
 
 
 $(DIR_BIN):
-	mkdir -p $(DIR_BIN)
+	test -d $(DIR_BIN) || mkdir -p $(DIR_BIN)
 
 $(DIR_LOG):
-	mkdir -p $(DIR_LOG)
+	test -d $(DIR_LOG) || mkdir -p $(DIR_LOG)
 
 
 

@@ -18,7 +18,7 @@ builds: $(DIR_BIN)/main
 
 
 $(DIR_BIN):
-	mkdir -p $(DIR_BIN)
+	test -d $(DIR_BIN) || mkdir -p $(DIR_BIN)
 
 
 $(DIR_BIN)/main: ./src/main.c ./src/mem.c

@@ -18,7 +18,7 @@ dirs: $(DIR_BIN)
 
 
 $(DIR_BIN):
-	mkdir -p $(DIR_BIN)
+	test -d $(DIR_BIN) || mkdir -p $(DIR_BIN)
 
 
 $(DIR_BIN)/encode: ./src/encode.c ./src/cipher.c

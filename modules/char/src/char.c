@@ -256,12 +256,9 @@ char *char_eos(char *start, char *end, char *c) {
 void char_delete_to(char *start, char *end, char *from, char *to) {
 	_set_boundaries(start, end, from, to);
 
-	if(from > to) {
-		memcpy(to, from, strlen(from) + 1);
-	}
-	else {
-		memcpy(from, to, strlen(to) + 1);
-	}
+	memcpy(from, to, strlen(to) + 1);
+
+	end -= (to - from);
 }
 
 /* Delete just the current word */

@@ -16,7 +16,7 @@ builds: $(DIR_BUILD)/config.o $(DIR_BUILD)/libconfig.a
 
 
 $(DIR_BUILD):
-	mkdir -p $(DIR_BUILD)
+	test -d $(DIR_BUILD) || mkdir -p $(DIR_BUILD)
 
 
 $(DIR_BUILD)/config.o: ./src/config.c ./src/config.h ./Makefile

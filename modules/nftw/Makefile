@@ -13,7 +13,7 @@ EXEC=main
 all: ./build ./build/main
 	
 ./build:
-	mkdir -p ./build
+	test -d ./build || mkdir -p ./build
 
 # Objects dependencies
 ./build/main: ./src/main.c

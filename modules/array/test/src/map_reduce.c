@@ -29,10 +29,10 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "usage : %s", argv[0]);
 		exit(1);
 	}
-	array *a = array_new(10,\
-					(int (*)(void *, void *))int_cmp,\
-					(void (*)(void *))int_free,\
-					(void (*)(void *))int_print);
+	array *a = array_new(10);
+	array_set_cmp(a, (int (*)(void *, void *))int_cmp);
+	array_set_free(a, (void (*)(void *))int_free);
+	array_set_print(a, (void (*)(void *))int_print);
 
 	printf("Adding 10 :\n");
 	for(int i = 0; i < 10; i++) {

@@ -13,13 +13,14 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "usage : %s", argv[0]);
 		exit(1);
 	}
-	array *l = array_new(INIT_SIZE,\
-					(int (*)(void *, void *))person_cmp,\
-					(void (*)(void *))person_free,\
-			   		(void (*)(void *))person_print);
+	array *l = array_new(INIT_SIZE);
 	if(!l) {
 		return 1;
 	}
+	array_set_cmp (l, (int (*)(void *, void *))person_cmp);
+	array_set_free(l, (void (*)(void *))person_free);
+	array_set_print(l, (void (*)(void *))person_print);
+
 
 	person *p[10];
 	p[0] = person_new(0, 10, "Momo", "route du truc");
