@@ -1,2 +1,3 @@
-# c_examples
-C examples src files
+# c
+Personal C modules library.
+
