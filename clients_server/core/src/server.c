@@ -93,19 +93,19 @@ int main(int argc, char **argv) {
 				ret = fr_part_read(fds[i].fd, serv_mess_handler, messages[i], SERV_MESS_SIZE, &m_pos[i], buffers[i], SERV_BUF_SIZE, &b_pos[i]);
 
 				switch(ret) {
-					case FB_RC_READ_ERROR:
+					case FR_RC_READ_ERROR:
 					perror("serv_main : read error");
 					return 1;
 					break;
 
-					case FB_RC_EOF:
+					case FR_RC_EOF:
 					fprintf(stdout, "serv_main : client disconnected\n");
 					close(fds[i].fd);
 					fds[i].fd = 0;
 					fds[i].events = 0;
 					break;
 
-					case FB_RC_TOO_LONG:
+					case FR_RC_TOO_LONG:
 					fprintf(stderr, "serv_main : message too long : [%s], [%s]\n", messages[i], &buffers[i][b_pos[i]]);
 					close(fds[i].fd);
 					fds[i].fd = 0;

@@ -24,11 +24,12 @@ function exif_not_folder() {
 function dep_copy() {
 	file=$(find "${DIR_MODULES}" -type f -name "${1}")
 
-	echo "Found: ${file}"
-
 	n=$(echo ${file} | wc -w)
-
-	[ ${n} -gt 1 ] && { echo "Too many files found"; exit 1; }
+	[ ${n} -lt 1 ] && { echo "${1} : not found"; return 1; }
+	
+	echo "${1} found: ${file}"
+	
+	[ ${n} -gt 1 ] && { echo "${1} : too many found"; return 1; }
 
 	cp ${file} ${2}/
 }

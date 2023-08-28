@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include "sf.h"
 
 #ifndef FIFO_DATA_TYPE
 	#define FIFO_DATA_TYPE void
@@ -15,12 +14,11 @@ typedef struct fifo {
 	size_t n;
 	container *head;
 	container *tail;
-	sf *sf;
 } fifo;
 
 
-fifo *fifo_new(sf *sf);
-void fifo_free(fifo *f);
+fifo *fifo_new();
+void fifo_free(fifo *f, void (*free_data)(FIFO_DATA_TYPE *));
 
 fifo *fifo_push(fifo *f, FIFO_DATA_TYPE *m);
 FIFO_DATA_TYPE *fifo_pop(fifo *f);

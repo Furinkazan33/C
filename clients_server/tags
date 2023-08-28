@@ -4,116 +4,173 @@
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/mathieu/repos/C/server/	//
+!_TAG_PROC_CWD	/home/mathieu/repos/C/clients_server/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
-./bin/server	Makefile	/^.\/bin\/server: .\/src\/server.c$/;"	t
-ARRAY_REALLOC_COEF	modules/include/array.h	/^#define ARRAY_REALLOC_COEF /;"	d
+$(CBUILD)	Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)/client	Makefile	/^$(CBUILD)\/client: $(CSRC)\/server.c $(DEP_A) $(DEP_H)$/;"	t
+$(CBUILD)/server	Makefile	/^$(CBUILD)\/server: $(CSRC)\/server.c $(DEP_A) $(DEP_H)$/;"	t
+$(TBIN)	Makefile	/^$(TBIN):$/;"	t
+$(TLOG)	Makefile	/^$(TLOG):$/;"	t
+ARRAY_REALLOC_COEF	core/include/array.h	/^#define ARRAY_REALLOC_COEF /;"	d
+BUF_SIZE	core/include/config.h	/^#define BUF_SIZE /;"	d
+CBUILD	Makefile	/^CBUILD=.\/core\/build$/;"	m
 CC	Makefile	/^CC=gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L$/;"	m
-CHAR	src/database.h	/^	INT = 0, 	DOUBLE, 	FLOAT, 		CHAR, 		STRING,$/;"	e	enum:type
-CLI_BUF_SIZE	src/client.c	/^#define CLI_BUF_SIZE /;"	d	file:
-CLI_MESS_SIZE	src/client.c	/^#define CLI_MESS_SIZE /;"	d	file:
-DB_COMMENT_LEN	src/database.h	/^#define DB_COMMENT_LEN /;"	d
-DB_MAX_ROWS	src/database.h	/^#define DB_MAX_ROWS /;"	d
-DB_NAME_LEN	src/database.h	/^#define DB_NAME_LEN /;"	d
-DB_N_COLUMNS	src/database.h	/^#define DB_N_COLUMNS /;"	d
-DOUBLE	src/database.h	/^	INT = 0, 	DOUBLE, 	FLOAT, 		CHAR, 		STRING,$/;"	e	enum:type
-FB_RC_EOB	modules/include/fr.h	/^#define FB_RC_EOB /;"	d
-FB_RC_EOF	modules/include/fr.h	/^#define FB_RC_EOF /;"	d
-FB_RC_NOT_FINISHED	modules/include/fr.h	/^#define FB_RC_NOT_FINISHED /;"	d
-FB_RC_READ_ERROR	modules/include/fr.h	/^#define FB_RC_READ_ERROR /;"	d
-FB_RC_TOO_LONG	modules/include/fr.h	/^#define FB_RC_TOO_LONG /;"	d
-FIFO_DATA_TYPE	modules/include/fifo.h	/^	#define FIFO_DATA_TYPE /;"	d
-FLOAT	src/database.h	/^	INT = 0, 	DOUBLE, 	FLOAT, 		CHAR, 		STRING,$/;"	e	enum:type
-FR_MAX_LINE_LEN	modules/include/fr.h	/^#define FR_MAX_LINE_LEN /;"	d
-INC	Makefile	/^INC=\/usr\/local\/include$/;"	m
-INT	src/database.h	/^	INT = 0, 	DOUBLE, 	FLOAT, 		CHAR, 		STRING,$/;"	e	enum:type
-LDFLAGS	Makefile	/^LDFLAGS=$/;"	m
-LIB	Makefile	/^LIB=\/usr\/local\/lib$/;"	m
-SERV_BUF_SIZE	src/server.c	/^#define SERV_BUF_SIZE /;"	d	file:
-SERV_MAX_CLI	src/server.c	/^#define SERV_MAX_CLI /;"	d	file:
-SERV_MESS_SIZE	src/server.c	/^#define SERV_MESS_SIZE /;"	d	file:
-SRC	Makefile	/^SRC=\/usr\/local\/src$/;"	m
-STRING	src/database.h	/^	INT = 0, 	DOUBLE, 	FLOAT, 		CHAR, 		STRING,$/;"	e	enum:type
-adm_handler	src/server.c	/^static int adm_handler(char *message, int fd) {$/;"	f	typeref:typename:int	file:
-adm_quit	src/server.c	/^static int adm_quit = 0;$/;"	v	typeref:typename:int	file:
-all	Makefile	/^all: .\/bin\/server$/;"	t
-array	modules/include/array.h	/^typedef struct array {$/;"	s
-array	modules/include/array.h	/^} array;$/;"	t	typeref:struct:array
+CHAR	core/src/database.h	/^	INT = 0, 	DOUBLE, 	FLOAT, 		CHAR, 		STRING,$/;"	e	enum:type
+CINC	Makefile	/^CINC=.\/core\/include$/;"	m
+CJSON_CDECL	core/include/cJSON.h	/^      void (CJSON_CDECL *free_fn)(void *ptr);$/;"	m	struct:cJSON_Hooks	typeref:typename:void (* free_fn)(void * ptr)
+CJSON_CDECL	core/include/cJSON.h	/^      void *(CJSON_CDECL *malloc_fn)(size_t sz);$/;"	m	struct:cJSON_Hooks	typeref:typename:void * (* malloc_fn)(size_t sz)
+CJSON_CDECL	core/include/cJSON.h	/^#define CJSON_CDECL /;"	d
+CJSON_EXPORT_SYMBOLS	core/include/cJSON.h	/^#define CJSON_EXPORT_SYMBOLS$/;"	d
+CJSON_NESTING_LIMIT	core/include/cJSON.h	/^#define CJSON_NESTING_LIMIT /;"	d
+CJSON_PUBLIC	core/include/cJSON.h	/^#define CJSON_PUBLIC(/;"	d
+CJSON_STDCALL	core/include/cJSON.h	/^#define CJSON_STDCALL /;"	d
+CJSON_VERSION_MAJOR	core/include/cJSON.h	/^#define CJSON_VERSION_MAJOR /;"	d
+CJSON_VERSION_MINOR	core/include/cJSON.h	/^#define CJSON_VERSION_MINOR /;"	d
+CJSON_VERSION_PATCH	core/include/cJSON.h	/^#define CJSON_VERSION_PATCH /;"	d
+CLIB	Makefile	/^CLIB=.\/core\/lib$/;"	m
+CLI_BUF_SIZE	core/src/client.c	/^#define CLI_BUF_SIZE /;"	d	file:
+CLI_MESS_SIZE	core/src/client.c	/^#define CLI_MESS_SIZE /;"	d	file:
+COBJ	Makefile	/^COBJ=.\/core\/obj$/;"	m
+CORE	Makefile	/^CORE=.\/core$/;"	m
+CSRC	Makefile	/^CSRC=.\/core\/src$/;"	m
+DB_COMMENT_LEN	core/src/database.h	/^#define DB_COMMENT_LEN /;"	d
+DB_MAX_ROWS	core/src/database.h	/^#define DB_MAX_ROWS /;"	d
+DB_NAME_LEN	core/src/database.h	/^#define DB_NAME_LEN /;"	d
+DB_N_COLUMNS	core/src/database.h	/^#define DB_N_COLUMNS /;"	d
+DEP_A	Makefile	/^DEP_A=$(CLIB)\/libcjson.a $(CLIB)\/libfifo.a $(CLIB)\/libfr.a $(CLIB)\/libconfig.a$/;"	m
+DEP_H	Makefile	/^DEP_H=$(CINC)\/cJSON.h $(CINC)\/fifo.h $(CINC)\/fr.h $(CINC)\/config.h$/;"	m
+DOUBLE	core/src/database.h	/^	INT = 0, 	DOUBLE, 	FLOAT, 		CHAR, 		STRING,$/;"	e	enum:type
+FIFO_DATA_TYPE	core/include/fifo.h	/^	#define FIFO_DATA_TYPE /;"	d
+FLOAT	core/src/database.h	/^	INT = 0, 	DOUBLE, 	FLOAT, 		CHAR, 		STRING,$/;"	e	enum:type
+FR_RC_EOB	core/include/fr.h	/^#define FR_RC_EOB /;"	d
+FR_RC_EOF	core/include/fr.h	/^#define FR_RC_EOF /;"	d
+FR_RC_NOT_FINISHED	core/include/fr.h	/^#define FR_RC_NOT_FINISHED /;"	d
+FR_RC_READ_ERROR	core/include/fr.h	/^#define FR_RC_READ_ERROR /;"	d
+FR_RC_TOO_LONG	core/include/fr.h	/^#define FR_RC_TOO_LONG /;"	d
+INT	core/src/database.h	/^	INT = 0, 	DOUBLE, 	FLOAT, 		CHAR, 		STRING,$/;"	e	enum:type
+LDFLAGS	Makefile	/^LDFLAGS=-L $(CLIB) -lcjson -lfifo -lfr -lconfig$/;"	m
+SERV_BUF_SIZE	core/src/server.c	/^#define SERV_BUF_SIZE /;"	d	file:
+SERV_MAX_CLI	core/src/server.c	/^#define SERV_MAX_CLI /;"	d	file:
+SERV_MESS_SIZE	core/src/server.c	/^#define SERV_MESS_SIZE /;"	d	file:
+STRING	core/src/database.h	/^	INT = 0, 	DOUBLE, 	FLOAT, 		CHAR, 		STRING,$/;"	e	enum:type
+TBIN	Makefile	/^TBIN=.\/test\/bin$/;"	m
+TEST	Makefile	/^TEST=.\/test$/;"	m
+TLOG	Makefile	/^TLOG=.\/test\/log$/;"	m
+TSRC	Makefile	/^TSRC=.\/test\/src$/;"	m
+__WINDOWS__	core/include/cJSON.h	/^#define __WINDOWS__$/;"	d
+adm_handler	core/src/server.c	/^static void adm_handler(int fd, char *message, int len) {$/;"	f	typeref:typename:void	file:
+adm_quit	core/src/server.c	/^static int adm_quit = 0;$/;"	v	typeref:typename:int	file:
+adm_rd	core/ressources/config.json	/^	"adm_rd": "\/usr\/local\/dev\/fifo_rd"$/;"	s
+all	Makefile	/^all: dirs builds$/;"	t
+alloc_len	core/include/str.h	/^	size_t alloc_len; \/\/ alloc size is sizeof(char) * (alloc_len + 1)$/;"	m	struct:str	typeref:typename:size_t
+array	core/include/array.h	/^typedef struct array {$/;"	s
+array	core/include/array.h	/^} array;$/;"	t	typeref:struct:array
+builds	Makefile	/^builds: $(CBUILD)\/server $(CBUILD)\/client$/;"	t
+cJSON	core/include/cJSON.h	/^typedef struct cJSON$/;"	s
+cJSON	core/include/cJSON.h	/^} cJSON;$/;"	t	typeref:struct:cJSON
+cJSON_Array	core/include/cJSON.h	/^#define cJSON_Array /;"	d
+cJSON_ArrayForEach	core/include/cJSON.h	/^#define cJSON_ArrayForEach(/;"	d
+cJSON_False	core/include/cJSON.h	/^#define cJSON_False /;"	d
+cJSON_Hooks	core/include/cJSON.h	/^typedef struct cJSON_Hooks$/;"	s
+cJSON_Hooks	core/include/cJSON.h	/^} cJSON_Hooks;$/;"	t	typeref:struct:cJSON_Hooks
+cJSON_Invalid	core/include/cJSON.h	/^#define cJSON_Invalid /;"	d
+cJSON_IsReference	core/include/cJSON.h	/^#define cJSON_IsReference /;"	d
+cJSON_NULL	core/include/cJSON.h	/^#define cJSON_NULL /;"	d
+cJSON_Number	core/include/cJSON.h	/^#define cJSON_Number /;"	d
+cJSON_Object	core/include/cJSON.h	/^#define cJSON_Object /;"	d
+cJSON_Raw	core/include/cJSON.h	/^#define cJSON_Raw /;"	d
+cJSON_SetBoolValue	core/include/cJSON.h	/^#define cJSON_SetBoolValue(/;"	d
+cJSON_SetIntValue	core/include/cJSON.h	/^#define cJSON_SetIntValue(/;"	d
+cJSON_SetNumberValue	core/include/cJSON.h	/^#define cJSON_SetNumberValue(/;"	d
+cJSON_String	core/include/cJSON.h	/^#define cJSON_String /;"	d
+cJSON_StringIsConst	core/include/cJSON.h	/^#define cJSON_StringIsConst /;"	d
+cJSON_True	core/include/cJSON.h	/^#define cJSON_True /;"	d
+cJSON__h	core/include/cJSON.h	/^#define cJSON__h$/;"	d
+cJSON_bool	core/include/cJSON.h	/^typedef int cJSON_bool;$/;"	t	typeref:typename:int
+child	core/include/cJSON.h	/^    struct cJSON *child;$/;"	m	struct:cJSON	typeref:struct:cJSON *
 clean	Makefile	/^clean: $/;"	t
-col	src/database.h	/^typedef struct col {$/;"	s
-col	src/database.h	/^} col;$/;"	t	typeref:struct:col
-cols	src/database.h	/^	col *cols[DB_N_COLUMNS];$/;"	m	struct:database	typeref:typename:col * []
-container	modules/include/fifo.h	/^typedef struct container {$/;"	s
-container	modules/include/fifo.h	/^} container;$/;"	t	typeref:struct:container
-data	modules/include/array.h	/^	void **data;$/;"	m	struct:array	typeref:typename:void **
-data	modules/include/fifo.h	/^	FIFO_DATA_TYPE *data;$/;"	m	struct:container	typeref:typename:FIFO_DATA_TYPE *
-data	src/database.h	/^	void *data[DB_MAX_ROWS][DB_N_COLUMNS];$/;"	m	struct:database	typeref:typename:void * [][]
-database	src/database.h	/^typedef struct database {$/;"	s
-database	src/database.h	/^} database;$/;"	t	typeref:struct:database
-db_add_col	src/database.h	/^void db_add_col(database *db, col *c) {$/;"	f	typeref:typename:void
-db_delete	src/database.h	/^void db_delete(database *db, int n) {$/;"	f	typeref:typename:void
-db_delete_all	src/database.h	/^void db_delete_all(database *db) {$/;"	f	typeref:typename:void
-db_free	src/database.h	/^void db_free(database *db) {$/;"	f	typeref:typename:void
-db_free_cols	src/database.h	/^void db_free_cols(database *db) {$/;"	f	typeref:typename:void
-db_free_data	src/database.h	/^void db_free_data(database *db, int n) {$/;"	f	typeref:typename:void
-db_insert	src/database.h	/^void db_insert(database *db, void *row[DB_N_COLUMNS]) {$/;"	f	typeref:typename:void
-db_new	src/database.h	/^database *db_new(char *name, char *desc) {$/;"	f	typeref:typename:database *
-db_new_col	src/database.h	/^col *db_new_col(char *name, char *desc, const type *t) {$/;"	f	typeref:typename:col *
-db_print	src/database.h	/^void db_print(database *db) {$/;"	f	typeref:typename:void
-db_print_desc	src/database.h	/^void db_print_desc(database *db) {$/;"	f	typeref:typename:void
-db_print_row	src/database.h	/^void db_print_row(database *db, int n) {$/;"	f	typeref:typename:void
-db_print_rows	src/database.h	/^void db_print_rows(database *db) {$/;"	f	typeref:typename:void
-db_print_stats	src/database.h	/^void db_print_stats(database *db) {$/;"	f	typeref:typename:void
-db_print_types	src/database.h	/^void db_print_types(database *db) {$/;"	f	typeref:typename:void
-db_t_char	src/database.h	/^const type db_t_char = CHAR;$/;"	v	typeref:typename:const type
-db_t_double	src/database.h	/^const type db_t_double = DOUBLE;$/;"	v	typeref:typename:const type
-db_t_float	src/database.h	/^const type db_t_float = FLOAT;$/;"	v	typeref:typename:const type
-db_t_int	src/database.h	/^const type db_t_int = INT;$/;"	v	typeref:typename:const type
-db_t_string	src/database.h	/^const type db_t_string = STRING;$/;"	v	typeref:typename:const type
-desc	src/database.h	/^	char desc[DB_COMMENT_LEN];$/;"	m	struct:col	typeref:typename:char[]
-desc	src/database.h	/^	char desc[DB_COMMENT_LEN];$/;"	m	struct:database	typeref:typename:char[]
-end	modules/include/str.h	/^	char *end;$/;"	m	struct:str	typeref:typename:char *
-fifo	modules/include/fifo.h	/^typedef struct fifo {$/;"	s
-fifo	modules/include/fifo.h	/^} fifo;$/;"	t	typeref:struct:fifo
-head	modules/include/fifo.h	/^	container *head;$/;"	m	struct:fifo	typeref:typename:container *
-host	config/config.json	/^	"host":	"localhost",$/;"	s
-main	src/client.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-main	src/server.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-max_clients	config/config.json	/^	"max_clients":	256$/;"	n
-mess_treat	src/client.c	/^int mess_treat(char *message, int fd) {$/;"	f	typeref:typename:int
-n	modules/include/array.h	/^	size_t n;$/;"	m	struct:array	typeref:typename:size_t
-n	modules/include/fifo.h	/^	size_t n;$/;"	m	struct:fifo	typeref:typename:size_t
-n_cols	src/database.h	/^	int n_cols;$/;"	m	struct:database	typeref:typename:int
-n_rows	src/database.h	/^	int n_rows;$/;"	m	struct:database	typeref:typename:int
-name	config/config.json	/^	"name":	"server",$/;"	s
-name	src/database.h	/^	char name[DB_NAME_LEN];$/;"	m	struct:col	typeref:typename:char[]
-name	src/database.h	/^	char name[DB_NAME_LEN];$/;"	m	struct:database	typeref:typename:char[]
-next	modules/include/fifo.h	/^	struct container *next;$/;"	m	struct:container	typeref:struct:container *
-port	config/config.json	/^	"port":	8080,$/;"	n
-serv_mess_handler	src/server.c	/^int serv_mess_handler(char *message, int fd) {$/;"	f	typeref:typename:int
-sf	modules/include/array.h	/^	sf *sf;$/;"	m	struct:array	typeref:typename:sf *
-sf	modules/include/fifo.h	/^	sf *sf;$/;"	m	struct:fifo	typeref:typename:sf *
-sig_catch	src/server.c	/^static void sig_catch(int signal) {$/;"	f	typeref:typename:void	file:
-sigint	src/server.c	/^static int sigint = 0;$/;"	v	typeref:typename:int	file:
-size	modules/include/array.h	/^	size_t size;$/;"	m	struct:array	typeref:typename:size_t
-size	modules/include/str.h	/^	size_t size;$/;"	m	struct:str	typeref:typename:size_t
-sock_accept	src/socket.h	/^int sock_accept(struct pollfd *fds, int max_clients) {$/;"	f	typeref:typename:int
-sock_close_poll	src/socket.h	/^void sock_close_poll(struct pollfd *fds, int max_clients) {$/;"	f	typeref:typename:void
-sock_connect_to_serv	src/socket.h	/^int sock_connect_to_serv(char *adress, int port, int fd, struct sockaddr_in *sa) {$/;"	f	typeref:typename:int
-sock_init_poll	src/socket.h	/^int sock_init_poll(struct pollfd *fds, int port, int max_clients) {$/;"	f	typeref:typename:int
-sock_net_new	src/socket.h	/^int sock_net_new(int *fd) {$/;"	f	typeref:typename:int
-sock_select	src/socket.h	/^int sock_select(int fd, fd_set *read_set) {$/;"	f	typeref:typename:int
-sorted	modules/include/array.h	/^	int sorted;$/;"	m	struct:array	typeref:typename:int
-start	modules/include/str.h	/^	char *start;$/;"	m	struct:str	typeref:typename:char *
-str	modules/include/str.h	/^typedef struct str {$/;"	s
-str	modules/include/str.h	/^} str;$/;"	t	typeref:struct:str
-tail	modules/include/fifo.h	/^	container *tail;$/;"	m	struct:fifo	typeref:typename:container *
-type	src/database.h	/^	const type *type;$/;"	m	struct:col	typeref:typename:const type *
-type	src/database.h	/^typedef enum type {$/;"	g
-type	src/database.h	/^} type;$/;"	t	typeref:enum:type
-type_to_s	src/database.h	/^const char *type_to_s[] = {$/;"	v	typeref:typename:const char * []
-usage	src/usage.h	/^static void usage(int argc, char **argv, char *mess, char *params) {$/;"	f	typeref:typename:void
+cmp	core/include/array.h	/^	int (*cmp)(void *, void *);$/;"	m	struct:array	typeref:typename:int (*)(void *,void *)
+col	core/src/database.h	/^typedef struct col {$/;"	s
+col	core/src/database.h	/^} col;$/;"	t	typeref:struct:col
+cols	core/src/database.h	/^	col *cols[DB_N_COLUMNS];$/;"	m	struct:database	typeref:typename:col * []
+container	core/include/fifo.h	/^typedef struct container {$/;"	s
+container	core/include/fifo.h	/^} container;$/;"	t	typeref:struct:container
+data	core/include/array.h	/^	void **data;$/;"	m	struct:array	typeref:typename:void **
+data	core/include/fifo.h	/^	FIFO_DATA_TYPE *data;$/;"	m	struct:container	typeref:typename:FIFO_DATA_TYPE *
+data	core/include/str.h	/^	char *data;$/;"	m	struct:str	typeref:typename:char *
+data	core/src/database.h	/^	void *data[DB_MAX_ROWS][DB_N_COLUMNS];$/;"	m	struct:database	typeref:typename:void * [][]
+database	core/src/database.h	/^typedef struct database {$/;"	s
+database	core/src/database.h	/^} database;$/;"	t	typeref:struct:database
+db_add_col	core/src/database.h	/^void db_add_col(database *db, col *c) {$/;"	f	typeref:typename:void
+db_delete	core/src/database.h	/^void db_delete(database *db, int n) {$/;"	f	typeref:typename:void
+db_delete_all	core/src/database.h	/^void db_delete_all(database *db) {$/;"	f	typeref:typename:void
+db_free	core/src/database.h	/^void db_free(database *db) {$/;"	f	typeref:typename:void
+db_free_cols	core/src/database.h	/^void db_free_cols(database *db) {$/;"	f	typeref:typename:void
+db_free_data	core/src/database.h	/^void db_free_data(database *db, int n) {$/;"	f	typeref:typename:void
+db_insert	core/src/database.h	/^void db_insert(database *db, void *row[DB_N_COLUMNS]) {$/;"	f	typeref:typename:void
+db_new	core/src/database.h	/^database *db_new(char *name, char *desc) {$/;"	f	typeref:typename:database *
+db_new_col	core/src/database.h	/^col *db_new_col(char *name, char *desc, const type *t) {$/;"	f	typeref:typename:col *
+db_print	core/src/database.h	/^void db_print(database *db) {$/;"	f	typeref:typename:void
+db_print_desc	core/src/database.h	/^void db_print_desc(database *db) {$/;"	f	typeref:typename:void
+db_print_row	core/src/database.h	/^void db_print_row(database *db, int n) {$/;"	f	typeref:typename:void
+db_print_rows	core/src/database.h	/^void db_print_rows(database *db) {$/;"	f	typeref:typename:void
+db_print_stats	core/src/database.h	/^void db_print_stats(database *db) {$/;"	f	typeref:typename:void
+db_print_types	core/src/database.h	/^void db_print_types(database *db) {$/;"	f	typeref:typename:void
+db_t_char	core/src/database.h	/^const type db_t_char = CHAR;$/;"	v	typeref:typename:const type
+db_t_double	core/src/database.h	/^const type db_t_double = DOUBLE;$/;"	v	typeref:typename:const type
+db_t_float	core/src/database.h	/^const type db_t_float = FLOAT;$/;"	v	typeref:typename:const type
+db_t_int	core/src/database.h	/^const type db_t_int = INT;$/;"	v	typeref:typename:const type
+db_t_string	core/src/database.h	/^const type db_t_string = STRING;$/;"	v	typeref:typename:const type
+desc	core/src/database.h	/^	char desc[DB_COMMENT_LEN];$/;"	m	struct:col	typeref:typename:char[]
+desc	core/src/database.h	/^	char desc[DB_COMMENT_LEN];$/;"	m	struct:database	typeref:typename:char[]
+dirs	Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+fifo	core/include/fifo.h	/^typedef struct fifo {$/;"	s
+fifo	core/include/fifo.h	/^} fifo;$/;"	t	typeref:struct:fifo
+free	core/include/array.h	/^	void (*free)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
+head	core/include/fifo.h	/^	container *head;$/;"	m	struct:fifo	typeref:typename:container *
+host	core/ressources/config.json	/^	"host":	"localhost",$/;"	s
+main	core/src/client.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	core/src/server.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+max_clients	core/ressources/config.json	/^	"max_clients":	256,$/;"	n
+mess_treat	core/src/client.c	/^void mess_treat(int fd, char *message, int len) {$/;"	f	typeref:typename:void
+n	core/include/array.h	/^	size_t n;$/;"	m	struct:array	typeref:typename:size_t
+n	core/include/fifo.h	/^	size_t n;$/;"	m	struct:fifo	typeref:typename:size_t
+n	core/include/str.h	/^	size_t n;$/;"	m	struct:str	typeref:typename:size_t
+n_cols	core/src/database.h	/^	int n_cols;$/;"	m	struct:database	typeref:typename:int
+n_rows	core/src/database.h	/^	int n_rows;$/;"	m	struct:database	typeref:typename:int
+name	core/ressources/config.json	/^	"name":	"server",$/;"	s
+name	core/src/database.h	/^	char name[DB_NAME_LEN];$/;"	m	struct:col	typeref:typename:char[]
+name	core/src/database.h	/^	char name[DB_NAME_LEN];$/;"	m	struct:database	typeref:typename:char[]
+next	core/include/cJSON.h	/^    struct cJSON *next;$/;"	m	struct:cJSON	typeref:struct:cJSON *
+next	core/include/fifo.h	/^	struct container *next;$/;"	m	struct:container	typeref:struct:container *
+port	core/ressources/config.json	/^	"port":	8080,$/;"	n
+prev	core/include/cJSON.h	/^    struct cJSON *prev;$/;"	m	struct:cJSON	typeref:struct:cJSON *
+print	core/include/array.h	/^	void (*print)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
+serv_mess_handler	core/src/server.c	/^void serv_mess_handler(int fd, char *message, int len) {$/;"	f	typeref:typename:void
+sig_catch	core/src/server.c	/^static void sig_catch(int signal) {$/;"	f	typeref:typename:void	file:
+sigint	core/src/server.c	/^static int sigint = 0;$/;"	v	typeref:typename:int	file:
+size	core/include/array.h	/^	size_t size;$/;"	m	struct:array	typeref:typename:size_t
+sock_accept	core/src/socket.h	/^int sock_accept(struct pollfd *fds, int max_clients) {$/;"	f	typeref:typename:int
+sock_close_poll	core/src/socket.h	/^void sock_close_poll(struct pollfd *fds, int max_clients) {$/;"	f	typeref:typename:void
+sock_connect_to_serv	core/src/socket.h	/^int sock_connect_to_serv(char *adress, int port, int fd, struct sockaddr_in *sa) {$/;"	f	typeref:typename:int
+sock_init_poll	core/src/socket.h	/^int sock_init_poll(struct pollfd *fds, int port, int max_clients) {$/;"	f	typeref:typename:int
+sock_net_new	core/src/socket.h	/^int sock_net_new(int *fd) {$/;"	f	typeref:typename:int
+sock_select	core/src/socket.h	/^int sock_select(int fd, fd_set *read_set) {$/;"	f	typeref:typename:int
+str	core/include/str.h	/^typedef struct str {$/;"	s
+str	core/include/str.h	/^} str;$/;"	t	typeref:struct:str
+string	core/include/cJSON.h	/^    char *string;$/;"	m	struct:cJSON	typeref:typename:char *
+tail	core/include/fifo.h	/^	container *tail;$/;"	m	struct:fifo	typeref:typename:container *
+tos	core/include/array.h	/^	void (*tos)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
+type	core/include/cJSON.h	/^    int type;$/;"	m	struct:cJSON	typeref:typename:int
+type	core/src/database.h	/^	const type *type;$/;"	m	struct:col	typeref:typename:const type *
+type	core/src/database.h	/^typedef enum type {$/;"	g
+type	core/src/database.h	/^} type;$/;"	t	typeref:enum:type
+type_to_s	core/src/database.h	/^const char *type_to_s[] = {$/;"	v	typeref:typename:const char * []
+usage	core/src/usage.h	/^static void usage(int argc, char **argv, char *mess, char *params) {$/;"	f	typeref:typename:void
+valuedouble	core/include/cJSON.h	/^    double valuedouble;$/;"	m	struct:cJSON	typeref:typename:double
+valueint	core/include/cJSON.h	/^    int valueint;$/;"	m	struct:cJSON	typeref:typename:int
+valuestring	core/include/cJSON.h	/^    char *valuestring;$/;"	m	struct:cJSON	typeref:typename:char *

@@ -8,11 +8,12 @@ DIR_TSRC=./test/src
 DIR_TBIN=./test/bin
 
 
-all: dirs builds tests
+all: dirs builds tests execs
 
 dirs: $(DIR_BUILD) $(DIR_TBIN)
 builds: $(DIR_BUILD)/str.o $(DIR_BUILD)/libstr.a
 tests: $(DIR_TBIN)/test1
+execs: test1
 
 $(DIR_BUILD):
 	test -d $(DIR_BUILD) || mkdir -p $(DIR_BUILD)
@@ -32,6 +33,9 @@ $(DIR_TBIN)/test1: $(DIR_BUILD)/str.o $(DIR_TSRC)/test1.c
 	$(CC) $(CFLAGS) $(LDFLAGS) \
 		-I $(DIR_SRC) \
 		$(DIR_TSRC)/test1.c -lstr -o $@
+
+test1:
+	$(DIR_TBIN)/test1
 
 
 clean:

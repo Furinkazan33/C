@@ -109,7 +109,7 @@ str *str_shift(str *string, size_t idx, int n) {
 	return string;
 }
 
-str *str_set(str *s, char *value) {
+str *str_replace(str *s, char *value) {
 	str *tmp;
 
 	/* realloc */
@@ -127,7 +127,7 @@ str *str_set(str *s, char *value) {
 	return s;
 }
 
-str *str_set_byref(str *s, char *value, size_t alloc_len) {
+str *str_set(str *s, char *value, size_t alloc_len) {
 	s->alloc_len = alloc_len;
 	s->data = value;
 	s->n = strlen(value);

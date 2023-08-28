@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
 	db = db_file_load(db, load, 64);
 	if(!db) { exit(1); }
 
-	db_file_write(db, save);
+	db_write(db, save);
 
 	db_free(db);
 

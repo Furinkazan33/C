@@ -1,10 +1,11 @@
-#include "../include/sock_client.h"
+#include "../include/socket.h"
+#include "../include/fr.h"
 
 #define CLI_BUF_SIZE 1024
 #define CLI_MESS_SIZE 10
 
-int mess_treat(char *message, int fd) {
-	printf("client received [%s] from server on [%d]\n", message, fd);
+void mess_treat(int fd, char *message, int len) {
+	printf("client received [%s] of len [%d] from server on [%d]\n", message, len, fd);
 
 	if(strcmp(message, "MESSOK") == 0 || strcmp(message, "CONOK") == 0) {
 
@@ -12,7 +13,6 @@ int mess_treat(char *message, int fd) {
 	else {
 		write(fd, "MESSOK", 7);
 	}
-	return 1;
 }
 
 int main(int argc, char **argv) {
@@ -45,28 +45,28 @@ int main(int argc, char **argv) {
 	eot = 1;
 	while(eot) {
 		if(FD_ISSET(fd, &read_set)) {
-			ret = frd_read(fd, mess_treat, &message[0], CLI_MESS_SIZE, &m_pos, &buffer[0], CLI_BUF_SIZE, &b_pos);
+			ret = fr_part_read(fd, mess_treat, &message[0], CLI_MESS_SIZE, &m_pos, &buffer[0], CLI_BUF_SIZE, &b_pos);
 
 			switch(ret) {
-				case FRD_NOT_FINISHED:
+				case FR_RC_NOT_FINISHED:
 				fprintf(stdout, "cli_main : message not finished. Waiting for the rest.\n");
 				break;
 
-				case FRD_EOB:
+				case FR_RC_EOB:
 				fprintf(stdout, "cli_main : end of buffer. All messages treated.\n");
 				break;
 
-				case FRD_READ_ERROR:
+				case FR_RC_READ_ERROR:
 				perror("cli_main : read error. END.");
 				eot = 0;
 				break;
 
-				case FRD_EOF:
+				case FR_RC_EOF:
 				fprintf(stdout, "cli_main : server disconnected. END.\n");
 				eot = 0;
 				break;
 
-				case FRD_TOO_LONG:
+				case FR_RC_TOO_LONG:
 				fprintf(stderr, "cli_main : message too long from server. Reporting this. END.\n");
 				/* TODO: impossible ? */
 				eot = 0;

@@ -29,6 +29,6 @@ str *str_cat(str *str, char *c, size_t len);
 str *str_shift(str *str, size_t idx1, int n);
 
 /* set value, alloc_len and n */
-str *str_set(str *s, char *value);
-str *str_set_byref(str *s, char *value, size_t alloc_len);
+str *str_replace(str *s, char *value);
+str *str_set(str *s, char *value, size_t alloc_len);
 

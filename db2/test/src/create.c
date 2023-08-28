@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 	i = malloc(sizeof(int));
 	*i = 0;
 	line = db_line_new(db);
-	db_line_set_byref(db, line, 0, INTEGER, i, 0);
+	db_line_set(db, line, 0, INTEGER, i, 0);
 	db_insert(db, line);
 
 	/* new string column */
@@ -37,12 +37,12 @@ int main(int argc, char **argv) {
 		sprintf(tmp, "test %ld", l);
 		strcpy(s, tmp);
 		line = db_line_new(db);
-		db_line_set_byref(db, line, 0, INTEGER, i, 0);
-		db_line_set_byref(db, line, 1, STRING, s, 0);
+		db_line_set(db, line, 0, INTEGER, i, 0);
+		db_line_set(db, line, 1, STRING, s, 0);
 		db_insert(db, line);
 	}
 
-	db_file_write(db, file);
+	db_write(db, file);
 
 	db_free(db);
 

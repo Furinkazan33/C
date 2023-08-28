@@ -226,13 +226,13 @@ db_col *db_col_assert_type(db_base *db, size_t c, int type) {
 }
 
 /* free possible existing value and set new value by reference */
-db_base* db_line_set_byref(db_base *db, array *line, size_t c, int type, void *value, size_t alloc) {
+db_base* db_line_set(db_base *db, array *line, size_t c, int type, void *value, size_t alloc) {
 	assert(db);
 	assert(line);
 	assert(c < db->cols->n);
 
 	if(!db_col_assert_type(db, c, type)) {
-		fprintf(stderr, "db_line_set_byref : error on type\n");
+		fprintf(stderr, "db_line_set : error on type\n");
 		return NULL;
 	}
 
@@ -242,10 +242,10 @@ db_base* db_line_set_byref(db_base *db, array *line, size_t c, int type, void *v
 		if(value) {
 			str *s = str_new(DB_STR_LEN_ALLOC);
 			if(!s) {
-				fprintf(stderr, "db_line_set_byref : error creating str\n");
+				fprintf(stderr, "db_line_set : error creating str\n");
 				return NULL;
 			}
-			str_set_byref(s, value, alloc);
+			str_set(s, value, alloc);
 			array_set(line, c, s);
 		}
 		else {
@@ -322,7 +322,7 @@ void db_delete(db_base *db, size_t l, bool keep_null) {
 	}
 }
 
-void db_file_write(db_base *db, FILE *file) {
+void db_write(db_base *db, FILE *file) {
 	assert(db);
 	assert(db->cols);
 	assert(db->lines);
@@ -506,19 +506,19 @@ array *db_line_new_from_s(db_base *db, char *string, size_t alloc_s, size_t *n_c
 					case INTEGER:
 						i = malloc(sizeof(int));
 						sscanf(column, "%d", i);
-						db_line_set_byref(db, line, *n_cols, INTEGER, i, 0);
+						db_line_set(db, line, *n_cols, INTEGER, i, 0);
 						free(column);
 						break;
 
 					case DOUBLE:
 						d = malloc(sizeof(double));
 						sscanf(column, "%lf", d);
-						db_line_set_byref(db, line, *n_cols, DOUBLE, d, 0);
+						db_line_set(db, line, *n_cols, DOUBLE, d, 0);
 						free(column);
 						break;
 
 					case STRING:
-						db_line_set_byref(db, line, *n_cols, STRING, column, alloc_s);
+						db_line_set(db, line, *n_cols, STRING, column, alloc_s);
 						break;
 				}
 			}

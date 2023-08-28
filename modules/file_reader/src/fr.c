@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include "fr.h"
 
-#define FB_RC_FINISHED 3
+#define FR_RC_FINISHED 3
 
 char *fr_readnextline(FILE *f, size_t alloc, size_t realloc_coef, int *n_read) {
 	char *res;
@@ -105,23 +105,23 @@ int _fr_part_next(char *line, size_t lsize, size_t *llen, \
 	if(*bpos >= n_read || *bpos >= bsize) {
 		if(*llen == 0) {
 			*bpos = 0;
-			return FB_RC_EOB;
+			return FR_RC_EOB;
 		}
-		return FB_RC_NOT_FINISHED;
+		return FR_RC_NOT_FINISHED;
 	}
 
 	if(*llen >= lsize) {
 		(*llen)--;
 		(*bpos)--;
 		line[*llen] = '\0';
-		return FB_RC_TOO_LONG;
+		return FR_RC_TOO_LONG;
 	}
 
 	/* eom has been read from b */
 	line[*llen] = '\0';
 	(*bpos)++;
 
-	return FB_RC_FINISHED;
+	return FR_RC_FINISHED;
 }
 
 int fr_part_read(int fd, void (*handler)(int, char *, int), \
@@ -137,7 +137,7 @@ int fr_part_read(int fd, void (*handler)(int, char *, int), \
 	if(n_read > 0) {
 		ret = _fr_part_next(line, lsize, llen, buffer, bsize, bpos, n_read);
 
-		while(ret == FB_RC_FINISHED) {
+		while(ret == FR_RC_FINISHED) {
 			handler(fd, line, *llen);
 			*llen = 0;
 
@@ -147,11 +147,11 @@ int fr_part_read(int fd, void (*handler)(int, char *, int), \
 		return ret;
 	}
 	else if(n_read == 0) {
-		return FB_RC_EOF;
+		return FR_RC_EOF;
 	}
 	else {
 		perror(strerror(n_read));
-		return FB_RC_READ_ERROR;
+		return FR_RC_READ_ERROR;
 	}
 }
 
