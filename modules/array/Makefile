@@ -7,11 +7,7 @@ SOURCES=./src/array.c ./src/array.h
 CTAGS_DEP=$(SOURCES)
 
 
-all: setup compile deploy tests
-
-setup: dirs
-compile: $(DIR_BUILD)/array.o $(DIR_BUILD)/libarray.a 
-tests: test
+all: test
 
 
 #
@@ -32,24 +28,11 @@ $(DIR_BUILD)/libarray.a: $(DIR_BUILD)/array.o
 	ranlib $(DIR_BUILD)/libarray.a
 
 #
-# deploying
-#
-deploy: $(DIR_BUILD)/libarray.a $(DIR_BUILD)/array.o
-	cp $(DIR_BUILD)/libarray.a ~/repos/C/fb/core/lib/
-	cp $(DIR_BUILD)/libarray.a ~/repos/C/shell/core/lib/
-	cp $(DIR_BUILD)/libarray.a ~/repos/C/sheet/core/lib/
-	cp $(DIR_BUILD)/libarray.a ~/repos/C/db/core/lib/
-	cp $(DIR_BUILD)/array.o ~/repos/C/server/modules/obj/
-	cp $(DIR_BUILD)/array.o ~/repos/C/fb/core/obj/
-	cp $(DIR_BUILD)/array.o ~/repos/C/sheet/core/obj/
-	cp $(DIR_BUILD)/array.o ~/repos/C/db/core/obj/
-
-
-#
 # Tests
 #
 test: $(DIR_BUILD)/libarray.a
 	make -C test
+
 
 
 clean:

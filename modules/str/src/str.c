@@ -4,100 +4,134 @@
 #include "str.h"
 
 
-void str_free(str *s) {
-	assert(s && s->start);
 
-	free(s->start);
-	free(s);
-}
-
-void str_print(str *s) {
-	printf("%s\n", s->start);
-}
-int str_cmp(str *s1, str *s2) {
-	return s1->start - s2->start;
-}
-void str_debug(str *s) {
-	if(!s) {
-		printf("NULL");
-	}
-	else {
-		printf("s:%c e:%c len:%ld alloc:%ld [%s]\n", \
-			*(s->start), *(s->end - 1), s->end - s->start, s->size + 1, s->start);
-	}
-}
-
-
-str *str_alloc(size_t init_size) {
-	str *res = malloc(sizeof(*res));
-	if(!res) {
-		perror("str_alloc : alloc failed");
-		return NULL;
-	}
-	if(init_size) {
-		res->start = malloc(sizeof(char) * (init_size + 1));
-		if(!res->start) {
-			perror("str_alloc : content alloc failed");
-			free(res);
-			return NULL;
-		}
-	}
-	res->size = init_size;
-	res->end = res->start;
-
-	return res;
-}
-
-str *str_new(char *s, size_t len, size_t init_size) {
-	assert(len <= init_size);
+str *str_new(size_t alloc_len) {
+	assert(alloc_len > 0);
 	str *res;
 
- 	res = str_alloc(init_size);
+	res = malloc(sizeof(char) * (alloc_len + 1));
 	if(!res) {
-		perror("");
+		perror("str_new : call to malloc returned NULL");
 		return NULL;
 	}
 
-	strcpy(res->start, s);
-	res->end = res->start + len;
+	res->alloc_len = alloc_len;
+	res->n = 0;
 
 	return res;
 }
 
-/* if realloc failed, s is unchanged */
-str *str_realloc(str *s, size_t min_size) {
-	char *tmp = NULL;
-	int len = s->end - s->start; /* to set the end cursor after realloc */
+void str_free(str *string) {
+	free(string->data);
+	free(string);
+}
 
-	while(min_size > s->size || (size_t)(s->end - s->start) == s->size) {
-		tmp = realloc(s->start, s->size * 2);
+
+/* If realloc failed, str is unchanged. */
+str *str_realloc(str *string, double coef) {
+	char *tmp = NULL;
+
+	tmp = realloc(string->data, string->alloc_len * coef + 1);
+	if(!tmp) {
+		perror("str_realloc : call to realloc returned NULL");
+		return NULL;
+	}
+	string->alloc_len *= coef;
+	string->data = tmp;
+
+	return string;
+}
+
+str *str_copy(str *string) {
+	assert(string);
+
+	str *res = str_new(string->alloc_len);
+	if(!res) {
+		fprintf(stderr, "str_copy : call to str_new(%ld) returned NULL\n", string->alloc_len);
+		return NULL;
+	}
+
+	res->alloc_len = string->alloc_len;
+	res->n = string->n;
+	strcpy(res->data, string->data);
+
+	return res;
+}
+
+
+/* realloc if needed */
+str *str_cat(str *string, char *c, size_t len) {
+	str *tmp;
+
+	while(string->n + len > string->alloc_len) {
+		tmp = str_realloc(string, 2);
 		if(!tmp) {
-			perror("str_realloc : failed");
+			fprintf(stderr, "str_cat : call to str_realloc returned NULL\n");
 			return NULL;
 		}
-		s->size *= 2;
-		s->start = tmp;
-		s->end = s->start + len;
+		string = tmp;
 	}
+	strcat(string->data, c);
+
+	string->n += len;
+
+	return string;
+}
+
+/* shift from idx to idx + n. Realloc if needed. */
+str *str_shift(str *string, size_t idx, int n) {
+	assert(string);
+	assert(idx < string->n);
+	assert((int)(idx + n) >= 0);
+
+	str *tmp;
+
+	/* string to move */
+	char *s_shift = malloc(sizeof(char) * (string->n - idx + 1));
+	strcpy(s_shift, string->data+idx);
+
+	/* realloc */
+	while(idx + strlen(s_shift) + n > string->alloc_len) {
+		tmp = str_realloc(string, 2);
+		if(!tmp) {
+			fprintf(stderr, "str_shift : call to str_realloc returned NULL\n");
+			return NULL;
+		}
+		string = tmp;
+	}
+
+	strcpy(string->data + idx + n, s_shift);
+
+	free(s_shift);
+
+	string->n += n;
+
+	return string;
+}
+
+str *str_set(str *s, char *value) {
+	str *tmp;
+
+	/* realloc */
+	if(strlen(value) > s->alloc_len) {
+		tmp = str_realloc(s, 2);
+		if(!tmp) {
+			fprintf(stderr, "str_set : call to str_realloc returned NULL\n");
+			return NULL;
+		}
+		s = tmp;
+	}
+	strcpy(s->data, value);
+	s->n = strlen(value);
 
 	return s;
 }
 
-void str_set_end(str *s, int diff) {
-	s->end += diff;
+str *str_set_byref(str *s, char *value, size_t alloc_len) {
+	s->alloc_len = alloc_len;
+	s->data = value;
+	s->n = strlen(value);
+
+	return s;
 }
-
-str *str_copy(str *s) {
-	str *res = str_alloc(s->size);
-	if(!res) {
-		perror("");
-		return NULL;
-	}
-	strcpy(res->start, s->start);
-	res->size = s->size;
-	res->end = res->start + (s->end - s->start);
-
-	return res;
-}
-
 

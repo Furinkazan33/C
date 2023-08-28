@@ -26,9 +26,9 @@ TRES=$(TEST)/ressources
 #
 # Dependencies
 #
-DEP_O=$(COBJ)/array.o
-DEP_H=$(CINC)/array.h
-DEP_A=$(CLIB)/libarray.a
+DEP_O=$(COBJ)/array.o $(COBJ)/str.o
+DEP_H=$(CINC)/array.h $(CINC)/str.h
+DEP_A=$(CLIB)/libarray.a $(CLIB)/libstr.a
 
 #
 # Rules
@@ -36,8 +36,8 @@ DEP_A=$(CLIB)/libarray.a
 all: dirs builds tests execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
 builds: $(CBUILD)/db.o $(CBUILD)/libdb.a
-tests: $(TBIN)/test1
-execs: test/1
+tests:  $(TBIN)/create $(TBIN)/load_save
+execs: test/create test/load_save result
 
 
 
@@ -60,9 +60,9 @@ $(TLOG):
 ##############################
 
 
-$(CBUILD)/db.o: $(CSRC)/db.c $(CSRC)/db.h ./Makefile
+$(CBUILD)/db.o: $(CSRC)/db.c $(CSRC)/db.h ./Makefile $(DEP_O) $(DEP_H)
 	$(CC) $(CFLAGS) $(LDFLAGS) \
-		-c $(CSRC)/db.c -o $@
+		-c -lstr -larray $(CSRC)/db.c -o $@
 
 $(CBUILD)/libdb.a: $(CBUILD)/db.o
 	ar ruv $(CBUILD)/libdb.a $(CBUILD)/db.o $(DEP_O)
@@ -73,22 +73,30 @@ $(CBUILD)/libdb.a: $(CBUILD)/db.o
 # Test builds and executions
 ##############################
 
-# compiling test1 with .o
-$(TBIN)/test1: $(CBUILD)/db.o $(TSRC)/test1.c $(DEP_O)
+# compiling create test with .o
+$(TBIN)/create: $(CBUILD)/db.o $(TSRC)/create.c $(DEP_O)
 	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(CBUILD)/db.o $(DEP_O) \
-		$(TSRC)/test1.c -o $@
+		$(DEP_O) \
+		$(CBUILD)/db.o \
+		$(TSRC)/create.c -o $@
 
-# compiling test2 with .a
-$(TBIN)/test2: $(CBUILD)/libdb.a $(TSRC)/test1.c
+# execution of create test, result is ok if file 'create' is present
+$(TEST)/create: $(TBIN)/create
+	$(TBIN)/create $(TRES)/create.db > $(TLOG)/create
+
+# compiling load_save test with .o
+$(TBIN)/load_save: $(CBUILD)/db.o $(TSRC)/load_save.c $(DEP_O)
 	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(TSRC)/test1.c -ldb -o $@
+		$(DEP_O) \
+		$(CBUILD)/db.o \
+		$(TSRC)/load_save.c -o $@
 
-# execution of test 1, result is ok if file '1' is present
-$(TEST)/1: $(TBIN)/test1
-	$(TBIN)/test1 \
-		> $(TLOG)/test1 \
-		&& > $(TEST)/1 || (rm -f $(TEST)/1; exit 1;)
+# execution of load_save test, result is ok if file 'load_save' is present
+$(TEST)/load_save: $(TBIN)/load_save
+	$(TBIN)/load_save $(TRES)/create.db $(TRES)/load_save.db > $(TLOG)/load_save
+
+result:
+	@diff $(TLOG)/create $(TLOG)/load_save && echo "ALL TESTS OK"
 
 
 ##############################
@@ -98,7 +106,6 @@ $(TEST)/1: $(TBIN)/test1
 clean: 
 	rm -f $(CBUILD)/*
 	rm -f $(TBIN)/*
-	rm -f $(TEST)/1
 	rm -f $(TLOG)/*
 	rm -f *.stackdump
 

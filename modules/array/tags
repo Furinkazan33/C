@@ -40,7 +40,7 @@ _array_realloc	src/array.c	/^static array *_array_realloc(array *a) {$/;"	f	type
 _next_non_null	src/array.c	/^size_t _next_non_null(array *a, size_t idx) {$/;"	f	typeref:typename:size_t
 adress	test/src/person.h	/^	char adress[PERSON_ADRESS_LEN];$/;"	m	struct:person	typeref:typename:char[]
 age	test/src/person.h	/^	int age;$/;"	m	struct:person	typeref:typename:int
-all	Makefile	/^all: setup compile deploy tests$/;"	t
+all	Makefile	/^all: test$/;"	t
 all	test/Makefile	/^all: dirs execs tests$/;"	t
 array	src/array.h	/^typedef struct array {$/;"	s
 array	src/array.h	/^} array;$/;"	t	typeref:struct:array
@@ -51,6 +51,7 @@ array_concat	src/array.c	/^array *array_concat(array *res, array *add) {$/;"	f	t
 array_copy	src/array.c	/^array *array_copy(array *a) {$/;"	f	typeref:typename:array *
 array_find	src/array.c	/^void *array_find(array *a, void *search) {$/;"	f	typeref:typename:void *
 array_free	src/array.c	/^void array_free(array *a, int with_data) {$/;"	f	typeref:typename:void
+array_get	src/array.c	/^void *array_get(array *a, size_t i) {$/;"	f	typeref:typename:void *
 array_map	src/array.c	/^void array_map(array *a, void (*map)(void *)) {$/;"	f	typeref:typename:void
 array_new	src/array.c	/^array *array_new(size_t init_size) {$/;"	f	typeref:typename:array *
 array_print	src/array.c	/^void array_print(array *a) {$/;"	f	typeref:typename:void
@@ -59,6 +60,7 @@ array_remove	src/array.c	/^void array_remove(array *a, void *p, int keep_null) {
 array_remove_idx	src/array.c	/^void array_remove_idx(array *a, size_t idx, int keep_null) {$/;"	f	typeref:typename:void
 array_remove_nulls	src/array.c	/^array *array_remove_nulls(array *a) {$/;"	f	typeref:typename:array *
 array_resize	src/array.c	/^array *array_resize(array *a, size_t newsize) {$/;"	f	typeref:typename:array *
+array_set	src/array.c	/^void array_set(array *a, size_t i, void *value) {$/;"	f	typeref:typename:void
 array_set_cmp	src/array.c	/^void array_set_cmp(array *a, int (*cmp_data)(void *, void *)) {$/;"	f	typeref:typename:void
 array_set_free	src/array.c	/^void array_set_free(array *a, void (*free_data)(void *)) {$/;"	f	typeref:typename:void
 array_set_print	src/array.c	/^void array_set_print(array *a, void (*print_data)(void *)) {$/;"	f	typeref:typename:void
@@ -69,9 +71,7 @@ array_swap_idx	src/array.c	/^void array_swap_idx(array *a, size_t idx1, size_t i
 clean	Makefile	/^clean:$/;"	t
 clean	test/Makefile	/^clean:$/;"	t
 cmp	src/array.h	/^	int (*cmp)(void *, void *);$/;"	m	struct:array	typeref:typename:int (*)(void *,void *)
-compile	Makefile	/^compile: $(DIR_BUILD)\/array.o $(DIR_BUILD)\/libarray.a $/;"	t
 data	src/array.h	/^	void **data;$/;"	m	struct:array	typeref:typename:void **
-deploy	Makefile	/^deploy: $(DIR_BUILD)\/libarray.a $(DIR_BUILD)\/array.o$/;"	t
 dirs	Makefile	/^dirs:$/;"	t
 dirs	test/Makefile	/^dirs: $(DIR_LOG) $(DIR_BIN)$/;"	t
 execs	test/Makefile	/^execs: $(DIR_BIN)\/main $(DIR_BIN)\/map_reduce $(DIR_BIN)\/sort$/;"	t
@@ -98,9 +98,7 @@ person_print	test/src/person.c	/^void person_print(person *p) {$/;"	f	typeref:ty
 person_to_json	test/src/person.c	/^void person_to_json(char *dest, person *p) {$/;"	f	typeref:typename:void
 print	src/array.h	/^	void (*print)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
 reduce	test/src/map_reduce.c	/^void reduce(int *res, int *a) {$/;"	f	typeref:typename:void
-setup	Makefile	/^setup: dirs$/;"	t
 size	src/array.h	/^	size_t size;$/;"	m	struct:array	typeref:typename:size_t
 test	Makefile	/^test: $(DIR_BUILD)\/libarray.a$/;"	t
-tests	Makefile	/^tests: test$/;"	t
 tests	test/Makefile	/^tests: $(DIR_LOG)\/main $(DIR_LOG)\/map_reduce $(DIR_LOG)\/sort$/;"	t
 tos	src/array.h	/^	void (*tos)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)

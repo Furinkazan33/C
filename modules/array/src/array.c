@@ -10,14 +10,13 @@ static array *_array_alloc(size_t size) {
 
 	array *res = malloc(sizeof(array));
 	if(!res) {
-		perror("array_alloc : alloc failed");
+		perror("array_alloc : call to malloc for array returned NULL");
 		return NULL;
 	}
 
 	res->data = malloc(sizeof(void *) * size);
 	if(!res->data) {
-		perror("array_alloc : alloc data failed");
-		free(res);
+		perror("array_alloc : call to malloc for data returned NULL");
 		return NULL;
 	}
 
@@ -31,7 +30,7 @@ static array *_array_realloc(array *a) {
 		void **tmp = realloc(a->data, sizeof(void *) * a->size * ARRAY_REALLOC_COEF);
 
 		if(!tmp) {
-			perror("array_alloc : realloc data failed");
+			perror("array_alloc : call to realloc for data returned NULL");
 			return NULL;
 		}
 		a->size *= ARRAY_REALLOC_COEF;
@@ -45,6 +44,7 @@ array *array_new(size_t init_size) {
 	array *res = _array_alloc(init_size);
 
 	if(!res) {
+		fprintf(stderr, "array_new : alloc failed\n");
 		return NULL;
 	}
 	res->size = init_size;
@@ -74,6 +74,7 @@ array *array_add_at(array *a, void *d, size_t idx) {
 	assert(a);
 
 	if(!_array_realloc(a)) {
+		fprintf(stderr, "array_add_at : call to _array_realloc returned NULL\n");
 		return NULL;
 	}
 
@@ -91,6 +92,7 @@ array *array_append(array *a, void *d) {
 	assert(a);
 
 	if(!_array_realloc(a)) {
+		fprintf(stderr, "array_append : call to _array_realloc returned NULL\n");
 		return NULL;
 	}
 
@@ -106,6 +108,7 @@ array *array_concat(array *res, array *add) {
 
 	for(size_t i = 0; i < add->n; i++) {
 		if(!array_append(res, add->data[i])) {
+			fprintf(stderr, "array_add_at : call to array_append returned NULL\n");
 			return NULL;
 		}
 	}
@@ -160,6 +163,28 @@ void array_swap_idx(array *a, size_t idx1, size_t idx2) {
 	a->data[idx2] = tmp;
 }
 
+void *array_get(array *a, size_t i) {
+	assert(a);
+	assert(i < a->n);
+
+	return a->data[i];
+}
+
+void array_set(array *a, size_t i, void *value) {
+	assert(a);
+	assert(i < a->n);
+
+	if(a->data[i]) {
+		if(a->free) {
+			a->free(a->data[i]);
+		}
+		else {
+			free(a->data[i]);
+		}
+	}
+	a->data[i] = value;
+}
+
 void *array_find(array *a, void *search) {
 	assert(a);
 	assert(a->cmp);
@@ -208,7 +233,7 @@ array *array_resize(array *a, size_t newsize) {
 	assert(a);
 	void **tmp = realloc(a->data, sizeof(void *) * newsize);
 	if(!tmp) {
-		perror("");
+		perror("array_resize : call to realloc for data returned NULL");
 		return NULL;
 	}
 	a->data = tmp;
@@ -260,7 +285,7 @@ array *array_copy(array *a) {
 
 	array *res = array_new(a->size);
 	if(!res) {
-		perror("array_copy : call to _array_new returned NULL");
+		fprintf(stderr, "array_copy : call to array_new(%ld) returned NULL\n", a->size);
 		return NULL;
 	}
 	res->cmp = a->cmp;

@@ -14,7 +14,6 @@
 //TODO: improve searching by adding a boolean whether the array is sorted or not :
 // after calling sort => bool is true
 // when adding an element that unsorted the array => false
-//
 // When searching for an element, if cmp returns > 0, then return NULL
 
 #define ARRAY_REALLOC_COEF 1.5
@@ -52,8 +51,12 @@ void array_sort(array *a); // a->cmp is called
 void array_swap(array *a, void *d1, void *d2);
 void array_swap_idx(array *a, size_t idx1, size_t idx2);
 
-/* searching */
+/* retrieving */
+void *array_get(array *a, size_t i);
 void *array_find(array *a, void *search);
+
+/* Modifying elements */
+void array_set(array *a, size_t i, void *value);
 
 /* removing */
 void array_remove_idx(array *l, size_t idx, int keep_null);

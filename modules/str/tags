@@ -1,0 +1,42 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/mathieu/repos/C/modules/str/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+$(DIR_BUILD)	Makefile	/^$(DIR_BUILD):$/;"	t
+$(DIR_BUILD)/libstr.a	Makefile	/^$(DIR_BUILD)\/libstr.a: $(DIR_BUILD)\/str.o$/;"	t
+$(DIR_BUILD)/str.o	Makefile	/^$(DIR_BUILD)\/str.o: $(DIR_SRC)\/str.c $(DIR_SRC)\/str.h$/;"	t
+$(DIR_TBIN)	Makefile	/^$(DIR_TBIN):$/;"	t
+$(DIR_TBIN)/test1	Makefile	/^$(DIR_TBIN)\/test1: $(DIR_BUILD)\/str.o $(DIR_TSRC)\/test1.c$/;"	t
+CC	Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L$/;"	m
+DIR_BUILD	Makefile	/^DIR_BUILD=.\/build$/;"	m
+DIR_SRC	Makefile	/^DIR_SRC=.\/src$/;"	m
+DIR_TBIN	Makefile	/^DIR_TBIN=.\/test\/bin$/;"	m
+DIR_TEST	Makefile	/^DIR_TEST=.\/test$/;"	m
+DIR_TSRC	Makefile	/^DIR_TSRC=.\/test\/src$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=-L .\/build\/$/;"	m
+all	Makefile	/^all: dirs builds tests$/;"	t
+alloc_len	src/str.h	/^	size_t alloc_len; \/\/ alloc size is sizeof(char) * (alloc_len + 1)$/;"	m	struct:str	typeref:typename:size_t
+builds	Makefile	/^builds: $(DIR_BUILD)\/str.o $(DIR_BUILD)\/libstr.a$/;"	t
+clean	Makefile	/^clean:$/;"	t
+data	src/str.h	/^	char *data;$/;"	m	struct:str	typeref:typename:char *
+dirs	Makefile	/^dirs: $(DIR_BUILD) $(DIR_TBIN)$/;"	t
+main	test/src/test1.c	/^int main(void) {$/;"	f	typeref:typename:int
+n	src/str.h	/^	size_t n;$/;"	m	struct:str	typeref:typename:size_t
+str	src/str.h	/^typedef struct str {$/;"	s
+str	src/str.h	/^} str;$/;"	t	typeref:struct:str
+str_cat	src/str.c	/^str *str_cat(str *string, char *c, size_t len) {$/;"	f	typeref:typename:str *
+str_copy	src/str.c	/^str *str_copy(str *string) {$/;"	f	typeref:typename:str *
+str_free	src/str.c	/^void str_free(str *string) {$/;"	f	typeref:typename:void
+str_new	src/str.c	/^str *str_new(size_t alloc_len) {$/;"	f	typeref:typename:str *
+str_realloc	src/str.c	/^str *str_realloc(str *string, double coef) {$/;"	f	typeref:typename:str *
+str_set	src/str.c	/^str *str_set(str *s, char *value) {$/;"	f	typeref:typename:str *
+str_set_byref	src/str.c	/^str *str_set_byref(str *s, char *value, size_t alloc_len) {$/;"	f	typeref:typename:str *
+str_shift	src/str.c	/^str *str_shift(str *string, size_t idx, int n) {$/;"	f	typeref:typename:str *
+tests	Makefile	/^tests: $(DIR_TBIN)\/test1$/;"	t
