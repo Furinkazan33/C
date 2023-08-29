@@ -39,6 +39,11 @@ builds: $(CBUILD)/db.o $(CBUILD)/libdb.a
 tests:  $(TBIN)/create $(TBIN)/load_save
 execs: test/create test/load_save result
 
+debug1: CFLAGS += -DDEBUG1
+debug1: all
+
+debug2: CFLAGS += -DDEBUG2
+debug2: all
 
 
 
@@ -96,7 +101,7 @@ $(TEST)/load_save: $(TBIN)/load_save
 	$(TBIN)/load_save $(TRES)/create.db $(TRES)/load_save.db > $(TLOG)/load_save
 
 result:
-	@diff $(TLOG)/create $(TLOG)/load_save && echo "ALL TESTS OK"
+	@diff $(TRES)/create.db $(TRES)/load_save.db && echo "ALL TESTS OK"
 
 
 ##############################

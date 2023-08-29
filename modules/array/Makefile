@@ -7,14 +7,20 @@ SOURCES=./src/array.c ./src/array.h
 CTAGS_DEP=$(SOURCES)
 
 
-all: test
+all: dirs builds tests
+dirs: $(DIR_BUILD)
+builds: $(DIR_BUILD)/array.o $(DIR_BUILD)/libarray.a
+tests: test
 
+debug: CFLAGS += -DDEBUG
+debug: all
 
 #
 # Setup
 #
-dirs:
+$(DIR_BUILD):
 	test -d $(DIR_BUILD) || mkdir -p $(DIR_BUILD)
+
 
 #
 # Compile
@@ -26,6 +32,7 @@ $(DIR_BUILD)/array.o: $(SOURCES)
 $(DIR_BUILD)/libarray.a: $(DIR_BUILD)/array.o
 	ar ruv $(DIR_BUILD)/libarray.a $(DIR_BUILD)/array.o
 	ranlib $(DIR_BUILD)/libarray.a
+
 
 #
 # Tests

@@ -13,6 +13,7 @@ $(DIR_BIN)	test/Makefile	/^$(DIR_BIN):$/;"	t
 $(DIR_BIN)/main	test/Makefile	/^$(DIR_BIN)\/main: .\/src\/main.c ..\/build\/array.o .\/src\/person.c$/;"	t
 $(DIR_BIN)/map_reduce	test/Makefile	/^$(DIR_BIN)\/map_reduce: .\/src\/map_reduce.c ..\/build\/array.o$/;"	t
 $(DIR_BIN)/sort	test/Makefile	/^$(DIR_BIN)\/sort: .\/src\/sort.c ..\/build\/array.o .\/src\/person.c$/;"	t
+$(DIR_BUILD)	Makefile	/^$(DIR_BUILD):$/;"	t
 $(DIR_BUILD)/array.o	Makefile	/^$(DIR_BUILD)\/array.o: $(SOURCES)$/;"	t
 $(DIR_BUILD)/libarray.a	Makefile	/^$(DIR_BUILD)\/libarray.a: $(DIR_BUILD)\/array.o$/;"	t
 $(DIR_LOG)	test/Makefile	/^$(DIR_LOG):$/;"	t
@@ -35,17 +36,16 @@ LDFLAGS	test/Makefile	/^LDFLAGS=$/;"	m
 PERSON_ADRESS_LEN	test/src/person.h	/^#define PERSON_ADRESS_LEN /;"	d
 PERSON_NAME_LEN	test/src/person.h	/^#define PERSON_NAME_LEN /;"	d
 SOURCES	Makefile	/^SOURCES=.\/src\/array.c .\/src\/array.h $/;"	m
-_array_alloc	src/array.c	/^static array *_array_alloc(size_t size) {$/;"	f	typeref:typename:array *	file:
-_array_realloc	src/array.c	/^static array *_array_realloc(array *a) {$/;"	f	typeref:typename:array *	file:
 _next_non_null	src/array.c	/^size_t _next_non_null(array *a, size_t idx) {$/;"	f	typeref:typename:size_t
 adress	test/src/person.h	/^	char adress[PERSON_ADRESS_LEN];$/;"	m	struct:person	typeref:typename:char[]
 age	test/src/person.h	/^	int age;$/;"	m	struct:person	typeref:typename:int
-all	Makefile	/^all: test$/;"	t
+all	Makefile	/^all: dirs builds tests$/;"	t
 all	test/Makefile	/^all: dirs execs tests$/;"	t
 array	src/array.h	/^typedef struct array {$/;"	s
 array	src/array.h	/^} array;$/;"	t	typeref:struct:array
 array_add_at	src/array.c	/^array *array_add_at(array *a, void *d, size_t idx) {$/;"	f	typeref:typename:array *
 array_add_keep_sorted	src/array.c	/^array *array_add_keep_sorted(array *a, void *d) {$/;"	f	typeref:typename:array *
+array_alloc	src/array.c	/^static array *array_alloc(size_t size) {$/;"	f	typeref:typename:array *	file:
 array_append	src/array.c	/^array *array_append(array *a, void *d) {$/;"	f	typeref:typename:array *
 array_concat	src/array.c	/^array *array_concat(array *res, array *add) {$/;"	f	typeref:typename:array *
 array_copy	src/array.c	/^array *array_copy(array *a) {$/;"	f	typeref:typename:array *
@@ -55,6 +55,7 @@ array_get	src/array.c	/^void *array_get(array *a, size_t i) {$/;"	f	typeref:type
 array_map	src/array.c	/^void array_map(array *a, void (*map)(void *)) {$/;"	f	typeref:typename:void
 array_new	src/array.c	/^array *array_new(size_t init_size) {$/;"	f	typeref:typename:array *
 array_print	src/array.c	/^void array_print(array *a) {$/;"	f	typeref:typename:void
+array_realloc	src/array.c	/^static array *array_realloc(array *a) {$/;"	f	typeref:typename:array *	file:
 array_reduce	src/array.c	/^void array_reduce(array *a, void *res, void (*reduce)(void *, void *)) {$/;"	f	typeref:typename:void
 array_remove	src/array.c	/^void array_remove(array *a, void *p, int keep_null) {$/;"	f	typeref:typename:void
 array_remove_idx	src/array.c	/^void array_remove_idx(array *a, size_t idx, int keep_null) {$/;"	f	typeref:typename:void
@@ -68,11 +69,14 @@ array_set_tos	src/array.c	/^void array_set_tos(array *a, void (*tos_data)(void *
 array_sort	src/array.c	/^void array_sort(array *res) {$/;"	f	typeref:typename:void
 array_swap	src/array.c	/^void array_swap(array *a, void *d1, void *d2) {$/;"	f	typeref:typename:void
 array_swap_idx	src/array.c	/^void array_swap_idx(array *a, size_t idx1, size_t idx2) {$/;"	f	typeref:typename:void
+builds	Makefile	/^builds: $(DIR_BUILD)\/array.o $(DIR_BUILD)\/libarray.a$/;"	t
 clean	Makefile	/^clean:$/;"	t
 clean	test/Makefile	/^clean:$/;"	t
 cmp	src/array.h	/^	int (*cmp)(void *, void *);$/;"	m	struct:array	typeref:typename:int (*)(void *,void *)
 data	src/array.h	/^	void **data;$/;"	m	struct:array	typeref:typename:void **
-dirs	Makefile	/^dirs:$/;"	t
+debug	Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
+debug	Makefile	/^debug: all$/;"	t
+dirs	Makefile	/^dirs: $(DIR_BUILD)$/;"	t
 dirs	test/Makefile	/^dirs: $(DIR_LOG) $(DIR_BIN)$/;"	t
 execs	test/Makefile	/^execs: $(DIR_BIN)\/main $(DIR_BIN)\/map_reduce $(DIR_BIN)\/sort$/;"	t
 free	src/array.h	/^	void (*free)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
@@ -100,5 +104,6 @@ print	src/array.h	/^	void (*print)(void *);$/;"	m	struct:array	typeref:typename:
 reduce	test/src/map_reduce.c	/^void reduce(int *res, int *a) {$/;"	f	typeref:typename:void
 size	src/array.h	/^	size_t size;$/;"	m	struct:array	typeref:typename:size_t
 test	Makefile	/^test: $(DIR_BUILD)\/libarray.a$/;"	t
+tests	Makefile	/^tests: test$/;"	t
 tests	test/Makefile	/^tests: $(DIR_LOG)\/main $(DIR_LOG)\/map_reduce $(DIR_LOG)\/sort$/;"	t
 tos	src/array.h	/^	void (*tos)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)

@@ -4,6 +4,15 @@
 #include <assert.h>
 #include "db.h"
 
+
+//TODO: 
+//- add unique ID for each line
+//- find by ID
+//- remove by ID
+//- replace line
+//- modify line
+
+
 db_base *db_new(size_t a_cols, size_t a_lines) {
 	db_base *res = malloc(sizeof(db_base));
 	if(!res) {
@@ -39,8 +48,6 @@ void db_line_col_free(db_base *db, array *line, size_t c) {
 	assert(db->lines);
 	assert(line);
 	assert(c < db->cols->n);
-
-	//fprintf(stderr, "%ld %ld\n", c, line->n);
 
 	void *col = array_get(line, c);
 
@@ -115,11 +122,20 @@ db_base *db_col_add(db_base *db, bool mandatory, int type, char *name, char *com
 		return NULL;
 	}
 
+#if defined(DEBUG1) || defined(DEBUG2)
+	fprintf(stdout, "db_col_add : appending col [%s] to db\n", name);
+	fflush(stdout);
+#endif
 	if(!array_append(db->cols, col)) {
 		fprintf(stderr, "db_col_add : error adding column\n");
 		return NULL;
 	}
 
+#if defined(DEBUG1) || defined(DEBUG2)
+	fprintf(stdout, "db_col_add : appending NULL to every existing %ld lines\n", 
+			db->lines->n);
+	fflush(stdout);
+#endif
 	for(size_t l = 0; l < db->lines->n; l++) {
 		line = array_get(db->lines, l);
 		if(!array_append(line, NULL)) {
@@ -136,77 +152,21 @@ array *db_line_new(db_base *db) {
 	assert(db->cols);
 	assert(db->cols->n > 0);
 
-	array *res = array_new(db->cols->n);
+	array *res = array_new(db->cols->size);
 	if(!res) {
 		fprintf(stderr, "db_line_new : line creation failed");
 		return NULL;
 	}
-
+#if defined(DEBUG1) || defined(DEBUG2)
+	fprintf(stdout, "db_line_new : appending %ld NULL values to new line\n", 
+			db->cols->n);
+	fflush(stdout);
+#endif
 	for(size_t c = 0; c < db->cols->n; c++) {
 		array_append(res, NULL);
 	}
 
 	return res;
-}
-
-int db_line_get_int(db_base *db, array *line, size_t c) {
-	assert(db_get_type(db, c) == INTEGER);
-
-	return *((int *)array_get(line, c));
-}
-
-double db_line_get_double(db_base *db, array *line, size_t c) {
-	assert(db_get_type(db, c) == DOUBLE);
-
-	return *((double *)array_get(line, c));
-}
-
-char *db_line_get_string(db_base *db, array *line, size_t c) {
-	assert(db_get_type(db, c) == STRING);
-
-	return ((str *)array_get(line, c))->data;
-}
-
-void db_col_print_as_int(db_base *db, array *line, size_t c, FILE *file) {
-	fprintf(file, "%d\t", db_line_get_int(db, line, c));
-}
-
-void db_col_print_as_double(db_base *db, array *line, size_t c, FILE *file) {
-	fprintf(file, "%f\t", db_line_get_double(db, line, c));
-}
-
-void db_col_print_as_string(db_base *db, array *line, size_t c, FILE *file) {
-	fprintf(file, "%s\t", db_line_get_string(db, line, c));
-}
-
-void db_col_print(db_base *db, array *line, size_t c, FILE *file) {
-	int type = db_get_type(db, c);
-
-	switch(type) {
-		case INTEGER:
-			db_col_print_as_int(db, line, c, file);
-			break;
-
-		case DOUBLE:
-			db_col_print_as_double(db, line, c, file);
-			break;
-
-		case STRING:
-			db_col_print_as_string(db, line, c, file);
-			break;
-
-		default:
-			fprintf(stderr, "db_col_print : error getting column type(%d)\n",
-					type);
-			break;
-	}
-}
-
-void db_line_print(db_base *db, array *line, FILE *file) {
-	for(size_t c = 0; c < db->cols->n; c++) {
-		db_col_print(db, line, c, file);
-	}
-	fprintf(file, "\n");
 }
 
 db_col *db_col_assert_type(db_base *db, size_t c, int type) {
@@ -279,6 +239,10 @@ db_base *db_insert(db_base *res, array *line) {
 	assert(res);
 	assert(line);
 
+#if defined(DEBUG1) || defined(DEBUG2)
+	fprintf(stdout, "db_insert : appending line to db\n");
+	fflush(stdout);
+#endif
 	if(!array_append(res->lines, line)) {
 		fprintf(stderr, "db_insert : error adding element\n");
 		return NULL;
@@ -541,9 +505,14 @@ array *db_line_new_from_s(db_base *db, char *string, size_t alloc_s, size_t *n_c
 int db_read_bracket(char *dest, char *p, int *pos) {
 	size_t n_read = 0;
 
+#if defined DEBUG2
+	fprintf(stdout, "db_read_bracket : reading from %s\n", p);
+#endif
+
 	dest[0] = '\0';
 	if(*p != '[') {
 		fprintf(stderr, "read_bracket : error reading bracket. Missing [\n");
+		fprintf(stderr, "read_bracket : %s\n", p);
 		return -1;
 	}
 	p++;
@@ -555,11 +524,16 @@ int db_read_bracket(char *dest, char *p, int *pos) {
 
 	if(*p != ']') {
 		fprintf(stderr, "read_bracket : error reading bracket. Missing ]\n");
+		fprintf(stderr, "read_bracket : %s\n", p);
 		return -1;
 	}
 	p++;
 
 	(*pos) += n_read + 2;
+
+#if defined DEBUG2
+	fprintf(stdout, "db_read_bracket : dest=%s\n", dest);
+#endif
 
 	return n_read;
 }
@@ -575,10 +549,11 @@ db_base *db_col_adds(db_base *db, char *src) {
 	char name[DB_COL_NAME_LEN];
 	char comment[DB_COL_COMMENT_LEN];
 
-	for(int i = 0; p && *p; i++, p++) {
+	for(int i = 0; p && *p; p++) {
 		tmp[i] = *p;
 
 		if(tmp[i] == ';') {
+			tmp[i+1] = '\0';
 			int pos = 0;
 			if(db_read_bracket(&tmp_mandatory[0], &tmp[pos], &pos) < 1) {
 				fprintf(stderr, "db_col_adds : error reading column mandatory : %s\n",
@@ -604,12 +579,18 @@ db_base *db_col_adds(db_base *db, char *src) {
 			mandatory = atoi(tmp_mandatory);
 			type = atoi(tmp_type);
 
+#if defined(DEBUG1) || defined(DEBUG2)
+			fprintf(stdout, "db_col_adds : adding column %s\n", name);
+#endif
 			if(!db_col_add(db, mandatory, type, name, comment)) {
 				fprintf(stderr, "db_col_adds : error adding column\n");
 				return NULL;
 			}
 
 			i = 0;
+		}
+		else {
+			i++;
 		}
 	}
 	return db;

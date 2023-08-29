@@ -58,8 +58,8 @@ db_base *db_line_check_fields(db_base *db, array *line); //TODO
  * No memory allocation
  */
 
-/* set value by reference. In case of strings, set string->alloc_len with len */
-db_base *db_line_set(db_base *db, array *line, size_t c, int t, void *val, size_t len);
+/* set value by reference. In case of strings, set string->alloc_len */
+db_base *db_line_set(db_base *db, array *line, size_t c, int type, void *value, size_t alloc_len);
 
 /* append line containing n columns */
 db_base *db_insert(db_base *res, array *line);

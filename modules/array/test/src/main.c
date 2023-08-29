@@ -3,9 +3,7 @@
 #include "array.h"
 #include "person.h"
 
-#define INIT_SIZE 10
-
-
+#define INIT_SIZE 4
 
 
 int main(int argc, char **argv) {

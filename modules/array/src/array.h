@@ -16,7 +16,7 @@
 // when adding an element that unsorted the array => false
 // When searching for an element, if cmp returns > 0, then return NULL
 
-#define ARRAY_REALLOC_COEF 1.5
+#define ARRAY_REALLOC_COEF 2
 
 typedef struct array {
 	size_t size;

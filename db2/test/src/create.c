@@ -3,6 +3,8 @@
 #include <string.h>
 #include "db.h"
 
+#define INIT_COLS_ALLOC 3
+#define INIT_LINES_ALLOC 3
 
 int main(int argc, char **argv) {
 	if(argc != 2) {
@@ -16,10 +18,9 @@ int main(int argc, char **argv) {
 	int *i;
 	char *s;
 
-	db_base *db = db_new(5, 8);
+	db_base *db = db_new(INIT_COLS_ALLOC, INIT_LINES_ALLOC);
 
-	/* new int column */
-	db_col_add(db, true, INTEGER, "int", "id of line");
+	db_col_add(db, true, INTEGER, "int", "id of person");
 
 	i = malloc(sizeof(int));
 	*i = 0;
@@ -27,8 +28,7 @@ int main(int argc, char **argv) {
 	db_line_set(db, line, 0, INTEGER, i, 0);
 	db_insert(db, line);
 
-	/* new string column */
-	db_col_add(db, false, STRING, "string", "name of line");
+	db_col_add(db, false, STRING, "name", "name of person");
 
 	for(size_t l = 1; l < 8; l++) {
 		i = malloc(sizeof(int));
@@ -41,6 +41,28 @@ int main(int argc, char **argv) {
 		db_line_set(db, line, 1, STRING, s, 0);
 		db_insert(db, line);
 	}
+
+	db_col_add(db, false, INTEGER, "age", "age of person");
+	db_col_add(db, false, STRING, "address", "address of person");
+	db_col_add(db, false, DOUBLE, "salary", "salary of person");
+
+	line = db_line_new(db);
+	i = malloc(sizeof(int));
+	*i = 8;
+	s = malloc(sizeof(char) * 7);
+	strcpy(s, "test 8");
+	db_line_set(db, line, 0, INTEGER, i, 0);
+	db_line_set(db, line, 1, STRING, s, 0);
+	i = malloc(sizeof(int));
+	*i = 25;
+	db_line_set(db, line, 2, INTEGER, i, 0);
+	s = malloc(sizeof(char) * 63);
+	strcpy(s, "22, rue de la chose - 33700 - Merignac");
+	db_line_set(db, line, 3, STRING, s, 63);
+	double *d = malloc(sizeof(double));
+	*d = 601234.13;
+	db_line_set(db, line, 4, DOUBLE, d, 0);
+	db_insert(db, line);
 
 	db_write(db, file);
 

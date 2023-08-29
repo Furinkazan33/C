@@ -5,7 +5,7 @@
 #include "array.h"
 
 
-static array *_array_alloc(size_t size) {
+static array *array_alloc(size_t size) {
 	assert(size > 0);
 
 	array *res = malloc(sizeof(array));
@@ -23,10 +23,13 @@ static array *_array_alloc(size_t size) {
 	return res;
 }
 
-static array *_array_realloc(array *a) {
+static array *array_realloc(array *a) {
 	assert(a);
 
 	if(a->n >= a->size) {
+#ifdef DEBUG
+		fprintf(stdout, "array_realloc : %ld >= %ld\n", a->n, a->size);
+#endif
 		void **tmp = realloc(a->data, sizeof(void *) * a->size * ARRAY_REALLOC_COEF);
 
 		if(!tmp) {
@@ -35,13 +38,16 @@ static array *_array_realloc(array *a) {
 		}
 		a->size *= ARRAY_REALLOC_COEF;
 		a->data = tmp;
+#ifdef DEBUG
+		fprintf(stdout, "array_realloc : newsize = %ld\n", a->size);
+#endif
 	}
 
 	return a;
 }
 
 array *array_new(size_t init_size) {
-	array *res = _array_alloc(init_size);
+	array *res = array_alloc(init_size);
 
 	if(!res) {
 		fprintf(stderr, "array_new : alloc failed\n");
@@ -73,8 +79,8 @@ void array_set_tos(array *a, void (*tos_data)(void *)) {
 array *array_add_at(array *a, void *d, size_t idx) {
 	assert(a);
 
-	if(!_array_realloc(a)) {
-		fprintf(stderr, "array_add_at : call to _array_realloc returned NULL\n");
+	if(!array_realloc(a)) {
+		fprintf(stderr, "array_add_at : call to array_realloc returned NULL\n");
 		return NULL;
 	}
 
@@ -91,8 +97,8 @@ array *array_add_at(array *a, void *d, size_t idx) {
 array *array_append(array *a, void *d) {
 	assert(a);
 
-	if(!_array_realloc(a)) {
-		fprintf(stderr, "array_append : call to _array_realloc returned NULL\n");
+	if(!array_realloc(a)) {
+		fprintf(stderr, "array_append : call to array_realloc returned NULL\n");
 		return NULL;
 	}
 
@@ -231,6 +237,11 @@ size_t _next_non_null(array *a, size_t idx) {
 
 array *array_resize(array *a, size_t newsize) {
 	assert(a);
+
+#ifdef DEBUG
+	fprintf(stdout, "array_resize : %ld to %ld\n", a->size, newsize);
+#endif
+
 	void **tmp = realloc(a->data, sizeof(void *) * newsize);
 	if(!tmp) {
 		perror("array_resize : call to realloc for data returned NULL");
