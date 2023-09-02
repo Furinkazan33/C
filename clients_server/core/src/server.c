@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	while (1) {
+	while(1) {
 		if(sigint || adm_quit) {
 			break;
 		}
@@ -76,18 +76,18 @@ int main(int argc, char **argv) {
 		}
 
 		// Use poll to wait for activity on sockets
-		if (poll(fds, SERV_MAX_CLI + 1, -1) < 0) {
+		if(poll(fds, SERV_MAX_CLI + 1, -1) < 0) {
 			perror("Poll failed");
 			return 0;
 		}
 
 		// if server socket has activity, try to accept new connections
-		if (fds->revents & POLLIN) {
+		if(fds->revents & POLLIN) {
 			sock_accept(&fds[0], SERV_MAX_CLI);
 		}
 
 		/* Read sockets and response to incoming messages */
-		for (int i = 1; i < SERV_MAX_CLI + 1; i++) {
+		for(int i = 1; i < SERV_MAX_CLI + 1; i++) {
 			if(fds[i].fd > 0 && fds[i].revents & POLLIN) {
 
 				ret = fr_part_read(fds[i].fd, serv_mess_handler, messages[i], SERV_MESS_SIZE, &m_pos[i], buffers[i], SERV_BUF_SIZE, &b_pos[i]);

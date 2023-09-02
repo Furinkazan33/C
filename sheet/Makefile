@@ -33,7 +33,7 @@ DEP_A=$(CLIB)/libarray.a $(CLIB)/libfr.a
 #
 # Rules
 #
-all: dirs builds tests #execs
+all: dirs builds tests execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
 builds: $(CBUILD)/book.o $(CBUILD)/libbook.a
 tests: $(TBIN)/test1
@@ -61,17 +61,17 @@ $(TLOG):
 
 $(CLIB)/libfr.a: ../modules/file_reader/build/libfr.a
 	cp ../modules/file_reader/build/libfr.a $(CLIB)
-$(CLIB)/libarray.a: ../modules/array/build/libarray.a
+	$(CLIB)/libarray.a: ../modules/array/build/libarray.a
 	cp ../modules/array/build/libarray.a $(CLIB)
 
 $(COBJ)/fr.o: ../modules/file_reader/build/fr.o
 	cp ../modules/file_reader/build/fr.o $(COBJ)
-$(COBJ)/array.o: ../modules/array/build/array.o 
+	$(COBJ)/array.o: ../modules/array/build/array.o 
 	cp ../modules/array/build/array.o $(COBJ)
 
 $(CINC)/fr.h: ../modules/file_reader/src/fr.h 
 	cp ../modules/file_reader/src/fr.h $(CINC)
-$(CINC)/array.h: ../modules/array/src/array.h 
+	$(CINC)/array.h: ../modules/array/src/array.h 
 	cp ../modules/array/src/array.h $(CINC)
 
 
@@ -98,12 +98,9 @@ $(TBIN)/test1: $(CBUILD)/libbook.a $(TSRC)/test1.c
 		$(TSRC)/test1.c -lbook -o $@
 
 # execution of test1, result is ok if file '1' is present
-#$(TEST)/1: $(TBIN)/test1 $(TRES)/file.txt
-#	$(TBIN)/test1 $(TRES)/file.txt $(TRES)/file.txt.sav1 \
-#		> $(TLOG)/test1 \
-#		&& diff $(TRES)/file.txt $(TRES)/file.txt.sav1 \
-#		&& > $(TEST)/1 \
-#		|| (rm -f $(TEST)/2; exit 1;)
+$(TEST)/1: $(TBIN)/test1
+	$(TBIN)/test1 \
+		> $(TLOG)/test1
 
 
 ##############################

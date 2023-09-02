@@ -158,12 +158,12 @@ object *object_load(object *o, char *path, char *line,
 	int i, i_v, i_t, i_n;
 	int line_n = 0;
 
-	if (file == NULL) {
+	if(file == NULL) {
 		perror("fopen");
 		return NULL;
 	}
 
-	while (fgets(line, LINE_MAX_LEN, file)) {
+	while(fgets(line, LINE_MAX_LEN, file)) {
 		line_n++;
 
 		if(line[0] == T_COMMENT) {

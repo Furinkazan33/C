@@ -23,7 +23,7 @@ int main(void) {
 	Person structures[PERSONS_SIZE];
 	char name[NAME_LEN] = "Mathieu";
 
-	for (int i = 0; i < PERSONS_SIZE; i++) {
+	for(int i = 0; i < PERSONS_SIZE; i++) {
 		structures[i].id = i;
 		sprintf(name + 7, "%d", i);
 		strcpy(structures[i].name, name);

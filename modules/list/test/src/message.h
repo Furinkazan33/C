@@ -10,9 +10,9 @@ typedef struct message {
 } message;
 
 message *message_new(int id, char *content);
-int message_cmp(message *m1, message *m2);
-void message_print(message *m);
-void message_free(message *m);
+int message_cmp(void *m1, void *m2);
+void message_write(void *m, FILE *file);
+void message_free(void *m);
 message *message_copy(message *m);
 
 

@@ -1,8 +1,8 @@
 #include <assert.h>
 #include "person.h"
 
-void person_print(person *p) {
-	printf("%d %d %s %s\n", p->id, p->age, p->name, p->adress);
+void person_write(person *p, FILE *file) {
+	fprintf(file, "%d %d %s %s\n", p->id, p->age, p->name, p->adress);
 }
 
 int person_cmp(person *p1, person *p2) {

@@ -18,40 +18,26 @@ int main(int argc, char **argv) {
 	int *i;
 	char *s;
 
-	db_base *db = db_new(INIT_COLS_ALLOC, INIT_LINES_ALLOC);
+	db_base *db = db_new_with_id(INIT_COLS_ALLOC, INIT_LINES_ALLOC, "test_create", "creation test");
 
-	db_col_add(db, true, INTEGER, "int", "id of person");
-
-	i = malloc(sizeof(int));
-	*i = 0;
-	line = db_line_new(db);
-	db_line_set(db, line, 0, INTEGER, i, 0);
-	db_insert(db, line);
-
-	db_col_add(db, false, STRING, "name", "name of person");
+	db_col_add(db, false, false, STRING, "name", "name of person");
 
 	for(size_t l = 1; l < 8; l++) {
-		i = malloc(sizeof(int));
-		*i = l;
 		s = malloc(sizeof(char) * 7);
 		sprintf(tmp, "test %ld", l);
 		strcpy(s, tmp);
-		line = db_line_new(db);
-		db_line_set(db, line, 0, INTEGER, i, 0);
+		line = db_line_new_with_id(db);
 		db_line_set(db, line, 1, STRING, s, 0);
 		db_insert(db, line);
 	}
 
-	db_col_add(db, false, INTEGER, "age", "age of person");
-	db_col_add(db, false, STRING, "address", "address of person");
-	db_col_add(db, false, DOUBLE, "salary", "salary of person");
+	db_col_add(db, false, false, INTEGER, "age", "age of person");
+	db_col_add(db, false, false, STRING, "address", "address of person");
+	db_col_add(db, false, false, DOUBLE, "salary", "salary of person");
 
-	line = db_line_new(db);
-	i = malloc(sizeof(int));
-	*i = 8;
+	line = db_line_new_with_id(db);
 	s = malloc(sizeof(char) * 7);
 	strcpy(s, "test 8");
-	db_line_set(db, line, 0, INTEGER, i, 0);
 	db_line_set(db, line, 1, STRING, s, 0);
 	i = malloc(sizeof(int));
 	*i = 25;

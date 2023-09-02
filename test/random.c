@@ -46,11 +46,11 @@ int main(void) {
 
 	rnd_set_seed(1);
 
-	for (i = 0; i < SIZE; i++) {
+	for(i = 0; i < SIZE; i++) {
 		result[i] = rnd_int(MIN, MAX);
 	}
 
-	for (i = 0; i < SIZE; i++) {
+	for(i = 0; i < SIZE; i++) {
 		printf("%d ", result[i]);
 	}
 

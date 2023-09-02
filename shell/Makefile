@@ -34,16 +34,32 @@ TRES=$(TEST)/ressources
 #
 # Rules
 #
-all: builds
-builds: $(CBUILD)/shell
+all: dirs builds tests execs
+dirs: $(CBUILD) $(TBIN) $(TLOG)
+builds: $(CBUILD)/shell.o
+tests: $(TBIN)/test1
+execs: $(TEST)/1
+
+
+##############################
+# Directories creation
+##############################
+$(CBUILD):
+	test -d $(CBUILD) || mkdir -p $(CBUILD)
+
+$(TBIN):
+	test -d $(TBIN) || mkdir -p $(TBIN)
+
+$(TLOG):
+	test -d $(TLOG) || mkdir -p $(TLOG)
 
 
 ##############################
 # Main builds
 ##############################
-$(CBUILD)/shell: $(CSRC)/shell.c $(DEP_H) $(DEP_A)
+$(CBUILD)/shell.o: $(CSRC)/shell.c $(CSRC)/shell.h $(DEP_H) $(DEP_A)
 	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(CSRC)/shell.c $(LDLIBS) -o $@
+		-c $(CSRC)/shell.c $(LDLIBS) -o $@
 
 
 ##############################
@@ -53,15 +69,10 @@ $(CBUILD)/shell: $(CSRC)/shell.c $(DEP_H) $(DEP_A)
 # compiling test1 with .o
 $(TBIN)/test1: $(CBUILD)/shell.o $(TSRC)/test1.c $(DEP_H)
 	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(DEP_O) $(CBUILD)/fb.o \
-		$(TSRC)/test1.c $(LDLIBS) -o $@
+		$(TSRC)/test1.c $(CBUILD)/shell.o -o $@
 
-# execution of test 1, result is ok if file '1' is present
 ./test/1: $(TBIN)/test1
-	$(TBIN)/test1 \
-		> $(TLOG)/test1 \
-		&& > ./test/1 \
-		|| (rm -f ./test/1; exit 1;)
+	$(TBIN)/test1 
 
 ##############################
 # Cleaning

@@ -13,7 +13,7 @@ int main(void) {
   g_array_append_val(a, p1);
   g_array_append_val(a, p2);
 
-  person_print(g_array_index (a, person *, 1));
+  person_print(g_array_index(a, person *, 1));
 
   g_array_free(a, TRUE); //default free on each person
 

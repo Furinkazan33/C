@@ -1,30 +1,74 @@
 CC=gcc
 CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
-LDFLAGS=
+LDFLAGS=-I $(CSRC) -I $(TSRC)
+
+DIR_CORE=./core
+CSRC=$(DIR_CORE)/src
+CBUILD=$(DIR_CORE)/build
+
+DIR_TEST=./test
+TSRC=$(DIR_TEST)/src
+TBIN=$(DIR_TEST)/bin
+TLOG=$(DIR_TEST)/log
 
 
-DIR_SRC=./src
-DIR_BUILD=./build
+all: dirs builds tests execs
+dirs: $(CBUILD) $(TBIN) $(TLOG)
+builds: $(CBUILD)/char.o $(CBUILD)/libchar.a
+tests: $(TBIN)/test1 $(TBIN)/test2
+execs: $(TLOG)/test1 $(TLOG)/test2
 
 
-all: dirs builds
+#
+# Folers creations
+#
+$(CBUILD):
+	test -d $(CBUILD) || mkdir -p $(CBUILD)
 
-dirs: $(DIR_BUILD)
-builds: $(DIR_BUILD)/char.o $(DIR_BUILD)/libchar.a
+$(TBIN):
+	test -d $(TBIN) || mkdir -p $(TBIN)
 
-$(DIR_BUILD):
-	test -d $(DIR_BUILD) || mkdir -p $(DIR_BUILD)
+$(TLOG):
+	test -d $(TLOG) || mkdir -p $(TLOG)
+
+#
+# Main builds
+#
+$(CBUILD)/char.o: $(CSRC)/char.c $(CSRC)/char.h ./Makefile
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $(CSRC)/char.c -o $@
+
+$(CBUILD)/libchar.a: $(CBUILD)/char.o
+	ar ruv $(CBUILD)/libchar.a $(CBUILD)/char.o
+	ranlib $(CBUILD)/libchar.a
+
+#
+# Tests compilations
+#
+$(TBIN)/test1: $(TSRC)/test1.c $(CBUILD)/libchar.a
+	$(CC) $(CFLAGS) $(LDFLAGS) $(CBUILD)/char.o $(TSRC)/test1.c -o $@
+
+$(TBIN)/test2: $(TSRC)/test2.c $(CBUILD)/libchar.a
+	$(CC) $(CFLAGS) $(LDFLAGS) $(CBUILD)/char.o $(TSRC)/test2.c -o $@
 
 
-$(DIR_BUILD)/char.o: $(DIR_SRC)/char.c $(DIR_SRC)/char.h
-	$(CC) $(CFLAGS) -c $(DIR_SRC)/char.c -o $@
+#
+# Tests executions
+#
+$(TLOG)/test1: $(TBIN)/test1
+	$(TBIN)/test1 > $(TLOG)/test1 || exit 1
 
-$(DIR_BUILD)/libchar.a: $(DIR_BUILD)/char.o
-	ar ruv $(DIR_BUILD)/libchar.a $(DIR_BUILD)/char.o
-	ranlib $(DIR_BUILD)/libchar.a
+$(TLOG)/test2: $(TBIN)/test2
+	$(TBIN)/test2 > $(TLOG)/test2 || exit 1
 
 
+#
+# Cleaning
+#
 clean: 
-	rm -f $(DIR_BUILD)/*
-	rm -f *.stackdump
+	rm -f $(CBUILD)/*
+	rmdir $(CBUILD)
+	rm -f $(TBIN)/*
+	rmdir $(TBIN)
+	rm -f $(TLOG)/*
+	rmdir $(TLOG)
 

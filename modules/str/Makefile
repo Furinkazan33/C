@@ -1,43 +1,67 @@
 CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
-LDFLAGS=-L ./build/
+CFLAGS=-I $(CSRC) -I $(TSRC)
+LDFLAGS=-L $(CBUILD)
 
-DIR_SRC=./src
-DIR_BUILD=./build
+
+DIR_CORE=./core
+CSRC=$(DIR_CORE)/src
+CBUILD=$(DIR_CORE)/build
+
 DIR_TEST=./test
-DIR_TSRC=./test/src
-DIR_TBIN=./test/bin
+TSRC=$(DIR_TEST)/src
+TBIN=$(DIR_TEST)/bin
+TLOG=$(DIR_TEST)/log
 
 
 all: dirs builds tests execs
+dirs: $(CBUILD) $(TBIN) $(TLOG)
+builds: $(CBUILD)/str.o $(CBUILD)/libstr.a
+tests: $(TBIN)/test1 $(TBIN)/escape_normalize
+execs: test1 escape_normalize
 
-dirs: $(DIR_BUILD) $(DIR_TBIN)
-builds: $(DIR_BUILD)/str.o $(DIR_BUILD)/libstr.a
-tests: $(DIR_TBIN)/test1
-execs: test1
-
-$(DIR_BUILD):
-	test -d $(DIR_BUILD) || mkdir -p $(DIR_BUILD)
-
-$(DIR_TBIN):
-	test -d $(DIR_TBIN) || mkdir -p $(DIR_TBIN)
-
-$(DIR_BUILD)/str.o: $(DIR_SRC)/str.c $(DIR_SRC)/str.h
-	$(CC) $(CFLAGS) -c $(DIR_SRC)/str.c -o $@
-
-$(DIR_BUILD)/libstr.a: $(DIR_BUILD)/str.o
-	ar ruv $(DIR_BUILD)/libstr.a $(DIR_BUILD)/str.o
-	ranlib $(DIR_BUILD)/libstr.a
+debug: CFLAGS += -DDEBUG
+debug: all
 
 
-$(DIR_TBIN)/test1: $(DIR_BUILD)/str.o $(DIR_TSRC)/test1.c
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		-I $(DIR_SRC) \
-		$(DIR_TSRC)/test1.c -lstr -o $@
+$(CBUILD):
+	test -d $(CBUILD) || mkdir -p $(CBUILD)
 
-test1:
-	$(DIR_TBIN)/test1
+$(TBIN):
+	test -d $(TBIN) || mkdir -p $(TBIN)
+
+$(TLOG):
+	test -d $(TLOG) || mkdir -p $(TLOG)
+
+
+$(CBUILD)/str.o: $(CSRC)/str.c $(CSRC)/str.h ./Makefile
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $(CSRC)/str.c -o $@
+
+$(CBUILD)/libstr.a: $(CBUILD)/str.o
+	ar ruv $(CBUILD)/libstr.a $(CBUILD)/str.o
+	ranlib $(CBUILD)/libstr.a
+
+
+$(TBIN)/test1: $(CBUILD)/str.o $(TSRC)/test1.c
+	$(CC) $(CFLAGS) \
+		$(TSRC)/test1.c $(LDFLAGS) -lstr -o $@
+
+test1: $(TBIN)/test1
+	$(TBIN)/test1 > $(TLOG)/test1
+
+$(TBIN)/escape_normalize: $(CBUILD)/str.o $(TSRC)/escape_normalize.c
+	$(CC) $(CFLAGS) \
+		$(TSRC)/escape_normalize.c $(LDFLAGS) -lstr -o $@
+
+escape_normalize: $(TBIN)/escape_normalize
+	$(TBIN)/escape_normalize > $(TLOG)/escape_normalize
 
 
 clean:
-	rm -f $(DIR_BUILD)/*
+	rm -f $(CBUILD)/*
+	rmdir $(CBUILD)
+	rm -f $(TBIN)/*
+	rmdir $(TBIN)
+	rm -f $(TLOG)/*
+	rmdir $(TLOG)
+
 

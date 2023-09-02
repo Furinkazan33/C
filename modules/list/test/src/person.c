@@ -1,16 +1,20 @@
 #include <assert.h>
 #include "person.h"
 
-void person_print(person *p) {
-	printf("%d %d %s %s\n", p->id, p->age, p->name, p->adress);
+void person_write(void *p, FILE *file) {
+	fprintf(file, "%d %d %s %s\n", 
+			((person *)p)->id, 
+			((person *)p)->age, 
+			((person *)p)->name, 
+			((person *)p)->adress);
 }
 
-int person_cmp(person *p1, person *p2) {
-	return p1->id - p2->id;
+int person_cmp(void *p1, void *p2) {
+	return ((person *)p1)->id - ((person *)p2)->id;
 }
 
-void person_free(person *p) {
-	free(p);
+void person_free(void *p) {
+	free((person *)p);
 }
 
 person *person_new(int id, int age, char *name, char *adress);

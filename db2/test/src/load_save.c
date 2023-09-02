@@ -16,10 +16,10 @@ int main(int argc, char **argv) {
 	FILE *load = fopen(argv[1], "r");
 	FILE *save = fopen(argv[2], "w");
 
-	db_base *db = db_new(INIT_COLS_ALLOC, INIT_LINES_ALLOC);
+	db_base *db = db_new(INIT_COLS_ALLOC, INIT_LINES_ALLOC, "db_test_load_save", "db load save test");
 	if(!db) { exit(1); }
 
-	db = db_file_load(db, load, 64);
+	db = db_file_load(db, load);
 	if(!db) { exit(1); }
 
 	db_write(db, save);

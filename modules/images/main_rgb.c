@@ -4,8 +4,8 @@
 #include "rgb.h"
 
 void rgb_alim_1(rgb *pixels, int h, int w) {
-	for (int j = 0; j < h; j++) {
-		for (int i = 0; i < w; i++)	{
+	for(int j = 0; j < h; j++) {
+		for(int i = 0; i < w; i++)	{
 			(pixels + w * j + i)->r = i % 256;
 			(pixels + w * j + i)->g = j % 256;
 			(pixels + w * j + i)->b = (i * j) % 256;
@@ -14,8 +14,8 @@ void rgb_alim_1(rgb *pixels, int h, int w) {
 }
 
 void rgb_alim_2(rgb *pixels, int h, int w) {
-	for (int j = 0; j < h; j++) {
-		for (int i = 0; i < w; i++) {
+	for(int j = 0; j < h; j++) {
+		for(int i = 0; i < w; i++) {
 			(pixels + w * j + i)->r = 255 * ((float)j / h);
 			(pixels + w * j + i)->g = 255 * ((float)i / w);
 			(pixels + w * j + i)->b = 255 * ((float)j / h);

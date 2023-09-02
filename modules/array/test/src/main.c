@@ -16,8 +16,9 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 	array_set_cmp (l, (int (*)(void *, void *))person_cmp);
+	array_sort(l);
 	array_set_free(l, (void (*)(void *))person_free);
-	array_set_print(l, (void (*)(void *))person_print);
+	array_set_write(l, (void (*)(void *, FILE *))person_write);
 
 
 	person *p[10];
@@ -35,9 +36,9 @@ int main(int argc, char **argv) {
 
 	printf("Adding 10 :\n");
 	for(int i = 0; i < 10; i++) {
-		array_add_keep_sorted(l, p[i]);
+		array_append(l, p[i]);
 	}
-	array_map(l, (void (*)(void *)) person_print);
+	array_write(l, stdout);
 	puts("-----------------");
 
 	printf("Removing 1->4(keep null), 7, 8->9 (keep null) :\n");
@@ -49,7 +50,7 @@ int main(int argc, char **argv) {
 	array_remove_idx(l, 7, 1);
 	person_free(l->data[8]);
 	array_remove_idx(l, 8, 1);
-	array_print(l);
+	array_write(l, stdout);
 	puts("-----------------");
 
   	printf("Searching 5 :\n");
@@ -61,16 +62,16 @@ int main(int argc, char **argv) {
 
 	printf("Removing nulls :\n");
 	array_remove_nulls(l);
-	array_print(l);
+	array_write(l, stdout);
 	puts("-----------------");
 
 	printf("Adding p[1], p[2], p[3], p[4], p[8] :\n");
-	array_add_keep_sorted(l, p[1]);
-	array_add_keep_sorted(l, p[2]);
-	array_add_keep_sorted(l, p[3]);
-	array_add_keep_sorted(l, p[4]);
-	array_add_keep_sorted(l, p[8]);
-	array_print(l);
+	array_append(l, p[1]);
+	array_append(l, p[2]);
+	array_append(l, p[3]);
+	array_append(l, p[4]);
+	array_append(l, p[8]);
+	array_write(l, stdout);
 	puts("-----------------");
 
 	//array_free(l, 1);

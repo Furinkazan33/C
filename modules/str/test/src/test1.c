@@ -12,20 +12,23 @@ int main(void) {
 	str_cat(s, to_cat, strlen(to_cat));
 	str_cat(s, to_cat, strlen(to_cat));
 	str_cat(s, to_cat, strlen(to_cat));
-	printf("[%ld][%ld]\n%s\n", s->n, s->alloc_len, s->data);
+	str_write(s, stdout);
 
 	str_shift(s, 21, 37);
-	printf("[%ld][%ld]\n%s\n", s->n, s->alloc_len, s->data);
+	str_write(s, stdout);
 
 	str_replace(s, "123");
-	printf("[%ld][%ld]\n%s\n", s->n, s->alloc_len, s->data);
+	str_write(s, stdout);
 
 	char *string = malloc(sizeof(char) * 30);
 	strcpy(string, "le petit chat");
 	str_set(s, string, 30);
-	printf("[%ld][%ld]\n%s\n", s->n, s->alloc_len, s->data);
+	str_write(s, stdout);
 
 	str_free(s);
+
+
+	fprintf(stdout, "test1 : test OK\n");
 
 	return 0;
 }

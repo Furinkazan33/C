@@ -14,14 +14,14 @@ message *message_new(int id, char *content) {
 	return res;
 }
 
-int message_cmp(message *m1, message *m2) {
-	return m1->id - m2->id;
+int message_cmp(void *m1, void *m2) {
+	return ((message *)m1)->id - ((message *)m2)->id;
 }
-void message_print(message *m) {
-	printf("%s %d\n", m->content, m->id);
+void message_write(void *m, FILE *file) {
+	fprintf(file, "%s %d\n", ((message *)m)->content, ((message *)m)->id);
 }
-void message_free(message *m) {
-	free(m);
+void message_free(void *m) {
+	free((message *)m);
 }
 message *message_copy(message *m) {
 	return message_new(m->id, m->content);

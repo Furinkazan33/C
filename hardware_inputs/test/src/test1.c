@@ -17,13 +17,13 @@ int main(int argc, char **argv)
 	static bool pressed[KB_MAX_KEYS];
 
 	int fd = hwi_open("/dev/input/by-path/");
-	if (fd == -1) {
+	if(fd == -1) {
 		return EXIT_FAILURE;
 	}
 
 	//hwi_debug();
 
-	while (1) {
+	while(1) {
 		if(!hwi_read(fd, ev, &pressed[0])) {
 			return EXIT_FAILURE;
 		}

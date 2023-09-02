@@ -1,26 +1,32 @@
 #include <stdlib.h>
 
+
+/*
+ * string representation with it's allocated size.
+ * Reallocs are done when needed.
+ */
+
 typedef struct str {
-	size_t size;
-	char *start;
-	char *end;
+	size_t alloc_len; // sizeof(char) * (alloc_len + 1)
+	char *data;
 } str;
 
-void str_free(str *s);
-void str_print(str *s);
-int str_cmp(str *s1, str *s2);
-void str_debug(str *s);
+int str_cmp(void *s1, void *s2);
+void str_write(void *s, FILE *file);
+void str_free(void *s);
 
-str *str_alloc(size_t init_size);
-str *str_new(char *s, size_t len, size_t init_size);
+str *str_new(size_t alloc_size);
+str *str_realloc(str *str, double coef);
 
-/* realloc if current size if smaller than required min_size.
- * if realloc failed, s is unchanged.
- * */
-str *str_realloc(str *s, size_t min_size);
+str *str_copy(str *str);
+str *str_cat(str *str, char *c, size_t len);
+str *str_replace(str *s, char *value); //strcpy value
+str *str_set(str *s, char *value, size_t alloc_len); // set by ref
 
-void str_set_end(str *s, int diff);
+str *str_shift(str *str, size_t idx1, int n); // from idx to idx + n
+str *str_remove_char(str *s, size_t idx);
+str *str_insert_char(str *s, size_t idx, char c);
 
-str *str_copy(str *s);
-
+str *str_normalize(str *s, char escape_char);
+str *str_escape(str *s, const char *list, char escape_char);
 

@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 	int nfds;
 	int flags = FTW_PHYS;
 
-	if (argc != 2) {
+	if(argc != 2) {
 		usage(argv[0]);
 	}
 
@@ -45,21 +45,21 @@ int process(const char *file, __attribute__((unused))const struct stat *sb, int 
 
 	printf("%*s", s->level * 4, "");	/* indent over */
 
-	switch (flag) {
+	switch(flag) {
 		case FTW_F:
-			printf("%s (file)\n", name);
+			printf("%s file\n", name);
 			break;
 		case FTW_D:
-			printf("%s (directory)\n", name);
+			printf("%s directory\n", name);
 			break;
 		case FTW_DNR:
-			printf("%s (unreadable directory)\n", name);
+			printf("%s unreadable directory\n", name);
 			break;
 		case FTW_SL:
-			printf("%s (symbolic link)\n", name);
+			printf("%s symbolic link\n", name);
 			break;
 		case FTW_NS:
-			printf("%s (stat failed): %s\n", name, strerror(errno));
+			printf("%s stat failed: %s\n", name, strerror(errno));
 			break;
 		case FTW_DP:
 		case FTW_SLN:

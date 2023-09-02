@@ -9,101 +9,100 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
-$(DIR_BIN)	test/Makefile	/^$(DIR_BIN):$/;"	t
-$(DIR_BIN)/main	test/Makefile	/^$(DIR_BIN)\/main: .\/src\/main.c ..\/build\/array.o .\/src\/person.c$/;"	t
-$(DIR_BIN)/map_reduce	test/Makefile	/^$(DIR_BIN)\/map_reduce: .\/src\/map_reduce.c ..\/build\/array.o$/;"	t
-$(DIR_BIN)/sort	test/Makefile	/^$(DIR_BIN)\/sort: .\/src\/sort.c ..\/build\/array.o .\/src\/person.c$/;"	t
-$(DIR_BUILD)	Makefile	/^$(DIR_BUILD):$/;"	t
-$(DIR_BUILD)/array.o	Makefile	/^$(DIR_BUILD)\/array.o: $(SOURCES)$/;"	t
-$(DIR_BUILD)/libarray.a	Makefile	/^$(DIR_BUILD)\/libarray.a: $(DIR_BUILD)\/array.o$/;"	t
-$(DIR_LOG)	test/Makefile	/^$(DIR_LOG):$/;"	t
-$(DIR_LOG)/main	test/Makefile	/^$(DIR_LOG)\/main: $(DIR_BIN)\/main$/;"	t
-$(DIR_LOG)/map_reduce	test/Makefile	/^$(DIR_LOG)\/map_reduce: $(DIR_BIN)\/map_reduce$/;"	t
-$(DIR_LOG)/sort	test/Makefile	/^$(DIR_LOG)\/sort: $(DIR_BIN)\/sort$/;"	t
-ARRAY_REALLOC_COEF	src/array.h	/^#define ARRAY_REALLOC_COEF /;"	d
+$(CBUILD)	Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)/array.o	Makefile	/^$(CBUILD)\/array.o: $(CSRC)\/array.c $(CSRC)\/array.h .\/Makefile$/;"	t
+$(CBUILD)/libarray.a	Makefile	/^$(CBUILD)\/libarray.a: $(CBUILD)\/array.o$/;"	t
+$(TBIN)	Makefile	/^$(TBIN):$/;"	t
+$(TBIN)/find_all	Makefile	/^$(TBIN)\/find_all: $(TSRC)\/find_all.c $(CBUILD)\/array.o $(TSRC)\/person.c$/;"	t
+$(TBIN)/main	Makefile	/^$(TBIN)\/main: $(TSRC)\/main.c $(CBUILD)\/array.o $(TSRC)\/person.c$/;"	t
+$(TBIN)/map_reduce	Makefile	/^$(TBIN)\/map_reduce: $(TSRC)\/map_reduce.c $(CBUILD)\/array.o$/;"	t
+$(TBIN)/sort	Makefile	/^$(TBIN)\/sort: $(TSRC)\/sort.c $(CBUILD)\/array.o $(TSRC)\/person.c$/;"	t
+$(TLOG)	Makefile	/^$(TLOG):$/;"	t
+$(TLOG)/find_all	Makefile	/^$(TLOG)\/find_all: $(TBIN)\/find_all$/;"	t
+$(TLOG)/main	Makefile	/^$(TLOG)\/main: $(TBIN)\/main$/;"	t
+$(TLOG)/map_reduce	Makefile	/^$(TLOG)\/map_reduce: $(TBIN)\/map_reduce$/;"	t
+$(TLOG)/sort	Makefile	/^$(TLOG)\/sort: $(TBIN)\/sort$/;"	t
+ARRAY_REALLOC_COEF	core/src/array.h	/^#define ARRAY_REALLOC_COEF /;"	d
+CBUILD	Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
 CC	Makefile	/^CC=gcc$/;"	m
-CC	test/Makefile	/^CC=gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L$/;"	m
-CFLAGS	test/Makefile	/^CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L$/;"	m
-CTAGS_DEP	Makefile	/^CTAGS_DEP=$(SOURCES)$/;"	m
-DIR_BIN	test/Makefile	/^DIR_BIN=.\/bin$/;"	m
-DIR_BUILD	Makefile	/^DIR_BUILD=.\/build$/;"	m
-DIR_LOG	test/Makefile	/^DIR_LOG=.\/log$/;"	m
+CSRC	Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+DIR_CORE	Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_TEST	Makefile	/^DIR_TEST=.\/test$/;"	m
+INIT_SIZE	test/src/find_all.c	/^#define INIT_SIZE /;"	d	file:
 INIT_SIZE	test/src/main.c	/^#define INIT_SIZE /;"	d	file:
 INIT_SIZE	test/src/sort.c	/^#define INIT_SIZE /;"	d	file:
-LDFLAGS	Makefile	/^LDFLAGS=$/;"	m
-LDFLAGS	test/Makefile	/^LDFLAGS=$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
 PERSON_ADRESS_LEN	test/src/person.h	/^#define PERSON_ADRESS_LEN /;"	d
 PERSON_NAME_LEN	test/src/person.h	/^#define PERSON_NAME_LEN /;"	d
-SOURCES	Makefile	/^SOURCES=.\/src\/array.c .\/src\/array.h $/;"	m
-_next_non_null	src/array.c	/^size_t _next_non_null(array *a, size_t idx) {$/;"	f	typeref:typename:size_t
+TBIN	Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TLOG	Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TSRC	Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+_next_non_null	core/src/array.c	/^size_t _next_non_null(array *a, size_t idx) {$/;"	f	typeref:typename:size_t
 adress	test/src/person.h	/^	char adress[PERSON_ADRESS_LEN];$/;"	m	struct:person	typeref:typename:char[]
 age	test/src/person.h	/^	int age;$/;"	m	struct:person	typeref:typename:int
-all	Makefile	/^all: dirs builds tests$/;"	t
-all	test/Makefile	/^all: dirs execs tests$/;"	t
-array	src/array.h	/^typedef struct array {$/;"	s
-array	src/array.h	/^} array;$/;"	t	typeref:struct:array
-array_add_at	src/array.c	/^array *array_add_at(array *a, void *d, size_t idx) {$/;"	f	typeref:typename:array *
-array_add_keep_sorted	src/array.c	/^array *array_add_keep_sorted(array *a, void *d) {$/;"	f	typeref:typename:array *
-array_alloc	src/array.c	/^static array *array_alloc(size_t size) {$/;"	f	typeref:typename:array *	file:
-array_append	src/array.c	/^array *array_append(array *a, void *d) {$/;"	f	typeref:typename:array *
-array_concat	src/array.c	/^array *array_concat(array *res, array *add) {$/;"	f	typeref:typename:array *
-array_copy	src/array.c	/^array *array_copy(array *a) {$/;"	f	typeref:typename:array *
-array_find	src/array.c	/^void *array_find(array *a, void *search) {$/;"	f	typeref:typename:void *
-array_free	src/array.c	/^void array_free(array *a, int with_data) {$/;"	f	typeref:typename:void
-array_get	src/array.c	/^void *array_get(array *a, size_t i) {$/;"	f	typeref:typename:void *
-array_map	src/array.c	/^void array_map(array *a, void (*map)(void *)) {$/;"	f	typeref:typename:void
-array_new	src/array.c	/^array *array_new(size_t init_size) {$/;"	f	typeref:typename:array *
-array_print	src/array.c	/^void array_print(array *a) {$/;"	f	typeref:typename:void
-array_realloc	src/array.c	/^static array *array_realloc(array *a) {$/;"	f	typeref:typename:array *	file:
-array_reduce	src/array.c	/^void array_reduce(array *a, void *res, void (*reduce)(void *, void *)) {$/;"	f	typeref:typename:void
-array_remove	src/array.c	/^void array_remove(array *a, void *p, int keep_null) {$/;"	f	typeref:typename:void
-array_remove_idx	src/array.c	/^void array_remove_idx(array *a, size_t idx, int keep_null) {$/;"	f	typeref:typename:void
-array_remove_nulls	src/array.c	/^array *array_remove_nulls(array *a) {$/;"	f	typeref:typename:array *
-array_resize	src/array.c	/^array *array_resize(array *a, size_t newsize) {$/;"	f	typeref:typename:array *
-array_set	src/array.c	/^void array_set(array *a, size_t i, void *value) {$/;"	f	typeref:typename:void
-array_set_cmp	src/array.c	/^void array_set_cmp(array *a, int (*cmp_data)(void *, void *)) {$/;"	f	typeref:typename:void
-array_set_free	src/array.c	/^void array_set_free(array *a, void (*free_data)(void *)) {$/;"	f	typeref:typename:void
-array_set_print	src/array.c	/^void array_set_print(array *a, void (*print_data)(void *)) {$/;"	f	typeref:typename:void
-array_set_tos	src/array.c	/^void array_set_tos(array *a, void (*tos_data)(void *)) {$/;"	f	typeref:typename:void
-array_sort	src/array.c	/^void array_sort(array *res) {$/;"	f	typeref:typename:void
-array_swap	src/array.c	/^void array_swap(array *a, void *d1, void *d2) {$/;"	f	typeref:typename:void
-array_swap_idx	src/array.c	/^void array_swap_idx(array *a, size_t idx1, size_t idx2) {$/;"	f	typeref:typename:void
-builds	Makefile	/^builds: $(DIR_BUILD)\/array.o $(DIR_BUILD)\/libarray.a$/;"	t
+all	Makefile	/^all: dirs builds tests execs$/;"	t
+array	core/src/array.h	/^typedef struct array {$/;"	s
+array	core/src/array.h	/^} array;$/;"	t	typeref:struct:array
+array_add_at	core/src/array.c	/^array *array_add_at(array *a, void *d, size_t idx) {$/;"	f	typeref:typename:array *
+array_alloc	core/src/array.c	/^static array *array_alloc(size_t size) {$/;"	f	typeref:typename:array *	file:
+array_append	core/src/array.c	/^array *array_append(array *a, void *d) {$/;"	f	typeref:typename:array *
+array_concat	core/src/array.c	/^array *array_concat(array *res, array *add) {$/;"	f	typeref:typename:array *
+array_copy	core/src/array.c	/^array *array_copy(array *a) {$/;"	f	typeref:typename:array *
+array_find	core/src/array.c	/^void *array_find(array *a, void *search) {$/;"	f	typeref:typename:void *
+array_find_all	core/src/array.c	/^void *array_find_all(array *a, void *search, size_t init_alloc) {$/;"	f	typeref:typename:void *
+array_free	core/src/array.c	/^void array_free(array *a, int with_data) {$/;"	f	typeref:typename:void
+array_get	core/src/array.c	/^void *array_get(array *a, size_t i) {$/;"	f	typeref:typename:void *
+array_map	core/src/array.c	/^array *array_map(array *a, void (*map)(void *)) {$/;"	f	typeref:typename:array *
+array_new	core/src/array.c	/^array *array_new(size_t init_size) {$/;"	f	typeref:typename:array *
+array_realloc	core/src/array.c	/^static array *array_realloc(array *a) {$/;"	f	typeref:typename:array *	file:
+array_reduce	core/src/array.c	/^void array_reduce(array *a, void *res, void (*reduce)(void *, void *)) {$/;"	f	typeref:typename:void
+array_remove	core/src/array.c	/^void array_remove(array *a, void *p, int keep_null) {$/;"	f	typeref:typename:void
+array_remove_idx	core/src/array.c	/^void array_remove_idx(array *a, size_t idx, int keep_null) {$/;"	f	typeref:typename:void
+array_remove_nulls	core/src/array.c	/^array *array_remove_nulls(array *a) {$/;"	f	typeref:typename:array *
+array_resize	core/src/array.c	/^array *array_resize(array *a, size_t newsize) {$/;"	f	typeref:typename:array *
+array_set	core/src/array.c	/^void array_set(array *a, size_t i, void *value) {$/;"	f	typeref:typename:void
+array_set_cmp	core/src/array.c	/^void array_set_cmp(array *a, int (*cmp_data)(void *, void *)) {$/;"	f	typeref:typename:void
+array_set_free	core/src/array.c	/^void array_set_free(array *a, void (*free_data)(void *)) {$/;"	f	typeref:typename:void
+array_set_tos	core/src/array.c	/^void array_set_tos(array *a, void (*tos_data)(void *)) {$/;"	f	typeref:typename:void
+array_set_write	core/src/array.c	/^void array_set_write(array *a, void (*write_data)(void *, FILE *)) {$/;"	f	typeref:typename:void
+array_sort	core/src/array.c	/^void array_sort(array *res) {$/;"	f	typeref:typename:void
+array_swap	core/src/array.c	/^void array_swap(array *a, void *d1, void *d2) {$/;"	f	typeref:typename:void
+array_swap_idx	core/src/array.c	/^void array_swap_idx(array *a, size_t idx1, size_t idx2) {$/;"	f	typeref:typename:void
+array_write	core/src/array.c	/^void array_write(array *a, FILE *file) {$/;"	f	typeref:typename:void
+builds	Makefile	/^builds: $(CBUILD)\/array.o $(CBUILD)\/libarray.a$/;"	t
 clean	Makefile	/^clean:$/;"	t
-clean	test/Makefile	/^clean:$/;"	t
-cmp	src/array.h	/^	int (*cmp)(void *, void *);$/;"	m	struct:array	typeref:typename:int (*)(void *,void *)
-data	src/array.h	/^	void **data;$/;"	m	struct:array	typeref:typename:void **
+cmp	core/src/array.h	/^	int (*cmp)(void *, void *);		\/\/ compare two elements$/;"	m	struct:array	typeref:typename:int (*)(void *,void *)
+data	core/src/array.h	/^	void **data;$/;"	m	struct:array	typeref:typename:void **
 debug	Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
 debug	Makefile	/^debug: all$/;"	t
-dirs	Makefile	/^dirs: $(DIR_BUILD)$/;"	t
-dirs	test/Makefile	/^dirs: $(DIR_LOG) $(DIR_BIN)$/;"	t
-execs	test/Makefile	/^execs: $(DIR_BIN)\/main $(DIR_BIN)\/map_reduce $(DIR_BIN)\/sort$/;"	t
-free	src/array.h	/^	void (*free)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
+dirs	Makefile	/^dirs: $(CBUILD) $(TLOG) $(TBIN)$/;"	t
+execs	Makefile	/^execs: $(TLOG)\/main $(TLOG)\/map_reduce $(TLOG)\/sort $(TLOG)\/find_all$/;"	t
+free	core/src/array.h	/^	void (*free)(void *);			\/\/ free element$/;"	m	struct:array	typeref:typename:void (*)(void *)
 id	test/src/person.h	/^	int id;$/;"	m	struct:person	typeref:typename:int
 int_cmp	test/src/map_reduce.c	/^int int_cmp(int *a, int *b) {$/;"	f	typeref:typename:int
 int_copy	test/src/map_reduce.c	/^int *int_copy(int *a) {$/;"	f	typeref:typename:int *
 int_free	test/src/map_reduce.c	/^void int_free(int *a) {$/;"	f	typeref:typename:void
-int_print	test/src/map_reduce.c	/^void int_print(int *a) {$/;"	f	typeref:typename:void
+int_write	test/src/map_reduce.c	/^void int_write(int *a, FILE *file) {$/;"	f	typeref:typename:void
+main	test/src/find_all.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
 main	test/src/main.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
 main	test/src/map_reduce.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
 main	test/src/sort.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
 map	test/src/map_reduce.c	/^void map(int *a) {$/;"	f	typeref:typename:void
-n	src/array.h	/^	size_t n;$/;"	m	struct:array	typeref:typename:size_t
+n	core/src/array.h	/^	size_t n;						\/\/ number of elements$/;"	m	struct:array	typeref:typename:size_t
 name	test/src/person.h	/^	char name[PERSON_NAME_LEN];$/;"	m	struct:person	typeref:typename:char[]
 p_cast	test/src/person.h	/^#define p_cast(/;"	d
 person	test/src/person.h	/^typedef struct person {$/;"	s
 person	test/src/person.h	/^} person;$/;"	t	typeref:struct:person
 person_cmp	test/src/person.c	/^int person_cmp(person *p1, person *p2) {$/;"	f	typeref:typename:int
+person_cmp_name	test/src/find_all.c	/^int person_cmp_name(void *p1, void *p2) {$/;"	f	typeref:typename:int
 person_copy	test/src/person.c	/^person *person_copy(person *p) {$/;"	f	typeref:typename:person *
 person_free	test/src/person.c	/^void person_free(person *p) {$/;"	f	typeref:typename:void
 person_new	test/src/person.c	/^person *person_new(int id, int age, char *name, char *adress) {$/;"	f	typeref:typename:person *
-person_print	test/src/person.c	/^void person_print(person *p) {$/;"	f	typeref:typename:void
 person_to_json	test/src/person.c	/^void person_to_json(char *dest, person *p) {$/;"	f	typeref:typename:void
-print	src/array.h	/^	void (*print)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
+person_write	test/src/person.c	/^void person_write(person *p, FILE *file) {$/;"	f	typeref:typename:void
 reduce	test/src/map_reduce.c	/^void reduce(int *res, int *a) {$/;"	f	typeref:typename:void
-size	src/array.h	/^	size_t size;$/;"	m	struct:array	typeref:typename:size_t
-test	Makefile	/^test: $(DIR_BUILD)\/libarray.a$/;"	t
-tests	Makefile	/^tests: test$/;"	t
-tests	test/Makefile	/^tests: $(DIR_LOG)\/main $(DIR_LOG)\/map_reduce $(DIR_LOG)\/sort$/;"	t
-tos	src/array.h	/^	void (*tos)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
+size	core/src/array.h	/^	size_t size;					\/\/ allocated size$/;"	m	struct:array	typeref:typename:size_t
+tests	Makefile	/^tests: $(TBIN)\/main $(TBIN)\/map_reduce $(TBIN)\/sort $(TBIN)\/find_all$/;"	t
+tos	core/src/array.h	/^	void (*tos)(void *);			\/\/ to string function$/;"	m	struct:array	typeref:typename:void (*)(void *)
+write	core/src/array.h	/^	void (*write)(void *, FILE *);	\/\/ print element	$/;"	m	struct:array	typeref:typename:void (*)(void *,FILE *)

@@ -29,4 +29,4 @@ fb *fb_load(fb *buf);
 fb *fb_save(fb *buf, char *newpath);
 
 void fb_free(fb *buf);
-void fb_print(fb *buf);
+void fb_write(fb *buf, FILE *file);

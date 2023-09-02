@@ -14,9 +14,9 @@ typedef struct person {
 	char adress[PERSON_ADRESS_LEN];
 } person;
 
-void person_print(person *p);
-int person_cmp(person *p1, person *p2);
-void person_free(person *p);
+void person_write(void *p, FILE *file);
+int person_cmp(void *p1, void *p2);
+void person_free(void *p);
 person *person_copy(person *p);
 
 person *person_new(int id, int age, char *name, char *adress);

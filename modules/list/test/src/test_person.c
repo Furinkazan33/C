@@ -1,19 +1,18 @@
 #include <stdio.h>
 #include <assert.h>
-#include <person.h>
-#include <list.h>
-#include <sf.h>
-
 #include <unistd.h>
+#include "person.h"
+#include "list.h"
 
-FUNC_SF(person)
 
 int main(void) {
-	list *l = list_new(person_sf());
-
+	list *l = list_new();
 	if(!l) {
 		return 1;
 	}
+	list_set_free(l, person_free);
+	list_set_cmp(l, person_cmp);
+	list_set_write(l, person_write);
 
 	person *p1 = person_new(1, 21, "toto 1", "");
 	person *p2 = person_new(2, 22, "toto 2", "");
@@ -24,27 +23,27 @@ int main(void) {
 
 	list_append(l, p3); list_append(l, p2); list_append(l, p1);
 	list_append(l, p4); list_append(l, p6); list_append(l, p5);
-	list_print(l);
+	list_write(l, stdout);
 	puts("-----------------");
 
 	container *c = list_find(l, p4);
 	list_delete(l, c);
-	list_print(l);
+	list_write(l, stdout);
 	puts("-----------------");
 
 	c = list_find(l, p2);
 	list_delete(l, c);
-	list_print(l);
+	list_write(l, stdout);
 	puts("-----------------");
 
-	c = list_remove(l, l->head);
+	c = list_pop(l, l->head);
 
 	while(c) {
 		list_free_container(l, c);
-		c = list_remove(l, l->head);
+		c = list_pop(l, l->head);
 	}
 
-	list_print(l);
+	list_write(l, stdout);
 	puts("-----------------");
 
 	assert(l->n == 0 && l->head == NULL && l->tail == NULL);

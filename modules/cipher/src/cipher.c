@@ -19,7 +19,7 @@ int base_to_decimal(char *word, int base) {
 	int n = strlen(word);
 	int c, i;
 
-	for (i = 0; i < n; i++) {
+	for(i = 0; i < n; i++) {
 		c = *(word+i) - 48; /* char to int */
 
 		assert(c >= 0 && c < base);

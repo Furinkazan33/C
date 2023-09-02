@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 	array *a = array_new(INIT_SIZE);
 	array_set_cmp (a, (int (*)(void *, void *))person_cmp);
 	array_set_free(a, (void (*)(void *))person_free);
-	array_set_print(a, (void (*)(void *))person_print);
+	array_set_write(a, (void (*)(void *, FILE *))person_write);
 
 
 	person *p[10];
@@ -33,11 +33,11 @@ int main(int argc, char **argv) {
 	for(int i = 0; i < 10; i++) {
 		array_append(a, p[i]);
 	}
-	array_print(a); puts("-----------------");
+	array_write(a, stdout); puts("-----------------");
 
 	printf("sorting :\n");
 	array_sort(a);
-	array_print(a); puts("-----------------");
+	array_write(a, stdout); puts("-----------------");
 
 	array_free(a, 1);
 

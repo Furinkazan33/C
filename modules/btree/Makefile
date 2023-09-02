@@ -1,35 +1,77 @@
 CC=gcc
 CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
-LDFLAGS=
+LDFLAGS=-I $(CSRC) -I $(TSRC)
+
+DIR_CORE=./core
+CBUILD=$(DIR_CORE)/build
+CSRC=$(DIR_CORE)/src
+
+DIR_TEST=./test
+TSRC=$(DIR_TEST)/src
+TBIN=$(DIR_TEST)/bin
+TLOG=$(DIR_TEST)/log
 
 
-DIR_BUILD=./build
+all: dirs builds tests execs
+dirs: $(CBUILD) $(TBIN) $(TLOG)
+builds: $(CBUILD)/libbtree.a $(CBUILD)/btree.o
+tests: $(TBIN)/btree_person $(TBIN)/btree_char
+execs: $(TLOG)/btree_char.log $(TLOG)/btree_person.log
 
 
-all: dirs builds tests
-dirs: $(DIR_BUILD)
-builds: $(DIR_BUILD)/libbtree.a $(DIR_BUILD)/btree.o
-tests: test
+#
+# Folders creations
+#
+$(CBUILD):
+	test -d $(CBUILD) || mkdir -p $(CBUILD)
 
+$(TBIN):
+	test -d $(TBIN) || mkdir -p $(TBIN)
 
-$(DIR_BUILD):
-	test -d $(DIR_BUILD) || mkdir -p $(DIR_BUILD)
+$(TLOG):
+	test -d $(TLOG) || mkdir -p $(TLOG)
 
+#
+# Main builds
+#
+$(CBUILD)/btree.o: $(CSRC)/btree.c
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $(CSRC)/btree.c -o $@
 
-$(DIR_BUILD)/btree.o: ./src/btree.c
-	$(CC) $(CFLAGS) -I./src -c ./src/btree.c -o $@
+$(CBUILD)/libbtree.a: $(CBUILD)/btree.o
+	ar ruv $(CBUILD)/libbtree.a $(CBUILD)/btree.o
+	ranlib $(CBUILD)/libbtree.a
 
-$(DIR_BUILD)/libbtree.a: $(DIR_BUILD)/btree.o
-	ar ruv $(DIR_BUILD)/libbtree.a $(DIR_BUILD)/btree.o
-	ranlib $(DIR_BUILD)/libbtree.a
+#
+# Tests compilations
+#
+$(TBIN)/btree_person: $(TSRC)/btree_person.c $(TSRC)/person.c $(CBUILD)/libbtree.a
+	$(CC) $(CFLAGS) $(TSRC)/btree_person.c $(TSRC)/person.c \
+			-L $(CBUILD) -lbtree \
+			-o $@
 
-test: $(DIR_BUILD)/libbtree.a
-	make -C test
+$(TBIN)/btree_char: $(TSRC)/btree_char.c $(CBUILD)/libbtree.a
+	$(CC) $(CFLAGS) $(TSRC)/btree_char.c \
+			-L $(CBUILD) -lbtree \
+			-o $@
 
+#
+# Tests executions
+#
+$(TLOG)/btree_char.log: $(TBIN)/btree_char
+	$(TBIN)/btree_char > $(TLOG)/btree_char.log
 
+$(TLOG)/btree_person.log: $(TBIN)/btree_person
+	$(TBIN)/btree_person > $(TLOG)/btree_person.log
+
+# 
+# Cleaning
+#
 clean:
-	rm -f $(DIR_BUILD)/*
-	make -C test clean
-	rm -f *.stackdump
+	rm -f $(CBUILD)/*
+	rmdir $(CBUILD)
+	rm -f $(TBIN)/*
+	rmdir $(TBIN)
+	rm -f $(TLOG)/*
+	rmdir $(TLOG)
 	
 

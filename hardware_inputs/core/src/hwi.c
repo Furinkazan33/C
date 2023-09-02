@@ -168,11 +168,11 @@ enum ev_int { RELEASED = 0, PRESSED, REPEATED };
 int hwi_read(int fd, struct input_event ev, bool *pressed) {
 	ssize_t n = read(fd, &ev, sizeof(ev));
 
-	if (n == (ssize_t)-1 && errno != EINTR && errno != 0) {
+	if(n == (ssize_t)-1 && errno != EINTR && errno != 0) {
 		perror("hwi_read : erreur de lecture du clavier");
 		return 0;
 	}
-	else if (n != sizeof(ev)) {
+	else if(n != sizeof(ev)) {
 		errno = EIO;
 		return 0;
 	}

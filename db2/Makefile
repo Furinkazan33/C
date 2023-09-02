@@ -42,9 +42,11 @@ execs: test/create test/load_save result
 debug1: CFLAGS += -DDEBUG1
 debug1: all
 
-debug2: CFLAGS += -DDEBUG2
+debug2: CFLAGS += -DDEBUG1 -DDEBUG2
 debug2: all
 
+debug3: CFLAGS += -DDEBUG1 -DDEBUG2 -DDEBUG3
+debug3: all
 
 
 ##############################

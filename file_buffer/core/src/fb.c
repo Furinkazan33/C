@@ -36,7 +36,7 @@ fb *fb_new(char *path, char *name, size_t init_size) {
 	}
 	array_set_cmp(res->lines, (int (*)(void *, void *))str_cmp);
 	array_set_free(res->lines, (void (*)(void *))str_free);
-	array_set_print(res->lines, (void (*)(void *))str_print);
+	array_set_write(res->lines, (void (*)(void *, FILE *))str_write);
 
 	return res;
 }
@@ -59,11 +59,12 @@ fb *fb_load(fb *buf) {
 			return NULL;
 		}
 		if(n_read > 0) {
-			line = str_new(tmp, n_read, n_read);
+			line = str_new(n_read);
 			if(!line) {
 				perror("");
 				return NULL;
 			}
+			str_set(line, tmp, n_read);
 			if(!array_append(buf->lines, line)) {
 				perror("");
 				return NULL;
@@ -85,8 +86,8 @@ void fb_free(fb *buf) {
 	free(buf);
 }
 
-void fb_print(fb *buf) {
-	array_print(buf->lines);
+void fb_write(fb *buf, FILE *file) {
+	array_write(buf->lines, file);
 }
 
 fb *fb_save(fb *buf, char *newpath) {
@@ -105,9 +106,9 @@ fb *fb_save(fb *buf, char *newpath) {
 
 	for(size_t i = 0; i < buf->lines->n; i++) {
 		str *l = buf->lines->data[i];
-		size_t len = strlen(l->start);
+		size_t len = strlen(l->data);
 
-		if(fwrite(l->start, sizeof(char), len, f) != len) {
+		if(fwrite(l->data, sizeof(char), len, f) != len) {
 			perror("fb_save : write error");
 			return NULL;
 		}

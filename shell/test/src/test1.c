@@ -1,28 +1,69 @@
 #include <stdio.h>
-#include <unistd.h>
 #include <fcntl.h>
 #include <string.h>
-#include <fb.h>
+#include "shell.h"
 
-int main(int argc, char **argv) {
+int main(void) {
+    static struct termios oldt, newt;
+	char *ps1 = ">> ";
 
-	if(argc != 3) {
-		printf("usage : %s loadfilepath savefilepath\n", argv[0]);
-		return -1;
+    /*
+	 * tcgetattr gets the parameters of the current terminal
+	 * STDIN_FILENO will tell tcgetattr that it should write
+	 * the settings of stdin to oldt.
+	 * */
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+
+    /*
+	 * ICANON normally takes care that one line at a time will
+	 * be processed that means it will return if it sees a
+	 * "\n" or an EOF or an EOL.
+	 * */
+    newt.c_lflag &= ~(ICANON);
+
+    /*
+	 * Those new settings will be set to STDIN. TCSANOW tells
+	 * tcsetattr to change attributes immediately.
+	 * */
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+	print_ps1(ps1);
+
+	char *cmd;
+	char **cmds;
+	size_t n;
+
+    while(1) {
+
+		cmd = read_cmd();
+
+		if(strlen(cmd) >= 1) {
+			print_ps1(ps1);
+
+			cmds = split(cmd, &n);
+
+			execute(cmds[0], &cmds[1], n - 1);
+
+			/* free */
+			for(size_t i = 0; i < n; i++) {
+				free(cmds[i]);
+			}
+			free(cmds);
+		}
+
+		print_ps1(ps1);
+
+		free(cmd);
 	}
 
-	fb *buf = fb_new(argv[1], "Toto", 32);
+    /*
+	 * restore old settings
+	 * */
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 
-	fb_load(buf);
-
-	fb_save(buf, argv[2]);
-
-	fb_print(buf);
-
-	fb_free(buf);
-
-
-	return 0;
+    return 0;
 }
+
 
 

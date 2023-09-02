@@ -2,18 +2,21 @@
 #include <string.h>
 #include <assert.h>
 #include <message.h>
-#include <list.h>
+#include "list.h"
 
-FUNC_SF(message)
 
 int main(void) {
-	list *l = list_new(message_sf());
+	list *l;
 	message *m;
 	container *c;
 
+	l = list_new();
 	if(!l) {
 		return 1;
 	}
+	list_set_write(l, message_write);
+	list_set_free(l, message_free);
+	list_set_cmp(l, message_cmp);
 
 	for(int i = 0; i < 5000; i++) {
    		m = message_new(i, "Hello you !");
@@ -24,17 +27,17 @@ int main(void) {
 			break;
 		}
 	}
-	list_print(l);
+	list_write(l, stdout);
 	puts("-----------------");
 
-	c = list_remove(l, l->head);
+	c = list_pop(l, l->head);
 
 	while(c) {
 		list_free_container(l, c);
-		c = list_remove(l, l->head);
+		c = list_pop(l, l->head);
 	}
 
-	list_print(l);
+	list_write(l, stdout);
 	puts("-----------------");
 
 	assert(l->n == 0 && l->head == NULL && l->tail == NULL);

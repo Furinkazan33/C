@@ -12,8 +12,8 @@ void book_free(void *b) {
 	array_free(((book *)b)->sheets, 1);
 	free(b);
 }
-void book_print(void *bo) {
-	array_print(((book *)bo)->sheets);
+void book_write(void *bo, FILE *file) {
+	array_write(((book *)bo)->sheets, file);
 }
 
 int sheet_cmp(void *c1, void *c2) {
@@ -23,8 +23,8 @@ void sheet_free(void *s) {
 	array_free(((sheet *)s)->cols, 1);
 	free(s);
 }
-void sheet_print(void *s) {
-	array_print(((sheet *)s)->cols);
+void sheet_write(void *s, FILE *file) {
+	array_write(((sheet *)s)->cols, file);
 }
 
 int col_cmp(void *c1, void *c2) {
@@ -34,8 +34,8 @@ void col_free(void *c) {
 	array_free(((col *)c)->cells, 1);
 	free(c);
 }
-void col_print(void *c) {
-	array_print(((col *)c)->cells);
+void col_write(void *c, FILE *file) {
+	array_write(((col *)c)->cells, file);
 }
 
 int cell_cmp(void *c1, void *c2) {
@@ -45,8 +45,8 @@ void cell_free(void *c) {
 	free(((cell *)c)->value);
 	free(c);
 }
-void cell_print(void *c) {
-	printf("%s\n", ((cell *)c)->value);
+void cell_write(void *c, FILE *file) {
+	fprintf(file, "%s\n", ((cell *)c)->value);
 }
 
 
@@ -74,9 +74,8 @@ book *book_new(char *path, char *name, size_t sheets) {
 	}
 
 	res->sheets = array_new(sheets);
-	//sheet_cmp, sheet_free, sheet_print);
 	if(!res->sheets) {
-		book_free(res);
+		fprintf(stderr, "book_new : call to array_new returned NULL\n");
 		return NULL;
 	}
 
@@ -93,9 +92,8 @@ sheet *sheet_new(char *name, size_t cols) {
 	strncpy(res->name, name, MAX_NAME_LEN);
 
 	res->cols = array_new(cols);
-	//, col_cmp, col_free, col_print);
 	if(!res->cols) {
-		sheet_free(res);
+		fprintf(stderr, "sheet_new : call to array_new returned NULL\n");
 		return NULL;
 	}
 
@@ -110,9 +108,8 @@ col *col_new(size_t cells, size_t n) {
 	}
 
 	res->cells = array_new(cells);
-	//, cell_cmp, cell_free, cell_print);
 	if(!res->cells) {
-		col_free(res);
+		fprintf(stderr, "col_new : call to array_new returned NULL\n");
 		return NULL;
 	}
 	res->n = n;
@@ -131,7 +128,7 @@ cell *cell_new(size_t len, size_t n) {
 
 	res->value = malloc(sizeof(char) * (len + 1));
 	if(!res->value) {
-		cell_free(res);
+		fprintf(stderr, "cell_new : call to malloc returned NULL\n");
 		return NULL;
 	}
 	res->size = len;

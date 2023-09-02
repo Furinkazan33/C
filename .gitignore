@@ -3,6 +3,7 @@
 **/logs/*
 **/bin/*
 **/build/*
+*~
 
 ## Prerequisites
 *.d
