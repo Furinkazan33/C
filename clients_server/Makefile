@@ -56,6 +56,8 @@ $(CBUILD)/client: $(CSRC)/server.c $(DEP_A) $(DEP_H)
 
 
 clean: 
-	rm -f $(CBUILD)/*
+	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
+	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
+	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
 
 

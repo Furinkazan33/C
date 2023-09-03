@@ -74,10 +74,7 @@ $(TLOG)/message.log: $(TBIN)/main_message
 # Cleaning
 #
 clean:
-	rm -f $(CBUILD)/*
-	rmdir $(CBUILD)
-	rm -f $(TBIN)/*
-	rmdir $(TBIN)
-	rm -f $(TLOG)/*
-	rmdir $(TLOG)
+	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
+	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
+	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
 

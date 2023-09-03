@@ -34,7 +34,7 @@ TRES=$(TEST)/ressources
 #
 # Rules
 #
-all: dirs builds tests execs
+all: dirs builds tests #execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
 builds: $(CBUILD)/shell.o
 tests: $(TBIN)/test1
@@ -79,10 +79,8 @@ $(TBIN)/test1: $(CBUILD)/shell.o $(TSRC)/test1.c $(DEP_H)
 ##############################
 
 clean: 
-	rm -f $(CBUILD)/*
-	rm -f $(TBIN)/*
-	rm -f $(TEST)/1
-	rm -f $(TLOG)/*
-	rm -f *.stackdump
+	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
+	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
+	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
 
 

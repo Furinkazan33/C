@@ -1,5 +1,5 @@
-#include "../include/socket.h"
-#include "../include/fr.h"
+#include "socket.h"
+#include "fr.h"
 
 #define CLI_BUF_SIZE 1024
 #define CLI_MESS_SIZE 10

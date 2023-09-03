@@ -18,6 +18,7 @@ all:
 clean:
 	for d in */; do \
 		if [ -e $$d/Makefile ]; then \
+			echo $$d/Makefile; \
 			make -C $$d clean; \
 		fi \
 	done

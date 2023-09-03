@@ -37,7 +37,7 @@ all: dirs builds tests execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
 builds: $(CBUILD)/fb.o $(CBUILD)/libfb.a
 tests: $(TBIN)/load_save
-execs: $(TEST)/load_save
+execs: $(TLOG)/load_save $(TLOG)/result
 
 
 
@@ -74,10 +74,12 @@ $(TBIN)/load_save: $(CBUILD)/libfb.a $(TSRC)/load_save.c
 	$(CC) $(CFLAGS) $(LDFLAGS) \
 		$(TSRC)/load_save.c -lfb -o $@
 
-$(TEST)/load_save: $(TBIN)/load_save $(TRES)/file.txt
+$(TLOG)/load_save: $(TBIN)/load_save $(TRES)/file.txt
 	$(TBIN)/load_save $(TRES)/file.txt $(TRES)/file.txt.sav \
-		> $(TLOG)/load_save \
-		&& diff $(TRES)/file.txt $(TRES)/file.txt.sav
+		> $(TLOG)/load_save
+
+$(TLOG)/result: $(TLOG)/load_save
+	@diff $(TRES)/file.txt $(TRES)/file.txt.sav > $(TLOG)/result || exit 1
 
 
 ##############################
@@ -85,11 +87,9 @@ $(TEST)/load_save: $(TBIN)/load_save $(TRES)/file.txt
 ##############################
 
 clean: 
-	rm -f $(CBUILD)/*
-	rm -f $(TBIN)/*
-	rm -f $(TEST)/*
-	rm -f $(TLOG)/*
+	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
+	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
+	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
 	rm -f $(TRES)/file.txt.sav*
-	rm -f *.stackdump
 
 

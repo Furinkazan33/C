@@ -65,13 +65,21 @@ void print_ps1(char *ps1) {
 	printf("%s", ps1);
 }
 
-void execute(char *cmd, char **parameters, size_t n) {
+
+
+int execute(char *cmd, char **parameters, size_t n) {
 	puts("");
 	printf("command : [%s], parameters : [", cmd);
 	for(size_t i = 0; i < n; i++) {
 		printf("%s, ", parameters[i]);
 	}
 	printf("]\n");
+
+	if(strcmp(cmd, "exit") == 0) {
+		return SHELL_RC_EXIT;
+	}
+
+	return SHELL_RC_OK;
 }
 
 char *read_cmd() {

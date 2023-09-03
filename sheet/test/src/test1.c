@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
 	printf("%s\n", ((cell *)co->cells->data[0])->value);
 
 
-	book_free(bo);
+	//book_free(bo);
 
 
 	return 0;

@@ -9,10 +9,10 @@
 
 /*
 Functions list :
-lexer_strtok : get all tokens
-lexer_free   : free memory after lexer_strtok call
-lexer_strtot : string to type conversion
-lexer_ttostr : Type to string conversion
+lex_strtok : get all tokens
+lex_free   : free memory after lex_strtok call
+lex_strtot : string to type conversion
+lex_ttostr : Type to string conversion
 */
 /*
     Token types
@@ -31,16 +31,19 @@ typedef enum token_type {
 	T_AND, T_OR, T_EXCL, T_IF, T_ELSE, T_ELSE_IF, 
 
     /* single chars */
-    T_L_STRIPE, T_R_STRIPE, T_COMMA, T_SEMICOLON, T_EQUAL, T_SPACE, T_ESCAPE, T_QUOTES,
+    T_L_STRIPE, T_R_STRIPE, T_COMMA, T_SEMICOLON, T_EQUAL, T_SPACE, T_QUOTES,
     T_L_BRACKET, T_R_BRACKET, T_DOT, T_NEWLINE, T_EOS, T_TAB, T_HYPHEN, T_QUOTE,
 	T_L_PAREN, T_R_PAREN, T_SHARP, T_PLUS, T_MINUS, T_STAR, T_SLASH, T_AMPER,
 
-    /* Non-deterministic values */
-    T_LIT_INT, T_LIT_DOUBLE, T_LIT_STRING, 
-	T_VARNAME, //variable or function name
+	T_ESCAPE,
 
     /* End of tab index */
     T_EOT,
+
+
+    /* Non-deterministic values, keep at end */
+    T_LIT_INT, T_LIT_DOUBLE, T_LIT_STRING,
+	T_VARNAME, //variable or function name
 } lex_type;
 
 
@@ -73,9 +76,9 @@ bool char_is_EOS(char c);
 /* Defines what a valid char is  */
 bool char_is_valid(char c);
 /* Get type from string */
-lex_type lexer_strtot(char *expression);
+lex_type lex_strtot(char *expression);
 /* Get literal from type */
-const char *lexer_ttostr(lex_type type);
+const char *lex_ttostr(lex_type type);
 /* Pointer to next non-valid char */
 void pass_valid(char **p);
 /* Pointer to next non-empty char */

@@ -17,7 +17,7 @@ all: dirs builds tests execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
 builds: $(CBUILD)/str.o $(CBUILD)/libstr.a
 tests: $(TBIN)/test1 $(TBIN)/escape_normalize
-execs: test1 escape_normalize
+execs: $(TLOG)/test1 $(TLOG)/escape_normalize
 
 debug: CFLAGS += -DDEBUG
 debug: all
@@ -42,26 +42,21 @@ $(CBUILD)/libstr.a: $(CBUILD)/str.o
 
 
 $(TBIN)/test1: $(CBUILD)/str.o $(TSRC)/test1.c
-	$(CC) $(CFLAGS) \
-		$(TSRC)/test1.c $(LDFLAGS) -lstr -o $@
+	$(CC) $(CFLAGS) $(TSRC)/test1.c $(LDFLAGS) -lstr -o $@
 
-test1: $(TBIN)/test1
+$(TLOG)/test1: $(TBIN)/test1
 	$(TBIN)/test1 > $(TLOG)/test1
 
 $(TBIN)/escape_normalize: $(CBUILD)/str.o $(TSRC)/escape_normalize.c
-	$(CC) $(CFLAGS) \
-		$(TSRC)/escape_normalize.c $(LDFLAGS) -lstr -o $@
+	$(CC) $(CFLAGS) $(TSRC)/escape_normalize.c $(LDFLAGS) -lstr -o $@
 
-escape_normalize: $(TBIN)/escape_normalize
+$(TLOG)/escape_normalize: $(TBIN)/escape_normalize
 	$(TBIN)/escape_normalize > $(TLOG)/escape_normalize
 
 
 clean:
-	rm -f $(CBUILD)/*
-	rmdir $(CBUILD)
-	rm -f $(TBIN)/*
-	rmdir $(TBIN)
-	rm -f $(TLOG)/*
-	rmdir $(TLOG)
+	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
+	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
+	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
 
 

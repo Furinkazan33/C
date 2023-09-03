@@ -4,6 +4,7 @@
 #include <string.h>
 #include <assert.h>
 #include "lexer.h"
+#include "../include/array.h"
 
 
 // TODO: get_r_value after reading '=' operator
@@ -24,7 +25,6 @@ const char token_type_literal[][LEX_MAX_TOKEN_LEN] = {
     [T_SEMICOLON]  	=    ";",
     [T_EQUAL]      	=    "=",
     [T_SPACE]      	=    " ",
-    [T_ESCAPE]    	=    "\\",
     [T_QUOTES]    	=    "\"",
     [T_L_BRACKET]  	=    "{",
     [T_R_BRACKET]  	=    "}",
@@ -51,6 +51,7 @@ const char token_type_literal[][LEX_MAX_TOKEN_LEN] = {
 	[T_EXCL]			=	"!",
 	[T_IF]				=	"if",
 	[T_ELSE]			=	"else",
+    [T_ESCAPE]    	=    "\\",
 
 	/* End of tab */
 	[T_EOT] = "__RESERVED__EOT",
@@ -102,6 +103,8 @@ const char token_type_debug[][LEX_MAX_TOKEN_LEN] = {
 	[T_IF]				=	"T_IF",
 	[T_ELSE]			=	"T_ELSE",
     [T_LIT_INT] 	=    "T_LIT_INT",
+    [T_LIT_DOUBLE] 	=    "T_LIT_DOUBLE",
+    [T_LIT_STRING] 	=    "T_LIT_STRING",
     [T_VARNAME]        =    "T_VARNAME",
 
 	/* End of tab */
@@ -121,7 +124,6 @@ const char *end_word[] = {
     token_type_literal[T_SEMICOLON],
     token_type_literal[T_EQUAL],
     token_type_literal[T_SPACE],
-    token_type_literal[T_ESCAPE],
     token_type_literal[T_QUOTES],
     token_type_literal[T_L_BRACKET],
     token_type_literal[T_R_BRACKET],
@@ -139,6 +141,8 @@ const char *end_word[] = {
 	token_type_literal[T_STAR],
 	token_type_literal[T_SLASH],
 	token_type_literal[T_AMPER],
+    
+	//token_type_literal[T_ESCAPE],
 
 	/* End of tab */
 	token_type_literal[T_EOT]
@@ -171,13 +175,24 @@ bool string_is_int(char *s) {
 }
 
 bool string_is_double(char *s) {
+	bool dot = false;
+	bool end = false;
 	int n_dot = 0;
 
 	while(s && *s) {
 		if(char_is_int(*s)) {
+			if(dot) {
+				if(end) {
+					return false;
+				}
+				else {
+					end = true;
+				}
+			}
 			s++;
 		}
-		else if(*s == '.') {
+		else if(*s == '.' && !end) {
+			dot = true;
 			n_dot++;
 			s++;
 		}
@@ -190,6 +205,9 @@ bool string_is_double(char *s) {
 }
 
 bool string_is_string(char *s) {
+	if(strlen(s) < 2) {
+		return false;
+	}
 	if(*s != '"' || *(s + strlen(s) - 1) != '"') {
 		return false;
 	}
@@ -255,11 +273,17 @@ bool char_is_valid(char c) {
  *  - sorting token_type_literal
  *  - fuse string_is_int and string_is_double
  */
-lex_type lexer_strtot(char *expression) {
+lex_type lex_strtot(char *expression) {
 	int i;
 
+	if(strcmp(expression, ".") == 0) {
+		return T_DOT;
+	}
 	if(string_is_string(expression)) {
 		return T_LIT_STRING;
+	}
+	if(strcmp(expression, "\"") == 0) {
+		return T_QUOTES;
 	}
 	if(string_is_int(expression)) {
 		return T_LIT_INT;
@@ -277,7 +301,7 @@ lex_type lexer_strtot(char *expression) {
 }
 
 /* Get literal from type */
-const char *lexer_ttostr(lex_type type) {
+const char *lex_ttostr(lex_type type) {
 	return token_type_debug[type];
 }
 
@@ -313,6 +337,104 @@ void next_word(char **p) {
 	}
 }
 
+token *lex_tok_new(char *string, lex_type type) {
+	token *res = malloc(sizeof(*res));
+	if(!res) {
+		fprintf(stderr, "lex_tok_new : call to malloc returned NULL\n");
+		return NULL;
+	}
+	strcpy(res->literal, string);
+	res->type = type;
+
+	return res;
+}
+
+void token_write(void *t, FILE *file) {
+	const char *lit, *debug;
+	lit = ((token *)t)->literal;
+	debug = lex_ttostr(((token *)t)->type);
+	fprintf(file, "%d:%s:%s\n", ((token *)t)->type, debug, lit);
+}
+
+//TODO: implement
+//list context:
+// - inside string => read until end
+// - end of word read
+// - escape char read
+// - varname
+bool lex_add_next(char *token_as_string, size_t len, char *p) {
+	//if token_as_string not recognize as token, return true
+
+	return true;
+}
+
+
+/* Read code and return an array of tokens.
+ * Chars are added to new token 1 by 1
+ */
+array *lex_strtok2(char *code) {
+	token *token;			// token to add to array
+	lex_type type;			// type of token
+	array *tokens;			// result
+
+	/* tokens is an array of char * */
+	tokens = array_new(128);
+	if(!tokens) {
+		fprintf(stderr, "lex_strtok2 : call to array_new returned NULL\n");
+		return NULL;
+	}
+	array_set_free(tokens, (void (*)(void *))free);
+	array_set_write(tokens, token_write);
+
+	/* alloc first string token */
+	size_t alloc_len = 8;
+	size_t len = 0;
+	char *token_as_string = malloc(sizeof(char) * (alloc_len + 1));
+	if(!token_as_string) {
+		fprintf(stderr, "lex_strtok2 : call to first malloc returned NULL\n");
+		return NULL;
+	}
+
+	/* read code until end */
+	char *p = code;
+	while(p && *p) {
+		// add next char ?
+		if(lex_add_next(token_as_string, len, p)) {
+			token_as_string[len++] = *p++;
+			token_as_string[len] = '\0';
+
+			/* realloc if needed */
+			if(len >= alloc_len) {
+				alloc_len *= 2;
+				token_as_string = realloc(token_as_string, alloc_len);
+				if(!token_as_string) {
+					fprintf(stderr, "lex_strtok2 : call to realloc returned NULL\n");
+					return NULL;
+				}
+			}
+		}
+		/* end of current token */
+		else {
+			type = lex_strtot(token_as_string);
+			token = lex_tok_new(token_as_string, type);
+			if(!array_append(tokens, token)) {
+				fprintf(stderr, "lex_strtok2 : call to array_append returned NULL\n");
+				return NULL;
+			}
+
+			/* alloc new string token */
+			alloc_len = 8;
+			len = 0;
+			token_as_string = malloc(sizeof(char) * (alloc_len + 1));
+			if(!token_as_string) {
+				fprintf(stderr, "lex_strtok2 : call to malloc returned NULL\n");
+				return NULL;
+			}
+		}
+	}
+
+	return tokens;
+}
 
 /* Extracts tokens from string without empty chars */
 token *lex_strtok(char *next) {
@@ -328,6 +450,8 @@ token *lex_strtok(char *next) {
 	while(!char_is_EOS(*next)) {
 		cur = next;
 		next_word(&next);
+
+		// TODO: if quotes read => inside string, looking for end of string
 
 		/* Ignoring spaces */
 		if(char_is_ignore(*cur)) {
@@ -346,7 +470,7 @@ token *lex_strtok(char *next) {
 			p->literal[next - cur] = '\0';
 		}
 
-		p->type = lexer_strtot(p->literal);
+		p->type = lex_strtot(p->literal);
 
 		/* Next token */
 		n++;
@@ -373,7 +497,7 @@ void lex_print_t(token *t) {
 
 	type = t->type;
 	lit = t->literal;
-	debug = lexer_ttostr(type);
+	debug = lex_ttostr(type);
 	printf("%d:%s:%s\n", type, debug, lit);
 }
 

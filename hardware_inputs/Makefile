@@ -84,9 +84,8 @@ $(TBIN)/test1: $(CBUILD)/hwi.o $(TSRC)/test1.c $(DEP_O)
 ##############################
 
 clean: 
-	rm -f $(CBUILD)/*
-	rm -f $(TBIN)/*
-	rm -f $(TLOG)/*
-	rm -f *.stackdump
+	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
+	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
+	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
 
 

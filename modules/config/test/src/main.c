@@ -1,15 +1,16 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "config.h"
 
 
 void usage(char *exec) {
-	fprintf(stderr, "usage : %s filepath\n", exec);
+	fprintf(stderr, "usage : %s load_filepath save_filepath\n", exec);
+	exit(1);
 }
 
 int main(int argc, char **argv) {
-	if(argc != 2) {
+	if(argc != 3) {
 		usage(argv[0]);
-		return 1;
 	}
 
 	cJSON *conf = config_new(argv[1]);
@@ -17,7 +18,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	config_save(conf, argv[1]);
+	config_save(conf, argv[2]);
 
 	cJSON_Delete(conf);
 

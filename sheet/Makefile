@@ -30,16 +30,12 @@ DEP_O=$(COBJ)/array.o $(COBJ)/fr.o
 DEP_H=$(CINC)/array.h $(CINC)/fr.h
 DEP_A=$(CLIB)/libarray.a $(CLIB)/libfr.a
 
-#
-# Rules
-#
+
 all: dirs builds tests execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
 builds: $(CBUILD)/book.o $(CBUILD)/libbook.a
 tests: $(TBIN)/test1
-execs: test/1
-
-
+execs: $(TLOG)/test1
 
 
 ##############################
@@ -98,7 +94,7 @@ $(TBIN)/test1: $(CBUILD)/libbook.a $(TSRC)/test1.c
 		$(TSRC)/test1.c -lbook -o $@
 
 # execution of test1, result is ok if file '1' is present
-$(TEST)/1: $(TBIN)/test1
+$(TLOG)/test1: $(TBIN)/test1
 	$(TBIN)/test1 \
 		> $(TLOG)/test1
 
@@ -108,11 +104,8 @@ $(TEST)/1: $(TBIN)/test1
 ##############################
 
 clean: 
-	rm -f $(CBUILD)/*
-	rm -f $(TBIN)/*
-	rm -f $(TEST)/1 $(TEST)/2
-	rm -f $(TLOG)/*
-	rm -f $(TRES)/file.txt.sav*
-	rm -f *.stackdump
+	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
+	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
+	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
 
 

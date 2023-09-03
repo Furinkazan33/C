@@ -26,9 +26,9 @@ TRES=$(TEST)/ressources
 #
 # Dependencies
 #
-DEP_O=$(COBJ)/array.o $(COBJ)/str.o
-DEP_H=$(CINC)/array.h $(CINC)/str.h
-DEP_A=$(CLIB)/libarray.a $(CLIB)/libstr.a
+DEP_O=$(COBJ)/array.o $(COBJ)/str.o $(COBJ)/fr.o
+DEP_H=$(CINC)/array.h $(CINC)/str.h $(CINC)/fr.h
+DEP_A=$(CLIB)/libarray.a $(CLIB)/libstr.a $(CLIB)/libfr.a
 
 #
 # Rules
@@ -36,8 +36,8 @@ DEP_A=$(CLIB)/libarray.a $(CLIB)/libstr.a
 all: dirs builds tests execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
 builds: $(CBUILD)/lexer.o $(CBUILD)/liblexer.a
-tests:  $(TBIN)/test1
-execs: test/test1
+tests: $(TBIN)/test1
+execs: $(TLOG)/test1
 
 debug1: CFLAGS += -DDEBUG1
 debug1: all
@@ -88,8 +88,8 @@ $(TBIN)/test1: $(CBUILD)/lexer.o $(TSRC)/test1.c $(DEP_O)
 		$(TSRC)/test1.c -o $@
 
 # execution of test1 test, result is ok if file 'test1' is present
-$(TEST)/test1: $(TBIN)/test1
-	$(TBIN)/test1 > $(TLOG)/test1
+$(TLOG)/test1: $(TBIN)/test1
+	$(TBIN)/test1 $(TRES)/code.c > $(TLOG)/test1
 
 
 ##############################
@@ -97,9 +97,8 @@ $(TEST)/test1: $(TBIN)/test1
 ##############################
 
 clean: 
-	rm -f $(CBUILD)/*
-	rm -f $(TBIN)/*
-	rm -f $(TLOG)/*
-	rm -f *.stackdump
+	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
+	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
+	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
 
 

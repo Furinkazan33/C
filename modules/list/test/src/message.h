@@ -1,5 +1,3 @@
-#include <sf.h>
-
 #define m_cast(m) ((message *)m)
 
 #define MESS_MAX_LEN 512

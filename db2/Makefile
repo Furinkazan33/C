@@ -37,7 +37,7 @@ all: dirs builds tests execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
 builds: $(CBUILD)/db.o $(CBUILD)/libdb.a
 tests:  $(TBIN)/create $(TBIN)/load_save
-execs: test/create test/load_save result
+execs: $(TLOG)/create $(TLOG)/load_save $(TLOG)/result
 
 debug1: CFLAGS += -DDEBUG1
 debug1: all
@@ -88,7 +88,7 @@ $(TBIN)/create: $(CBUILD)/db.o $(TSRC)/create.c $(DEP_O)
 		$(TSRC)/create.c -o $@
 
 # execution of create test, result is ok if file 'create' is present
-$(TEST)/create: $(TBIN)/create
+$(TLOG)/create: $(TBIN)/create
 	$(TBIN)/create $(TRES)/create.db > $(TLOG)/create
 
 # compiling load_save test with .o
@@ -99,11 +99,11 @@ $(TBIN)/load_save: $(CBUILD)/db.o $(TSRC)/load_save.c $(DEP_O)
 		$(TSRC)/load_save.c -o $@
 
 # execution of load_save test, result is ok if file 'load_save' is present
-$(TEST)/load_save: $(TBIN)/load_save
+$(TLOG)/load_save: $(TBIN)/load_save
 	$(TBIN)/load_save $(TRES)/create.db $(TRES)/load_save.db > $(TLOG)/load_save
 
-result:
-	@diff $(TRES)/create.db $(TRES)/load_save.db && echo "ALL TESTS OK"
+$(TLOG)/result: $(TLOG)/create $(TLOG)/load_save
+	@diff $(TRES)/create.db $(TRES)/load_save.db > $(TLOG)/result || exit 1
 
 
 ##############################
@@ -111,9 +111,8 @@ result:
 ##############################
 
 clean: 
-	rm -f $(CBUILD)/*
-	rm -f $(TBIN)/*
-	rm -f $(TLOG)/*
-	rm -f *.stackdump
+	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
+	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
+	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
 
 

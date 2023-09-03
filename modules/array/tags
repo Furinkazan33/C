@@ -50,21 +50,20 @@ array_append	core/src/array.c	/^array *array_append(array *a, void *d) {$/;"	f	t
 array_concat	core/src/array.c	/^array *array_concat(array *res, array *add) {$/;"	f	typeref:typename:array *
 array_copy	core/src/array.c	/^array *array_copy(array *a) {$/;"	f	typeref:typename:array *
 array_find	core/src/array.c	/^void *array_find(array *a, void *search) {$/;"	f	typeref:typename:void *
-array_find_all	core/src/array.c	/^void *array_find_all(array *a, void *search, size_t init_alloc) {$/;"	f	typeref:typename:void *
+array_find_all	core/src/array.c	/^array *array_find_all(array *a, void *search, size_t init_alloc) {$/;"	f	typeref:typename:array *
 array_free	core/src/array.c	/^void array_free(array *a, int with_data) {$/;"	f	typeref:typename:void
 array_get	core/src/array.c	/^void *array_get(array *a, size_t i) {$/;"	f	typeref:typename:void *
-array_map	core/src/array.c	/^array *array_map(array *a, void (*map)(void *)) {$/;"	f	typeref:typename:array *
+array_map	core/src/array.c	/^void array_map(array *a, void (*map)(void *)) {$/;"	f	typeref:typename:void
 array_new	core/src/array.c	/^array *array_new(size_t init_size) {$/;"	f	typeref:typename:array *
 array_realloc	core/src/array.c	/^static array *array_realloc(array *a) {$/;"	f	typeref:typename:array *	file:
 array_reduce	core/src/array.c	/^void array_reduce(array *a, void *res, void (*reduce)(void *, void *)) {$/;"	f	typeref:typename:void
 array_remove	core/src/array.c	/^void array_remove(array *a, void *p, int keep_null) {$/;"	f	typeref:typename:void
 array_remove_idx	core/src/array.c	/^void array_remove_idx(array *a, size_t idx, int keep_null) {$/;"	f	typeref:typename:void
-array_remove_nulls	core/src/array.c	/^array *array_remove_nulls(array *a) {$/;"	f	typeref:typename:array *
+array_remove_nulls	core/src/array.c	/^void array_remove_nulls(array *a) {$/;"	f	typeref:typename:void
+array_replace	core/src/array.c	/^void array_replace(array *a, size_t i, void *value) {$/;"	f	typeref:typename:void
 array_resize	core/src/array.c	/^array *array_resize(array *a, size_t newsize) {$/;"	f	typeref:typename:array *
-array_set	core/src/array.c	/^void array_set(array *a, size_t i, void *value) {$/;"	f	typeref:typename:void
 array_set_cmp	core/src/array.c	/^void array_set_cmp(array *a, int (*cmp_data)(void *, void *)) {$/;"	f	typeref:typename:void
 array_set_free	core/src/array.c	/^void array_set_free(array *a, void (*free_data)(void *)) {$/;"	f	typeref:typename:void
-array_set_tos	core/src/array.c	/^void array_set_tos(array *a, void (*tos_data)(void *)) {$/;"	f	typeref:typename:void
 array_set_write	core/src/array.c	/^void array_set_write(array *a, void (*write_data)(void *, FILE *)) {$/;"	f	typeref:typename:void
 array_sort	core/src/array.c	/^void array_sort(array *res) {$/;"	f	typeref:typename:void
 array_swap	core/src/array.c	/^void array_swap(array *a, void *d1, void *d2) {$/;"	f	typeref:typename:void
@@ -104,5 +103,4 @@ person_write	test/src/person.c	/^void person_write(person *p, FILE *file) {$/;"	
 reduce	test/src/map_reduce.c	/^void reduce(int *res, int *a) {$/;"	f	typeref:typename:void
 size	core/src/array.h	/^	size_t size;					\/\/ allocated size$/;"	m	struct:array	typeref:typename:size_t
 tests	Makefile	/^tests: $(TBIN)\/main $(TBIN)\/map_reduce $(TBIN)\/sort $(TBIN)\/find_all$/;"	t
-tos	core/src/array.h	/^	void (*tos)(void *);			\/\/ to string function$/;"	m	struct:array	typeref:typename:void (*)(void *)
-write	core/src/array.h	/^	void (*write)(void *, FILE *);	\/\/ print element	$/;"	m	struct:array	typeref:typename:void (*)(void *,FILE *)
+write	core/src/array.h	/^	void (*write)(void *, FILE *);	\/\/ write element	$/;"	m	struct:array	typeref:typename:void (*)(void *,FILE *)

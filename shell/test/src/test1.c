@@ -43,7 +43,12 @@ int main(void) {
 
 			cmds = split(cmd, &n);
 
-			execute(cmds[0], &cmds[1], n - 1);
+
+			int rc = execute(cmds[0], &cmds[1], n - 1);
+
+			if(rc == SHELL_RC_EXIT) {
+				return 0;
+			}
 
 			/* free */
 			for(size_t i = 0; i < n; i++) {

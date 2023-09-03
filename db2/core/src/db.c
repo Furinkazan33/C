@@ -313,14 +313,14 @@ db_base *db_line_set(db_base *db, array *line, size_t c, int type, void *value, 
 				return NULL;
 			}
 			str_set(s, value, alloc_len);
-			array_set(line, c, s);
+			array_replace(line, c, s);
 		}
 		else {
-			array_set(line, c, NULL);
+			array_replace(line, c, NULL);
 		}
 	}
 	else {
-		array_set(line, c, value);
+		array_replace(line, c, value);
 	}
 
 	return db;
@@ -343,7 +343,7 @@ db_base *db_line_set_null(db_base *db, array *line, size_t c, int type) {
 		else {
 			free(value);
 		}
-		array_set(line, c, NULL);
+		array_replace(line, c, NULL);
 	}
 
 	return db;

@@ -5,19 +5,29 @@
 #include <string.h>
 #include "config.h"
 
-int config_save(cJSON *conf, char *path) {
-	int fd = open(path, O_WRONLY);
+cJSON *config_save(cJSON *conf, char *path) {
+	int fd = open(path, O_WRONLY | O_APPEND | O_CREAT);
 	if(!fd) {
 		perror("config_save : write open failed");
-		return 1;
+		return NULL;
 	}
 	char *json = cJSON_Print(conf);
-	write(fd, json, strlen(json));
+	if(!json) {
+		fprintf(stderr, "config_save : call to cJSON_Print returned NULL\n");
+		return NULL;
+	}
+
+	int n_write = write(fd, json, strlen(json));
+	if(n_write != (int)strlen(json)) {
+		fprintf(stderr, "config_save : call to write return bad length : %d != %ld\n", 
+				n_write, strlen(json));
+		return NULL;
+	}
 
 	free(json);
 	close(fd);
 
-	return 0;
+	return conf;
 }
 
 cJSON *config_new(const char *path) {
@@ -31,7 +41,7 @@ cJSON *config_new(const char *path) {
 
 	size_t n_read = read(fd, buffer, BUF_SIZE);
 	if(n_read >= BUF_SIZE) {
-		fprintf(stderr, "config_new : confi file too long (%ld)", n_read);
+		fprintf(stderr, "config_new : config file too long (%ld)", n_read);
 		close(fd);
 		return NULL;
 	}

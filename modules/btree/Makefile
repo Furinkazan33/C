@@ -1,6 +1,6 @@
-CC=gcc
-CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
-LDFLAGS=-I $(CSRC) -I $(TSRC)
+CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
+CFLAGS=-I $(CSRC) -I $(TSRC)
+LDFLAGS=-L $(CBUILD)
 
 DIR_CORE=./core
 CBUILD=$(DIR_CORE)/build
@@ -46,12 +46,12 @@ $(CBUILD)/libbtree.a: $(CBUILD)/btree.o
 #
 $(TBIN)/btree_person: $(TSRC)/btree_person.c $(TSRC)/person.c $(CBUILD)/libbtree.a
 	$(CC) $(CFLAGS) $(TSRC)/btree_person.c $(TSRC)/person.c \
-			-L $(CBUILD) -lbtree \
+			$(LDFLAGS) -lbtree \
 			-o $@
 
 $(TBIN)/btree_char: $(TSRC)/btree_char.c $(CBUILD)/libbtree.a
 	$(CC) $(CFLAGS) $(TSRC)/btree_char.c \
-			-L $(CBUILD) -lbtree \
+			$(LDFLAGS) -lbtree \
 			-o $@
 
 #
@@ -67,11 +67,8 @@ $(TLOG)/btree_person.log: $(TBIN)/btree_person
 # Cleaning
 #
 clean:
-	rm -f $(CBUILD)/*
-	rmdir $(CBUILD)
-	rm -f $(TBIN)/*
-	rmdir $(TBIN)
-	rm -f $(TLOG)/*
-	rmdir $(TLOG)
+	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
+	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
+	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
 	
 

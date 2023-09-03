@@ -58,7 +58,6 @@ array *array_new(size_t init_size) {
 	res->cmp = NULL;
 	res->free = NULL;
 	res->write = NULL;
-	res->tos = NULL;
 
 	return res;
 }
@@ -71,9 +70,6 @@ void array_set_free(array *a, void (*free_data)(void *)) {
 }
 void array_set_write(array *a, void (*write_data)(void *, FILE *)) {
 	a->write = write_data;
-}
-void array_set_tos(array *a, void (*tos_data)(void *)) {
-	a->tos = tos_data;
 }
 
 array *array_add_at(array *a, void *d, size_t idx) {
@@ -122,6 +118,22 @@ array *array_concat(array *res, array *add) {
 	return res;
 }
 
+/* free existing element and set new value by ref */
+void array_replace(array *a, size_t i, void *value) {
+	assert(a);
+	assert(i < a->n);
+
+	if(a->data[i]) {
+		if(a->free) {
+			a->free(a->data[i]);
+		}
+		else {
+			free(a->data[i]);
+		}
+	}
+	a->data[i] = value;
+}
+
 void array_sort(array *res) {
 	size_t min = 0;
 	for(size_t i = 0; i < res->n; i++) {
@@ -162,21 +174,6 @@ void *array_get(array *a, size_t i) {
 	return a->data[i];
 }
 
-void array_set(array *a, size_t i, void *value) {
-	assert(a);
-	assert(i < a->n);
-
-	if(a->data[i]) {
-		if(a->free) {
-			a->free(a->data[i]);
-		}
-		else {
-			free(a->data[i]);
-		}
-	}
-	a->data[i] = value;
-}
-
 void *array_find(array *a, void *search) {
 	assert(a);
 	assert(a->cmp);
@@ -193,7 +190,7 @@ void *array_find(array *a, void *search) {
 	return NULL;
 }
 
-void *array_find_all(array *a, void *search, size_t init_alloc) {
+array *array_find_all(array *a, void *search, size_t init_alloc) {
 	assert(a);
 	assert(a->cmp);
 
@@ -266,8 +263,9 @@ array *array_resize(array *a, size_t newsize) {
 	return a;
 }
 
-array *array_remove_nulls(array *a) {
+void array_remove_nulls(array *a) {
 	assert(a);
+
 	for(size_t i = 0; i < a->n; ) {
 		if(!a->data[i]) {
 			array_remove_idx(a, i, 0);
@@ -276,8 +274,6 @@ array *array_remove_nulls(array *a) {
 			i++;
 		}
 	}
-
-	return a;
 }
 
 void array_write(array *a, FILE *file) {
@@ -322,22 +318,15 @@ array *array_copy(array *a) {
 	return res;
 }
 
-array *array_map(array *a, void (*map)(void *)) {
+void array_map(array *a, void (*map)(void *)) {
 	assert(a);
 	assert(map);
 
-	array *res = array_copy(a);
-	if(!res) {
-		fprintf(stderr, "array_map : call to array_copy returned NULL\n");
-		return NULL;
-	}
-
 	for(size_t i = 0; i < a->n; i++) {
-		if(res->data[i]) {
-			map(res->data[i]);
+		if(a->data[i]) {
+			map(a->data[i]);
 		}
 	}
-	return res;
 }
 
 void array_reduce(array *a, void *res, void (*reduce)(void *, void *)) {
