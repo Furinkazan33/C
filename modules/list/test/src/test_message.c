@@ -6,43 +6,24 @@
 
 
 int main(void) {
-	list *l;
-	message *m;
-	container *c;
-
-	l = list_new();
-	if(!l) {
-		return 1;
-	}
-	list_set_write(l, message_write);
-	list_set_free(l, message_free);
-	list_set_cmp(l, message_cmp);
+	list *l = NULL;
+	list *p = NULL;
+	message *m = NULL;
 
 	for(int i = 0; i < 5000; i++) {
-   		m = message_new(i, "Hello you !");
-		if(!m) {
-			break;
+   		m = message_new(i, "Hello you !"); if(!m) { return 1; }
+		if(!l) {
+			l = list_new(m); if(!l) { return 1; }
+			p = l;
 		}
-		if(!list_append(l, m)) {
-			break;
+		else {
+			p = list_insert_after(p, m); if(!p) { return 1; }
 		}
 	}
-	list_write(l, stdout);
-	puts("-----------------");
 
-	c = list_pop(l, l->head);
+	list_map2(l, message_write, stdout);
 
-	while(c) {
-		list_free_container(l, c);
-		c = list_pop(l, l->head);
-	}
-
-	list_write(l, stdout);
-	puts("-----------------");
-
-	assert(l->n == 0 && l->head == NULL && l->tail == NULL);
-
-	list_free(l);
+	list_free_all(l, message_free);
 
 	return 0;
 }

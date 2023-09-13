@@ -17,21 +17,24 @@ $(TBIN)/find_all	Makefile	/^$(TBIN)\/find_all: $(TSRC)\/find_all.c $(CBUILD)\/ar
 $(TBIN)/main	Makefile	/^$(TBIN)\/main: $(TSRC)\/main.c $(CBUILD)\/array.o $(TSRC)\/person.c$/;"	t
 $(TBIN)/map_reduce	Makefile	/^$(TBIN)\/map_reduce: $(TSRC)\/map_reduce.c $(CBUILD)\/array.o$/;"	t
 $(TBIN)/sort	Makefile	/^$(TBIN)\/sort: $(TSRC)\/sort.c $(CBUILD)\/array.o $(TSRC)\/person.c$/;"	t
+$(TBIN)/trans	Makefile	/^$(TBIN)\/trans: $(TSRC)\/trans.c $(CBUILD)\/array.o $(TSRC)\/person.c$/;"	t
 $(TLOG)	Makefile	/^$(TLOG):$/;"	t
 $(TLOG)/find_all	Makefile	/^$(TLOG)\/find_all: $(TBIN)\/find_all$/;"	t
 $(TLOG)/main	Makefile	/^$(TLOG)\/main: $(TBIN)\/main$/;"	t
 $(TLOG)/map_reduce	Makefile	/^$(TLOG)\/map_reduce: $(TBIN)\/map_reduce$/;"	t
 $(TLOG)/sort	Makefile	/^$(TLOG)\/sort: $(TBIN)\/sort$/;"	t
+$(TLOG)/trans	Makefile	/^$(TLOG)\/trans: $(TBIN)\/trans$/;"	t
 ARRAY_REALLOC_COEF	core/src/array.h	/^#define ARRAY_REALLOC_COEF /;"	d
 CBUILD	Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
-CC	Makefile	/^CC=gcc$/;"	m
-CFLAGS	Makefile	/^CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L$/;"	m
+CC	Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CFLAGS	Makefile	/^CFLAGS=$/;"	m
 CSRC	Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
 DIR_CORE	Makefile	/^DIR_CORE=.\/core$/;"	m
 DIR_TEST	Makefile	/^DIR_TEST=.\/test$/;"	m
 INIT_SIZE	test/src/find_all.c	/^#define INIT_SIZE /;"	d	file:
 INIT_SIZE	test/src/main.c	/^#define INIT_SIZE /;"	d	file:
 INIT_SIZE	test/src/sort.c	/^#define INIT_SIZE /;"	d	file:
+INIT_SIZE	test/src/trans.c	/^#define INIT_SIZE /;"	d	file:
 LDFLAGS	Makefile	/^LDFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
 PERSON_ADRESS_LEN	test/src/person.h	/^#define PERSON_ADRESS_LEN /;"	d
 PERSON_NAME_LEN	test/src/person.h	/^#define PERSON_NAME_LEN /;"	d
@@ -48,12 +51,11 @@ array_add_at	core/src/array.c	/^array *array_add_at(array *a, void *d, size_t id
 array_alloc	core/src/array.c	/^static array *array_alloc(size_t size) {$/;"	f	typeref:typename:array *	file:
 array_append	core/src/array.c	/^array *array_append(array *a, void *d) {$/;"	f	typeref:typename:array *
 array_concat	core/src/array.c	/^array *array_concat(array *res, array *add) {$/;"	f	typeref:typename:array *
-array_copy	core/src/array.c	/^array *array_copy(array *a) {$/;"	f	typeref:typename:array *
+array_copy	core/src/array.c	/^array *array_copy(array *a, void *(*cpy)(void *)) {$/;"	f	typeref:typename:array *
 array_find	core/src/array.c	/^void *array_find(array *a, void *search) {$/;"	f	typeref:typename:void *
 array_find_all	core/src/array.c	/^array *array_find_all(array *a, void *search, size_t init_alloc) {$/;"	f	typeref:typename:array *
 array_free	core/src/array.c	/^void array_free(array *a, int with_data) {$/;"	f	typeref:typename:void
-array_get	core/src/array.c	/^void *array_get(array *a, size_t i) {$/;"	f	typeref:typename:void *
-array_map	core/src/array.c	/^void array_map(array *a, void (*map)(void *)) {$/;"	f	typeref:typename:void
+array_map	core/src/array.c	/^void array_map(array *a, void *(*map)(void *)) {$/;"	f	typeref:typename:void
 array_new	core/src/array.c	/^array *array_new(size_t init_size) {$/;"	f	typeref:typename:array *
 array_realloc	core/src/array.c	/^static array *array_realloc(array *a) {$/;"	f	typeref:typename:array *	file:
 array_reduce	core/src/array.c	/^void array_reduce(array *a, void *res, void (*reduce)(void *, void *)) {$/;"	f	typeref:typename:void
@@ -62,9 +64,6 @@ array_remove_idx	core/src/array.c	/^void array_remove_idx(array *a, size_t idx, 
 array_remove_nulls	core/src/array.c	/^void array_remove_nulls(array *a) {$/;"	f	typeref:typename:void
 array_replace	core/src/array.c	/^void array_replace(array *a, size_t i, void *value) {$/;"	f	typeref:typename:void
 array_resize	core/src/array.c	/^array *array_resize(array *a, size_t newsize) {$/;"	f	typeref:typename:array *
-array_set_cmp	core/src/array.c	/^void array_set_cmp(array *a, int (*cmp_data)(void *, void *)) {$/;"	f	typeref:typename:void
-array_set_free	core/src/array.c	/^void array_set_free(array *a, void (*free_data)(void *)) {$/;"	f	typeref:typename:void
-array_set_write	core/src/array.c	/^void array_set_write(array *a, void (*write_data)(void *, FILE *)) {$/;"	f	typeref:typename:void
 array_sort	core/src/array.c	/^void array_sort(array *res) {$/;"	f	typeref:typename:void
 array_swap	core/src/array.c	/^void array_swap(array *a, void *d1, void *d2) {$/;"	f	typeref:typename:void
 array_swap_idx	core/src/array.c	/^void array_swap_idx(array *a, size_t idx1, size_t idx2) {$/;"	f	typeref:typename:void
@@ -76,31 +75,34 @@ data	core/src/array.h	/^	void **data;$/;"	m	struct:array	typeref:typename:void *
 debug	Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
 debug	Makefile	/^debug: all$/;"	t
 dirs	Makefile	/^dirs: $(CBUILD) $(TLOG) $(TBIN)$/;"	t
-execs	Makefile	/^execs: $(TLOG)\/main $(TLOG)\/map_reduce $(TLOG)\/sort $(TLOG)\/find_all$/;"	t
+execs	Makefile	/^execs: $(TLOG)\/main $(TLOG)\/map_reduce $(TLOG)\/sort $(TLOG)\/find_all $(TLOG)\/trans$/;"	t
 free	core/src/array.h	/^	void (*free)(void *);			\/\/ free element$/;"	m	struct:array	typeref:typename:void (*)(void *)
 id	test/src/person.h	/^	int id;$/;"	m	struct:person	typeref:typename:int
-int_cmp	test/src/map_reduce.c	/^int int_cmp(int *a, int *b) {$/;"	f	typeref:typename:int
+int_cmp	test/src/map_reduce.c	/^int int_cmp(void *a, void *b) {$/;"	f	typeref:typename:int
 int_copy	test/src/map_reduce.c	/^int *int_copy(int *a) {$/;"	f	typeref:typename:int *
-int_free	test/src/map_reduce.c	/^void int_free(int *a) {$/;"	f	typeref:typename:void
-int_write	test/src/map_reduce.c	/^void int_write(int *a, FILE *file) {$/;"	f	typeref:typename:void
+int_free	test/src/map_reduce.c	/^void int_free(void *a) {$/;"	f	typeref:typename:void
+int_write	test/src/map_reduce.c	/^void int_write(void *a, FILE *file) {$/;"	f	typeref:typename:void
 main	test/src/find_all.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
 main	test/src/main.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
 main	test/src/map_reduce.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
 main	test/src/sort.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-map	test/src/map_reduce.c	/^void map(int *a) {$/;"	f	typeref:typename:void
+main	test/src/trans.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+map	test/src/map_reduce.c	/^void *map(void *a) {$/;"	f	typeref:typename:void *
 n	core/src/array.h	/^	size_t n;						\/\/ number of elements$/;"	m	struct:array	typeref:typename:size_t
 name	test/src/person.h	/^	char name[PERSON_NAME_LEN];$/;"	m	struct:person	typeref:typename:char[]
 p_cast	test/src/person.h	/^#define p_cast(/;"	d
 person	test/src/person.h	/^typedef struct person {$/;"	s
 person	test/src/person.h	/^} person;$/;"	t	typeref:struct:person
-person_cmp	test/src/person.c	/^int person_cmp(person *p1, person *p2) {$/;"	f	typeref:typename:int
+person_cmp	test/src/person.c	/^int person_cmp(void *p1, void *p2) {$/;"	f	typeref:typename:int
 person_cmp_name	test/src/find_all.c	/^int person_cmp_name(void *p1, void *p2) {$/;"	f	typeref:typename:int
-person_copy	test/src/person.c	/^person *person_copy(person *p) {$/;"	f	typeref:typename:person *
-person_free	test/src/person.c	/^void person_free(person *p) {$/;"	f	typeref:typename:void
+person_copy	test/src/person.c	/^void *person_copy(void *p) {$/;"	f	typeref:typename:void *
+person_free	test/src/person.c	/^void person_free(void *p) {$/;"	f	typeref:typename:void
 person_new	test/src/person.c	/^person *person_new(int id, int age, char *name, char *adress) {$/;"	f	typeref:typename:person *
 person_to_json	test/src/person.c	/^void person_to_json(char *dest, person *p) {$/;"	f	typeref:typename:void
-person_write	test/src/person.c	/^void person_write(person *p, FILE *file) {$/;"	f	typeref:typename:void
-reduce	test/src/map_reduce.c	/^void reduce(int *res, int *a) {$/;"	f	typeref:typename:void
+person_write	test/src/person.c	/^void person_write(void *p, FILE *file) {$/;"	f	typeref:typename:void
+reduce	test/src/map_reduce.c	/^void reduce(void *res, void *a) {$/;"	f	typeref:typename:void
 size	core/src/array.h	/^	size_t size;					\/\/ allocated size$/;"	m	struct:array	typeref:typename:size_t
-tests	Makefile	/^tests: $(TBIN)\/main $(TBIN)\/map_reduce $(TBIN)\/sort $(TBIN)\/find_all$/;"	t
+tests	Makefile	/^tests: $(TBIN)\/main $(TBIN)\/map_reduce $(TBIN)\/sort $(TBIN)\/find_all $(TBIN)\/trans$/;"	t
+transform	test/src/trans.c	/^void *transform(void *p) {$/;"	f	typeref:typename:void *
 write	core/src/array.h	/^	void (*write)(void *, FILE *);	\/\/ write element	$/;"	m	struct:array	typeref:typename:void (*)(void *,FILE *)
+write_int	test/src/trans.c	/^void write_int(void *i, FILE *file) {$/;"	f	typeref:typename:void

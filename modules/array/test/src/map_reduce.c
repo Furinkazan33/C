@@ -2,14 +2,14 @@
 #include <fcntl.h>
 #include "array.h"
 
-int int_cmp(int *a, int *b) {
-	return *a - *b;
+int int_cmp(void *a, void *b) {
+	return *(int *)a - *(int *)b;
 }
-void int_write(int *a, FILE *file) {
-	fprintf(file, "%d\n", *a);
+void int_write(void *a, FILE *file) {
+	fprintf(file, "%d\n", *(int *)a);
 }
-void int_free(int *a) {
-	free(a);
+void int_free(void *a) {
+	free((int *)a);
 }
 int *int_copy(int *a) {
 	int *res = malloc(sizeof(int));
@@ -17,11 +17,13 @@ int *int_copy(int *a) {
 	return res;
 }
 
-void map(int *a) {
-	*a += 10;
+void *map(void *a) {
+	*(int *)a += 10;
+
+	return a;
 }
-void reduce(int *res, int *a) {
-	*res += *a;
+void reduce(void *res, void *a) {
+	*(int *)res += *(int *)a;
 }
 
 int main(int argc, char **argv) {
@@ -30,9 +32,9 @@ int main(int argc, char **argv) {
 		exit(1);
 	}
 	array *a = array_new(10);
-	array_set_cmp(a, (int (*)(void *, void *))int_cmp);
-	array_set_free(a, (void (*)(void *))int_free);
-	array_set_write(a, (void (*)(void *, FILE *))int_write);
+	a->cmp = int_cmp;
+	a->free = int_free;
+	a->write = int_write;
 
 	printf("Adding 10 :\n");
 	for(int i = 0; i < 10; i++) {
@@ -44,7 +46,7 @@ int main(int argc, char **argv) {
 	puts("-----------------");
 
 	printf("map +10 :\n");
-	array_map(a, (void (*)(void *)) &map);
+	array_map(a, map);
 	array_write(a, stdout);
 	puts("-----------------");
 

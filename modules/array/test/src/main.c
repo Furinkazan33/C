@@ -15,10 +15,10 @@ int main(int argc, char **argv) {
 	if(!l) {
 		return 1;
 	}
-	array_set_cmp (l, (int (*)(void *, void *))person_cmp);
+	l->cmp = person_cmp;
 	array_sort(l);
-	array_set_free(l, (void (*)(void *))person_free);
-	array_set_write(l, (void (*)(void *, FILE *))person_write);
+	l->free = person_free;
+	l->write = person_write;
 
 
 	person *p[10];

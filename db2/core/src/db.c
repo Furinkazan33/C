@@ -148,7 +148,7 @@ int db_get_type(db_base *db, size_t c) {
 	assert(db);
 	assert(c < db->cols->n);
 
-	db_col *col = array_get(db->cols, c);
+	db_col *col = db->cols->data[c];
 	if(!col) {
 		fprintf(stderr, "db_get_type : error getting col\n");
 		return -1;
@@ -171,7 +171,7 @@ array *db_find(db_base *db, array *search, int (*cmp)(void *, void *)) {
 
 void db_set_cmp(db_base *db, int (*cmp)(void *, void *)) {
 	assert(db);
-	array_set_cmp(db->lines, cmp);
+	db->lines->cmp = cmp;
 }
 
 int db_cmp_id(void *id1, void *id2) {
@@ -245,7 +245,7 @@ db_base *db_col_add(db_base *db, bool mandatory, bool unique, int type, char *na
 	fflush(stdout);
 #endif
 	for(size_t l = 0; l < db->lines->n; l++) {
-		line = array_get(db->lines, l);
+		line = db->lines->data[l];
 		if(!array_append(line, NULL)) {
 			fprintf(stderr, "db_col_add : error adding NULL value for line %ld\n", l);
 			return NULL;
@@ -279,7 +279,7 @@ db_col *db_col_assert_type(db_base *db, size_t c, int type) {
 	assert(db);
 	assert(c < db->cols->n);
 
-	db_col *col = array_get(db->cols, c);
+	db_col *col = db->cols->data[c];
 	if(!col) {
 		fprintf(stderr, "db_col_assert_type : error getting col\n");
 		return NULL;
@@ -334,7 +334,7 @@ db_base *db_line_set_null(db_base *db, array *line, size_t c, int type) {
 	assert(c < db->cols->n);
 	assert(db_get_type(db, c) == type);
 	
-	void *value = array_get(line, c);
+	void *value = line->data[c];
 
 	if(value) {
 		if(type == STRING) {
@@ -396,7 +396,7 @@ void db_line_col_free(db_base *db, array *line, size_t c) {
 	assert(line);
 	assert(c < db->cols->n);
 
-	void *col = array_get(line, c);
+	void *col = line->data[c];
 
 	if(col) {
 		int type = db_get_type(db, c);
@@ -463,7 +463,7 @@ void db_write(db_base *db, FILE *file) {
 	fprintf(file, "cols:%ld lines:%ld\n", db->cols->n, db->lines->n);
 
 	for(size_t c = 0; c < db->cols->n; c++) {
-		col = array_get(db->cols, c);
+		col = db->cols->data[c];
 		fprintf(file, "[%d][%d][%d][%s][%s];", col->mandatory, col->unique, col->type, col->name, col->comment);
 	}
 
@@ -488,7 +488,7 @@ void db_line_write(db_base *db, FILE *file, size_t l) {
 
 	if(line) {
 		for(size_t c = 0; c < db->cols->n; c++) {
-			value = array_get(line, c);
+			value = line->data[c];
 			if(value) {
 				int type = db_get_type(db, c);
 				switch(type) {
@@ -700,7 +700,7 @@ array *db_line_new_from_s(db_base *db, char *string) {
 	}
 
 	for(size_t c = 0; c < db->cols->n; c++, p += len + 1) {
-		col = array_get(db->cols, c);
+		col = db->cols->data[c];
 		if(!col) {
 			fprintf(stderr, "db_line_new_from_s : error getting col\n");
 			return NULL;

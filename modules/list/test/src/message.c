@@ -17,8 +17,8 @@ message *message_new(int id, char *content) {
 int message_cmp(void *m1, void *m2) {
 	return ((message *)m1)->id - ((message *)m2)->id;
 }
-void message_write(void *m, FILE *file) {
-	fprintf(file, "%s %d\n", ((message *)m)->content, ((message *)m)->id);
+void message_write(void *m, void *file) {
+	fprintf((FILE *)file, "%s %d\n", ((message *)m)->content, ((message *)m)->id);
 }
 void message_free(void *m) {
 	free((message *)m);

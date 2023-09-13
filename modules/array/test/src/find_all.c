@@ -15,8 +15,8 @@ int main(int argc, char **argv) {
 		exit(1);
 	}
 	array *a = array_new(INIT_SIZE);
-	array_set_free(a, (void (*)(void *))person_free);
-	array_set_write(a, (void (*)(void *, FILE *))person_write);
+	a->free = person_free;
+	a->write = person_write;
 
 
 	person *p[10];
@@ -39,24 +39,24 @@ int main(int argc, char **argv) {
 	array_write(a, stdout); 
 	puts("-----------------");
 
-	array_set_cmp (a, person_cmp_name);
+	a->cmp = person_cmp_name;
 	array *find = array_find_all(a, p[6], 5);
-	array_set_write(find, (void (*)(void *, FILE *))person_write);
-	array_set_free(find, (void (*)(void *))person_free);
+	find->write = person_write;
+	find->free = person_free;
 	array_write(find, stdout);
 	array_free(find, 0);
 	puts("-----------------");
 
 	printf("sorting :\n");
-	array_set_cmp (a, (int (*)(void *, void *))person_cmp);
+	a->cmp = person_cmp;
 	array_sort(a);
 	array_write(a, stdout); 
 	puts("-----------------");
 	
-	array_set_cmp (a, person_cmp_name);
+	a->cmp = person_cmp_name;
 	array *find2 = array_find_all(a, p[6], 5);
-	array_set_write(find2, (void (*)(void *, FILE *))person_write);
-	array_set_free(find2, (void (*)(void *))person_free);
+	find2->write = person_write;
+	find2->free = person_free;
 	array_write(find2, stdout);
 	array_free(find2, 0);
 	puts("-----------------");

@@ -2,99 +2,95 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
-
-#define LEX_MAX_TOKEN_LEN 30
-#define LEX_TOKENS_INIT_ALLOC 100
-#define LEX_TOKENS_REALLOC_COEF 2
-
-/*
-Functions list :
-lex_strtok : get all tokens
-lex_free   : free memory after lex_strtok call
-lex_strtot : string to type conversion
-lex_ttostr : Type to string conversion
-*/
-/*
-    Token types
-*/
-typedef enum token_type {
-    /* basic types */
-    T_TYPE_INT = 0, T_TYPE_DOUBLE, T_TYPE_CHAR, T_TYPE_VOID, 
-	T_TYPE_INT_S, T_TYPE_DOUBLE_S, T_TYPE_CHAR_S, T_TYPE_VOID_S,
-
-	T_STRUCT, T_TYPEDEF, T_ENUM,
-
-    /* Specials */
-    T_INCLUDE, T_DEFINE, T_RETURN,
-
-	/* Logical */
-	T_AND, T_OR, T_EXCL, T_IF, T_ELSE, T_ELSE_IF, 
-
-    /* single chars */
-    T_L_STRIPE, T_R_STRIPE, T_COMMA, T_SEMICOLON, T_EQUAL, T_SPACE, T_QUOTES,
-    T_L_BRACKET, T_R_BRACKET, T_DOT, T_NEWLINE, T_EOS, T_TAB, T_HYPHEN, T_QUOTE,
-	T_L_PAREN, T_R_PAREN, T_SHARP, T_PLUS, T_MINUS, T_STAR, T_SLASH, T_AMPER,
-
-	T_ESCAPE,
-
-    /* End of tab index */
-    T_EOT,
+#include "list.h"
 
 
-    /* Non-deterministic values, keep at end */
-    T_LIT_INT, T_LIT_DOUBLE, T_LIT_STRING,
-	T_VARNAME, //variable or function name
+#define LEX_TOK_INIT_LEN_ALLOC 16
+#define LEX_TOK_ARRAY_ALLOC 128
+
+typedef enum lex_type {
+	LT_NONE = 0,
+	LT_OPERATOR, 
+		LT_OP_DOT,
+		LT_OP_EQUAL,
+		LT_OP_PLUS,
+		LT_OP_MINUS,
+		LT_OP_DIV,
+		LT_OP_STAR,
+		LT_OP_DIVE,
+		LT_OP_PERCENT,
+		LT_OP_AND,
+		LT_OP_OR,
+		LT_OP_NOT,
+		LT_OP_LHOOK,
+		LT_OP_RHOOK,
+		LT_OP_LPAREN,
+		LT_OP_RPAREN,
+		LT_OP_LSTRIPE,
+		LT_OP_RSTRIPE,
+		LT_OP_LBRACKET,
+		LT_OP_RBRACKET,
+		LT_OP_COLON,
+		LT_OP_SHARP,
+		LT_OP_COMMA,
+		LT_OP_SEMICOLON,
+	LT_TYPE, 
+		LT_T_VOID, 
+		LT_T_INT, 
+		LT_T_DOUBLE, 
+		LT_T_CHAR, 
+		LT_T_STRUCT,
+		LT_T_ENUM,
+	LT_VALUE, 
+		LT_V_INT, 
+		LT_V_DOUBLE, 
+		LT_V_CHAR, 
+		LT_V_STRING,
+	LT_KEYWORD,
+		LT_KW_CONST,
+		LT_KW_TYPEDEF,
+		LT_KW_DEFINE,
+		LT_KW_INCLUDE,
+		LT_KW_RETURN,
+		LT_KW_IF,
+		LT_KW_ELSE,
+		LT_KW_WHILE,
+		LT_KW_SWITCH,
+		LT_KW_CASE,
+		LT_KW_BREAK,
+		LT_KW_DEFAULT,
+		LT_KW_IFDEF,
+		LT_KW_ENDIF,
+	LT_COMMENT,
+		LT_COMMENT_LINE,
+		LT_COMMENT_BLOCK,
+	LT_BLANK,
+		LT_BLANK_NEWLINE,
+		LT_BLANK_SPACE,
+		LT_BLANK_TAB,
+	LT_NAME, 
 } lex_type;
 
-
 typedef struct token {
-    char literal[LEX_MAX_TOKEN_LEN];
+    char *literal;
     lex_type type;
+    lex_type type2;
 } token;
 
+token *lex_tok_new(char *literal, lex_type type);
+void lex_string_write(void *s, void *f);
+void lex_token_write(void *token, void *file);
+void lex_token_free(void *token);
 
-/* Char is a digit */
-bool char_is_int(char c);
-/* Every char is a digit */
-bool string_is_int(char *s);
-bool string_is_double(char *s);
-bool string_is_string(char *s);
-/* Index is not the last */
-bool not_EOT_literal(int i);
-/* Index is not the last */
-bool not_EOT_debug(int i);
-/* Index is not the last */
-bool not_EOT_EOW(int i);
-/* Index is not the last */
-bool not_EOT_ignore(int i);
-/* Defines what an end of word char is */
-bool char_is_EOW(char c);
-/* Defines what an empty char is  */
-bool char_is_ignore(char c);
-/* Defines what an end of string char is  */
-bool char_is_EOS(char c);
-/* Defines what a valid char is  */
-bool char_is_valid(char c);
-/* Get type from string */
-lex_type lex_strtot(char *expression);
-/* Get literal from type */
-const char *lex_ttostr(lex_type type);
-/* Pointer to next non-valid char */
-void pass_valid(char **p);
-/* Pointer to next non-empty char */
-void pass_ignore(char **p);
-/* Advancing pointer till new type of word (valid, ignore, EOW)  */
-void next_word(char **p);
-/* Extracts tokens from string without empty chars */
-token *lex_strtok(char *next);
-/* Printing 1 token  */
-void lex_print_t(token *t);
-/* Printing all tokens from list */
-void lex_print_l(token *l);
-bool lex_is_t_basic(lex_type t);
-/* Extracts n-1 element from list wich pointer is incremented by n.
- * (ignoring last token as it is a separator).
- * */
-token *lex_extract(token **l, int n);
-int lex_count(token *l, lex_type type);
+/* set token types from literal value */
+token *lex_token_set_types(token *t);
+
+/* return literal value from type */
+char *lex_type_lit(lex_type t);
+
+/* convert code to list of strings */
+list *lex_code_to_strings(char *code, int *n);
+
+/* convert list of strings to list of tokens */
+list *lex_strings_to_tokens(list *strings);
 

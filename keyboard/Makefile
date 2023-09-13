@@ -2,8 +2,9 @@
 #
 # Compiler flags
 #
-CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
-LDFLAGS=-L $(CLIB) -L $(CBUILD) -I $(CINC) -I $(CSRC)
+CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)
+CFLAGS=-I $(CINC) -I $(CSRC)
+LDFLAGS=-L $(CLIB) -L $(CBUILD)
 
 #
 # Core folders
@@ -35,10 +36,11 @@ TRES=$(TEST)/ressources
 #
 all: dirs builds tests
 dirs: $(CBUILD) $(TBIN) $(TLOG)
-builds: $(CBUILD)/hwi.o $(CBUILD)/libhwi.a
+builds: $(CBUILD)/kbd.o $(CBUILD)/libkbd.a
 tests: $(TBIN)/test1
 
-
+debug: CFLAGS+=-DDEBUG
+debug: all
 
 
 ##############################
@@ -59,13 +61,13 @@ $(TLOG):
 ##############################
 
 
-$(CBUILD)/hwi.o: $(CSRC)/hwi.c $(CSRC)/hwi.h ./Makefile
+$(CBUILD)/kbd.o: $(CSRC)/kbd.c $(CSRC)/kbd.h ./Makefile
 	$(CC) $(CFLAGS) $(LDFLAGS) \
-		-c $(CSRC)/hwi.c -o $@
+		-c $(CSRC)/kbd.c -o $@
 
-$(CBUILD)/libhwi.a: $(CBUILD)/hwi.o
-	ar ruv $(CBUILD)/libhwi.a $(CBUILD)/hwi.o $(DEP_O)
-	ranlib $(CBUILD)/libhwi.a
+$(CBUILD)/libkbd.a: $(CBUILD)/kbd.o
+	ar ruv $(CBUILD)/libkbd.a $(CBUILD)/kbd.o $(DEP_O)
+	ranlib $(CBUILD)/libkbd.a
 
 
 ##############################
@@ -73,9 +75,9 @@ $(CBUILD)/libhwi.a: $(CBUILD)/hwi.o
 ##############################
 
 # compiling test1 with .o
-$(TBIN)/test1: $(CBUILD)/hwi.o $(TSRC)/test1.c $(DEP_O)
+$(TBIN)/test1: $(CBUILD)/kbd.o $(TSRC)/test1.c $(DEP_O)
 	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(CBUILD)/hwi.o $(DEP_O) \
+		$(CBUILD)/kbd.o $(DEP_O) \
 		$(TSRC)/test1.c -o $@
 
 

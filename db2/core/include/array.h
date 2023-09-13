@@ -22,19 +22,12 @@ typedef struct array {
 
 
 array *array_new(size_t init_size);
-array *array_copy(array *a);
+array *array_copy(array *a, void *(*copy)(void *));
 array *array_resize(array *a, size_t newsize);
 void array_free(array *a, int with_data);			// a->free is called if not NULL
 
 /* 
- * functions over elements
- */
-void array_set_cmp(array *a, int (*cmp_data)(void *, void *));
-void array_set_free(array *a, void (*free_data)(void *));
-void array_set_write(array *a, void (*write_data)(void *, FILE *));
-
-/* 
- * adding element 
+ * adding
  * */
 array *array_add_at(array *a, void *d, size_t i);
 array *array_append(array *a, void *d);	
@@ -50,14 +43,13 @@ void array_swap(array *a, void *d1, void *d2);
 void array_swap_idx(array *a, size_t i1, size_t i2);
 
 /* 
- * retrieving element
+ * searching
  * */
-void *array_get(array *a, size_t i);
 void *array_find(array *a, void *search);			// a->cmp is called
 array *array_find_all(array *a, void *search, size_t init_alloc);
 
 /* 
- * removing element 
+ * removing
  * */
 void array_remove_idx(array *l, size_t i, int keep_null);
 void array_remove(array *l, void *p, int keep_null);
@@ -67,7 +59,7 @@ void array_remove_nulls(array *a);
  * run through functions 
  * */
 void array_write(array *a, FILE *file);				// a->write is called
-void array_map(array *a, void (*map)(void *));
+void array_map(array *a, void *(*map)(void *));
 /* reduce array to a unique element. result has to be pre-allocated. */
 void array_reduce(array *a, void *result, void (*reduce)(void *, void *));
 

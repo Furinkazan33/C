@@ -1,5 +1,5 @@
-CC=gcc
-CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
+CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)
+CFLAGS=
 LDFLAGS=-I $(CSRC) -I $(TSRC)
 
 DIR_CORE=./core
@@ -15,8 +15,8 @@ TLOG=$(DIR_TEST)/log
 all: dirs builds tests execs
 dirs: $(CBUILD) $(TLOG) $(TBIN)
 builds: $(CBUILD)/array.o $(CBUILD)/libarray.a
-tests: $(TBIN)/main $(TBIN)/map_reduce $(TBIN)/sort $(TBIN)/find_all
-execs: $(TLOG)/main $(TLOG)/map_reduce $(TLOG)/sort $(TLOG)/find_all
+tests: $(TBIN)/main $(TBIN)/map_reduce $(TBIN)/sort $(TBIN)/find_all $(TBIN)/trans
+execs: $(TLOG)/main $(TLOG)/map_reduce $(TLOG)/sort $(TLOG)/find_all $(TLOG)/trans
 
 debug: CFLAGS += -DDEBUG
 debug: all
@@ -67,6 +67,11 @@ $(TBIN)/find_all: $(TSRC)/find_all.c $(CBUILD)/array.o $(TSRC)/person.c
 		$(TSRC)/person.c $(TSRC)/find_all.c $(CBUILD)/array.o \
 		-o $@
 
+$(TBIN)/trans: $(TSRC)/trans.c $(CBUILD)/array.o $(TSRC)/person.c
+	$(CC) $(CFLAGS) $(LDFLAGS) \
+		$(TSRC)/person.c $(TSRC)/trans.c $(CBUILD)/array.o \
+		-o $@
+
 # 
 # Tests executions
 #
@@ -82,6 +87,8 @@ $(TLOG)/sort: $(TBIN)/sort
 $(TLOG)/find_all: $(TBIN)/find_all
 	$(TBIN)/find_all > $(TLOG)/find_all || (rm -f $(TLOG)/find_all; exit 1;)
 
+$(TLOG)/trans: $(TBIN)/trans
+	$(TBIN)/trans > $(TLOG)/trans || (rm -f $(TLOG)/trans; exit 1;)
 
 #
 # Cleaning

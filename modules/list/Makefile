@@ -1,5 +1,5 @@
-CC=gcc
-CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
+CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)
+CFLAGS=
 LDFLAGS=-I $(CSRC) -I $(TSRC)
 
 #
@@ -48,13 +48,13 @@ $(CBUILD)/liblist.a: $(CBUILD)/list.o
 #
 # Tests
 #
-$(TBIN)/main_person: $(TSRC)/person.c $(TSRC)/person.h $(CBUILD)/liblist.a $(CSRC)/list.h
+$(TBIN)/main_person: $(TSRC)/person.c $(TSRC)/person.h $(CBUILD)/liblist.a $(TSRC)/test_person.c
 	$(CC) $(CFLAGS) $(LDFLAGS) \
 			$(TSRC)/test_person.c $(TSRC)/person.c \
 			-L $(CBUILD) -llist \
 			-o $@
 
-$(TBIN)/main_message: $(TSRC)/message.c $(TSRC)/message.h $(CBUILD)/liblist.a
+$(TBIN)/main_message: $(TSRC)/message.c $(TSRC)/message.h $(CBUILD)/liblist.a $(TSRC)/test_message.c
 	$(CC) $(CFLAGS) $(LDFLAGS) \
 			$(TSRC)/test_message.c $(TSRC)/message.c \
 			-L $(CBUILD) -llist \

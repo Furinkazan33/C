@@ -124,9 +124,10 @@ int _fr_part_next(char *line, size_t lsize, size_t *llen, \
 	return FR_RC_FINISHED;
 }
 
-int fr_part_read(int fd, void (*handler)(int, char *, int), \
+int fr_part_read(int fd, void (*handler)(int, char *, int, int *), \
 				char *line, size_t lsize, size_t *llen, \
-				char *buffer, size_t bsize, size_t *bpos) {
+				char *buffer, size_t bsize, size_t *bpos,
+				int *hdl_return_code) {
 	int ret;
 	size_t n_read;
 
@@ -138,7 +139,7 @@ int fr_part_read(int fd, void (*handler)(int, char *, int), \
 		ret = _fr_part_next(line, lsize, llen, buffer, bsize, bpos, n_read);
 
 		while(ret == FR_RC_FINISHED) {
-			handler(fd, line, *llen);
+			handler(fd, line, *llen, hdl_return_code);
 			*llen = 0;
 
 			ret = _fr_part_next(line, lsize, llen, buffer, bsize, bpos, n_read);

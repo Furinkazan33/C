@@ -34,9 +34,9 @@ fb *fb_new(char *path, char *name, size_t init_size) {
 		free(res);
 		return NULL;
 	}
-	array_set_cmp(res->lines, (int (*)(void *, void *))str_cmp);
-	array_set_free(res->lines, (void (*)(void *))str_free);
-	array_set_write(res->lines, (void (*)(void *, FILE *))str_write);
+	res->lines->cmp = str_cmp;
+	res->lines->free = str_free;
+	res->lines->write = str_write;
 
 	return res;
 }

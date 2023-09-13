@@ -4,169 +4,135 @@
 #include <string.h>
 #include <assert.h>
 #include "lexer.h"
-#include "../include/array.h"
 
 
-// TODO: get_r_value after reading '=' operator
 
+void string_write(void *s, FILE *file) {
+	char *v = s;
+	fprintf(file, "%s", v);
+}
 
-const char token_type_literal[][LEX_MAX_TOKEN_LEN] = {
-    [T_TYPE_INT]        =    "int",
-    [T_TYPE_CHAR]       =    "char",
-    [T_TYPE_VOID]       =    "void",
-	[T_TYPE_INT_S]       =    "int *",
-	[T_TYPE_CHAR_S]       =    "char *",
-	[T_TYPE_VOID_S]       =    "void *",
-	[T_AND]			=	"&&",
-	[T_OR]			=	"||",
-    [T_L_STRIPE]   	=    "<",
-    [T_R_STRIPE]   	=    ">",
-    [T_COMMA]      	=    ",",
-    [T_SEMICOLON]  	=    ";",
-    [T_EQUAL]      	=    "=",
-    [T_SPACE]      	=    " ",
-    [T_QUOTES]    	=    "\"",
-    [T_L_BRACKET]  	=    "{",
-    [T_R_BRACKET]  	=    "}",
-    [T_DOT]        	=    ".",
-    [T_NEWLINE]        	=    "\n",
-    [T_EOS]        	=    "\0",
-    [T_TAB]        	=    "\t",
-    [T_HYPHEN]  	=    "-",
-    [T_QUOTE]      	=    "'",
-	[T_L_PAREN]		=	"(",
-	[T_R_PAREN]		=	")",
-	[T_SHARP]		=	"#",
-	[T_PLUS]		=	"+",
-	[T_MINUS]		=	"-",
-	[T_STAR]		=	"*",
-	[T_SLASH]		=	"/",
-	[T_AMPER]		=	"&",
-    [T_STRUCT]          =    "struct",
-    [T_TYPEDEF]         =    "typedef",
-    [T_ENUM]            =    "enum",
-    [T_INCLUDE]         =    "include",
-    [T_DEFINE]          =    "define",
-	[T_RETURN]			=	 "return",
-	[T_EXCL]			=	"!",
-	[T_IF]				=	"if",
-	[T_ELSE]			=	"else",
-    [T_ESCAPE]    	=    "\\",
+const char *EOW = " &#{[(|`^@)]°=}+-/*$%µ!§:;.,?<>\"\'\\\n\t";
 
-	/* End of tab */
-	[T_EOT] = "__RESERVED__EOT",
+char *lex_type_literal[] = {
+	[LT_NONE] = "NONE",
+	[LT_OPERATOR] = "OPERATOR", 
+		[LT_OP_SHARP] = "OP_SHARP", 
+		[LT_OP_DOT] = "OP_DOT", 
+		[LT_OP_EQUAL] = "OP_EQUAL",
+		[LT_OP_PLUS] = "OP_PLUS",
+		[LT_OP_MINUS] = "OP_MINUS",
+		[LT_OP_DIV] = "OP_DIV",
+		[LT_OP_STAR] = "OP_STAR",
+		[LT_OP_DIVE] = "OP_DIVE",
+		[LT_OP_PERCENT] = "OP_PERCENT",
+		[LT_OP_AND] = "OP_AND",
+		[LT_OP_OR] = "OP_OR",
+		[LT_OP_NOT] = "OP_NOT",
+		[LT_OP_LHOOK] = "OP_LHOOK",
+		[LT_OP_RHOOK] = "OP_RHOOK",
+		[LT_OP_LPAREN] = "OP_LPAREN",
+		[LT_OP_RPAREN] = "OP_RPAREN",
+		[LT_OP_LSTRIPE] = "OP_LSTRIPE",
+		[LT_OP_RSTRIPE] = "OP_RSTRIPE",
+		[LT_OP_LBRACKET] = "OP_LBRACKET",
+		[LT_OP_RBRACKET] = "OP_RBRACKET",
+		[LT_OP_COLON] = "OP_COLON", 
+		[LT_OP_COMMA] = "OP_COMMA",
+		[LT_OP_SEMICOLON] = "OP_SEMICOLON",
+	[LT_TYPE] = "TYPE", 
+		[LT_T_VOID] = "T_VOID", 
+		[LT_T_INT] = "T_INT", 
+		[LT_T_DOUBLE] = "T_DOUBLE", 
+		[LT_T_CHAR] = "T_CHAR", 
+		[LT_T_STRUCT] = "T_STRUCT",
+		[LT_T_ENUM] = "T_ENUM",
+	[LT_VALUE] = "VALUE", 
+		[LT_V_INT] = "V_INT", 
+		[LT_V_DOUBLE] = "V_DOUBLE", 
+		[LT_V_CHAR] = "V_CHAR", 
+		[LT_V_STRING] = "V_STRING",
+	[LT_KEYWORD] = "KEYWORD", 
+		[LT_KW_CONST] = "KW_CONST", 
+		[LT_KW_TYPEDEF] = "KW_TYPEDEF", 
+		[LT_KW_INCLUDE] = "KW_INCLUDE", 
+		[LT_KW_DEFINE] = "KW_DEFINE", 
+		[LT_KW_SWITCH] = "KW_SWITCH", 
+		[LT_KW_CASE] = "KW_CASE", 
+		[LT_KW_BREAK] = "KW_BREAK", 
+		[LT_KW_DEFAULT] = "KW_DEFAULT", 
+		[LT_KW_IF] = "KW_IF", 
+		[LT_KW_IFDEF] = "KW_IFDEF", 
+		[LT_KW_ELSE] = "KW_ELSE", 
+		[LT_KW_ENDIF] = "KW_ENDIF", 
+		[LT_KW_WHILE] = "KW_WHILE",
+		[LT_KW_RETURN] = "KW_RETURN",
+	[LT_NAME] = "NAME", 
+	[LT_COMMENT] = "COMMENT",
+		[LT_COMMENT_LINE] = "LINE",
+		[LT_COMMENT_BLOCK] = "BLOCK",
+	[LT_BLANK] = "BLANK",
+		[LT_BLANK_NEWLINE] = "NEWLINE",
+		[LT_BLANK_SPACE] = "SPACE",
+		[LT_BLANK_TAB] = "TAB",
 };
+
+char *lex_type_lit(lex_type t) {
+	return lex_type_literal[t];
+}
+
+
+token *lex_token_new(char *string, lex_type type) {
+	assert(string);
+
+	token *res = malloc(sizeof(*res));
+	if(!res) {
+		fprintf(stderr, "lex_token_new : call to malloc token returned NULL\n");
+		return NULL;
+	}
+	res->literal = malloc(sizeof(char) * (strlen(string) + 1));
+	if(!res->literal) {
+		fprintf(stderr, "lex_token_new : call to malloc string returned NULL\n");
+		return NULL;
+	}
+
+	strcpy(res->literal, string);
+	res->type = type;
+
+	return res;
+}
+
+void lex_string_write(void *s, void *f) {
+	fprintf((FILE *)f, "%s", (char *)s);
+}
+
+void lex_token_write(void *tok, void *file) {
+	token *t = tok;
+	fprintf((FILE *)file, "[%15s][%15s][%s]\n", lex_type_lit(t->type), lex_type_lit(t->type2), t->literal);
+}
+
+void lex_token_free(void *p) {
+	token *t = p;
+	assert(t);
+	assert(t->literal != NULL);
+
+	free(t->literal);
+	free(t);
+}
 
 /*
-    Token types literals for debug printings
-*/
-const char token_type_debug[][LEX_MAX_TOKEN_LEN] = {
-    [T_TYPE_INT]        =    "T_TYPE_INT",
-    [T_TYPE_CHAR]       =    "T_TYPE_CHAR",
-    [T_TYPE_VOID]       =    "T_TYPE_VOID",
-	[T_TYPE_INT_S]       =    "T_TYPE_INT_S",
-	[T_TYPE_CHAR_S]       =    "T_TYPE_CHAR_S",
-	[T_TYPE_VOID_S]       =    "T_TYPE_VOID_S",
-    [T_L_STRIPE]   =    "T_L_STRIPE",
-    [T_R_STRIPE]   =    "T_R_STRIPE",
-    [T_COMMA]      =    "T_COMMA",
-    [T_SEMICOLON]  =    "T_SEMICOLON",
-    [T_EQUAL]      =    "T_EQUAL",
-    [T_SPACE]      =    "T_SPACE",
-    [T_ESCAPE]    =    "T_ESCAPE",
-    [T_QUOTES]    =    "T_QUOTES",
-    [T_L_BRACKET]  =    "T_L_BRACKET",
-    [T_R_BRACKET]  =    "T_R_BRACKET",
-    [T_DOT]        =    "T_DOT",
-    [T_NEWLINE]        =    "T_NEWLINE",
-    [T_EOS]        =    "T_EOS",
-    [T_TAB]        =    "T_TAB",
-    [T_HYPHEN]     =    "T_HYPHEN",
-    [T_QUOTE]      =    "T_QUOTE",
-	[T_L_PAREN]		=	"T_L_PAREN",
-	[T_R_PAREN]		=	"T_R_PAREN",
-	[T_SHARP]		=	"T_SHARP",
-	[T_PLUS]		=	"T_PLUS",
-	[T_MINUS]		=	"T_MINUS",
-	[T_STAR]		=	"T_STAR",
-	[T_SLASH]		=	"T_SLASH",
-	[T_AMPER]		=	"T_AMPER",
-    [T_STRUCT]          =    "T_STRUCT",
-    [T_TYPEDEF]         =    "T_TYPEDEF",
-    [T_ENUM]            =    "T_ENUM",
-    [T_INCLUDE]         =    "T_INCLUDE",
-    [T_DEFINE]          =    "T_DEFINE",
-	[T_RETURN]			=	 "T_RETURN",
-	[T_AND]			=	"T_AND",
-	[T_OR]			=	"T_OR",
-	[T_EXCL]				=	"T_EXCL",
-	[T_IF]				=	"T_IF",
-	[T_ELSE]			=	"T_ELSE",
-    [T_LIT_INT] 	=    "T_LIT_INT",
-    [T_LIT_DOUBLE] 	=    "T_LIT_DOUBLE",
-    [T_LIT_STRING] 	=    "T_LIT_STRING",
-    [T_VARNAME]        =    "T_VARNAME",
+ *
+ * Helpers
+ *
+ */
 
-	/* End of tab */
-	[T_EOT] = "__RESERVED__EOT",
-};
-
-const char *end_word[] = {
-	/* 2 chars tokens  */
-	token_type_literal[T_AND],
-	token_type_literal[T_OR],
-
-	/* 1 char tokens  */
-	token_type_literal[T_EXCL],
-    token_type_literal[T_L_STRIPE],
-    token_type_literal[T_R_STRIPE],
-    token_type_literal[T_COMMA],
-    token_type_literal[T_SEMICOLON],
-    token_type_literal[T_EQUAL],
-    token_type_literal[T_SPACE],
-    token_type_literal[T_QUOTES],
-    token_type_literal[T_L_BRACKET],
-    token_type_literal[T_R_BRACKET],
-    token_type_literal[T_DOT],
-    token_type_literal[T_NEWLINE],
-    token_type_literal[T_EOS],
-    token_type_literal[T_TAB],
-    token_type_literal[T_HYPHEN],
-    token_type_literal[T_QUOTE],
-	token_type_literal[T_L_PAREN],
-	token_type_literal[T_R_PAREN],
-	token_type_literal[T_SHARP],
-	token_type_literal[T_PLUS],
-	token_type_literal[T_MINUS],
-	token_type_literal[T_STAR],
-	token_type_literal[T_SLASH],
-	token_type_literal[T_AMPER],
-    
-	//token_type_literal[T_ESCAPE],
-
-	/* End of tab */
-	token_type_literal[T_EOT]
-};
-
-
-const char *ignore[] = {
-	token_type_literal[T_SPACE],
-	token_type_literal[T_NEWLINE],
-	token_type_literal[T_TAB],
-
-	/* End of tab */
-	token_type_literal[T_EOT]
-};
-
-/* Char is a digit */
-bool char_is_int(char c) {
+bool lex_is_digit(char c) {
 	return c >= 48 && c <= 57;
 }
 
-/* Every char is a digit */
-bool string_is_int(char *s) {
+bool lex_is_integer(char *s) {
 	while(s && *s) {
-		if(!char_is_int(*s)) {
+		if(!lex_is_digit(*s)) {
 			return false;
 		}
 		s++;
@@ -174,384 +140,764 @@ bool string_is_int(char *s) {
 	return true;
 }
 
-bool string_is_double(char *s) {
+bool lex_is_double(char *s) {
 	bool dot = false;
-	bool end = false;
-	int n_dot = 0;
 
 	while(s && *s) {
-		if(char_is_int(*s)) {
-			if(dot) {
-				if(end) {
-					return false;
-				}
-				else {
-					end = true;
-				}
-			}
+		if(lex_is_digit(*s)) {
 			s++;
 		}
-		else if(*s == '.' && !end) {
+		else if(*s == '.' && !dot) {
 			dot = true;
-			n_dot++;
 			s++;
 		}
 		else {
 			return false;
 		}
 	}
-
-	return n_dot <= 1;
-}
-
-bool string_is_string(char *s) {
-	if(strlen(s) < 2) {
-		return false;
-	}
-	if(*s != '"' || *(s + strlen(s) - 1) != '"') {
-		return false;
-	}
+	
 	return true;
 }
 
-/* Index is not the last */
-bool not_EOT_literal(int i) {
-	return strcmp(token_type_literal[i], token_type_literal[T_EOT]) != 0;
+bool lex_is_lit_string(char *s) {
+	if(*s == '"' && *(s + strlen(s) - 1) == '"') {
+		return true;
+	}
+
+	return false;
 }
 
-/* Index is not the last */
-bool not_EOT_debug(int i) {
-	return strcmp(token_type_debug[i], token_type_debug[T_EOT]) != 0;
+bool lex_is_lit_char(char *s) {
+	assert(s);
+
+	if(strlen(s) == 3 && s[0] == '\'' && s[2] == '\'') {
+		return true;
+	}
+	if(strlen(s) == 4 && s[0] == '\'' && s[1] == '\\' && s[3] == '\'') {
+		return true;
+	}
+
+	return false;
 }
 
-/* Index is not the last */
-bool not_EOT_EOW(int i) {
-	return strcmp(end_word[i], token_type_literal[T_EOT]) != 0;
+
+void lex_ignore_blanks(char **code) {
+	while(**code == ' ' || **code == '\t') {
+		(*code)++;
+	}
 }
 
-/* Index is not the last */
-bool not_EOT_ignore(int i) {
-	return strcmp(ignore[i], token_type_literal[T_EOT]) != 0;
-}
-
-/* Defines what an end of word char is */
-bool char_is_EOW(char c) {
-	int i;
-
-	for(i = 0; not_EOT_EOW(i); i++) {
-		if(c == end_word[i][0]) {
-			return true;
-		}
+bool lex_EOW(char *p) {
+	assert(p);
+	if(!*p) {
+		return true;
+	}
+	if(strchr(EOW, *p)) {
+		return true;
 	}
 	return false;
 }
 
-/* Defines what an empty char is  */
-bool char_is_ignore(char c) {
-	int i;
 
-	for(i = 0; not_EOT_ignore(i); i++) {
-		if(c == ignore[i][0]) {
-			return true;
-		}
-	}
-	return false;
-}
-
-/* Defines what an end of string char is  */
-bool char_is_EOS(char c) {
-	return c == token_type_literal[T_EOS][0];
-}
-
-/* Defines what a valid char is  */
-bool char_is_valid(char c) {
-	return !char_is_EOS(c) && !char_is_EOW(c) && !char_is_ignore(c);
-}
-
-/* Get type from string 
- * TODO: improve by : 
- *  - sorting token_type_literal
- *  - fuse string_is_int and string_is_double
+/*
+ *
+ * Main functions
+ *
  */
-lex_type lex_strtot(char *expression) {
-	int i;
 
-	if(strcmp(expression, ".") == 0) {
-		return T_DOT;
-	}
-	if(string_is_string(expression)) {
-		return T_LIT_STRING;
-	}
-	if(strcmp(expression, "\"") == 0) {
-		return T_QUOTES;
-	}
-	if(string_is_int(expression)) {
-		return T_LIT_INT;
-	}
-	if(string_is_double(expression)) {
-		return T_LIT_DOUBLE;
-	}
-	for(i = 0; not_EOT_literal(i); i++) {
-		if(strcmp(expression, token_type_literal[i]) == 0) {
-			return (lex_type) i;
-		}
-	}
-
-	return T_VARNAME; /* If no token recognize, then it's a varname */
-}
-
-/* Get literal from type */
-const char *lex_ttostr(lex_type type) {
-	return token_type_debug[type];
-}
-
-/* Pointer to next non-valid char */
-void pass_valid(char **p) {
-	while(char_is_valid(**p)) {
-		(*p)++;
-	}
-}
-
-/* Pointer to next non-empty char */
-void pass_ignore(char **p) {
-	while(char_is_ignore(**p)) {
-		(*p)++;
-	}
-}
-
-/* Advancing pointer till new type of word (valid, ignore, EOW)  */
-void next_word(char **p) {
-	if(char_is_valid(**p)) {
-		pass_valid(p);
-		return;
-	}
-
-	if(char_is_ignore(**p)) {
-		pass_ignore(p);
-		return;
-	}
-
-	if(char_is_EOW(**p)) {
-		(*p)++;
-		return;
-	}
-}
-
-token *lex_tok_new(char *string, lex_type type) {
-	token *res = malloc(sizeof(*res));
-	if(!res) {
-		fprintf(stderr, "lex_tok_new : call to malloc returned NULL\n");
+char *lex_read_next(char **p) {
+	if(!**p) {
 		return NULL;
 	}
-	strcpy(res->literal, string);
-	res->type = type;
+
+#ifdef DEBUG2
+	fprintf(stdout, "lex_read_next : [%c] => ", **p);
+#endif
+
+	size_t alloc_len = LEX_TOK_INIT_LEN_ALLOC;
+	size_t len = 0;
+	char *res = malloc(sizeof(char) * (alloc_len + 1));
+	if(!res) {
+		fprintf(stderr, "lex_read_next : call to malloc returned NULL\n");
+		return NULL;
+	}
+
+	if(lex_EOW(*p)){
+		res[len++] = *(*p)++;
+	}
+	else {
+		for( ;**p && !lex_EOW(*p); (*p)++, len++) {
+			if(len >= alloc_len) {
+				alloc_len *= 2;
+				res = realloc(res, sizeof(char) * (alloc_len + 1));
+				if(!res) {
+					fprintf(stderr, "lex_read_next : call to realloc returned NULL\n");
+					return NULL;
+				}
+			}
+			res[len] = **p;
+		}
+	}
+	res[len] = '\0';
+
+#ifdef DEBUG2
+	fprintf(stdout, "[%s]\n", res);
+#endif
 
 	return res;
 }
 
-void token_write(void *t, FILE *file) {
-	const char *lit, *debug;
-	lit = ((token *)t)->literal;
-	debug = lex_ttostr(((token *)t)->type);
-	fprintf(file, "%d:%s:%s\n", ((token *)t)->type, debug, lit);
-}
+char *lex_read_quot(char **p, char c) {
+	assert(p);
+	assert(**p);
 
-//TODO: implement
-//list context:
-// - inside string => read until end
-// - end of word read
-// - escape char read
-// - varname
-bool lex_add_next(char *token_as_string, size_t len, char *p) {
-	//if token_as_string not recognize as token, return true
-
-	return true;
-}
-
-
-/* Read code and return an array of tokens.
- * Chars are added to new token 1 by 1
- */
-array *lex_strtok2(char *code) {
-	token *token;			// token to add to array
-	lex_type type;			// type of token
-	array *tokens;			// result
-
-	/* tokens is an array of char * */
-	tokens = array_new(128);
-	if(!tokens) {
-		fprintf(stderr, "lex_strtok2 : call to array_new returned NULL\n");
-		return NULL;
-	}
-	array_set_free(tokens, (void (*)(void *))free);
-	array_set_write(tokens, token_write);
-
-	/* alloc first string token */
-	size_t alloc_len = 8;
+#ifdef DEBUG2
+	fprintf(stdout, "lex_read_quot : [%c] => ", **p);
+#endif
+	size_t alloc_len = LEX_TOK_INIT_LEN_ALLOC;
 	size_t len = 0;
-	char *token_as_string = malloc(sizeof(char) * (alloc_len + 1));
-	if(!token_as_string) {
-		fprintf(stderr, "lex_strtok2 : call to first malloc returned NULL\n");
+	char *res = malloc(sizeof(char) * (alloc_len + 1));
+	if(!res) {
+		fprintf(stderr, "lex_read_quot : call to malloc returned NULL\n");
+		return NULL;
+	}
+	res[len++] = *(*p)++;
+
+	while(**p && (**p != c || (len > 1 && *((*p)-1) == '\\'))) {
+		if(len >= alloc_len) {
+			alloc_len *= 2;
+			res = realloc(res, sizeof(char) * (alloc_len + 1));
+			if(!res) {
+				fprintf(stderr, "lex_read_quot : call to realloc returned NULL\n");
+				return NULL;
+			}
+		}
+		res[len++] = *(*p)++;
+	}
+
+	if(**p == c) {
+		if(len >= alloc_len) {
+			alloc_len += 2;
+			res = realloc(res, sizeof(char) * (alloc_len + 1));
+			if(!res) {
+				fprintf(stderr, "lex_read_quot : call to realloc returned NULL\n");
+				return NULL;
+			}
+		}
+		res[len++] = *(*p)++;
+		res[len] = '\0';
+	}
+	else {
+		fprintf(stderr, "lex_read_quot : string literal format error\n");
 		return NULL;
 	}
 
-	/* read code until end */
+#ifdef DEBUG2
+	fprintf(stdout, "[%s]\n", res);
+#endif
+
+	return res;
+}
+
+char *lex_read_sharp(char **p) {
+	assert(p);
+	assert(**p);
+
+#ifdef DEBUG2
+	fprintf(stdout, "lex_read_sharp : [%c] => ", **p);
+#endif
+
+	size_t alloc_len = LEX_TOK_INIT_LEN_ALLOC;
+	size_t len = 0;
+	char *res = malloc(sizeof(char) * (alloc_len + 1));
+	if(!res) {
+		fprintf(stderr, "lex_read_sharp : call to malloc returned NULL\n");
+		return NULL;
+	}
+
+	while(**p && **p != '\n') {
+		if(len >= alloc_len) {
+			alloc_len *= 2;
+			res = realloc(res, sizeof(char) * (alloc_len + 1));
+			if(!res) {
+				fprintf(stderr, "lex_read_sharp : call to realloc returned NULL\n");
+				return NULL;
+			}
+		}
+		res[len++] = *(*p)++;
+	}
+	if(**p == '\n') {
+		res[len] = '\0';
+	}
+	else {
+		fprintf(stderr, "lex_read_sharp : preproc statement format error\n");
+		return NULL;
+	}
+
+#ifdef DEBUG2
+	fprintf(stdout, "[%s]\n", res);
+#endif
+
+	return res;
+}
+
+const char *EON = " &#{[(|`^@)]°=}+-/*$%µ!§:;,?<>\"\'\\\n\t";
+
+bool lex_EON(char *p) {
+	if(*p && strchr(EON, *p)) {
+		return true;
+	}
+	return false;
+}
+
+char *lex_read_numb(char **p) {
+	assert(p);
+	assert(**p);
+
+#ifdef DEBUG2
+	fprintf(stdout, "lex_read_numb : [%c] => ", **p);
+#endif
+
+	size_t alloc_len = LEX_TOK_INIT_LEN_ALLOC;
+	size_t len = 0;
+	char *res = malloc(sizeof(char) * (alloc_len + 1));
+	if(!res) {
+		fprintf(stderr, "lex_read_numb : call to malloc returned NULL\n");
+		return NULL;
+	}
+
+	while(**p && !lex_EON(*p)) {
+		if(len >= alloc_len) {
+			alloc_len *= 2;
+			res = realloc(res, sizeof(char) * (alloc_len + 1));
+			if(!res) {
+				fprintf(stderr, "lex_read_numb : call to realloc returned NULL\n");
+				return NULL;
+			}
+		}
+		res[len++] = *(*p)++;
+	}
+	if(lex_EON(*p)) {
+		res[len] = '\0';
+	}
+	else {
+		fprintf(stderr, "lex_read_numb : preproc statement format error\n");
+		return NULL;
+	}
+
+#ifdef DEBUG2
+	fprintf(stdout, "[%s]\n", res);
+#endif
+
+	return res;
+}
+
+char *lex_read_newl(char **p) {
+	assert(p);
+	assert(**p);
+	assert(**p == '\n');
+
+	char *res = malloc(sizeof(char) * 2);
+	if(!res) {
+		fprintf(stderr, "lex_read_newl : call to malloc returned NULL\n");
+		return NULL;
+	}
+
+	(*p)++;
+	res[0] = '\n';
+	res[1] = '\0';
+
+#ifdef DEBUG2
+	fprintf(stdout, "lex_read_newl : [\\NEWLINE] => [\\NEWLINE]\n");
+#endif
+
+	return res;
+}
+
+char *lex_read_space(char **p) {
+	assert(p);
+	assert(**p);
+	assert(**p == ' ');
+
+	char *res = malloc(sizeof(char) * 2);
+	if(!res) {
+		fprintf(stderr, "lex_read_space : call to malloc returned NULL\n");
+		return NULL;
+	}
+
+	(*p)++;
+	res[0] = ' ';
+	res[1] = '\0';
+
+#ifdef DEBUG2
+	fprintf(stdout, "lex_read_space : [\\SPACE] => [\\SPACE]\n");
+#endif
+
+	return res;
+}
+
+char *lex_read_comment(char **p) {
+	assert(p);
+	assert(**p);
+	assert(**p == '/' && *((*p)+1) == '/');
+
+	size_t alloc_len = LEX_TOK_INIT_LEN_ALLOC;
+	char *res = malloc(sizeof(char) * (alloc_len + 1));
+	if(!res) {
+		fprintf(stderr, "lex_read_comment : call to malloc returned NULL\n");
+		return NULL;
+	}
+
+	size_t i;
+	for(i = 0; **p && **p != '\n'; (*p)++, i++) {
+		if(i >= alloc_len) {
+			alloc_len *= 2;
+			res = realloc(res, sizeof(char) * (alloc_len + 1));
+			if(!res) {
+				fprintf(stderr, "lex_read_comment : call to realloc returned NULL\n");
+				return NULL;
+			}
+		}
+		res[i] = **p;
+	}
+	res[i] = '\0';
+
+#ifdef DEBUG2
+	fprintf(stdout, "lex_read_comment : [//] => [%s]\n", res);
+#endif
+
+	return res;
+}
+
+char *lex_read_comment_block(char **p) {
+	assert(p);
+	assert(**p);
+	assert(**p == '/' && *((*p)+1) == '*');
+
+	size_t alloc_len = LEX_TOK_INIT_LEN_ALLOC;
+	char *res = malloc(sizeof(char) * (alloc_len + 1));
+	if(!res) {
+		fprintf(stderr, "lex_read_comment_block : call to malloc returned NULL\n");
+		return NULL;
+	}
+
+	size_t i;
+	for(i = 0; **p && (**p != '*' || *((*p)+1) != '/'); (*p)++, i++) {
+		if(i >= alloc_len) {
+			alloc_len *= 2;
+			res = realloc(res, sizeof(char) * (alloc_len + 1));
+			if(!res) {
+				fprintf(stderr, "lex_read_comment_block : call to realloc returned NULL\n");
+				return NULL;
+			}
+		}
+		res[i] = **p;
+	}
+
+	if(**p != '*' || *((*p)+1) != '/') {
+		fprintf(stderr, "lex_read_comment_block : comment block format error\n");
+		return NULL;
+	}
+
+	if(i + 2 >= alloc_len) {
+		alloc_len += 2;
+		res = realloc(res, sizeof(char) * (alloc_len + 1));
+		if(!res) {
+			fprintf(stderr, "lex_read_comment_block : call to realloc returned NULL\n");
+			return NULL;
+		}
+	}
+	res[i] = *(*p)++;
+	res[i+1] = *(*p)++;
+	res[i+2] = '\0';
+
+#ifdef DEBUG2
+	fprintf(stdout, "lex_read_comment_block : [/*] => [%s]\n", res);
+#endif
+
+	return res;
+}
+
+char *lex_read_tab(char **p) {
+	assert(p);
+	assert(**p);
+	assert(**p == '\t');
+
+	char *res = malloc(sizeof(char) * 2);
+	if(!res) {
+		fprintf(stderr, "lex_read_tab : call to malloc returned NULL\n");
+		return NULL;
+	}
+
+	(*p)++;
+	res[0] = '\t';
+	res[1] = '\0';
+
+#ifdef DEBUG2
+	fprintf(stdout, "lex_read_tab : [\\TAB] => [\\TAB]\n");
+#endif
+
+	return res;
+}
+list *lex_code_to_strings(char *code, int *n) {
+	assert(code);
+
+	list *res = NULL;
+	list *p_res = NULL;
+	char *string = NULL;
 	char *p = code;
-	while(p && *p) {
-		// add next char ?
-		if(lex_add_next(token_as_string, len, p)) {
-			token_as_string[len++] = *p++;
-			token_as_string[len] = '\0';
+	*n = 0;
 
-			/* realloc if needed */
-			if(len >= alloc_len) {
-				alloc_len *= 2;
-				token_as_string = realloc(token_as_string, alloc_len);
-				if(!token_as_string) {
-					fprintf(stderr, "lex_strtok2 : call to realloc returned NULL\n");
-					return NULL;
-				}
-			}
+	while(*p) {
+		if(*p == ' ') {
+			string = lex_read_space(&p);
 		}
-		/* end of current token */
+		else if(*p == '/' && *(p+1) == '/') {
+			string = lex_read_comment(&p);
+		}
+		else if(*p == '/' && *(p+1) == '*') {
+			string = lex_read_comment_block(&p);
+		}
+		else if(*p == '\t') {
+			string = lex_read_tab(&p);
+		}
+		else if(*p == '\n') {
+			string = lex_read_newl(&p);
+		}
+		else if(*p == '"') {
+			string = lex_read_quot(&p, '"');
+		}
+		else if(*p == '\'') {
+			string = lex_read_quot(&p, '\'');
+		}
+		else if(lex_is_digit(*p)){
+			string = lex_read_numb(&p);
+		}
 		else {
-			type = lex_strtot(token_as_string);
-			token = lex_tok_new(token_as_string, type);
-			if(!array_append(tokens, token)) {
-				fprintf(stderr, "lex_strtok2 : call to array_append returned NULL\n");
+			string = lex_read_next(&p);
+		}
+		if(!*p) {
+			break;
+		}
+		if(!string) {
+			fprintf(stderr, "lex_code_to_strings : reading returned NULL\n");
+			return NULL;
+		}
+		if(!res) {
+			res = list_new(string);
+			if(!res) {
+				fprintf(stderr, "lex_code_to_strings : call to list_new returned NULL\n");
 				return NULL;
 			}
-
-			/* alloc new string token */
-			alloc_len = 8;
-			len = 0;
-			token_as_string = malloc(sizeof(char) * (alloc_len + 1));
-			if(!token_as_string) {
-				fprintf(stderr, "lex_strtok2 : call to malloc returned NULL\n");
+			p_res = res;
+		}
+		else {
+			p_res = list_insert_after(p_res, string);
+			if(!p_res) {
+				fprintf(stderr, "lex_code_to_strings : call to list_append returned NULL\n");
 				return NULL;
 			}
 		}
+		(*n)++;
+	}
+
+	return res;
+}
+
+
+
+/* new token from string */
+void *lex_string_to_token(void *string) {
+	assert(string);
+
+	char *s = string;
+
+#ifdef DEBUG2
+	fprintf(stdout, "lex_string_to_token : [%s][%ld]\n", s, strlen(s));
+#endif
+	token *res = lex_token_new(s, LT_NONE);
+	if(!res) {
+		fprintf(stderr, "lex_string_to_token : call to lex_token_new returned NULL\n");
+		return NULL;
+	}
+	if(!lex_token_set_types(res)) {
+		fprintf(stderr, "lex_string_to_token : call to lex_token_set_types returned NULL\n");
+		return NULL;
+	}
+#ifdef DEBUG2
+	fprintf(stdout, "lex_string_to_token : [%s][%s][%s]\n", lex_type_lit(res->type), lex_type_lit(res->type2), res->literal);
+	fflush(stdout);
+#endif
+
+	return res;
+}
+
+token *lex_token_set_types(token *t) {
+	assert(t);
+	assert(t->literal);
+
+	if(t->literal[0] == '/' && t->literal[1] == '/') {
+		t->type = LT_COMMENT;
+		t->type2 = LT_COMMENT_LINE;
+		return t;
+	}
+	if(t->literal[0] == '/' && t->literal[1] == '*') {
+		t->type = LT_COMMENT;
+		t->type2 = LT_COMMENT_BLOCK;
+		return t;
+	}
+	if(t->literal[0] == '\n') {
+		t->literal[0] = ' '; // for displaying purpose
+		t->type = LT_BLANK;
+		t->type2 = LT_BLANK_NEWLINE;
+		return t;
+	}
+	if(t->literal[0] == ' ') {
+		t->type = LT_BLANK;
+		t->type2 = LT_BLANK_SPACE;
+		return t;
+	}
+	if(t->literal[0] == '\t') {
+		t->type = LT_BLANK;
+		t->type2 = LT_BLANK_TAB;
+		return t;
+	}
+	if(t->literal[0] == '*') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_STAR;
+		return t;
+	}
+	if(t->literal[0] == '&') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_AND;
+		return t;
+	}
+	if(t->literal[0] == '|') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_OR;
+		return t;
+	}
+	if(t->literal[0] == '!') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_NOT;
+		return t;
+	}
+	if(t->literal[0] == '#') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_SHARP;
+		return t;
+	}
+	if(t->literal[0] == '.') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_DOT;
+		return t;
+	}
+	if(t->literal[0] == ',') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_COMMA;
+		return t;
+	}
+	if(t->literal[0] == ';') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_SEMICOLON;
+		return t;
+	}
+	if(t->literal[0] == ':') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_COLON;
+		return t;
+	}
+	if(t->literal[0] == '=') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_EQUAL;
+		return t;
+	}
+	if(t->literal[0] == '+') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_PLUS;
+		return t;
+	}
+	if(t->literal[0] == '-') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_MINUS;
+		return t;
+	}
+	if(t->literal[0] == '[') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_LHOOK;
+		return t;
+	}
+	if(t->literal[0] == ']') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_RHOOK;
+		return t;
+	}
+	if(t->literal[0] == '(') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_LPAREN;
+		return t;
+	}
+	if(t->literal[0] == ')') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_RPAREN;
+		return t;
+	}
+	if(t->literal[0] == '<') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_LSTRIPE;
+		return t;
+	}
+	if(t->literal[0] == '>') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_RSTRIPE;
+		return t;
+	}
+	if(t->literal[0] == '{') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_LBRACKET;
+		return t;
+	}
+	if(t->literal[0] == '}') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_RBRACKET;
+		return t;
+	}
+	if(!strcmp(t->literal, "int")) {
+		t->type = LT_TYPE;
+		t->type2 = LT_T_INT;
+		return t;
+	}
+	if(!strcmp(t->literal, "double")) {
+		t->type = LT_TYPE;
+		t->type2 = LT_T_DOUBLE;
+		return t;
+	}
+	if(!strcmp(t->literal, "char")) {
+		t->type = LT_TYPE;
+		t->type2 = LT_T_CHAR;
+		return t;
+	}
+	if(!strcmp(t->literal, "void")) {
+		t->type = LT_TYPE;
+		t->type2 = LT_T_VOID;
+		return t;
+	}
+	if(!strcmp(t->literal, "struct")) {
+		t->type = LT_TYPE;
+		t->type2 = LT_T_STRUCT;
+		return t;
+	}
+	if(!strcmp(t->literal, "enum")) {
+		t->type = LT_TYPE;
+		t->type2 = LT_T_ENUM;
+		return t;
+	}
+	if(!strcmp(t->literal, "const")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_CONST;
+		return t;
+	}
+	if(!strcmp(t->literal, "typedef")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_TYPEDEF;
+		return t;
+	}
+	if(!strcmp(t->literal, "define")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_DEFINE;
+		return t;
+	}
+	if(!strcmp(t->literal, "include")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_INCLUDE;
+		return t;
+	}
+	if(!strcmp(t->literal, "return")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_RETURN;
+		return t;
+	}
+	if(!strcmp(t->literal, "if")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_IF;
+		return t;
+	}
+	if(!strcmp(t->literal, "else")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_ELSE;	
+		return t;
+	}
+	if(!strcmp(t->literal, "case")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_CASE;
+		return t;
+	}
+	if(!strcmp(t->literal, "break")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_BREAK;
+		return t;
+	}
+	if(!strcmp(t->literal, "default")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_DEFAULT;
+		return t;
+	}
+	if(!strcmp(t->literal, "switch")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_SWITCH;
+		return t;
+	}
+	if(!strcmp(t->literal, "ifdef")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_IFDEF;
+		return t;
+	}
+	if(!strcmp(t->literal, "endif")) {
+		t->type = LT_KEYWORD;
+		t->type2 = LT_KW_ENDIF;
+		return t;
+	}
+	if(lex_is_lit_string(t->literal)) {
+		t->type = LT_VALUE;
+		t->type2 = LT_V_STRING;
+		return t;
+	}
+	if(lex_is_lit_char(t->literal)) {
+		t->type = LT_VALUE;
+		t->type2 = LT_V_CHAR;
+		return t;
+	}
+	if(lex_is_integer(t->literal)) {
+		t->type = LT_VALUE;
+		t->type2 = LT_V_INT;
+		return t;
+	}
+	if(lex_is_double(t->literal)) {
+		t->type = LT_VALUE;
+		t->type2 = LT_V_DOUBLE;
+		return t;
+	}
+	/* default */
+	if(t->type == LT_NONE) {
+		t->type = LT_NAME;
+		return t;
+	}
+
+	return NULL;
+}
+
+list *lex_strings_to_tokens(list *strings) {
+	assert(strings);
+
+	/* transform every string to token */
+	list *tokens = list_copy(strings, lex_string_to_token);
+	if(!tokens) {
+		fprintf(stdout, "lex_strings_to_tokens : call to list_copy returned NULL\n");
+		return NULL;
 	}
 
 	return tokens;
 }
 
-/* Extracts tokens from string without empty chars */
-token *lex_strtok(char *next) {
-	char *cur;
-	int n = 0;
-	int size = LEX_TOKENS_INIT_ALLOC;
-	token *list = (token *)malloc(sizeof(token) * size);
-	token *p = list;
-
-	/* Trimming leading spaces */
-	pass_ignore(&next);
-
-	while(!char_is_EOS(*next)) {
-		cur = next;
-		next_word(&next);
-
-		// TODO: if quotes read => inside string, looking for end of string
-
-		/* Ignoring spaces */
-		if(char_is_ignore(*cur)) {
-			cur = next;
-			next_word(&next);
-		}
-
-		/* Adding new token */
-		if(char_is_EOW(*cur) && char_is_ignore(*next)) {
-			memcpy(p->literal, cur, next - cur);
-			p->literal[next - cur] = '\0';
-			next_word(&next);
-		}
-		else {
-			memcpy(p->literal, cur, next - cur);
-			p->literal[next - cur] = '\0';
-		}
-
-		p->type = lex_strtot(p->literal);
-
-		/* Next token */
-		n++;
-		p++;
-
-		/* Realloc  */
-		if(n >= size) {
-			size *= LEX_TOKENS_REALLOC_COEF;
-			list = (token *)realloc(list, sizeof(token) * size);
-			p = list + n;
-		}
-	}
-	/* End of list */
-	p->literal[0] = '\0';
-	p->type = T_EOT;
-
-	return list;
-}
-
-/* Printing 1 token  */
-void lex_print_t(token *t) {
-	lex_type type;
-	const char *lit, *debug;
-
-	type = t->type;
-	lit = t->literal;
-	debug = lex_ttostr(type);
-	printf("%d:%s:%s\n", type, debug, lit);
-}
-
-/* Printing all tokens from list */
-void lex_print_l(token *l) {
-	while(l->type != T_EOT) {
-		lex_print_t(l++);
-	}
-}
-
-bool lex_is_t_basic(lex_type t) {
-	return t == T_TYPE_INT || t == T_TYPE_CHAR || t == T_TYPE_VOID;
-}
-
-/* Extracts n-1 element from list wich pointer is incremented by n.
- * (ignoring last token as it is a separator).
- * */
-token *lex_extract(token **l, int n) {
-	int cpt = 0;
-	int size = LEX_TOKENS_INIT_ALLOC;
-	token *res = (token *)malloc(sizeof(token) * size);
-	token *p = res;
-
-	while(n-- > 1) {
-		memcpy(p, *l, sizeof(token));
-		p++;
-		(*l)++;
-		cpt++;
-
-		if(cpt >= size) {
-			size *= LEX_TOKENS_REALLOC_COEF;
-			res = (token *)realloc(res, sizeof(token) * size);
-			p = res + cpt;
-		}
-	}
-
-	/* End of list */
-	p->type = T_EOT;
-
-	/* Trimming last token (separator) */
-	(*l)++;
-
-	return res;
-}
-
-int lex_count(token *l, lex_type type) {
-	int n = 0;
-
-	while(l && l->type != type) {
-		l++;
-		n++;
-	}
-
-	return ++n;
-}
 
 

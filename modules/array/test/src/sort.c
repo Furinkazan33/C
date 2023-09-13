@@ -11,9 +11,9 @@ int main(int argc, char **argv) {
 		exit(1);
 	}
 	array *a = array_new(INIT_SIZE);
-	array_set_cmp (a, (int (*)(void *, void *))person_cmp);
-	array_set_free(a, (void (*)(void *))person_free);
-	array_set_write(a, (void (*)(void *, FILE *))person_write);
+	a->cmp = person_cmp;
+	a->free = person_free;
+	a->write = person_write;
 
 
 	person *p[10];

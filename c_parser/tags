@@ -4,105 +4,308 @@
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/mathieu/repos/C/db2/	//
+!_TAG_PROC_CWD	/home/mathieu/repos/C/c_parser/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
 $(CBUILD)	Makefile	/^$(CBUILD):$/;"	t
-$(CBUILD)/db.o	Makefile	/^$(CBUILD)\/db.o: $(CSRC)\/db.c $(CSRC)\/db.h .\/Makefile $(DEP_O) $(DEP_H)$/;"	t
-$(CBUILD)/libdb.a	Makefile	/^$(CBUILD)\/libdb.a: $(CBUILD)\/db.o$/;"	t
+$(CBUILD)/lexer.o	Makefile	/^$(CBUILD)\/lexer.o: $(CSRC)\/lexer.c $(CSRC)\/lexer.h .\/Makefile $(DEP_O) $(DEP_H)$/;"	t
+$(CBUILD)/liblexer.a	Makefile	/^$(CBUILD)\/liblexer.a: $(CBUILD)\/lexer.o$/;"	t
+$(CBUILD)/libparser.a	Makefile	/^$(CBUILD)\/libparser.a: $(CBUILD)\/parser.o$/;"	t
+$(CBUILD)/parser.o	Makefile	/^$(CBUILD)\/parser.o: $(CSRC)\/parser.c $(CSRC)\/parser.h .\/Makefile $(DEP_O) $(DEP_H)$/;"	t
 $(TBIN)	Makefile	/^$(TBIN):$/;"	t
-$(TBIN)/create	Makefile	/^$(TBIN)\/create: $(CBUILD)\/db.o $(TSRC)\/create.c $(DEP_O)$/;"	t
-$(TBIN)/load_save	Makefile	/^$(TBIN)\/load_save: $(CBUILD)\/db.o $(TSRC)\/load_save.c $(DEP_O)$/;"	t
-$(TEST)/create	Makefile	/^$(TEST)\/create: $(TBIN)\/create$/;"	t
-$(TEST)/load_save	Makefile	/^$(TEST)\/load_save: $(TBIN)\/load_save$/;"	t
+$(TBIN)/test1	Makefile	/^$(TBIN)\/test1: $(CBUILD)\/lexer.o $(CBUILD)\/parser.o $(TSRC)\/test1.c $(DEP_O)$/;"	t
 $(TLOG)	Makefile	/^$(TLOG):$/;"	t
-ARRAY_REALLOC_COEF	core/include/array.h	/^#define ARRAY_REALLOC_COEF /;"	d
+$(TLOG)/test1	Makefile	/^$(TLOG)\/test1: $(TBIN)\/test1$/;"	t
+$(TLOG)/test_stdio	Makefile	/^$(TLOG)\/test_stdio: $(TBIN)\/test1$/;"	t
+BTREE_DATA_TYPE	core/include/btree.h	/^	#define BTREE_DATA_TYPE /;"	d
+CBT_CHAR	core/src/parser.h	/^	CBT_INT, CBT_DOUBLE, CBT_CHAR, CBT_VOID,$/;"	e	enum:c_basic_type
+CBT_CHAR_S	core/src/parser.h	/^	CBT_INT_S, CBT_DOUBLE_S, CBT_CHAR_S, CBT_VOID_S,$/;"	e	enum:c_basic_type
+CBT_DOUBLE	core/src/parser.h	/^	CBT_INT, CBT_DOUBLE, CBT_CHAR, CBT_VOID,$/;"	e	enum:c_basic_type
+CBT_DOUBLE_S	core/src/parser.h	/^	CBT_INT_S, CBT_DOUBLE_S, CBT_CHAR_S, CBT_VOID_S,$/;"	e	enum:c_basic_type
+CBT_INT	core/src/parser.h	/^	CBT_INT, CBT_DOUBLE, CBT_CHAR, CBT_VOID,$/;"	e	enum:c_basic_type
+CBT_INT_S	core/src/parser.h	/^	CBT_INT_S, CBT_DOUBLE_S, CBT_CHAR_S, CBT_VOID_S,$/;"	e	enum:c_basic_type
+CBT_NONE	core/src/parser.h	/^	CBT_NONE = 0,$/;"	e	enum:c_basic_type
+CBT_VOID	core/src/parser.h	/^	CBT_INT, CBT_DOUBLE, CBT_CHAR, CBT_VOID,$/;"	e	enum:c_basic_type
+CBT_VOID_S	core/src/parser.h	/^	CBT_INT_S, CBT_DOUBLE_S, CBT_CHAR_S, CBT_VOID_S,$/;"	e	enum:c_basic_type
 CBUILD	Makefile	/^CBUILD=core\/build$/;"	m
-CC	Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L$/;"	m
+CC	Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-I $(CINC) -I $(CSRC)$/;"	m
 CINC	Makefile	/^CINC=core\/include$/;"	m
 CLIB	Makefile	/^CLIB=core\/lib$/;"	m
 COBJ	Makefile	/^COBJ=core\/obj$/;"	m
+CRT_FUNC	core/src/parser.h	/^	CRT_FUNC,$/;"	e	enum:c_return_type
+CRT_NONE	core/src/parser.h	/^	CRT_NONE = 0,$/;"	e	enum:c_return_type
+CRT_VAR	core/src/parser.h	/^	CRT_VAR,$/;"	e	enum:c_return_type
 CSRC	Makefile	/^CSRC=core\/src$/;"	m
-DB_COL_COMMENT_LEN	core/src/db.h	/^#define DB_COL_COMMENT_LEN /;"	d
-DB_COL_NAME_LEN	core/src/db.h	/^#define DB_COL_NAME_LEN /;"	d
-DB_STR_LEN_ALLOC	core/src/db.h	/^#define DB_STR_LEN_ALLOC /;"	d
-DEP_A	Makefile	/^DEP_A=$(CLIB)\/libarray.a $(CLIB)\/libstr.a$/;"	m
-DEP_H	Makefile	/^DEP_H=$(CINC)\/array.h $(CINC)\/str.h$/;"	m
-DEP_O	Makefile	/^DEP_O=$(COBJ)\/array.o $(COBJ)\/str.o$/;"	m
-DOUBLE	core/src/db.h	/^typedef enum db_type { INTEGER=0, DOUBLE, STRING } db_type;$/;"	e	enum:db_type
-INTEGER	core/src/db.h	/^typedef enum db_type { INTEGER=0, DOUBLE, STRING } db_type;$/;"	e	enum:db_type
-LDFLAGS	Makefile	/^LDFLAGS=-L $(CLIB) -L $(CBUILD) -I $(CINC) -I $(CSRC)$/;"	m
-STRING	core/src/db.h	/^typedef enum db_type { INTEGER=0, DOUBLE, STRING } db_type;$/;"	e	enum:db_type
+CST_ARRAY	core/src/parser.h	/^	CST_ARRAY,$/;"	e	enum:c_stat_type
+CST_CASE	core/src/parser.h	/^	CST_CASE,$/;"	e	enum:c_stat_type
+CST_DEFAULT	core/src/parser.h	/^	CST_DEFAULT,$/;"	e	enum:c_stat_type
+CST_DEFINE	core/src/parser.h	/^	CST_DEFINE,$/;"	e	enum:c_stat_type
+CST_ELSE	core/src/parser.h	/^	CST_ELSE,$/;"	e	enum:c_stat_type
+CST_FUNC_CALL	core/src/parser.h	/^	CST_FUNC_CALL,$/;"	e	enum:c_stat_type
+CST_FUNC_DECL	core/src/parser.h	/^	CST_FUNC_DECL,$/;"	e	enum:c_stat_type
+CST_FUNC_DECL_FULL	core/src/parser.h	/^	CST_FUNC_DECL_FULL,$/;"	e	enum:c_stat_type
+CST_IF	core/src/parser.h	/^	CST_IF,$/;"	e	enum:c_stat_type
+CST_INCLUDE	core/src/parser.h	/^	CST_INCLUDE,$/;"	e	enum:c_stat_type
+CST_NONE	core/src/parser.h	/^	CST_NONE = 0,$/;"	e	enum:c_stat_type
+CST_RETURN	core/src/parser.h	/^	CST_RETURN,$/;"	e	enum:c_stat_type
+CST_SWITCH	core/src/parser.h	/^	CST_SWITCH,$/;"	e	enum:c_stat_type
+CST_VAR_ASSIGN	core/src/parser.h	/^	CST_VAR_ASSIGN,$/;"	e	enum:c_stat_type
+CST_VAR_DECL	core/src/parser.h	/^	CST_VAR_DECL,$/;"	e	enum:c_stat_type
+CST_VAR_DECL_ASSIGN	core/src/parser.h	/^	CST_VAR_DECL_ASSIGN,$/;"	e	enum:c_stat_type
+CVT_FUNC	core/src/parser.h	/^	CVT_FUNC,$/;"	e	enum:c_var_type
+CVT_FUNCALL	core/src/parser.h	/^	CVT_FUNCALL,$/;"	e	enum:c_var_type
+CVT_NONE	core/src/parser.h	/^	CVT_NONE = 0,$/;"	e	enum:c_var_type
+CVT_VALUE	core/src/parser.h	/^	CVT_VALUE,$/;"	e	enum:c_var_type
+CVT_VAR	core/src/parser.h	/^	CVT_VAR,$/;"	e	enum:c_var_type
+C_LOG_EXPR	core/src/parser.h	/^	C_LOG_EXPR,		\/\/ btree$/;"	e	enum:c_log_type
+C_LOG_NONE	core/src/parser.h	/^	C_LOG_NONE = 0,$/;"	e	enum:c_log_type
+C_LOG_VAR	core/src/parser.h	/^	C_LOG_VAR = 0,	\/\/ c_variable$/;"	e	enum:c_log_type
+DEP_A	Makefile	/^DEP_A=$(CLIB)\/liblist.a $(CLIB)\/libstr.a $(CLIB)\/libfr.a$/;"	m
+DEP_H	Makefile	/^DEP_H=$(CINC)\/list.h $(CINC)\/str.h $(CINC)\/fr.h$/;"	m
+DEP_O	Makefile	/^DEP_O=$(COBJ)\/list.o $(COBJ)\/str.o $(COBJ)\/fr.o$/;"	m
+EON	core/src/lexer.c	/^const char *EON = " &#{[(|`^@)]°=}+-\/*$%µ!§:;,?<>\\"\\'\\\\\\n\\t";$/;"	v	typeref:typename:const char *
+EOW	core/src/lexer.c	/^const char *EOW = " &#{[(|`^@)]°=}+-\/*$%µ!§:;.,?<>\\"\\'\\\\\\n\\t";$/;"	v	typeref:typename:const char *
+FR_RC_EOB	core/include/fr.h	/^#define FR_RC_EOB /;"	d
+FR_RC_EOF	core/include/fr.h	/^#define FR_RC_EOF /;"	d
+FR_RC_NOT_FINISHED	core/include/fr.h	/^#define FR_RC_NOT_FINISHED /;"	d
+FR_RC_READ_ERROR	core/include/fr.h	/^#define FR_RC_READ_ERROR /;"	d
+FR_RC_TOO_LONG	core/include/fr.h	/^#define FR_RC_TOO_LONG /;"	d
+INIT_COLS_ALLOC	test/src/test1.c	/^#define INIT_COLS_ALLOC /;"	d	file:
+INIT_LINES_ALLOC	test/src/test1.c	/^#define INIT_LINES_ALLOC /;"	d	file:
+LDFLAGS	Makefile	/^LDFLAGS=-L $(CLIB) -L $(CBUILD)$/;"	m
+LEX_TOK_ARRAY_ALLOC	core/src/lexer.h	/^#define LEX_TOK_ARRAY_ALLOC /;"	d
+LEX_TOK_INIT_LEN_ALLOC	core/src/lexer.h	/^#define LEX_TOK_INIT_LEN_ALLOC /;"	d
+LT_BLANK	core/src/lexer.h	/^	LT_BLANK,$/;"	e	enum:lex_type
+LT_BLANK_NEWLINE	core/src/lexer.h	/^		LT_BLANK_NEWLINE,$/;"	e	enum:lex_type
+LT_BLANK_SPACE	core/src/lexer.h	/^		LT_BLANK_SPACE,$/;"	e	enum:lex_type
+LT_BLANK_TAB	core/src/lexer.h	/^		LT_BLANK_TAB,$/;"	e	enum:lex_type
+LT_COMMENT	core/src/lexer.h	/^	LT_COMMENT,$/;"	e	enum:lex_type
+LT_COMMENT_BLOCK	core/src/lexer.h	/^		LT_COMMENT_BLOCK,$/;"	e	enum:lex_type
+LT_COMMENT_LINE	core/src/lexer.h	/^		LT_COMMENT_LINE,$/;"	e	enum:lex_type
+LT_KEYWORD	core/src/lexer.h	/^	LT_KEYWORD,$/;"	e	enum:lex_type
+LT_KW_BREAK	core/src/lexer.h	/^		LT_KW_BREAK,$/;"	e	enum:lex_type
+LT_KW_CASE	core/src/lexer.h	/^		LT_KW_CASE,$/;"	e	enum:lex_type
+LT_KW_CONST	core/src/lexer.h	/^		LT_KW_CONST,$/;"	e	enum:lex_type
+LT_KW_DEFAULT	core/src/lexer.h	/^		LT_KW_DEFAULT,$/;"	e	enum:lex_type
+LT_KW_DEFINE	core/src/lexer.h	/^		LT_KW_DEFINE,$/;"	e	enum:lex_type
+LT_KW_ELSE	core/src/lexer.h	/^		LT_KW_ELSE,$/;"	e	enum:lex_type
+LT_KW_ENDIF	core/src/lexer.h	/^		LT_KW_ENDIF,$/;"	e	enum:lex_type
+LT_KW_IF	core/src/lexer.h	/^		LT_KW_IF,$/;"	e	enum:lex_type
+LT_KW_IFDEF	core/src/lexer.h	/^		LT_KW_IFDEF,$/;"	e	enum:lex_type
+LT_KW_INCLUDE	core/src/lexer.h	/^		LT_KW_INCLUDE,$/;"	e	enum:lex_type
+LT_KW_RETURN	core/src/lexer.h	/^		LT_KW_RETURN,$/;"	e	enum:lex_type
+LT_KW_SWITCH	core/src/lexer.h	/^		LT_KW_SWITCH,$/;"	e	enum:lex_type
+LT_KW_TYPEDEF	core/src/lexer.h	/^		LT_KW_TYPEDEF,$/;"	e	enum:lex_type
+LT_KW_WHILE	core/src/lexer.h	/^		LT_KW_WHILE,$/;"	e	enum:lex_type
+LT_NAME	core/src/lexer.h	/^	LT_NAME, $/;"	e	enum:lex_type
+LT_NONE	core/src/lexer.h	/^	LT_NONE = 0,$/;"	e	enum:lex_type
+LT_OPERATOR	core/src/lexer.h	/^	LT_OPERATOR, $/;"	e	enum:lex_type
+LT_OP_AND	core/src/lexer.h	/^		LT_OP_AND,$/;"	e	enum:lex_type
+LT_OP_COLON	core/src/lexer.h	/^		LT_OP_COLON,$/;"	e	enum:lex_type
+LT_OP_COMMA	core/src/lexer.h	/^		LT_OP_COMMA,$/;"	e	enum:lex_type
+LT_OP_DIV	core/src/lexer.h	/^		LT_OP_DIV,$/;"	e	enum:lex_type
+LT_OP_DIVE	core/src/lexer.h	/^		LT_OP_DIVE,$/;"	e	enum:lex_type
+LT_OP_DOT	core/src/lexer.h	/^		LT_OP_DOT,$/;"	e	enum:lex_type
+LT_OP_EQUAL	core/src/lexer.h	/^		LT_OP_EQUAL,$/;"	e	enum:lex_type
+LT_OP_LBRACKET	core/src/lexer.h	/^		LT_OP_LBRACKET,$/;"	e	enum:lex_type
+LT_OP_LHOOK	core/src/lexer.h	/^		LT_OP_LHOOK,$/;"	e	enum:lex_type
+LT_OP_LPAREN	core/src/lexer.h	/^		LT_OP_LPAREN,$/;"	e	enum:lex_type
+LT_OP_LSTRIPE	core/src/lexer.h	/^		LT_OP_LSTRIPE,$/;"	e	enum:lex_type
+LT_OP_MINUS	core/src/lexer.h	/^		LT_OP_MINUS,$/;"	e	enum:lex_type
+LT_OP_NOT	core/src/lexer.h	/^		LT_OP_NOT,$/;"	e	enum:lex_type
+LT_OP_OR	core/src/lexer.h	/^		LT_OP_OR,$/;"	e	enum:lex_type
+LT_OP_PERCENT	core/src/lexer.h	/^		LT_OP_PERCENT,$/;"	e	enum:lex_type
+LT_OP_PLUS	core/src/lexer.h	/^		LT_OP_PLUS,$/;"	e	enum:lex_type
+LT_OP_RBRACKET	core/src/lexer.h	/^		LT_OP_RBRACKET,$/;"	e	enum:lex_type
+LT_OP_RHOOK	core/src/lexer.h	/^		LT_OP_RHOOK,$/;"	e	enum:lex_type
+LT_OP_RPAREN	core/src/lexer.h	/^		LT_OP_RPAREN,$/;"	e	enum:lex_type
+LT_OP_RSTRIPE	core/src/lexer.h	/^		LT_OP_RSTRIPE,$/;"	e	enum:lex_type
+LT_OP_SEMICOLON	core/src/lexer.h	/^		LT_OP_SEMICOLON,$/;"	e	enum:lex_type
+LT_OP_SHARP	core/src/lexer.h	/^		LT_OP_SHARP,$/;"	e	enum:lex_type
+LT_OP_STAR	core/src/lexer.h	/^		LT_OP_STAR,$/;"	e	enum:lex_type
+LT_TYPE	core/src/lexer.h	/^	LT_TYPE, $/;"	e	enum:lex_type
+LT_T_CHAR	core/src/lexer.h	/^		LT_T_CHAR, $/;"	e	enum:lex_type
+LT_T_DOUBLE	core/src/lexer.h	/^		LT_T_DOUBLE, $/;"	e	enum:lex_type
+LT_T_ENUM	core/src/lexer.h	/^		LT_T_ENUM,$/;"	e	enum:lex_type
+LT_T_INT	core/src/lexer.h	/^		LT_T_INT, $/;"	e	enum:lex_type
+LT_T_STRUCT	core/src/lexer.h	/^		LT_T_STRUCT,$/;"	e	enum:lex_type
+LT_T_VOID	core/src/lexer.h	/^		LT_T_VOID, $/;"	e	enum:lex_type
+LT_VALUE	core/src/lexer.h	/^	LT_VALUE, $/;"	e	enum:lex_type
+LT_V_CHAR	core/src/lexer.h	/^		LT_V_CHAR, $/;"	e	enum:lex_type
+LT_V_DOUBLE	core/src/lexer.h	/^		LT_V_DOUBLE, $/;"	e	enum:lex_type
+LT_V_INT	core/src/lexer.h	/^		LT_V_INT, $/;"	e	enum:lex_type
+LT_V_STRING	core/src/lexer.h	/^		LT_V_STRING,$/;"	e	enum:lex_type
+PC_BLANK	core/src/parser.h	/^#define PC_BLANK	/;"	d
+PC_COMMENT	core/src/parser.h	/^#define PC_COMMENT	/;"	d
+PC_COMMENT_BLOCK	core/src/parser.h	/^#define PC_COMMENT_BLOCK	/;"	d
+PC_COMMENT_LINE	core/src/parser.h	/^#define PC_COMMENT_LINE	/;"	d
+PC_NEWLINE	core/src/parser.h	/^#define PC_NEWLINE	/;"	d
+PC_SPACE	core/src/parser.h	/^#define PC_SPACE	/;"	d
+PC_TAB	core/src/parser.h	/^#define PC_TAB	/;"	d
+SIZE	test/ressources/code.c	/^#define SIZE /;"	d	file:
 TBIN	Makefile	/^TBIN=$(TEST)\/bin$/;"	m
 TEST	Makefile	/^TEST=test$/;"	m
 TLOG	Makefile	/^TLOG=$(TEST)\/log$/;"	m
 TRES	Makefile	/^TRES=$(TEST)\/ressources$/;"	m
 TSRC	Makefile	/^TSRC=$(TEST)\/src$/;"	m
+_POSIX_C_SOURCE	core/include/btree.h	/^#define _POSIX_C_SOURCE /;"	d
+_POSIX_C_SOURCE	core/src/lexer.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	core/src/lexer.h	/^#define _POSIX_C_SOURCE /;"	d
+_POSIX_C_SOURCE	core/src/parser.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	core/src/parser.h	/^#define _POSIX_C_SOURCE /;"	d
+add1	test/ressources/code.c	/^int add1(int a) {$/;"	f	typeref:typename:int
 all	Makefile	/^all: dirs builds tests execs$/;"	t
-alloc_len	core/include/str.h	/^	size_t alloc_len; \/\/ alloc size is sizeof(char) * (alloc_len + 1)$/;"	m	struct:str	typeref:typename:size_t
-array	core/include/array.h	/^typedef struct array {$/;"	s
-array	core/include/array.h	/^} array;$/;"	t	typeref:struct:array
-builds	Makefile	/^builds: $(CBUILD)\/db.o $(CBUILD)\/libdb.a$/;"	t
+alloc_len	core/include/str.h	/^	size_t alloc_len; \/\/ sizeof(char) * (alloc_len + 1)$/;"	m	struct:str	typeref:typename:size_t
+btree	core/include/btree.h	/^typedef struct btree {$/;"	s
+btree	core/include/btree.h	/^} btree;$/;"	t	typeref:struct:btree
+builds	Makefile	/^builds: $(CBUILD)\/lexer.o $(CBUILD)\/liblexer.a $(CBUILD)\/parser.o $(CBUILD)\/libparser.a$/;"	t
+c_array	core/src/parser.h	/^typedef struct c_array {$/;"	s
+c_array	core/src/parser.h	/^} c_array;$/;"	t	typeref:struct:c_array
+c_basic_type	core/src/parser.h	/^typedef enum c_basic_type {$/;"	g
+c_basic_type	core/src/parser.h	/^} c_basic_type;$/;"	t	typeref:enum:c_basic_type
+c_define	core/src/parser.h	/^typedef struct c_define {$/;"	s
+c_define	core/src/parser.h	/^} c_define;$/;"	t	typeref:struct:c_define
+c_else	core/src/parser.h	/^typedef struct c_else {$/;"	s
+c_else	core/src/parser.h	/^} c_else;$/;"	t	typeref:struct:c_else
+c_file	core/src/parser.h	/^typedef struct c_file {$/;"	s
+c_file	core/src/parser.h	/^} c_file;$/;"	t	typeref:struct:c_file
+c_function	core/src/parser.h	/^typedef struct c_function {$/;"	s
+c_function	core/src/parser.h	/^} c_function;$/;"	t	typeref:struct:c_function
+c_function_call	core/src/parser.h	/^typedef struct c_function_call {$/;"	s
+c_function_call	core/src/parser.h	/^} c_function_call;$/;"	t	typeref:struct:c_function_call
+c_function_declaration	core/src/parser.h	/^typedef struct c_function_declaration {$/;"	s
+c_function_declaration	core/src/parser.h	/^} c_function_declaration;$/;"	t	typeref:struct:c_function_declaration
+c_if	core/src/parser.h	/^typedef struct c_if {$/;"	s
+c_if	core/src/parser.h	/^} c_if;$/;"	t	typeref:struct:c_if
+c_include	core/src/parser.h	/^typedef struct c_include {$/;"	s
+c_include	core/src/parser.h	/^} c_include;$/;"	t	typeref:struct:c_include
+c_log_type	core/src/parser.h	/^typedef enum c_log_type { $/;"	g
+c_log_type	core/src/parser.h	/^} c_log_type;$/;"	t	typeref:enum:c_log_type
+c_logical_e	core/src/parser.h	/^typedef btree c_logical_e;$/;"	t	typeref:typename:btree
+c_logical_value	core/src/parser.h	/^typedef struct c_logical_value {$/;"	s
+c_logical_value	core/src/parser.h	/^} c_logical_value;$/;"	t	typeref:struct:c_logical_value
+c_return_type	core/src/parser.h	/^typedef enum c_return_type {$/;"	g
+c_return_type	core/src/parser.h	/^} c_return_type;$/;"	t	typeref:enum:c_return_type
+c_return_value	core/src/parser.h	/^typedef struct c_return_value {$/;"	s
+c_return_value	core/src/parser.h	/^} c_return_value;$/;"	t	typeref:struct:c_return_value
+c_stat_type	core/src/parser.h	/^typedef enum c_stat_type {$/;"	g
+c_stat_type	core/src/parser.h	/^} c_stat_type;$/;"	t	typeref:enum:c_stat_type
+c_statement	core/src/parser.h	/^typedef struct c_statement {$/;"	s
+c_statement	core/src/parser.h	/^} c_statement;$/;"	t	typeref:struct:c_statement
+c_value	core/src/parser.h	/^typedef struct c_value {$/;"	s
+c_value	core/src/parser.h	/^} c_value;$/;"	t	typeref:struct:c_value
+c_var_type	core/src/parser.h	/^typedef enum c_var_type {$/;"	g
+c_var_type	core/src/parser.h	/^} c_var_type;$/;"	t	typeref:enum:c_var_type
+c_variable	core/src/parser.h	/^typedef struct c_variable {$/;"	s
+c_variable	core/src/parser.h	/^} c_variable;$/;"	t	typeref:struct:c_variable
 clean	Makefile	/^clean: $/;"	t
-cmp	core/include/array.h	/^	int (*cmp)(void *, void *);$/;"	m	struct:array	typeref:typename:int (*)(void *,void *)
-cols	core/src/db.h	/^	array *cols;	\/\/ array of db_col$/;"	m	struct:db_base	typeref:typename:array *
-comment	core/src/db.h	/^	char comment[DB_COL_COMMENT_LEN];$/;"	m	struct:db_col	typeref:typename:char[]
-data	core/include/array.h	/^	void **data;$/;"	m	struct:array	typeref:typename:void **
+condition	core/src/parser.h	/^	c_logical_e *condition;$/;"	m	struct:c_if	typeref:typename:c_logical_e *
+constant	core/src/parser.h	/^	bool constant;$/;"	m	struct:c_return_value	typeref:typename:bool
+constant	core/src/parser.h	/^	bool constant;$/;"	m	struct:c_variable	typeref:typename:bool
+data	core/include/btree.h	/^	BTREE_DATA_TYPE *data;$/;"	m	struct:btree	typeref:typename:BTREE_DATA_TYPE *
+data	core/include/list.h	/^	void *data;$/;"	m	struct:list	typeref:typename:void *
 data	core/include/str.h	/^	char *data;$/;"	m	struct:str	typeref:typename:char *
-db_base	core/src/db.h	/^typedef struct db_base {$/;"	s
-db_base	core/src/db.h	/^} db_base;$/;"	t	typeref:struct:db_base
-db_col	core/src/db.h	/^typedef struct db_col {$/;"	s
-db_col	core/src/db.h	/^} db_col;$/;"	t	typeref:struct:db_col
-db_col_add	core/src/db.c	/^db_base *db_col_add(db_base *db, bool mandatory, int type, char *name, char *comment) {$/;"	f	typeref:typename:db_base *
-db_col_adds	core/src/db.c	/^db_base *db_col_adds(db_base *db, char *src) {$/;"	f	typeref:typename:db_base *
-db_col_assert_type	core/src/db.c	/^db_col *db_col_assert_type(db_base *db, size_t c, int type) {$/;"	f	typeref:typename:db_col *
-db_col_new	core/src/db.c	/^db_col *db_col_new(bool mandatory, int type, char *name, char *comment) {$/;"	f	typeref:typename:db_col *
-db_col_print	core/src/db.c	/^void db_col_print(db_base *db, array *line, size_t c, FILE *file) {$/;"	f	typeref:typename:void
-db_col_print_as_double	core/src/db.c	/^void db_col_print_as_double(db_base *db, array *line, size_t c, FILE *file) {$/;"	f	typeref:typename:void
-db_col_print_as_int	core/src/db.c	/^void db_col_print_as_int(db_base *db, array *line, size_t c, FILE *file) {$/;"	f	typeref:typename:void
-db_col_print_as_string	core/src/db.c	/^void db_col_print_as_string(db_base *db, array *line, size_t c, FILE *file) {$/;"	f	typeref:typename:void
-db_delete	core/src/db.c	/^void db_delete(db_base *db, size_t l, bool keep_null) {$/;"	f	typeref:typename:void
-db_escape_string	core/src/db.c	/^void db_escape_string(char *string) {$/;"	f	typeref:typename:void
-db_file_load	core/src/db.c	/^db_base *db_file_load(db_base *db, FILE *file, size_t alloc_s) {$/;"	f	typeref:typename:db_base *
-db_file_readline	core/src/db.c	/^char *db_file_readline(FILE *f, size_t alloc, size_t realloc_coef, size_t *n_read) {$/;"	f	typeref:typename:char *
-db_free	core/src/db.c	/^void db_free(db_base *db) {$/;"	f	typeref:typename:void
-db_get_type	core/src/db.c	/^int db_get_type(db_base *db, size_t c) {$/;"	f	typeref:typename:int
-db_insert	core/src/db.c	/^db_base *db_insert(db_base *res, array *line) {$/;"	f	typeref:typename:db_base *
-db_line_col_free	core/src/db.c	/^void db_line_col_free(db_base *db, array *line, size_t c) {$/;"	f	typeref:typename:void
-db_line_free	core/src/db.c	/^void db_line_free(db_base *db, array *line) {$/;"	f	typeref:typename:void
-db_line_get_double	core/src/db.c	/^double db_line_get_double(db_base *db, array *line, size_t c) {$/;"	f	typeref:typename:double
-db_line_get_int	core/src/db.c	/^int db_line_get_int(db_base *db, array *line, size_t c) {$/;"	f	typeref:typename:int
-db_line_get_string	core/src/db.c	/^char *db_line_get_string(db_base *db, array *line, size_t c) {$/;"	f	typeref:typename:char *
-db_line_new	core/src/db.c	/^array *db_line_new(db_base *db) {$/;"	f	typeref:typename:array *
-db_line_new_from_s	core/src/db.c	/^array *db_line_new_from_s(db_base *db, char *string, size_t alloc_s, size_t *n_cols) {$/;"	f	typeref:typename:array *
-db_line_print	core/src/db.c	/^void db_line_print(db_base *db, array *line, FILE *file) {$/;"	f	typeref:typename:void
-db_line_set	core/src/db.c	/^db_base* db_line_set(db_base *db, array *line, size_t c, int type, void *value, size_t alloc) {$/;"	f	typeref:typename:db_base *
-db_line_set_null	core/src/db.c	/^db_base* db_line_set_null(db_base *db, array *line, size_t c, int type) {$/;"	f	typeref:typename:db_base *
-db_line_write	core/src/db.c	/^void db_line_write(db_base *db, FILE *file, size_t l) {$/;"	f	typeref:typename:void
-db_new	core/src/db.c	/^db_base *db_new(size_t a_cols, size_t a_lines) {$/;"	f	typeref:typename:db_base *
-db_read_bracket	core/src/db.c	/^int db_read_bracket(char *dest, char *p, int *pos) {$/;"	f	typeref:typename:int
-db_remove_nulls	core/src/db.c	/^void db_remove_nulls(db_base *db) {$/;"	f	typeref:typename:void
-db_resize	core/src/db.c	/^db_base *db_resize(db_base *db, double coef, double new_coef) {$/;"	f	typeref:typename:db_base *
-db_type	core/src/db.h	/^typedef enum db_type { INTEGER=0, DOUBLE, STRING } db_type;$/;"	g
-db_type	core/src/db.h	/^typedef enum db_type { INTEGER=0, DOUBLE, STRING } db_type;$/;"	t	typeref:enum:db_type
-db_write	core/src/db.c	/^void db_write(db_base *db, FILE *file) {$/;"	f	typeref:typename:void
+data	core/src/parser.h	/^	void *data; \/\/ cannot be NULL$/;"	m	struct:c_statement	typeref:typename:void *
+data	core/src/parser.h	/^	void *data; \/\/ pointer to literal value$/;"	m	struct:c_value	typeref:typename:void *
+data	core/src/parser.h	/^	void *data; \/\/if not NULL and type==CVT_INT, point to a CVT_LIT_INT ot CVT_INT$/;"	m	struct:c_variable	typeref:typename:void *
+data	core/src/parser.h	/^	void *data;$/;"	m	struct:c_logical_value	typeref:typename:void *
+data	core/src/parser.h	/^	void *data;$/;"	m	struct:c_return_value	typeref:typename:void *
+debug	Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
+debug	Makefile	/^debug: all$/;"	t
+debug2	Makefile	/^debug2: CFLAGS += -DDEBUG -DDEBUG2$/;"	t
+debug2	Makefile	/^debug2: all$/;"	t
+debug3	Makefile	/^debug3: CFLAGS += -DDEBUG -DDEBUG2 -DDEBUG3$/;"	t
+debug3	Makefile	/^debug3: all$/;"	t
+declaration	core/src/parser.h	/^	c_function_declaration *declaration;$/;"	m	struct:c_function	typeref:typename:c_function_declaration *
+defines	core/src/parser.h	/^	list *defines;$/;"	m	struct:c_file	typeref:typename:list *
 dirs	Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
-execs	Makefile	/^execs: test\/create test\/load_save result$/;"	t
-free	core/include/array.h	/^	void (*free)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
-lines	core/src/db.h	/^	array *lines;	\/\/ array of array of void *$/;"	m	struct:db_base	typeref:typename:array *
-main	test/src/create.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-main	test/src/load_save.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
-mandatory	core/src/db.h	/^	bool mandatory;$/;"	m	struct:db_col	typeref:typename:bool
-n	core/include/array.h	/^	size_t n;$/;"	m	struct:array	typeref:typename:size_t
-n	core/include/str.h	/^	size_t n;$/;"	m	struct:str	typeref:typename:size_t
-name	core/src/db.h	/^	char name[DB_COL_NAME_LEN];$/;"	m	struct:db_col	typeref:typename:char[]
-print	core/include/array.h	/^	void (*print)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
-result	Makefile	/^result:$/;"	t
-size	core/include/array.h	/^	size_t size;$/;"	m	struct:array	typeref:typename:size_t
+execs	Makefile	/^execs: $(TLOG)\/test1 $(TLOG)\/test_stdio$/;"	t
+fun_type	core/src/parser.h	/^	c_basic_type fun_type;$/;"	m	struct:c_function_declaration	typeref:typename:c_basic_type
+functions	core/src/parser.h	/^	list *functions;$/;"	m	struct:c_file	typeref:typename:list *
+includes	core/src/parser.h	/^	list *includes;$/;"	m	struct:c_file	typeref:typename:list *
+left	core/include/btree.h	/^	struct btree *left;$/;"	m	struct:btree	typeref:struct:btree *
+lex_EON	core/src/lexer.c	/^bool lex_EON(char *p) {$/;"	f	typeref:typename:bool
+lex_EOW	core/src/lexer.c	/^bool lex_EOW(char *p) {$/;"	f	typeref:typename:bool
+lex_code_to_strings	core/src/lexer.c	/^list *lex_code_to_strings(char *code, int *n) {$/;"	f	typeref:typename:list *
+lex_ignore_blanks	core/src/lexer.c	/^void lex_ignore_blanks(char **code) {$/;"	f	typeref:typename:void
+lex_is_digit	core/src/lexer.c	/^bool lex_is_digit(char c) {$/;"	f	typeref:typename:bool
+lex_is_double	core/src/lexer.c	/^bool lex_is_double(char *s) {$/;"	f	typeref:typename:bool
+lex_is_integer	core/src/lexer.c	/^bool lex_is_integer(char *s) {$/;"	f	typeref:typename:bool
+lex_is_lit_char	core/src/lexer.c	/^bool lex_is_lit_char(char *s) {$/;"	f	typeref:typename:bool
+lex_is_lit_string	core/src/lexer.c	/^bool lex_is_lit_string(char *s) {$/;"	f	typeref:typename:bool
+lex_read_comment	core/src/lexer.c	/^char *lex_read_comment(char **p) {$/;"	f	typeref:typename:char *
+lex_read_comment_block	core/src/lexer.c	/^char *lex_read_comment_block(char **p) {$/;"	f	typeref:typename:char *
+lex_read_newl	core/src/lexer.c	/^char *lex_read_newl(char **p) {$/;"	f	typeref:typename:char *
+lex_read_next	core/src/lexer.c	/^char *lex_read_next(char **p) {$/;"	f	typeref:typename:char *
+lex_read_numb	core/src/lexer.c	/^char *lex_read_numb(char **p) {$/;"	f	typeref:typename:char *
+lex_read_quot	core/src/lexer.c	/^char *lex_read_quot(char **p, char c) {$/;"	f	typeref:typename:char *
+lex_read_sharp	core/src/lexer.c	/^char *lex_read_sharp(char **p) {$/;"	f	typeref:typename:char *
+lex_read_space	core/src/lexer.c	/^char *lex_read_space(char **p) {$/;"	f	typeref:typename:char *
+lex_read_tab	core/src/lexer.c	/^char *lex_read_tab(char **p) {$/;"	f	typeref:typename:char *
+lex_string_to_token	core/src/lexer.c	/^void *lex_string_to_token(void *string) {$/;"	f	typeref:typename:void *
+lex_strings_to_tokens	core/src/lexer.c	/^list *lex_strings_to_tokens(list *strings) {$/;"	f	typeref:typename:list *
+lex_token_free	core/src/lexer.c	/^void lex_token_free(void *t) {$/;"	f	typeref:typename:void
+lex_token_new	core/src/lexer.c	/^token *lex_token_new(char *string, lex_type type) {$/;"	f	typeref:typename:token *
+lex_token_set_types	core/src/lexer.c	/^token *lex_token_set_types(token *t) {$/;"	f	typeref:typename:token *
+lex_token_write	core/src/lexer.c	/^void lex_token_write(void *tok, void *file) {$/;"	f	typeref:typename:void
+lex_type	core/src/lexer.h	/^typedef enum lex_type {$/;"	g
+lex_type	core/src/lexer.h	/^} lex_type;$/;"	t	typeref:enum:lex_type
+lex_type_lit	core/src/lexer.c	/^char *lex_type_lit(lex_type t) {$/;"	f	typeref:typename:char *
+lex_type_literal	core/src/lexer.c	/^char *lex_type_literal[] = {$/;"	v	typeref:typename:char * []
+list	core/include/list.h	/^typedef struct list {$/;"	s
+list	core/include/list.h	/^} list;$/;"	t	typeref:struct:list
+literal	core/src/lexer.h	/^    char *literal;$/;"	m	struct:token	typeref:typename:char *
+local	core/src/parser.h	/^	bool local;$/;"	m	struct:c_include	typeref:typename:bool
+main	test/ressources/code.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	test/src/test1.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+mem_alloc	core/src/parser.h	/^	size_t mem_alloc;	\/\/ number of allocated bytes$/;"	m	struct:c_variable	typeref:typename:size_t
+n	core/src/parser.h	/^	size_t n;			\/\/ 1 or n for arrays$/;"	m	struct:c_variable	typeref:typename:size_t
+n	core/src/parser.h	/^	size_t n;$/;"	m	struct:c_array	typeref:typename:size_t
+name	core/src/parser.h	/^	char *name;			\/\/ can be NULL for literal values$/;"	m	struct:c_variable	typeref:typename:char *
+name	core/src/parser.h	/^	char *name;$/;"	m	struct:c_function_call	typeref:typename:char *
+name	core/src/parser.h	/^	char *name;$/;"	m	struct:c_function_declaration	typeref:typename:char *
+name	core/src/parser.h	/^	char *name;$/;"	m	struct:c_include	typeref:typename:char *
+next	core/include/list.h	/^	struct list *next;$/;"	m	struct:list	typeref:struct:list *
+params	core/src/parser.h	/^	list *params; \/\/ function parameters as list of c_variable *$/;"	m	struct:c_function_declaration	typeref:typename:list *
+params	core/src/parser.h	/^	list *params; \/\/list of c_variable *$/;"	m	struct:c_function_call	typeref:typename:list *
+parser_clean	core/src/parser.c	/^void parser_clean(list *p, unsigned int options) { \/\/bool newlines, bool spaces, bool tabs) {$/;"	f	typeref:typename:void
+parser_tokens_to_define	core/src/parser.c	/^list *parser_tokens_to_define(list *tokens) {$/;"	f	typeref:typename:list *
+parser_tokens_to_include	core/src/parser.c	/^list *parser_tokens_to_include(list *tokens) {$/;"	f	typeref:typename:list *
+parser_tokens_to_structs	core/src/parser.c	/^list *parser_tokens_to_structs(list *tokens) {$/;"	f	typeref:typename:list *
+prev	core/include/list.h	/^	struct list *prev;$/;"	m	struct:list	typeref:struct:list *
+ret_type	core/src/parser.h	/^	c_basic_type ret_type;$/;"	m	struct:c_return_value	typeref:typename:c_basic_type
+rettype	core/src/parser.h	/^	c_basic_type rettype;$/;"	m	struct:c_return_value	typeref:typename:c_basic_type
+right	core/include/btree.h	/^	struct btree *right;$/;"	m	struct:btree	typeref:struct:btree *
+statements	core/src/parser.h	/^	list *statements; \/\/ list of c_statement *$/;"	m	struct:c_else	typeref:typename:list *
+statements	core/src/parser.h	/^	list *statements; \/\/ list of c_statement *$/;"	m	struct:c_if	typeref:typename:list *
+statements	core/src/parser.h	/^	list *statements;$/;"	m	struct:c_function	typeref:typename:list *
 str	core/include/str.h	/^typedef struct str {$/;"	s
 str	core/include/str.h	/^} str;$/;"	t	typeref:struct:str
-tests	Makefile	/^tests:  $(TBIN)\/create $(TBIN)\/load_save$/;"	t
-tos	core/include/array.h	/^	void (*tos)(void *);$/;"	m	struct:array	typeref:typename:void (*)(void *)
-type	core/src/db.h	/^	int type;$/;"	m	struct:db_col	typeref:typename:int
+string_write	core/src/lexer.c	/^void string_write(void *s, FILE *file) {$/;"	f	typeref:typename:void
+tests	Makefile	/^tests: $(TBIN)\/test1$/;"	t
+token	core/src/lexer.h	/^typedef struct token {$/;"	s
+token	core/src/lexer.h	/^} token;$/;"	t	typeref:struct:token
+type	core/src/lexer.h	/^    lex_type type;$/;"	m	struct:token	typeref:typename:lex_type
+type	core/src/parser.h	/^	c_log_type *type;$/;"	m	struct:c_logical_value	typeref:typename:c_log_type *
+type	core/src/parser.h	/^	c_stat_type type;	\/\/ CST_RETURN$/;"	m	struct:c_return_value	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type;	\/\/ CST_VALUE$/;"	m	struct:c_value	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type;	\/\/ CST_VAR_*$/;"	m	struct:c_variable	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type; $/;"	m	struct:c_statement	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type; \/\/ CST_DEFINE$/;"	m	struct:c_define	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type; \/\/ CST_FUNC_CALL$/;"	m	struct:c_function_call	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type; \/\/ CST_FUNC_DECL_FULL$/;"	m	struct:c_function	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type; \/\/ CST_INCLUDE$/;"	m	struct:c_include	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type; \/\/CST_FUNC_DECL$/;"	m	struct:c_function_declaration	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type;$/;"	m	struct:c_array	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type;$/;"	m	struct:c_else	typeref:typename:c_stat_type
+type	core/src/parser.h	/^	c_stat_type type;$/;"	m	struct:c_if	typeref:typename:c_stat_type
+type2	core/src/lexer.h	/^    lex_type type2;$/;"	m	struct:token	typeref:typename:lex_type
+val_type	core/src/parser.h	/^	c_basic_type val_type;$/;"	m	struct:c_value	typeref:typename:c_basic_type
+var_type	core/src/parser.h	/^	c_basic_type var_type;$/;"	m	struct:c_array	typeref:typename:c_basic_type
+var_type	core/src/parser.h	/^	c_basic_type var_type;$/;"	m	struct:c_variable	typeref:typename:c_basic_type
+variables	core/src/parser.h	/^	list *variables;$/;"	m	struct:c_file	typeref:typename:list *
+variables	core/src/parser.h	/^	list *variables;$/;"	m	struct:c_function	typeref:typename:list *
+vartype	core/src/parser.h	/^	c_var_type vartype; \/\/if CVT_VALUE, point to c_value$/;"	m	struct:c_variable	typeref:typename:c_var_type

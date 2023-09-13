@@ -33,8 +33,9 @@ char *fr_writefile(char *path, char *string);
  * buffer_position : current position in buffer
  * handler : gets current fd, line with its length as parameters
  * */
-int fr_part_read(int fd, void (*handler)(int, char *, int), \
+int fr_part_read(int fd, void (*handler)(int, char *, int, int *), \
 				char *line, size_t line_size, size_t *line_length, \
-				char *buffer, size_t buf_size, size_t *buffer_position);
+				char *buffer, size_t buf_size, size_t *buffer_position,
+				int *hdl_return_code);
 
 

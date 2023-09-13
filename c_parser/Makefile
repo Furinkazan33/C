@@ -2,8 +2,9 @@
 #
 # Compiler flags
 #
-CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L
-LDFLAGS=-L $(CLIB) -L $(CBUILD) -I $(CINC) -I $(CSRC)
+CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)
+CFLAGS=-I $(CINC) -I $(CSRC)
+LDFLAGS=-L $(CLIB) -L $(CBUILD)
 
 #
 # Core folders
@@ -26,26 +27,26 @@ TRES=$(TEST)/ressources
 #
 # Dependencies
 #
-DEP_O=$(COBJ)/array.o $(COBJ)/str.o $(COBJ)/fr.o
-DEP_H=$(CINC)/array.h $(CINC)/str.h $(CINC)/fr.h
-DEP_A=$(CLIB)/libarray.a $(CLIB)/libstr.a $(CLIB)/libfr.a
+DEP_O=$(COBJ)/list.o  $(COBJ)/fr.o
+DEP_H=$(CINC)/list.h $(CINC)/fr.h
+DEP_A=$(CLIB)/liblist.a $(CLIB)/libfr.a
 
 #
 # Rules
 #
 all: dirs builds tests execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
-builds: $(CBUILD)/lexer.o $(CBUILD)/liblexer.a
+builds: $(CBUILD)/lexer.o $(CBUILD)/liblexer.a $(CBUILD)/parser.o $(CBUILD)/libparser.a
 tests: $(TBIN)/test1
-execs: $(TLOG)/test1
+execs: $(TLOG)/test1 $(TLOG)/test_stdio
 
-debug1: CFLAGS += -DDEBUG1
-debug1: all
+debug: CFLAGS += -DDEBUG
+debug: all
 
-debug2: CFLAGS += -DDEBUG1 -DDEBUG2
+debug2: CFLAGS += -DDEBUG -DDEBUG2
 debug2: all
 
-debug3: CFLAGS += -DDEBUG1 -DDEBUG2 -DDEBUG3
+debug3: CFLAGS += -DDEBUG -DDEBUG2 -DDEBUG3
 debug3: all
 
 
@@ -69,27 +70,35 @@ $(TLOG):
 
 $(CBUILD)/lexer.o: $(CSRC)/lexer.c $(CSRC)/lexer.h ./Makefile $(DEP_O) $(DEP_H)
 	$(CC) $(CFLAGS) $(LDFLAGS) \
-		-c -lstr -larray $(CSRC)/lexer.c -o $@
+		-c -llist $(CSRC)/lexer.c -o $@
 
 $(CBUILD)/liblexer.a: $(CBUILD)/lexer.o
 	ar ruv $(CBUILD)/liblexer.a $(CBUILD)/lexer.o $(DEP_O)
 	ranlib $(CBUILD)/liblexer.a
 
 
+$(CBUILD)/parser.o: $(CSRC)/parser.c $(CSRC)/parser.h ./Makefile $(DEP_O) $(DEP_H)
+	$(CC) $(CFLAGS) $(LDFLAGS) \
+		-c -llist $(CSRC)/parser.c -o $@
+
+$(CBUILD)/libparser.a: $(CBUILD)/parser.o
+	ar ruv $(CBUILD)/libparser.a $(CBUILD)/parser.o $(DEP_O)
+	ranlib $(CBUILD)/libparser.a
+
 ##############################
 # Test builds and executions
 ##############################
 
-# compiling test1 test with .o
-$(TBIN)/test1: $(CBUILD)/lexer.o $(TSRC)/test1.c $(DEP_O)
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(DEP_O) \
-		$(CBUILD)/lexer.o \
+$(TBIN)/test1: $(CBUILD)/lexer.o $(CBUILD)/parser.o $(TSRC)/test1.c $(DEP_O)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(DEP_O) \
+		$(CBUILD)/lexer.o $(CBUILD)/parser.o \
 		$(TSRC)/test1.c -o $@
 
-# execution of test1 test, result is ok if file 'test1' is present
 $(TLOG)/test1: $(TBIN)/test1
 	$(TBIN)/test1 $(TRES)/code.c > $(TLOG)/test1
+
+$(TLOG)/test_stdio: $(TBIN)/test1
+	$(TBIN)/test1 /usr/include/stdio.h > $(TLOG)/test_stdio
 
 
 ##############################

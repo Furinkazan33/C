@@ -6,13 +6,9 @@
 
 
 int main(void) {
-	list *l = list_new();
-	if(!l) {
-		return 1;
-	}
-	list_set_free(l, person_free);
-	list_set_cmp(l, person_cmp);
-	list_set_write(l, person_write);
+	list *l = NULL;
+
+	
 
 	person *p1 = person_new(1, 21, "toto 1", "");
 	person *p2 = person_new(2, 22, "toto 2", "");
@@ -21,34 +17,17 @@ int main(void) {
 	person *p5 = person_new(5, 25, "toto 5", "");
 	person *p6 = person_new(6, 26, "toto 6", "");
 
-	list_append(l, p3); list_append(l, p2); list_append(l, p1);
-	list_append(l, p4); list_append(l, p6); list_append(l, p5);
-	list_write(l, stdout);
-	puts("-----------------");
+	l = list_new(p3); if(!l) { return 1; }
+	list *p = l;
+	p = list_insert_after(p, p2);
+	p = list_insert_after(p, p1);
+	p = list_insert_after(p, p4);
+	p = list_insert_after(p, p6);
+	p = list_insert_after(p, p5);
 
-	container *c = list_find(l, p4);
-	list_delete(l, c);
-	list_write(l, stdout);
-	puts("-----------------");
+	list_map2(l, person_write, stdout);
 
-	c = list_find(l, p2);
-	list_delete(l, c);
-	list_write(l, stdout);
-	puts("-----------------");
-
-	c = list_pop(l, l->head);
-
-	while(c) {
-		list_free_container(l, c);
-		c = list_pop(l, l->head);
-	}
-
-	list_write(l, stdout);
-	puts("-----------------");
-
-	assert(l->n == 0 && l->head == NULL && l->tail == NULL);
-
-	list_free(l);
+	list_free_all(l, person_free);
 
 	return 0;
 }

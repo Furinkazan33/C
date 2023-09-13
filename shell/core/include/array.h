@@ -1,68 +1,66 @@
 #include <stdlib.h>
 
 /*
- * array manipulation.
- *
- * array is an array of void *
+ * void * array manipulation.
  *
  * types defined : array
- * prefix used for functions : array.
+ * prefix used for functions : array_
  *
  */
 
-
-//TODO: improve searching by adding a boolean whether the array is sorted or not :
-// after calling sort => bool is true
-// when adding an element that unsorted the array => false
-//
-// When searching for an element, if cmp returns > 0, then return NULL
-
-#define ARRAY_REALLOC_COEF 1.5
+#define ARRAY_REALLOC_COEF 2
 
 typedef struct array {
-	size_t size;
-	size_t n;
-	int (*cmp)(void *, void *);
-	void (*free)(void *);
-	void (*print)(void *);
-	void (*tos)(void *);
+	size_t size;					// allocated size
+	size_t n;						// number of elements
 	void **data;
+	
+	int (*cmp)(void *, void *);		// compare two elements
+	void (*free)(void *);			// free element
+	void (*write)(void *, FILE *);	// write element	
 } array;
 
- /* allocations */
+
 array *array_new(size_t init_size);
-array *array_copy(array *a);
+array *array_copy(array *a, void *(*copy)(void *));
 array *array_resize(array *a, size_t newsize);
-void array_free(array *a, int with_data);
+void array_free(array *a, int with_data);			// a->free is called if not NULL
 
-/* functions iterated through all elements when needed */
-void array_set_cmp(array *a, int (*cmp_data)(void *, void *));
-void array_set_free(array *a, void (*free_data)(void *));
-void array_set_print(array *a, void (*print_data)(void *));
-void array_set_tos(array *a, void (*tos_data)(void *)); //TODO
+/* 
+ * adding
+ * */
+array *array_add_at(array *a, void *d, size_t i);
+array *array_append(array *a, void *d);	
+array *array_concat(array *res, array *add);
+/* free existing element and set new value by ref */
+void array_replace(array *a, size_t i, void *value);
 
-/* adding */
-array *array_add_keep_sorted(array *a, void *d); // a->cmp is called
-array *array_add_at(array *a, void *d, size_t idx);
-array *array_append(array *a, void *d);
-array *array_concat(array *res, array *add); //TODO
+/* 
+ * moving element
+ * */
+void array_sort(array *a);							// a->cmp is called
+void array_swap(array *a, void *d1, void *d2);
+void array_swap_idx(array *a, size_t i1, size_t i2);
 
-/* moving elements */
-array *array_sort(array *a); // a->cmp is called, TODO
-array *array_swap(array *a, void *d1, void *d2);
-array *array_swap_idx(array *a, size_t idx1, size_t idx2);
+/* 
+ * searching
+ * */
+void *array_find(array *a, void *search);			// a->cmp is called
+array *array_find_all(array *a, void *search, size_t init_alloc);
 
-/* searching */
-void *array_find(array *a, void *search);
-
-/* removing */
-void array_remove_idx(array *l, size_t idx, int keep_null);
+/* 
+ * removing
+ * */
+void array_remove_idx(array *l, size_t i, int keep_null);
 void array_remove(array *l, void *p, int keep_null);
-array *array_remove_nulls(array *a);
+void array_remove_nulls(array *a);
 
-/* run through functions */
-void array_print(array *a);
-void array_map(array *a, void (*map)(void *));/* call map on every array elements */
-void array_reduce(array *a, void *result, void (*reduce)(void *, void *));/* reduce to a unique element */
+/* 
+ * run through functions 
+ * */
+void array_write(array *a, FILE *file);				// a->write is called
+void array_map(array *a, void *(*map)(void *));
+/* reduce array to a unique element. result has to be pre-allocated. */
+void array_reduce(array *a, void *result, void (*reduce)(void *, void *));
 
 

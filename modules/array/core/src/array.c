@@ -62,16 +62,6 @@ array *array_new(size_t init_size) {
 	return res;
 }
 
-void array_set_cmp(array *a, int (*cmp_data)(void *, void *)) {
-	a->cmp = cmp_data;
-}
-void array_set_free(array *a, void (*free_data)(void *)) {
-	a->free = free_data;
-}
-void array_set_write(array *a, void (*write_data)(void *, FILE *)) {
-	a->write = write_data;
-}
-
 array *array_add_at(array *a, void *d, size_t idx) {
 	assert(a);
 
@@ -165,13 +155,6 @@ void array_swap_idx(array *a, size_t idx1, size_t idx2) {
 	void *tmp = a->data[idx1];
 	a->data[idx1] = a->data[idx2];
 	a->data[idx2] = tmp;
-}
-
-void *array_get(array *a, size_t i) {
-	assert(a);
-	assert(i < a->n);
-
-	return a->data[i];
 }
 
 void *array_find(array *a, void *search) {
@@ -300,10 +283,12 @@ void array_free(array *a, int with_data) {
 	free(a);
 }
 
-array *array_copy(array *a) {
+array *array_copy(array *a, void *(*cpy)(void *)) {
 	assert(a);
+	array *res = NULL;
+	void *data = NULL;
 
-	array *res = array_new(a->size);
+	res = array_new(a->size);
 	if(!res) {
 		fprintf(stderr, "array_copy : call to array_new(%ld) returned NULL\n", a->size);
 		return NULL;
@@ -312,19 +297,34 @@ array *array_copy(array *a) {
 	res->free = a->free;
 	res->write = a->write;
 
-	memcpy(res->data, a->data, sizeof(void **) * a->size);
-	res->n = a->n;
+	for(size_t i = 0; i < a->n; i++) {
+		if(a->data[i]) {
+			data = cpy(a->data[i]);
+			if(!data) {
+				fprintf(stderr, "array_copy : call to copy function returned NULL\n");
+				return NULL;
+			}
+		}
+		else {
+			data = NULL;
+		}
+
+		if(!array_append(res, data)) {
+			fprintf(stderr, "array_copy : call to array_append returned NULL\n");
+			return NULL;
+		}
+	}
 
 	return res;
 }
 
-void array_map(array *a, void (*map)(void *)) {
+void array_map(array *a, void *(*map)(void *)) {
 	assert(a);
 	assert(map);
 
 	for(size_t i = 0; i < a->n; i++) {
 		if(a->data[i]) {
-			map(a->data[i]);
+			a->data[i] = map(a->data[i]);
 		}
 	}
 }
@@ -333,8 +333,9 @@ void array_reduce(array *a, void *res, void (*reduce)(void *, void *)) {
 	assert(a);
 
 	for(size_t i = 0; i < a->n; i++) {
-		reduce(res, a->data[i]);
+		if(a->data[i]) {
+			reduce(res, a->data[i]);
+		}
 	}
 }
-
 
