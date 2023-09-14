@@ -14,71 +14,136 @@ void string_write(void *s, FILE *file) {
 
 const char *EOW = " &#{[(|`^@)]°=}+-/*$%µ!§:;.,?<>\"\'\\\n\t";
 
-char *lex_type_literal[] = {
-	[LT_NONE] = "NONE",
-	[LT_OPERATOR] = "OPERATOR", 
-		[LT_OP_SHARP] = "OP_SHARP", 
-		[LT_OP_DOT] = "OP_DOT", 
-		[LT_OP_EQUAL] = "OP_EQUAL",
-		[LT_OP_PLUS] = "OP_PLUS",
-		[LT_OP_MINUS] = "OP_MINUS",
-		[LT_OP_DIV] = "OP_DIV",
-		[LT_OP_STAR] = "OP_STAR",
-		[LT_OP_DIVE] = "OP_DIVE",
-		[LT_OP_PERCENT] = "OP_PERCENT",
-		[LT_OP_AND] = "OP_AND",
-		[LT_OP_OR] = "OP_OR",
-		[LT_OP_NOT] = "OP_NOT",
-		[LT_OP_LHOOK] = "OP_LHOOK",
-		[LT_OP_RHOOK] = "OP_RHOOK",
-		[LT_OP_LPAREN] = "OP_LPAREN",
-		[LT_OP_RPAREN] = "OP_RPAREN",
-		[LT_OP_LSTRIPE] = "OP_LSTRIPE",
-		[LT_OP_RSTRIPE] = "OP_RSTRIPE",
-		[LT_OP_LBRACKET] = "OP_LBRACKET",
-		[LT_OP_RBRACKET] = "OP_RBRACKET",
-		[LT_OP_COLON] = "OP_COLON", 
-		[LT_OP_COMMA] = "OP_COMMA",
-		[LT_OP_SEMICOLON] = "OP_SEMICOLON",
-	[LT_TYPE] = "TYPE", 
-		[LT_T_VOID] = "T_VOID", 
-		[LT_T_INT] = "T_INT", 
-		[LT_T_DOUBLE] = "T_DOUBLE", 
-		[LT_T_CHAR] = "T_CHAR", 
-		[LT_T_STRUCT] = "T_STRUCT",
-		[LT_T_ENUM] = "T_ENUM",
-	[LT_VALUE] = "VALUE", 
-		[LT_V_INT] = "V_INT", 
-		[LT_V_DOUBLE] = "V_DOUBLE", 
-		[LT_V_CHAR] = "V_CHAR", 
-		[LT_V_STRING] = "V_STRING",
-	[LT_KEYWORD] = "KEYWORD", 
-		[LT_KW_CONST] = "KW_CONST", 
-		[LT_KW_TYPEDEF] = "KW_TYPEDEF", 
-		[LT_KW_INCLUDE] = "KW_INCLUDE", 
-		[LT_KW_DEFINE] = "KW_DEFINE", 
-		[LT_KW_SWITCH] = "KW_SWITCH", 
-		[LT_KW_CASE] = "KW_CASE", 
-		[LT_KW_BREAK] = "KW_BREAK", 
-		[LT_KW_DEFAULT] = "KW_DEFAULT", 
-		[LT_KW_IF] = "KW_IF", 
-		[LT_KW_IFDEF] = "KW_IFDEF", 
-		[LT_KW_ELSE] = "KW_ELSE", 
-		[LT_KW_ENDIF] = "KW_ENDIF", 
-		[LT_KW_WHILE] = "KW_WHILE",
-		[LT_KW_RETURN] = "KW_RETURN",
-	[LT_NAME] = "NAME", 
-	[LT_COMMENT] = "COMMENT",
-		[LT_COMMENT_LINE] = "LINE",
-		[LT_COMMENT_BLOCK] = "BLOCK",
-	[LT_BLANK] = "BLANK",
-		[LT_BLANK_NEWLINE] = "NEWLINE",
-		[LT_BLANK_SPACE] = "SPACE",
-		[LT_BLANK_TAB] = "TAB",
-};
-
-char *lex_type_lit(lex_type t) {
-	return lex_type_literal[t];
+char *lex_type_literal(lex_type type) {
+	switch(type) {
+		case LT_NONE:
+			return "NONE";
+		case LT_OPERATOR:
+			return "OPERATOR"; 
+		case LT_OP_DOT:
+			return "OP_DOT";
+		case LT_OP_EQUAL:
+			return "OP_EQUAL";
+		case LT_OP_PLUS:
+			return "OP_PLUS";
+		case LT_OP_MINUS:
+			return "OP_MINUS";
+		case LT_OP_DIV:
+			return "OP_DIV";
+		case LT_OP_STAR:
+			return "OP_STAR";
+		case LT_OP_DIVE:
+			return "OP_DIVE";
+		case LT_OP_PERCENT:
+			return "OP_PERCENT";
+		case LT_OP_AND:
+			return "OP_AND";
+		case LT_OP_OR:
+			return "OP_OR";
+		case LT_OP_NOT:
+			return "OP_NOT";
+		case LT_OP_LHOOK:
+			return "OP_LHOOK";
+		case LT_OP_RHOOK:
+			return "OP_RHOOK";
+		case LT_OP_LPAREN:
+			return "OP_LPAREN";
+		case LT_OP_RPAREN:
+			return "OP_RPAREN";
+		case LT_OP_LSTRIPE:
+			return "OP_LSTRIPE";
+		case LT_OP_RSTRIPE:
+			return "OP_RSTRIPE";
+		case LT_OP_LBRACKET:
+			return "OP_LBRACKET";
+		case LT_OP_RBRACKET:
+			return "OP_RBRACKET";
+		case LT_OP_COLON:
+			return "OP_COLON";
+		case LT_OP_SHARP:
+			return "OP_SHARP";
+		case LT_OP_COMMA:
+			return "OP_COMMA";
+		case LT_OP_SEMICOLON:
+			return "OP_SEMICOLON";
+		case LT_OP_QUOTES:
+			return "OP_QUOTES";
+		case LT_OP_QUOTE:
+			return "OP_QUOTE";
+		case LT_TYPE:
+			return "TYPE"; 
+		case LT_T_VOID:
+			return "T_VOID"; 
+		case LT_T_INT:
+			return "T_INT"; 
+		case LT_T_DOUBLE:
+			return "T_DOUBLE"; 
+		case LT_T_CHAR:
+			return "T_CHAR"; 
+		case LT_T_STRUCT:
+			return "T_STRUCT";
+		case LT_T_ENUM:
+			return "T_ENUM";
+		case LT_VALUE:
+			return "VALUE"; 
+		case LT_V_INT:
+			return "V_INT"; 
+		case LT_V_DOUBLE:
+			return "V_DOUBLE"; 
+		case LT_V_CHAR:
+			return "V_CHAR"; 
+		case LT_V_STRING:
+			return "V_STRING";
+		case LT_KEYWORD:
+			return "KEYWORD";
+		case LT_KW_CONST:
+			return "KW_CONST";
+		case LT_KW_TYPEDEF:
+			return "KW_TYPEDEF";
+		case LT_KW_DEFINE:
+			return "KW_DEFINE";
+		case LT_KW_INCLUDE:
+			return "KW_INCLUDE";
+		case LT_KW_RETURN:
+			return "KW_RETURN";
+		case LT_KW_IF:
+			return "KW_IF";
+		case LT_KW_ELSE:
+			return "KW_ELSE";
+		case LT_KW_WHILE:
+			return "KW_WHILE";
+		case LT_KW_SWITCH:
+			return "KW_SWITCH";
+		case LT_KW_CASE:
+			return "KW_CASE";
+		case LT_KW_BREAK:
+			return "KW_BREAK";
+		case LT_KW_DEFAULT:
+			return "KW_DEFAULT";
+		case LT_KW_IFDEF:
+			return "KW_IFDEF";
+		case LT_KW_ENDIF:
+			return "KW_ENDIF";
+		case LT_COMMENT:
+			return "COMMENT";
+		case LT_COMMENT_LINE:
+			return "COMMENT_LINE";
+		case LT_COMMENT_BLOCK:
+			return "COMMENT_BLOCK";
+		case LT_BLANK:
+			return "BLANK";
+		case LT_BLANK_NEWLINE:
+			return "BLANK_NEWLINE";
+		case LT_BLANK_SPACE:
+			return "BLANK_SPACE";
+		case LT_BLANK_TAB:
+			return "BLANK_TAB";
+		case LT_NAME:
+			return "NAME"; 
+		default:
+			fprintf(stderr, "lex_type_literal : unknown type : %d\n", type);
+			return NULL;
+	}
 }
 
 
@@ -108,7 +173,16 @@ void lex_string_write(void *s, void *f) {
 
 void lex_token_write(void *tok, void *file) {
 	token *t = tok;
-	fprintf((FILE *)file, "[%15s][%15s][%s]\n", lex_type_lit(t->type), lex_type_lit(t->type2), t->literal);
+	char *type = lex_type_literal(t->type);
+	if(!type) {
+		fprintf(stderr, "lex_token_write : call to lex_type_literal(%d) returned NULL\n", t->type);
+	}
+	char *type2 = lex_type_literal(t->type2);
+	if(!type2) {
+		fprintf(stderr, "lex_token_write : call to lex_type_literal(%d) returned NULL\n", t->type2);
+	}
+
+	fprintf((FILE *)file, "[%15s][%15s][%s]\n", type, type2, t->literal);
 }
 
 void lex_token_free(void *p) {
@@ -155,7 +229,7 @@ bool lex_is_double(char *s) {
 			return false;
 		}
 	}
-	
+
 	return true;
 }
 
@@ -625,7 +699,7 @@ void *lex_string_to_token(void *string) {
 		return NULL;
 	}
 #ifdef DEBUG2
-	fprintf(stdout, "lex_string_to_token : [%s][%s][%s]\n", lex_type_lit(res->type), lex_type_lit(res->type2), res->literal);
+	fprintf(stdout, "lex_string_to_token : [%s][%s][%s]\n", lex_type_literal(res->type), lex_type_literal(res->type2), res->literal);
 	fflush(stdout);
 #endif
 
@@ -635,6 +709,27 @@ void *lex_string_to_token(void *string) {
 token *lex_token_set_types(token *t) {
 	assert(t);
 	assert(t->literal);
+
+	if(lex_is_lit_string(t->literal)) {
+		t->type = LT_VALUE;
+		t->type2 = LT_V_STRING;
+		return t;
+	}
+	if(lex_is_lit_char(t->literal)) {
+		t->type = LT_VALUE;
+		t->type2 = LT_V_CHAR;
+		return t;
+	}
+	if(lex_is_integer(t->literal)) {
+		t->type = LT_VALUE;
+		t->type2 = LT_V_INT;
+		return t;
+	}
+	if(lex_is_double(t->literal)) {
+		t->type = LT_VALUE;
+		t->type2 = LT_V_DOUBLE;
+		return t;
+	}
 
 	if(t->literal[0] == '/' && t->literal[1] == '/') {
 		t->type = LT_COMMENT;
@@ -685,6 +780,16 @@ token *lex_token_set_types(token *t) {
 	if(t->literal[0] == '#') {
 		t->type = LT_OPERATOR;
 		t->type2 = LT_OP_SHARP;
+		return t;
+	}
+	if(t->literal[0] == '"') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_QUOTES;
+		return t;
+	}
+	if(t->literal[0] == '\'') {
+		t->type = LT_OPERATOR;
+		t->type2 = LT_OP_QUOTE;
 		return t;
 	}
 	if(t->literal[0] == '.') {
@@ -855,26 +960,6 @@ token *lex_token_set_types(token *t) {
 	if(!strcmp(t->literal, "endif")) {
 		t->type = LT_KEYWORD;
 		t->type2 = LT_KW_ENDIF;
-		return t;
-	}
-	if(lex_is_lit_string(t->literal)) {
-		t->type = LT_VALUE;
-		t->type2 = LT_V_STRING;
-		return t;
-	}
-	if(lex_is_lit_char(t->literal)) {
-		t->type = LT_VALUE;
-		t->type2 = LT_V_CHAR;
-		return t;
-	}
-	if(lex_is_integer(t->literal)) {
-		t->type = LT_VALUE;
-		t->type2 = LT_V_INT;
-		return t;
-	}
-	if(lex_is_double(t->literal)) {
-		t->type = LT_VALUE;
-		t->type2 = LT_V_DOUBLE;
 		return t;
 	}
 	/* default */

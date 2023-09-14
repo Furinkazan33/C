@@ -34,6 +34,8 @@ typedef enum lex_type {
 		LT_OP_SHARP,
 		LT_OP_COMMA,
 		LT_OP_SEMICOLON,
+		LT_OP_QUOTES,
+		LT_OP_QUOTE,
 	LT_TYPE, 
 		LT_T_VOID, 
 		LT_T_INT, 
@@ -86,7 +88,7 @@ void lex_token_free(void *token);
 token *lex_token_set_types(token *t);
 
 /* return literal value from type */
-char *lex_type_lit(lex_type t);
+char *lex_type_literal(lex_type t);
 
 /* convert code to list of strings */
 list *lex_code_to_strings(char *code, int *n);

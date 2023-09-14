@@ -1,6 +1,8 @@
 
 
 :set path+=,$PWD/core/include
+:set path+=,$PWD/core/src
+:set path+=,$PWD/test/src
 
 " vertical split window
 :vsplit

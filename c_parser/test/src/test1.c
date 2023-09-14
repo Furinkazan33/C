@@ -16,41 +16,53 @@ int main(int argc, char **argv) {
 	int n;
 	char *code = fr_readfile(argv[1]);
 	if(!code) {
-		fprintf(stderr, "file is empty\n");
+		fprintf(stderr, "main : file is empty\n");
 		return 0;
 	}
 
 	list *strings = lex_code_to_strings(code, &n);
 	if(!strings) {
-		fprintf(stderr, "call to lex_code_to_strings returned NULL\n");
+		fprintf(stderr, "main : call to lex_code_to_strings returned NULL\n");
 		return 1;
 	}
-	//list_map2(strings, lex_string_write, stdout);
+	/*
+	list_map2(strings, lex_string_write, stdout);
 
 	puts("");
 	puts("******************************************************************");
 	puts("******************************************************************");
 	puts("******************************************************************");
+	*/
 
 	list *tokens = lex_strings_to_tokens(strings);
 	if(!tokens) {
-		fprintf(stderr, "call to lex_strings_to_tokens returned NULL\n");
+		fprintf(stderr, "main : call to lex_strings_to_tokens returned NULL\n");
 		return 1;
 	}
-	//list_map2(tokens, lex_token_write, stdout);
+	/*
+	list_map2(tokens, lex_token_write, stdout);
 
 	puts("");
 	puts("******************************************************************");
 	puts("******************************************************************");
 	puts("******************************************************************");
+	*/
 
 	tokens = parser_clean(tokens, PC_NEWLINE | PC_TAB | PC_SPACE);
 	if(!tokens) {
-		fprintf(stderr, "call to parser_clean returned an empty list\n");
+		fprintf(stderr, "main : call to parser_clean returned an empty list\n");
 		return 1;
 	}
 
 	list_map2(tokens, lex_token_write, stdout);
+
+	list *structs = parser_tokens_to_structs(tokens);
+	if(!structs) {
+		fprintf(stderr, "main : call to parser_tokens_to_structs returned an empty list\n");
+		return 1;
+	}
+
+	list_map2(structs, parser_print_statement, stdout);
 
 	list_free_all(strings, free);
 	list_free_all(tokens, lex_token_free);
@@ -58,7 +70,4 @@ int main(int argc, char **argv) {
 
 	return 0;
 }
-
-
-
 

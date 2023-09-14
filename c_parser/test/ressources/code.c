@@ -1,3 +1,4 @@
+#include "local.h"
 #include <stdio.h>
 
 #define SIZE 38
