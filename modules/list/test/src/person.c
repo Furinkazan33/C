@@ -1,12 +1,14 @@
 #include <assert.h>
 #include "person.h"
 
-void person_write(void *p, void *file) {
+int person_write(void *p, void *file) {
 	fprintf((FILE *)file, "%d %d %s %s\n", 
 			((person *)p)->id, 
 			((person *)p)->age, 
 			((person *)p)->name, 
 			((person *)p)->adress);
+
+	return 1;
 }
 
 int person_cmp(void *p1, void *p2) {

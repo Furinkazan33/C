@@ -106,6 +106,8 @@ $(TLOG)/test_stdio: $(TBIN)/test1
 ##############################
 
 clean: 
+	rm -f $(TSRC)/*~
+	rm -f $(CSRC)/*~
 	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
 	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
 	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
