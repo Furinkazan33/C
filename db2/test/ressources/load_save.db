@@ -1,10 +1,10 @@
-cols:5 lines:8
-[1][1][0][id][built-in unique id];[0][0][2][name][name of person];[0][0][0][age][age of person];[0][0][2][address][address of person];[0][0][1][salary][salary of person];
-0;test 1;;;;
-1;test 2;;;;
-2;test 3;;;;
-3;test 4;;;;
-4;test 5;;;;
-5;test 6;;;;
-6;test 7;;;;
-7;test 8;25;22, rue de la chose - 33700 - Merignac;601234.130000;
+cols:6 lines:8
+[1][1][0][id][built-in unique id];[0][0][2][name][name of person];[0][0][0][age][age of person];[0][0][2][address][address of person];[0][0][1][salary][salary of person];[1][1][2][email][email of person];
+0;test 1;;;;;
+1;test 2;;;;;
+2;test 3;;;;;
+3;test 4;;;;;
+4;test 5;;;;;
+5;test 6;;;;;
+6;test 7;;;;;
+7;test 8;25;22, rue de la chose - 33700 - Merignac;601234.130000;;

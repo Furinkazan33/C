@@ -23,6 +23,14 @@ builds: $(CBUILD)/list.o $(CBUILD)/liblist.a
 tests: $(TBIN)/main_person $(TBIN)/main_message
 execs: $(TLOG)/message.log $(TLOG)/person.log
 
+
+debug: CFLAGS+=-DDEBUG
+debug: all
+debug2: CFLAGS+=-DDEBUG2
+debug2: all
+debug3: CFLAGS+=-DDEBUG3
+debug3: all
+
 #
 # Folders creation
 #

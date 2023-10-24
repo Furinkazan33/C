@@ -9,7 +9,6 @@ list *list_new(void *data) {
 		perror("list_alloc : alloc failed");
 		return NULL;
 	}
-	res->prev = NULL;
 	res->next = NULL;
 	res->data = data;
 
@@ -26,45 +25,22 @@ list *list_insert_after(list *l, void *data) {
 		return NULL;
 	}
 	l->next = new;
-	new->prev = l;
 	new->next = next;
 
-	if(next) {
-		next->prev = new;
-	}
-	
 	return new;
 }
 
 list *list_insert_before(list *l, void *data) {
 	assert(l);
 
-	list *prev = l->prev;
 	list *new = list_new(data);
 	if(!new) {
 		fprintf(stderr, "list_insert_before : call to list_new returned NULL\n");
 		return NULL;
 	}
-	l->prev = new;
 	new->next = l;
-	new->prev = prev;
 
-	if(prev) {
-		prev->next = new;
-	}
-	
 	return l;
-}
-
-list *list_head(list *l) {
-	assert(l);
-
-	list *p;
-	while(p->prev) {
-		p = p->prev;
-	}
-
-	return p;
 }
 
 list *list_tail(list *l) {
@@ -78,18 +54,27 @@ list *list_tail(list *l) {
 	return p;
 }
 
-void list_pop(list *l) {
+list *list_get(list *l, size_t n) {
 	assert(l);
 
-	list *prev = l->prev;
-	list *next = l->next;
+	list *res = l;
 
-	if(prev) {
-		prev->next = next;
+	size_t i;
+	for(i = 0; i < n && res; i++) {
+		res = res->next;
 	}
-	if(next) {
-		next->prev = prev;
+
+	if(i < n) {
+		fprintf(stderr, "list_get : index out of bound : %ld < %ld\n", i, n);
 	}
+
+	return res;
+}
+
+/* forward list pointer and return element */
+list *list_next(list **ref) {
+	*ref = (*ref)->next;
+	return *ref;
 }
 
 void list_free(list *l, void (*data_free)(void *)) {
@@ -97,7 +82,9 @@ void list_free(list *l, void (*data_free)(void *)) {
 	assert(l->data);
 	assert(data_free);
 
-	data_free(l->data);
+	if(data_free) {
+		data_free(l->data);
+	}
 	free(l);
 }
 
@@ -136,6 +123,7 @@ list *list_copy(list *l, void *(*copy)(void *)) {
 		data_cpy = copy(p->data);
 		if(!data_cpy) {
 			fprintf(stderr, "list_copy : call to copy returned NULL\n");
+			return NULL;
 		}
 
 		p_res = list_insert_after(p_res, data_cpy);
@@ -149,7 +137,28 @@ list *list_copy(list *l, void *(*copy)(void *)) {
 	return res;
 }
 
-void list_map(list *l, void (*map)(void *)) {
+/* Compare l2 against l1. l1 can be longer than l2
+ * e : end elt of l2 */
+bool list_equal(list *l1, list *l2, bool (*eq)(void *, void *), list **e) {
+	assert(l1);
+	assert(l2);
+
+	while(l2) {
+		if(!l1 || !eq(l1->data, l2->data)) {
+			*e = l1;
+			return false;
+		}
+		l1 = l1->next;
+		l2 = l2->next;
+	}
+	*e = l1;
+	return true;
+}
+
+void list_map_void(list *l, void (*map)(void *)) {
+	assert(l);
+	assert(map);
+
 	list *p = l;
 
 	while(p) {
@@ -158,12 +167,49 @@ void list_map(list *l, void (*map)(void *)) {
 	}
 }
 
-void list_map2(list *l, void (*map)(void *, void *), void *param) {
+void list_map_void2(list *l, void (*map)(void *, void *), void *param) {
+	assert(l);
+	assert(map);
+
 	list *p = l;
 
 	while(p) {
 		map(p->data, param);
 		p = p->next;
 	}
+}
+
+int list_map(list *l, int (*map)(void *)) {
+	assert(l);
+	assert(map);
+
+	list *p = l;
+	int rc;
+
+	while(p) {
+		rc = map(p->data);
+		if(!rc) {
+			return rc;
+		}
+		p = p->next;
+	}
+	return 1;
+}
+
+int list_map2(list *l, int (*map)(void *, void *), void *param) {
+	assert(l);
+	assert(map);
+
+	list *p = l;
+	int rc;
+
+	while(p) {
+		rc = map(p->data, param);
+		if(!rc) {
+			return rc;
+		}
+		p = p->next;
+	}
+	return 1;
 }
 

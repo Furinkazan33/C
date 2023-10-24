@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <stdbool.h>
 #include "char.h"
 
 
@@ -9,6 +10,7 @@
  * Abreviations used :
  *  - bow : begin of word
  *  - eow : end of word
+ *  - dw : delete word
  *  - daw : delete arround word (eword)
  *
  * An expanded word (eword) is a word with ahead or following spaces
@@ -16,18 +18,8 @@
  *
  * */
 
-
-char char_separators[] = {
-	'&', '~', '"', '#', '\'', '{', '(', '[',
-	'-', '|', '`', '_', '\\', '@', ')', ']',
-	'=', '}', '+', '$', '%', '*', ',', '?',
-	';', '.', ':', '/', '!', '<', '>'
-};
-
-char char_blanks[] = {
-	' ', '\t', '\n', '\r', '\b'
-};
-
+char *char_separators = " &~#{([-|`@)]=}+$%*?;.:/!<>'\\\"\t\n\r\b";
+char *char_blanks = " \t\n\r\b";
 
 
 
@@ -37,75 +29,53 @@ char char_blanks[] = {
 
 
 char_type char_get_type(char c) {
-	size_t i;
-
-	for(i = 0; i < sizeof(char_separators); i++) {
-		if(c == char_separators[i]) {
-			return SEPARATOR;
-		}
+	if(strchr(char_separators, c)) {
+		return CT_SEPARATOR;
 	}
-	for(i = 0; i < sizeof(char_blanks); i++) {
-		if(c == char_blanks[i]) {
-			return BLANK;
-		}
+	if(strchr(char_blanks, c)) {
+		return CT_BLANK;
 	}
-	return WORD;
+	return CT_WORD;
 }
 
-int char_is_blank(char c) {
-	return char_get_type(c) == BLANK;
+bool char_is_blank(char c) {
+	return char_get_type(c) == CT_BLANK;
 }
 
-int char_is_word(char c) {
-	return char_get_type(c) == WORD;
+bool char_is_word(char c) {
+	return char_get_type(c) == CT_WORD;
 }
 
-int char_is_separator(char c) {
-	return char_get_type(c) == SEPARATOR;
+bool char_is_separator(char c) {
+	return char_get_type(c) == CT_SEPARATOR;
 }
 
-/* on the last char of the word */
-int char_is_eow(char *start, char *end, char *c) {
-	if(c == start || char_is_blank(*c)) {
-		return 0;
+/* on the last char of a word */
+bool char_is_eow(char *p) {
+	assert(p);
+
+	if(!char_is_word(*p)) {
+		return false;
 	}
-	if(c+1 == end || char_is_blank(*(c+1)) || char_is_separator(*(c+1))) {
-		return 1;
+	if(char_is_word(*(p+1))) {
+		return false;
 	}
-	return 0;
+	return true;
 }
 
 /* on the first char of the word */
-int char_is_bow(char *start, char *end, char *c) {
-	if(c == end || char_is_blank(*c)) {
-		return 0;
-	}
-	if(c == start || char_is_blank(*(c-1)) || char_is_separator(*(c-1))) {
-		return 1;
-	}
-	return 0;
-}
+bool char_is_bow(char *s, char *c) {
+	assert(s);
+	assert(c);
 
-void _set_boundaries(char *start, char *end, char *from, char *to) {
-	if(from > to) {
-		char *tmp = to;
-		to = from;
-		from = tmp;
+	if(!char_is_word(*c)) {
+		return false;
 	}
-	if(from < start) {
-		from = start;
+	if(c-1 >= s && char_is_word(*(c-1))) {
+		return false;
 	}
-	if(from > end) {
-		from = end;
-	}
-	if(to < start) {
-		to = start;
-	}
-	if(to > end) {
-		to = end;
-	}
+	return true;
 }
-
 
 
 /*
@@ -114,55 +84,45 @@ void _set_boundaries(char *start, char *end, char *from, char *to) {
  *
  * */
 
-char *char_ignore_blanks(char *start, char *end, char *c, int step) {
-	char *stop;
-	char *res = c;
+char *char_ignore(char *s, char *p, int step) {
+	assert(p);
 
-	if(step > 0) {
-		stop = end;
+	char *res = p;
+	bool (*_is_)(char) = NULL;
+
+	if(char_is_blank(*p)) {
+		_is_ = char_is_blank;
 	}
-	else {
-		stop = start;
+	else if(char_is_word(*p)) {
+		_is_ = char_is_word;
 	}
 
-	while(res != stop && char_is_blank(*res)) {
+	while(*res && res >= s && _is_(*res)) {
 		res+=step;
 	}
 	return res;
 }
 
-char *char_ignore_word(char *start, char *end, char *c, int step) {
-	char *stop;
-	char *res = c;
-
-	if(step > 0) {
-		stop = end;
-	}
-	else {
-		stop = start;
-	}
-	while(res != stop && char_is_word(*res)) {
-		res+=step;
-	}
-	return res;
-}
 
 /* first char of current eword */
-char *char_bow(char *start, char *end, char *c) {
-	char *res = c;
+char *char_bow(char *s, char *p) {
+	assert(s);
+	assert(p);
 
-	if(res == start || char_is_separator(*res)) {
-		return res;
+	char *res = NULL;
+
+	if(p == s || char_is_separator(*p)) {
+		return p;
 	}
-	if(char_is_blank(*res)) {
-		res = char_ignore_blanks(start, end, res, -1);
-		res = char_ignore_word(start, end, res, -1);
+	if(char_is_blank(*p)) {
+		res = char_ignore(s, res, -1);
+		res = char_ignore(s, res, -1);
 	}
 	else if(char_is_word(*res)) {
-		res = char_ignore_word(start, end, res, -1);
+		res = char_ignore(s, res, -1);
 	}
 
-	if(res != start) {
+	if(res != s) {
 		res++;
 	}
 
@@ -170,19 +130,19 @@ char *char_bow(char *start, char *end, char *c) {
 }
 
 /* last char of current eword */
-char *char_eow(char *start, char *end, char *c) {
+char *char_eow(char *c) {
 	char *res = c;
 
 	if(char_is_blank(*res)) {
-		res = char_ignore_blanks(start, end, res, 1);
+		res = char_ignore(NULL, res, 1);
 
 		if(char_is_word(*res)) {
-			res = char_ignore_word(start, end, res, 1);
+			res = char_ignore(NULL, res, 1);
 		}
 	}
 
 	else if(char_is_word(*res)) {
-		res = char_ignore_word(start, end, res, 1);
+		res = char_ignore(NULL, res, 1);
 	}
 
 	else if(char_is_separator(*res)) {
@@ -195,38 +155,35 @@ char *char_eow(char *start, char *end, char *c) {
 }
 
 /* like char_bow, moving to the previous word when already at the bow */
-char *char_bow_r(char *start, char *end, char *c) {
+char *char_bow_r(char *start, char *c) {
 	char *res = c;
 
 	if(res == start) {
 		return res;
 	}
-	if(char_is_bow(start, end, res)) {
+	if(char_is_bow(start, res)) {
 		res--;
-		return char_bow_r(start, end, res);
+		return char_bow_r(start, res);
 	}
-	return char_bow(start, end, res);
+	return char_bow(start, res);
 }
 
 /* like char_eow, moving to the next word when already at the eow */
-char *char_eow_r(char *start, char *end, char *c) {
+char *char_eow_r(char *c) {
 	char *res = c;
 
-	if(res == end) {
-		return res - 1;
-	}
-	if(char_is_eow(start, end, res)) {
+	if(char_is_eow(res)) {
 		res++;
-		return char_eow_r(start, end, res);
+		return char_eow_r(res);
 	}
-	return char_eow(start, end, res);
+	return char_eow(res);
 }
 
 /* first space char */
-char *char_bos(char *start, char *end, char *c) {
+char *char_bos(char *start, char *c) {
 	assert(char_is_blank(*c));
 
-	char *res = char_ignore_blanks(start, end, c, -1);
+	char *res = char_ignore(start, c, -1);
 
 	if(res != start) {
 		res++;
@@ -235,10 +192,10 @@ char *char_bos(char *start, char *end, char *c) {
 }
 
 /* last space char */
-char *char_eos(char *start, char *end, char *c) {
+char *char_eos(char *c) {
 	assert(char_is_blank(*c));
 
-	char *res = char_ignore_blanks(start, end, c, 1);
+	char *res = char_ignore(NULL, c, 1);
 	res--;
 
 	return res;
@@ -252,55 +209,51 @@ char *char_eos(char *start, char *end, char *c) {
  *
  * */
 
-/* Delete with boundaries verification */
-void char_delete_to(char *start, char *end, char *from, char *to) {
-	_set_boundaries(start, end, from, to);
+void char_delete_range(char *from, char *to) {
+	char *tmp = NULL;
+	if(from < to) {
+		tmp = from;
+		from = to;
+		to = tmp;
+	}
 
-	memcpy(from, to, strlen(to) + 1);
-
-	end -= (to - from);
+	memcpy(from, to + 1, strlen(to));
 }
 
 /* Delete just the current word */
-int char_dw(char *start, char *end, char *c) {
-	char *res = c;
+void char_dw(char *s, char *c) {
+	assert(s);
+	assert(c);
 
-	assert(res != end);
+	char *from = char_bow(s, c);
+	char *to = char_eow(c);
 
-	char *to = char_bow(start, end, c);
-	char *from = char_eow(start, end, c);
-	from++;
-
-	char_delete_to(start, end, from, to);
-
-	return 1;
+	char_delete_range(from, to);
 }
 
 /* Delete the current eword with :
  * - following spaces when cursor is on the word
  * - ahead spaces when cursor is on them */
-int char_daw(char *start, char *end, char *c) {
+int char_daw(char *start, char *c) {
 	char *res = c;
 	char *from, *to;
 
-	assert(res != end);
-
 	if(char_is_blank(*res)) {
-		from = char_bos(start, end, c);
-		to = char_eow(start, end, c);
+		from = char_bos(start, c);
+		to = char_eow(c);
 		to++;
 	}
 	else {
-		from = char_bow(start, end, c);
-		to = char_eow(start, end, c);
+		from = char_bow(start, c);
+		to = char_eow(c);
 		to++;
 		if(char_is_blank(*to)) {
-			to = char_eos(start, end, to);
+			to = char_eos(to);
 			to++;
 		}
 	}
 
-	char_delete_to(start, end, from, to);
+	char_delete_range(from, to);
 
 	return 1;
 }

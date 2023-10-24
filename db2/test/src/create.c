@@ -34,6 +34,7 @@ int main(int argc, char **argv) {
 	db_col_add(db, false, false, INTEGER, "age", "age of person");
 	db_col_add(db, false, false, STRING, "address", "address of person");
 	db_col_add(db, false, false, DOUBLE, "salary", "salary of person");
+	db_col_add(db, true, true, STRING, "email", "email of person"); //TODO: check required fields in src
 
 	line = db_line_new_with_id(db);
 	s = malloc(sizeof(char) * 7);

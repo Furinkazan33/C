@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "lexer.h"
-#include "btree.h"
 
 #define PC_COMMENT			(1 << 0)
 #define PC_COMMENT_LINE		(1 << 1)
@@ -15,6 +14,7 @@
 /* any C statement */
 typedef enum c_stat_type {
 	CST_NONE = 0,
+	CST_COMMENT,
 	CST_INCLUDE,
 	CST_DEFINE,
 	CST_VAR_DECL,
@@ -33,16 +33,12 @@ typedef enum c_stat_type {
 	CST_LOGICAL,
 } c_stat_type;
 
+char *parser_CST_literal(c_stat_type type);
+
 typedef struct c_statement {
 	c_stat_type type; 
 	void *data; // cannot be NULL
 } c_statement;
-
-typedef enum c_basic_type {
-	CBT_NONE = 0,
-	CBT_INT, CBT_DOUBLE, CBT_CHAR, CBT_VOID,
-	CBT_INT_S, CBT_DOUBLE_S, CBT_CHAR_S, CBT_VOID_S,
-} c_basic_type;
 
 typedef enum c_var_type {
 	CVT_NONE = 0,
@@ -52,31 +48,64 @@ typedef enum c_var_type {
 	CVT_FUNCALL,
 } c_var_type;
 
+char *parser_CVT_literal(c_var_type type);
+
+typedef enum c_com_type {
+	CCT_NONE = 0,
+	CCT_LINE,
+	CCT_BLOCK,
+} c_com_type;
+
+char *parser_CCT_literal(c_com_type type);
+
 typedef struct c_file {
+	list *comments;
 	list *includes;
 	list *defines;
 	list *variables;
 	list *functions;
 } c_file;
 
+typedef struct c_comment {
+	c_com_type type;
+	char *content;
+} c_comment;
+
+void c_comment_print(c_comment *c, FILE *file);
+
+typedef enum c_inc_type {
+	CIT_NONE = 0,
+	CIT_LOCAL,
+	CIT_GLOBAL,
+} c_inc_type;
+
+char *parser_CIT_literal(c_inc_type type);
+
 typedef struct c_include {
-	bool local;
+	c_inc_type type;
 	char *filepath;
 } c_include;
 
+void c_include_print(c_include *c, FILE *file);
+
 typedef struct c_value {
-	c_basic_type val_type;
-	void *data; // pointer to literal value
+	lex_value type;
+	int value_int;
+	double value_double;
+	char value_char;
 } c_value;
 
+void c_value_print(c_value *c, FILE *file);
+
 typedef struct c_variable {
-	c_basic_type var_type;
-	c_var_type vartype; //if CVT_VALUE, point to c_value
+	lex_type type;
+	c_var_type var_type; //if CVT_VALUE, point to c_value
+	bool ptr;
 	bool constant;
 	size_t n;			// 1 or n for arrays
 	size_t mem_alloc;	// number of allocated bytes
 	char *name;			// can be NULL for literal values
-	void *data; //if not NULL and type==CVT_INT, point to a CVT_LIT_INT ot CVT_INT
+	void *data;
 } c_variable;
 
 /* TODO: for now, define is a variable */
@@ -86,7 +115,7 @@ typedef c_variable c_return_value;
 typedef c_variable c_array;
 
 typedef struct c_function_declaration {
-	c_basic_type type;
+	c_variable *def;
 	char *name;
 	list *params;		// list of c_variable *
 } c_function_declaration;
@@ -102,13 +131,22 @@ typedef struct c_function_call {
 } c_function_call;
 
 /* A logical expression is represented as a btree of c_logical_value * */
-typedef btree c_logical_e;
+/*typedef btree c_logical_e;
 
-typedef enum c_log_type { 
-	C_LOG_NONE = 0,
-	C_LOG_VAR = 0,	// c_variable
-	C_LOG_EXPR,		// btree
+typedef enum c_log_type {
+	CLT_NONE = 0,
+	CLT_RAW,		// btree copntaining raw string logical expression
+	CLT_REFINED,	// btree containing basic logical types
 } c_log_type;
+*/
+/*
+typedef enum c_log_basic_type { 
+	C_LOG_NONE = 0,
+	C_LOG_EXPR,		// 
+	C_LOG_VALUE,
+	C_LOG_VAR,
+	C_LOG_FUNCALL,
+} c_log_basic_type;
 
 typedef struct c_logical_value {
 	c_log_type *type;
@@ -119,15 +157,15 @@ typedef struct c_if {
 	c_logical_e *condition;
 	list *statements;	// list of c_statement *
 } c_if;
-
+*/
 typedef struct c_else {
 	list *statements;	// list of c_statement *
 } c_else;
 
 
 char *parser_type_literal(c_stat_type type);
-list *parser_clean(list *tokens, unsigned int options);
+void parser_clean(list *tokens, unsigned int options);
 list *parser_tokens_to_structs(list *tokens);
 
-void parser_print_statement(void *c_stat, void *file);
+int parser_print_statement(void *c_stat, void *file);
 
