@@ -1,0 +1,6 @@
+<html id="toto" class="machin">
+	<body>
+		<h1 class="title">My h1 title.</h1>
+		<h2>h2 title</h2>
+	</body>
+</html>

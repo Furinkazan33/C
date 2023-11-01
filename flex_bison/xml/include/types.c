@@ -35,18 +35,20 @@ void array_map(type_array *a, void (*user_print)(void *)) {
 }
 
 
-type_balise *balise_new(char *name, type_array *data) {
+type_balise *balise_new(char *name, type_array *attributes, type_array *data) {
 	type_balise *res = malloc(sizeof(*res));
 	res->type = T_NORMAL;
 	strcpy(res->name, name);
+	res->attributes = attributes;
 	res->data = data;
 	return res;
 }
 
-type_balise *balise_new_atom(char *name, char *data) {
+type_balise *balise_new_atom(char *name, type_array *attributes, char *data) {
 	type_balise *res = malloc(sizeof(*res));
 	res->type = T_ATOM;
 	strcpy(res->name, name);
+	res->attributes = attributes;
 	res->data = data;
 	return res;
 }
@@ -60,16 +62,27 @@ void print_tab(size_t n) {
 
 void _balise_print(size_t depth, void *balise) {
 	type_balise *b = balise;
+	type_array *at = b->attributes;
 
 	print_tab(depth);
 
 	switch(b->type) {
 		case T_ATOM:
-			printf("<%s>%s</%s>\n", b->name, (char *)b->data, b->name);
+			printf("<%s", b->name);
+			for(size_t i = 0; i < at->n; i++) {
+				attribute_print(at->data[i]);
+			}
+			printf(">%s</%s>\n", (char *)b->data, b->name);
 			break;
 		case T_NORMAL:
 			type_array *a = b->data;
-			printf("<%s>\n", b->name);
+			printf("<%s", b->name);
+
+			for(size_t i = 0; i < at->n; i++) {
+				attribute_print(at->data[i]);
+			}
+
+			printf(">\n");
 			for(size_t i = 0; i < a->n; i++) {
 				_balise_print(depth + 1, a->data[i]);
 			}
@@ -82,4 +95,19 @@ void _balise_print(size_t depth, void *balise) {
 void balise_print(void *balise) {
 	_balise_print(0, balise);
 }
+
+
+
+type_attribute *attribute_new(char *name, char *content) {
+	type_attribute *res = malloc(sizeof(*res));
+	strcpy(res->name, name);
+	strcpy(res->content, content);
+	return res;
+}
+
+void attribute_print(void *attribute) {
+	type_attribute *a = attribute;
+	printf(" %s=\"%s\"", a->name, a->content);
+}
+
 

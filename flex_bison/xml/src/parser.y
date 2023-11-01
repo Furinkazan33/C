@@ -10,6 +10,7 @@
 %union{
   char *vstring;
   type_balise *vbalise;
+  type_attribute *vattribute;
   type_array *varray;
 }
 
@@ -20,36 +21,41 @@
 	#include "types.h"
 }
 
-%token <vstring> BALISE_START
+%token <vstring> IDENTIFIER
+%token <vstring> STRING
 %token <vstring> CONTENT
-%token <vstring> BALISE_END
+
 %type <vbalise> balise
 %type <varray> balise_list
+%type <varray> attribute_list
+%type <vattribute> attribute
 
 %start file
 %%
 
 file
-	: balise								{	balise_print($1); }
+	: balise	{ balise_print($1); }
 	;
 
 balise
-	: BALISE_START balise_list BALISE_END	{	if(not_same($1, $3)) { 
-													return 1; 
-												}; 
-												$$ = balise_new($1, $2); 
-											}
-
-	| BALISE_START CONTENT BALISE_END		{	if(not_same($1, $3)) { 
-													return 1; 
-												}; 
-												$$ = balise_new_atom($1, $2); 
-											}
+	: '<' IDENTIFIER attribute_list '>' balise_list '<' '/' IDENTIFIER '>'
+		{	if(not_same($2, $8)) { return 1; }; $$ = balise_new($2, $3, $5); }
+	| '<' IDENTIFIER attribute_list CONTENT  '/' IDENTIFIER '>'						
+		{	if(not_same($2, $6)) { return 1; }; $$ = balise_new_atom($2, $3, $4); }
 	;
 
 balise_list
-	: balise_list balise					{ $$ = array_add($1, (void *)$2); }
-	|										{ $$ = array_new(); }
+	: balise_list balise			{ $$ = array_add($1, (void *)$2); }
+	|								{ $$ = array_new(); }
+	;
+
+attribute
+	: IDENTIFIER '=' STRING			{ $$ = attribute_new($1, $3); }
+	;
+
+attribute_list
+	: attribute_list attribute		{ $$ = array_add($1, (void *)$2); }
+	|								{ $$ = array_new(); }
 	;
 
 %%
