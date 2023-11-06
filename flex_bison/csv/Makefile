@@ -15,8 +15,8 @@ build/parse_file: build/lexer.c build/parser.c include/types.c include/types.h
 	$(CC) $(OPT) -I ./include $^ -o $@
 
 
-./result.txt: build/parse_file ./ressources/cells.json
-	./build/parse_file ./ressources/cells.json > ./result.txt && cat ./result.txt
+./result.txt: build/parse_file ./ressources/test.csv
+	./build/parse_file ./ressources/test.csv > ./result.txt && cat ./result.txt
 
 
 

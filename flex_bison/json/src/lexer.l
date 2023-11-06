@@ -41,27 +41,24 @@ static void comment(void);
 "/*"                    { comment(); }
 "//".*                  { /* consume comment line */ }
 
-"true"					{   yylval.vint = 1; return BOOL; }
-"false"					{   yylval.vint = 0; return BOOL; }
+"true"					{   yylval.vint = 1; return T_BOOL; }
+"false"					{   yylval.vint = 0; return T_BOOL; }
 "null"					{	return T_NULL; }
 
 {L}{A}*					{	yylval.vstring = malloc(sizeof(char) * (strlen(yytext) + 1)); strcpy(yylval.vstring, yytext);
 							return IDENTIFIER; }
 
 {D}+					{	yylval.vint = atoi(yytext); 
-							return I_CONSTANT; }
+							return T_INT; }
 
 {D}*\.{D}+				{	yylval.vdouble = atof(yytext);
-							return D_CONSTANT; }
+							return T_DOUBLE; }
 
 \"([^"\\\n]|{ES})*\"	{	size_t len = strlen(yytext) - 2;
 							yylval.vstring = malloc(sizeof(char) * (len + 1)); 
 							strncpy(yylval.vstring, yytext + 1, len);
 							yylval.vstring[len] = '\0';
-							return S_CONSTANT; }
-
-\'[a-zA-Z0-9]\'			{	yylval.vchar = *(yytext+1); 
-							return C_CONSTANT; }
+							return T_STRING; }
 
 [:,\[\]\{\}]			{ return *yytext; }
 

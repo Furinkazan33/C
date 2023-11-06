@@ -3,33 +3,34 @@
 #include <string.h>
 #include "types.h"
 
-type_value *value_new_int(prop_type type, int value) {
+type_value *value_new_int(int value) {
 	type_value *res = malloc(sizeof(*res));
-	res->type = type;
+	res->type = INT;
 	res->value = malloc(sizeof(int));
 	*(int *)(res->value) = value;
 	return res;
 }
 
-type_value *value_new_double(prop_type type, double value) {
+type_value *value_new_bool(int value) {
 	type_value *res = malloc(sizeof(*res));
-	res->type = type;
+	res->type = BOOL;
+	res->value = malloc(sizeof(int));
+	*(int *)(res->value) = value;
+	return res;
+}
+
+
+type_value *value_new_double(double value) {
+	type_value *res = malloc(sizeof(*res));
+	res->type = DOUBLE;
 	res->value = malloc(sizeof(double));
 	*(double *)(res->value) = value;
 	return res;
 }
 
-type_value *value_new_char(prop_type type, char value) {
+type_value *value_new_string(char *value) {
 	type_value *res = malloc(sizeof(*res));
-	res->type = type;
-	res->value = malloc(sizeof(char));
-	*(char *)(res->value) = value;
-	return res;
-}
-
-type_value *value_new_string(prop_type type, char *value) {
-	type_value *res = malloc(sizeof(*res));
-	res->type = type;
+	res->type = STRING;
 	res->value = value;
 	return res;
 }
@@ -73,20 +74,30 @@ void value_print(void *value) {
 	switch(v->type) {
 		case INT:
 			printf("%d, ", *(int *)(v->value));
+			printf("INT");
+			break;
+		case BOOL:
+			if(*(int *)(v->value)) {
+				printf("true, ");
+			}
+			else {
+				printf("false, ");
+			}
+			printf("BOOL");
 			break;
 		case DOUBLE:
 			printf("%f, ", *(double *)(v->value));
-			break;
-		case CHAR:
-			printf("%c, ", *(char *)(v->value));
+			printf("DOUBLE");
 			break;
 		case STRING:
 			printf("\"%s\", ", (char *)v->value);
+			printf("STRING");
 			break;
 		case ARRAY:
 			printf("[ ");
 			array_map((type_array *)v->value, value_print);
 			printf(" ], ");
+			printf("ARRAY");
 			break;
 		case PTR:
 			printf("%s, ", (char *)v->value);
@@ -94,7 +105,9 @@ void value_print(void *value) {
 		case OBJ:
 			printf("{\n");
 			array_map((type_array *)v->value, prop_print);
-			printf("}, \n");
+			printf("}, ");
+			printf("OBJ");
+			printf("\n");
 			break;
 	}
 }

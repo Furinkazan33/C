@@ -14,7 +14,7 @@ type_array *array_add(type_array *a, void *e);
 void array_map(type_array *a, void (*user_print)(void *));
 
 
-typedef enum prop_type { NONE=0, INT, DOUBLE, CHAR, STRING, ARRAY, OBJ, PTR } prop_type;
+typedef enum prop_type { INT=0, BOOL, DOUBLE, STRING, ARRAY, OBJ, PTR } prop_type;
 
 typedef struct type_value {
 	prop_type type;
@@ -26,10 +26,11 @@ typedef struct type_prop {
 	type_value *value;
 } type_prop;
 
-type_value *value_new_int(prop_type type, int value);
-type_value *value_new_double(prop_type type, double value);
-type_value *value_new_char(prop_type type, char value);
-type_value *value_new_string(prop_type type, char *value);
+type_value *value_new_int(int value);
+type_value *value_new_bool(int value);
+type_value *value_new_double(double value);
+type_value *value_new_char(char value);
+type_value *value_new_string(char *value);
 type_value *value_new_from_array(type_array *a);
 type_value *value_new_obj_from_array(type_array *a);
 type_value *value_new_from_varname(char *name);

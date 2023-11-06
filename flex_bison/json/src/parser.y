@@ -13,7 +13,6 @@
 %union{
   double vdouble;
   int vint;
-  char vchar;
   char *vstring;
   type_prop *vprop;
   type_value *vvalue;
@@ -25,11 +24,10 @@
 
 %token T_NULL
 %token <vstring> IDENTIFIER 
-%token <vint> BOOL
-%token <vint> I_CONSTANT 
-%token <vdouble> D_CONSTANT 
-%token <vchar> C_CONSTANT
-%token <vstring> S_CONSTANT
+%token <vint> T_BOOL
+%token <vint> T_INT 
+%token <vdouble> T_DOUBLE 
+%token <vstring> T_STRING
 
 %type <vprop> property
 %type <vvalue> value
@@ -47,22 +45,21 @@ file
 	;
 
 property
-	: S_CONSTANT ':' value				{ $$ = prop_new($1, $3); }
+	: T_STRING ':' value				{ $$ = prop_new($1, $3); }
 	;
 
 value
 	: primitive							{ $$ = $1; }
 	| array								{ $$ = $1; }
 	| object							{ $$ = $1; }
-	| T_NULL							{ $$ = NULL; }
 	;
 
 primitive
-	: BOOL								{ $$ = value_new_int(INT, $1); }
-	| I_CONSTANT						{ $$ = value_new_int(INT, $1); }
-	| D_CONSTANT						{ $$ = value_new_double(DOUBLE, $1); }
-	| C_CONSTANT						{ $$ = value_new_char(CHAR, $1); }
-	| S_CONSTANT						{ $$ = value_new_string(STRING, $1); }
+	: T_NULL							{ $$ = NULL; }
+	| T_BOOL							{ $$ = value_new_bool($1); }
+	| T_INT								{ $$ = value_new_int($1); }
+	| T_DOUBLE							{ $$ = value_new_double($1); }
+	| T_STRING							{ $$ = value_new_string($1); }
 	;
 
 array
