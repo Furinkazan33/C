@@ -1,28 +1,57 @@
 CC = gcc
 OPT = -O3 -std=c11
 
-all: ./result.txt
+#
+# Folders
+#
+BUILD=./build
+SRC=./src
+INC=$(SRC)/include
+TEST=./test
 
 
-build/parser.h build/parser.c: src/parser.y ./Makefile
-	bison -d -v -o build/parser.c src/parser.y
-
-build/lexer.h build/lexer.c: src/lexer.l ./Makefile
-	flex --header-file=build/lexer.h -o build/lexer.c src/lexer.l 
-
-
-build/parse_file: build/lexer.c build/parser.c include/types.c include/types.h
-	$(CC) $(OPT) -I ./include $^ -o $@
-
-
-./result.txt: build/parse_file ./ressources/test.csv
-	./build/parse_file ./ressources/test.csv > ./result.txt && cat ./result.txt
+# 
+# Rules
+#
+all: builds bin tests
+builds: lexer parser
+lexer: $(BUILD)/lexer.h $(BUILD)/lexer.c
+parser: $(BUILD)/parser.h $(BUILD)/parser.c
+bin: $(BUILD)/parse_file
+tests: $(TEST)/result_empty.txt $(TEST)/result.txt
 
 
+# 
+# C files generation
+#
+$(BUILD)/parser.h $(BUILD)/parser.c: $(SRC)/parser.y Makefile
+	bison -d -v -o $(BUILD)/parser.c $(SRC)/parser.y
 
+$(BUILD)/lexer.h $(BUILD)/lexer.c: $(SRC)/lexer.l Makefile
+	flex --header-file=$(BUILD)/lexer.h -o $(BUILD)/lexer.c $(SRC)/lexer.l 
+
+#
+# Compilation
+#
+$(BUILD)/parse_file: $(BUILD)/lexer.c $(BUILD)/parser.c $(INC)/types.c $(INC)/types.h
+	$(CC) $(OPT) -I $(INC) $^ -o $@
+
+#
+# Tests
+#
+$(TEST)/result.txt: $(BUILD)/parse_file $(TEST)/ressources/test.csv
+	$(BUILD)/parse_file $(TEST)/ressources/test.csv > $(TEST)/result.txt && cat $(TEST)/result.txt
+
+$(TEST)/result_empty.txt: $(BUILD)/parse_file $(TEST)/ressources/test_empty.csv
+	$(BUILD)/parse_file $(TEST)/ressources/test_empty.csv > $(TEST)/result_empty.txt && cat $(TEST)/result_empty.txt
+
+
+#
+# Cleaning
+#
 clean:
 	rm -f *~
-	rm -f build/*
-	rm -f ./result.txt
+	rm -f $(BUILD)/*
+	rm -f $(TEST)/result*.txt
 
 

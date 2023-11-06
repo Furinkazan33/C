@@ -1,9 +1,6 @@
-# property_parser
+# prop file parser
 
-Parsing property files containing any type of data (arrays, objects, basic types).
-
-Example : 
-i
+Parsing property files containing any type of data (arrays, objects, basic types) :
 ```
 	[section_1]
 	char1 = 'c'
@@ -20,4 +17,8 @@ i
 
 	obj = { toto = 2, s=my_array, tab = [1, 2, 3] }
  ```
+
+
+TODO: 
+- implement pointers to existing variables
 

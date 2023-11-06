@@ -22,7 +22,6 @@
 
 %type <varray> lines
 %type <varray> line
-%type <varray> elt_list
 
 %start file
 %%
@@ -33,16 +32,12 @@ file
 
 lines
 	: lines line			{ $$ = array_add($1, $2); }
-	|						{ $$ = array_new(); }
+	| %empty				{ $$ = array_new(); }
 	;
 
 line
-	: elt_list ELT		{ $$ = array_add($1, $2); }
-	;
-
-elt_list
-	: elt_list ELT ';'		{ $$ = array_add($1, $2); }
-	|						{ $$ = array_new(); }
+	: line ';' ELT			{ $$ = array_add($1, $3); }
+	| ELT					{ $$ = array_new_from($1); }
 	;
 
 %%
