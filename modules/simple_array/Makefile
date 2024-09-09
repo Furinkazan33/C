@@ -1,10 +1,10 @@
 CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)
 CFLAGS=
-LDFLAGS=-I src -I test/src -L build
+LDFLAGS=-I src -I test/src -L build -L /usr/lib64
 
 
 TARGETS_DIRS=build test/build
-TARGETS_BUILDS=build/array.o build/libarray.a build/libarray.so
+TARGETS_BUILDS=build/sarray.o build/libsarray.a build/libsarray.so
 TARGETS_BIN_TESTS=test/build/test1
 TARGETS_LOG_TESTS=test/build/log1
 
@@ -30,20 +30,20 @@ test/build:
 	[ -d $@ ] || mkdir $@
 
 
-build/array.o: src/array.c src/array.h
+build/sarray.o: src/sarray.c src/sarray.h
 	ctags -R
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-build/libarray.a: build/array.o
+build/libsarray.a: build/sarray.o
 	ar rcsv $@ $^
 
-build/libarray.so: build/array.o
+build/libsarray.so: build/sarray.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -shared $^ -o $@
-	export LD_LIBRARY_PATH=build
+	cp build/libsarray.so /usr/lib64/
 
 
 test/build/test1: test/src/test1.c 
-	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@ -larray
+	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@ -lsarray
 
 test/build/log1: test/build/test1
 	$< > $@

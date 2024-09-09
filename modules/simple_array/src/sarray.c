@@ -1,7 +1,7 @@
-#include "array.h"
+#include "sarray.h"
 
-array *array_new(size_t capacity) {
-	array *res = malloc(sizeof(*res));
+sarray *sarray_new(size_t capacity) {
+	sarray *res = malloc(sizeof(*res));
 	res->count = 0;
 	if(capacity > 0) {
 		res->items = malloc(sizeof(*(res->items)) * capacity);
@@ -13,7 +13,9 @@ array *array_new(size_t capacity) {
 	return res;
 }
 
-void array_free(array *ar, void (*custom_free)(void *)) {
+void sarray_free(void *a, void (*custom_free)(void *)) {
+	sarray *ar = a;
+
 	if(custom_free) {
 		for(size_t i = 0; i < ar->count; i++) {
 			custom_free(ar->items[i]);
@@ -23,7 +25,9 @@ void array_free(array *ar, void (*custom_free)(void *)) {
 	free(ar);
 }
 
-array *array_append(array *ar, void *item) {
+sarray *sarray_append(void *a, void *item) {
+	sarray *ar = a;
+
 	if(ar->count == ar->capacity) {
 		ar->capacity *= ARRAY_REALLOC_COEF;
 		ar->items = realloc(ar->items, sizeof(*(ar->items)) * ar->capacity);
@@ -34,13 +38,17 @@ array *array_append(array *ar, void *item) {
 	return ar;
 }
 
-void array_map(array *ar, void(*map)(void *)) {
+void sarray_map(void *a, void(*map)(void *)) {
+	sarray *ar = a;
+
 	for(size_t i = 0; i < ar->count; i++) {
 		map(ar->items[i]);
 	}
 }
 
-void array_map1(array *ar, void(*map)(void *, void *), void *arg) {
+void sarray_map1(void *a, void(*map)(void *, void *), void *arg) {
+	sarray *ar = a;
+
 	for(size_t i = 0; i < ar->count; i++) {
 		map(ar->items[i], arg);
 	}
