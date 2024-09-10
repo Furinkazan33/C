@@ -21,7 +21,7 @@ build:
 
 
 build/pixels.o: src/pixels.c src/pixels.h
-	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@ -lm
 
 test/build/bin_test: test/src/test.c build/pixels.o
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@

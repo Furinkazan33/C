@@ -4,48 +4,49 @@
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/mathieu/C/modules/simple_array/	//
+!_TAG_PROC_CWD	/home/mathieu/C/modules/parray/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
-ARRAY_REALLOC_COEF	src/sarray.h	/^#define ARRAY_REALLOC_COEF /;"	d
 CC	Makefile	/^CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
 CFLAGS	Makefile	/^CFLAGS=$/;"	m
 LDFLAGS	Makefile	/^LDFLAGS=-I src -I test\/src -L build -L \/usr\/lib64$/;"	m
+PARRAY_INIT_ALLOC	src/parray.h	/^#define PARRAY_INIT_ALLOC /;"	d
+PARRAY_REALLOC_COEF	src/parray.h	/^#define PARRAY_REALLOC_COEF /;"	d
 TARGETS_BIN_TESTS	Makefile	/^TARGETS_BIN_TESTS=test\/build\/test1$/;"	m
-TARGETS_BUILDS	Makefile	/^TARGETS_BUILDS=build\/sarray.o build\/libsarray.a build\/libsarray.so$/;"	m
+TARGETS_BUILDS	Makefile	/^TARGETS_BUILDS=build\/parray.o build\/libparray.a build\/libparray.so$/;"	m
 TARGETS_DIRS	Makefile	/^TARGETS_DIRS=build test\/build$/;"	m
 TARGETS_LOG_TESTS	Makefile	/^TARGETS_LOG_TESTS=test\/build\/log1$/;"	m
-__anon0ac32e240108	src/sarray.h	/^typedef struct {$/;"	s
 __anon399525ed0108	test/src/test1.c	/^typedef struct {$/;"	s	file:
+__anon45fdaf810108	src/parray.h	/^typedef struct {$/;"	s
 all	Makefile	/^all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)$/;"	t
 build	Makefile	/^build: $/;"	t
-build/libsarray.a	Makefile	/^build\/libsarray.a: build\/sarray.o$/;"	t
-build/libsarray.so	Makefile	/^build\/libsarray.so: build\/sarray.o$/;"	t
-build/sarray.o	Makefile	/^build\/sarray.o: src\/sarray.c src\/sarray.h$/;"	t
-capacity	src/sarray.h	/^	size_t capacity;$/;"	m	struct:__anon0ac32e240108	typeref:typename:size_t
+build/libparray.a	Makefile	/^build\/libparray.a: build\/parray.o$/;"	t
+build/libparray.so	Makefile	/^build\/libparray.so: build\/parray.o$/;"	t
+build/parray.o	Makefile	/^build\/parray.o: src\/parray.c src\/parray.h$/;"	t
+capacity	src/parray.h	/^	size_t capacity;$/;"	m	struct:__anon45fdaf810108	typeref:typename:size_t
 clean	Makefile	/^clean:$/;"	t
-count	src/sarray.h	/^	size_t count;$/;"	m	struct:__anon0ac32e240108	typeref:typename:size_t
+count	src/parray.h	/^	size_t count;$/;"	m	struct:__anon45fdaf810108	typeref:typename:size_t
 debug	Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
 debug	Makefile	/^debug: all$/;"	t
 dirs	Makefile	/^dirs: src test test\/src extern $(TARGETS_DIRS)$/;"	t
 extern	Makefile	/^extern: $/;"	t
 id	test/src/test1.c	/^	int id;$/;"	m	struct:__anon399525ed0108	typeref:typename:int	file:
-items	src/sarray.h	/^	void **items;$/;"	m	struct:__anon0ac32e240108	typeref:typename:void **
+items	src/parray.h	/^	void **items;$/;"	m	struct:__anon45fdaf810108	typeref:typename:void **
 main	test/src/test1.c	/^int main(void) {$/;"	f	typeref:typename:int
 p1	test/src/test1.c	/^person p1 = { .id=1, .toto=10 };$/;"	v	typeref:typename:person
 p2	test/src/test1.c	/^person p2 = { .id=2, .toto=20 };$/;"	v	typeref:typename:person
 p3	test/src/test1.c	/^person p3 = { .id=3, .toto=30 };$/;"	v	typeref:typename:person
 p_inc_id	test/src/test1.c	/^void p_inc_id(void *i, void *inc) {$/;"	f	typeref:typename:void
 p_print	test/src/test1.c	/^void p_print(void *i ) {$/;"	f	typeref:typename:void
+parray	src/parray.h	/^} parray;$/;"	t	typeref:struct:__anon45fdaf810108
+parray_append	src/parray.c	/^parray *parray_append(void *a, void *item) {$/;"	f	typeref:typename:parray *
+parray_free	src/parray.c	/^void parray_free(void *a, void (*custom_free)(void *)) {$/;"	f	typeref:typename:void
+parray_map	src/parray.c	/^void parray_map(void *a, void(*map)(void *)) {$/;"	f	typeref:typename:void
+parray_map1	src/parray.c	/^void parray_map1(void *a, void(*map)(void *, void *), void *arg) {$/;"	f	typeref:typename:void
+parray_new	src/parray.c	/^parray *parray_new(size_t capacity) {$/;"	f	typeref:typename:parray *
 person	test/src/test1.c	/^} person;$/;"	t	typeref:struct:__anon399525ed0108	file:
-sarray	src/sarray.h	/^} sarray;$/;"	t	typeref:struct:__anon0ac32e240108
-sarray_append	src/sarray.c	/^sarray *sarray_append(void *a, void *item) {$/;"	f	typeref:typename:sarray *
-sarray_free	src/sarray.c	/^void sarray_free(void *a, void (*custom_free)(void *)) {$/;"	f	typeref:typename:void
-sarray_map	src/sarray.c	/^void sarray_map(void *a, void(*map)(void *)) {$/;"	f	typeref:typename:void
-sarray_map1	src/sarray.c	/^void sarray_map1(void *a, void(*map)(void *, void *), void *arg) {$/;"	f	typeref:typename:void
-sarray_new	src/sarray.c	/^sarray *sarray_new(size_t capacity) {$/;"	f	typeref:typename:sarray *
 src	Makefile	/^src: $/;"	t
 test	Makefile	/^test: $/;"	t
 test/build	Makefile	/^test\/build: $/;"	t

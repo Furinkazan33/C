@@ -4,7 +4,7 @@ LDFLAGS=-I src -I test/src -L build -L /usr/lib64
 
 
 TARGETS_DIRS=build test/build
-TARGETS_BUILDS=build/sarray.o build/libsarray.a build/libsarray.so
+TARGETS_BUILDS=build/parray.o build/libparray.a build/libparray.so
 TARGETS_BIN_TESTS=test/build/test1
 TARGETS_LOG_TESTS=test/build/log1
 
@@ -30,20 +30,20 @@ test/build:
 	[ -d $@ ] || mkdir $@
 
 
-build/sarray.o: src/sarray.c src/sarray.h
+build/parray.o: src/parray.c src/parray.h
 	ctags -R
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-build/libsarray.a: build/sarray.o
+build/libparray.a: build/parray.o
 	ar rcsv $@ $^
 
-build/libsarray.so: build/sarray.o
+build/libparray.so: build/parray.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -shared $^ -o $@
-	cp build/libsarray.so /usr/lib64/
+	cp build/libparray.so /usr/lib64/
 
 
 test/build/test1: test/src/test1.c 
-	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@ -lsarray
+	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@ -lparray
 
 test/build/log1: test/build/test1
 	$< > $@

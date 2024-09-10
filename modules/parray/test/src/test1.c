@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "sarray.h"
+#include "parray.h"
 
 typedef struct {
 	int id;
@@ -23,18 +23,19 @@ void p_inc_id(void *i, void *inc) {
 }
 
 int main(void) {
-	sarray *ar = sarray_new(0);
+	parray *ar = parray_new(0);
 
-	sarray_append(ar, &p1);
-	sarray_append(ar, &p2);
-	sarray_append(ar, &p3);
-	sarray_map(ar, p_print);
+	parray_append(ar, &p1);
+	parray_append(ar, &p2);
+	parray_append(ar, &p3);
+	
+	parray_map(ar, p_print);
 
 	int inc=1;
-	sarray_map1(ar, p_inc_id, &inc);
-	sarray_map(ar, p_print);
+	parray_map1(ar, p_inc_id, &inc);
+	parray_map(ar, p_print);
 
-	sarray_free(ar, NULL);
+	parray_free(ar, NULL);
 
 	return 0;
 }

@@ -1,100 +1,55 @@
-CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)
+CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)
 CFLAGS=
-LDFLAGS=-I $(CSRC) -I $(TSRC)
-
-DIR_CORE=./core
-CSRC=$(DIR_CORE)/src
-CBUILD=$(DIR_CORE)/build
-
-DIR_TEST=./test
-TSRC=$(DIR_TEST)/src
-TBIN=$(DIR_TEST)/bin
-TLOG=$(DIR_TEST)/log
+LDFLAGS=-I src -I test/src -L build -L /usr/lib64
 
 
-all: dirs builds tests execs
-dirs: $(CBUILD) $(TLOG) $(TBIN)
-builds: $(CBUILD)/array.o $(CBUILD)/libarray.a
-tests: $(TBIN)/main $(TBIN)/map_reduce $(TBIN)/sort $(TBIN)/find_all $(TBIN)/trans
-execs: $(TLOG)/main $(TLOG)/map_reduce $(TLOG)/sort $(TLOG)/find_all $(TLOG)/trans
+TARGETS_DIRS=build test/build
+TARGETS_BUILDS=build/array.o build/libarray.a build/libarray.so
+TARGETS_BIN_TESTS=test/build/test1
+TARGETS_LOG_TESTS=test/build/log1
+
+
+all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)
+dirs: src test test/src extern $(TARGETS_DIRS)
+
 
 debug: CFLAGS += -DDEBUG
 debug: all
 
-#
-# Setup
-#
-$(CBUILD):
-	test -d $(CBUILD) || mkdir -p $(CBUILD)
+src: 
+	[ -d $@ ] || mkdir $@
+test: 
+	[ -d $@ ] || mkdir $@
+test/src: 
+	[ -d $@ ] || mkdir $@
+extern: 
+	[ -d $@ ] || mkdir $@
+build: 
+	[ -d $@ ] || mkdir $@
+test/build: 
+	[ -d $@ ] || mkdir $@
 
-$(TBIN):
-	test -d $(TBIN) || mkdir -p $(TBIN)
 
-$(TLOG):
-	test -d $(TLOG) || mkdir -p $(TLOG)
-
-#
-# Compile
-#
-$(CBUILD)/array.o: $(CSRC)/array.c $(CSRC)/array.h ./Makefile
+build/array.o: src/array.c src/array.h
 	ctags -R
-	$(CC) $(CFLAGS) -c $(CSRC)/array.c -o $@
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-$(CBUILD)/libarray.a: $(CBUILD)/array.o
-	ar ruv $(CBUILD)/libarray.a $(CBUILD)/array.o
-	ranlib $(CBUILD)/libarray.a
+build/libarray.a: build/array.o
+	ar rcsv $@ $^
 
-#
-# Tests compilations
-#
-$(TBIN)/main: $(TSRC)/main.c $(CBUILD)/array.o $(TSRC)/person.c
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(TSRC)/person.c $(TSRC)/main.c $(CBUILD)/array.o \
-		-o $@
+build/libarray.so: build/array.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -shared $^ -o $@
+	cp build/libarray.so /usr/lib64/
 
-$(TBIN)/map_reduce: $(TSRC)/map_reduce.c $(CBUILD)/array.o
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(TSRC)/map_reduce.c $(CBUILD)/array.o \
-		-o $@
 
-$(TBIN)/sort: $(TSRC)/sort.c $(CBUILD)/array.o $(TSRC)/person.c
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(TSRC)/person.c $(TSRC)/sort.c $(CBUILD)/array.o \
-		-o $@
+test/build/test1: test/src/test1.c build/array.o
+	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@ -larray
 
-$(TBIN)/find_all: $(TSRC)/find_all.c $(CBUILD)/array.o $(TSRC)/person.c
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(TSRC)/person.c $(TSRC)/find_all.c $(CBUILD)/array.o \
-		-o $@
+test/build/log1: ./test/build/test1
+	$< > $@
 
-$(TBIN)/trans: $(TSRC)/trans.c $(CBUILD)/array.o $(TSRC)/person.c
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(TSRC)/person.c $(TSRC)/trans.c $(CBUILD)/array.o \
-		-o $@
 
-# 
-# Tests executions
-#
-$(TLOG)/main: $(TBIN)/main
-	$(TBIN)/main > $(TLOG)/main || (rm -f $(TLOG)/main; exit 1;)
-
-$(TLOG)/map_reduce: $(TBIN)/map_reduce
-	$(TBIN)/map_reduce > $(TLOG)/map_reduce || (rm -f $(TLOG)/map_reduce; exit 1;)
-
-$(TLOG)/sort: $(TBIN)/sort
-	$(TBIN)/sort > $(TLOG)/sort || (rm -f $(TLOG)/sort; exit 1;)
-
-$(TLOG)/find_all: $(TBIN)/find_all
-	$(TBIN)/find_all > $(TLOG)/find_all || (rm -f $(TLOG)/find_all; exit 1;)
-
-$(TLOG)/trans: $(TBIN)/trans
-	$(TBIN)/trans > $(TLOG)/trans || (rm -f $(TLOG)/trans; exit 1;)
-
-#
-# Cleaning
-#
 clean:
-	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
-	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
-	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
+	rm -f $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)
+	rmdir $(TARGETS_DIRS) 2> /dev/null; return 0;
 
