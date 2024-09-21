@@ -1,25 +1,29 @@
 #include <stdlib.h>
 #include <stdint.h>
+#include <helpers.h>
 
-#define ARRAY_REALLOC_COEF 2
-#define ARRAY_INIT_ALLOC 16
+#ifndef ARRAY_H
+#define ARRAY_H
 
-typedef struct {
-	uintptr_t *items;
-	size_t count;
-	size_t capacity;
-	size_t size_of_item;
-} array;
+#define ARRAY_DECLARE(type, name) typedef struct { \
+	type *items; \
+	size_t capacity; \
+	size_t size_of_item; \
+} name
+
+#define ARRAY_SET(a, i, v) memcpy(a->items + i * a->size_of_item, v, a->size_of_item)
+#define ARRAY_GET(a, i) a->items + i * a->size_of_item
+#define ARRAY_GET_AS(a, i, type) (type *)(a->items + i * a->size_of_item)
+#define ARRAY_FREE(a) free(a->items); free(a)
+#define ARRAY_MAP(a, f) FOR(i, 0, a->capacity, f(a->items + i * a->size_of_item);)
+#define ARRAY_MAP1(a, f, arg) FOR(i, 0, a->capacity, f(a->items + i * a->size_of_item, arg);)
+
+
+ARRAY_DECLARE(char, array);
+
+#endif
 
 array *array_new(size_t capacity, size_t size_of_item);
-
-void array_free(void *a);
-
-array *array_append(void *a, void *i);
-
-void array_map(void *a, void(*map)(void *));
-
-// map with 1 argument
-void array_map1(void *a, void(*map)(void *, void *), void *arg);
+array *array_scale(void *a, size_t new_size_of_item); // resize items into a new array
 
 

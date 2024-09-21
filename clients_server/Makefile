@@ -1,6 +1,6 @@
 CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)
 CFLAGS=-I $(CINC) -I $(CSRC) -I $(TSRC)
-LDFLAGS=-L $(CLIB) -lcjson -lfifo -lfr -lconfig
+LDFLAGS=-L $(CLIB) -L /usr/lib64
 
 CORE=./core
 CBUILD=./core/build
@@ -13,12 +13,6 @@ TEST=./test
 TSRC=./test/src
 TBIN=./test/bin
 TLOG=./test/log
-
-
-DEP_A=$(CLIB)/libcjson.a $(CLIB)/libfifo.a $(CLIB)/libfr.a $(CLIB)/libconfig.a
-DEP_H=$(CINC)/cJSON.h $(CINC)/fifo.h $(CINC)/fr.h $(CINC)/config.h $(CSRC)/socket.h
-#DEP_O=$(COBJ)/cJSON.o $(COBJ)/fifo.o $(COBJ)/fr.o $(COBJ)/config.o
-
 
 all: dirs builds tests execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
@@ -48,25 +42,23 @@ $(CBUILD)/socket.o: $(CSRC)/socket.c $(CSRC)/socket.h
 		-c $(CSRC)/socket.c $(LDFLAGS) \
 		-o $@
 
-$(CBUILD)/server.o: $(CSRC)/server.c $(CSRC)/server.h $(CBUILD)/socket.o $(DEP_A) $(DEP_H)
-	$(CC) $(CFLAGS) \
-		-c $(CSRC)/server.c $(LDFLAGS) \
-		-o $@
+$(CBUILD)/config.o: $(CSRC)/config.c $(CSRC)/config.h
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-$(CBUILD)/client.o: $(CSRC)/client.c $(CSRC)/client.h $(CBUILD)/socket.o $(DEP_A) $(DEP_H)
-	$(CC) $(CFLAGS) \
-		-c $(CSRC)/client.c $(LDFLAGS) \
-		-o $@
+$(CBUILD)/fr.o: $(CSRC)/fr.c $(CSRC)/fr.h
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-$(TBIN)/server: $(CBUILD)/server.o $(TSRC)/server.c
-	$(CC) $(CFLAGS) \
-		$(TSRC)/server.c $(CBUILD)/socket.o $(CBUILD)/server.o $(LDFLAGS) \
-		-o $@
+$(CBUILD)/server.o: $(CSRC)/server.c $(CSRC)/server.h $(CBUILD)/socket.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-$(TBIN)/client: $(CBUILD)/client.o $(TSRC)/client.c
-	$(CC) $(CFLAGS) \
-		$(TSRC)/client.c $(CBUILD)/socket.o $(CBUILD)/client.o $(LDFLAGS) \
-		-o $@
+$(CBUILD)/client.o: $(CSRC)/client.c $(CSRC)/client.h $(CBUILD)/socket.o
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
+
+$(TBIN)/server: $(TSRC)/server.c $(CBUILD)/server.o $(CBUILD)/socket.o $(CBUILD)/config.o
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ -lcjson
+
+$(TBIN)/client: $(TSRC)/client.c $(CBUILD)/client.o $(CBUILD)/socket.o $(CBUILD)/fr.o
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 
 

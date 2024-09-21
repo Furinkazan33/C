@@ -16,8 +16,8 @@ TLOG=$(DIR_TEST)/log
 all: dirs builds tests execs
 dirs: $(CBUILD) $(TBIN) $(TLOG)
 builds: $(CBUILD)/str.o $(CBUILD)/libstr.a
-tests: $(TBIN)/test1 $(TBIN)/escape_normalize
-execs: $(TLOG)/test1 $(TLOG)/escape_normalize
+tests: $(TBIN)/test1
+execs: $(TLOG)/test1
 
 debug: CFLAGS += -DDEBUG
 debug: all
@@ -45,13 +45,7 @@ $(TBIN)/test1: $(CBUILD)/str.o $(TSRC)/test1.c
 	$(CC) $(CFLAGS) $(TSRC)/test1.c $(LDFLAGS) -lstr -o $@
 
 $(TLOG)/test1: $(TBIN)/test1
-	$(TBIN)/test1 > $(TLOG)/test1
-
-$(TBIN)/escape_normalize: $(CBUILD)/str.o $(TSRC)/escape_normalize.c
-	$(CC) $(CFLAGS) $(TSRC)/escape_normalize.c $(LDFLAGS) -lstr -o $@
-
-$(TLOG)/escape_normalize: $(TBIN)/escape_normalize
-	$(TBIN)/escape_normalize > $(TLOG)/escape_normalize
+	$(TBIN)/test1  # > $(TLOG)/test1
 
 
 clean:

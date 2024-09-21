@@ -4,7 +4,7 @@ LDFLAGS=-I src -I test/src -L build -L /usr/lib64
 
 
 TARGETS_DIRS=build test/build
-TARGETS_BUILDS=build/array.o build/libarray.a
+TARGETS_BUILDS=build/arrayptr.o
 TARGETS_BIN_TESTS=test/build/test1
 TARGETS_LOG_TESTS=test/build/log1
 
@@ -30,22 +30,14 @@ test/build:
 	[ -d $@ ] || mkdir $@
 
 
-build/array.o: src/array.c src/array.h
+build/arrayptr.o: src/arrayptr.c src/arrayptr.h
 	ctags -R
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-build/libarray.a: build/array.o
-	ar rcsv $@ $^
+test/build/test1: test/src/test1.c build/arrayptr.o
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ -larrayptr
 
-build/libarray.so: build/array.o
-	$(CC) $(CFLAGS) $(LDFLAGS) -shared $^ -o $@
-	cp build/libarray.so /usr/lib64/
-
-
-test/build/test1: test/src/test1.c build/array.o
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
-
-test/build/log1: ./test/build/test1
+test/build/log1: test/build/test1
 	$< > $@
 
 

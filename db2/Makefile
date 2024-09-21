@@ -1,43 +1,12 @@
-
-#
-# Compiler flags
-#
 CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)
-LDFLAGS=-L $(CLIB) -L $(CBUILD) -I $(CINC) -I $(CSRC)
+LDFLAGS=-L build -I src
 
-#
-# Core folders
-#
-CSRC=core/src
-CBUILD=core/build
-COBJ=core/obj
-CINC=core/include
-CLIB=core/lib
 
-#
-# Tests folders
-#
-TEST=test
-TSRC=$(TEST)/src
-TBIN=$(TEST)/bin
-TLOG=$(TEST)/log
-TRES=$(TEST)/ressources
-
-#
-# Dependencies
-#
-DEP_O=$(COBJ)/array.o $(COBJ)/str.o
-DEP_H=$(CINC)/array.h $(CINC)/str.h
-DEP_A=$(CLIB)/libarray.a $(CLIB)/libstr.a
-
-#
-# Rules
-#
 all: dirs builds tests execs
-dirs: $(CBUILD) $(TBIN) $(TLOG)
-builds: $(CBUILD)/db.o $(CBUILD)/libdb.a
-tests:  $(TBIN)/create $(TBIN)/load_save
-execs: $(TLOG)/create $(TLOG)/load_save $(TLOG)/result
+dirs: src src/extern src/test build ressources
+builds: build/db.o build/libdb.a
+tests:  build/create build/load_save
+execs: build/create build/load_save build/result
 
 debug1: CFLAGS += -DDEBUG1
 debug1: all
@@ -49,70 +18,50 @@ debug3: CFLAGS += -DDEBUG1 -DDEBUG2 -DDEBUG3
 debug3: all
 
 
-##############################
 # Directories creation
-##############################
-$(CBUILD):
-	test -d $(CBUILD) || mkdir -p $(CBUILD)
+src:
+	test -d $@ || mkdir -p $@
+src/extern:
+	test -d $@ || mkdir -p $@
+src/test:
+	test -d $@ || mkdir -p $@
+build:
+	test -d $@ || mkdir -p $@
+ressources:
+	test -d $@ || mkdir -p $@
 
-$(TBIN):
-	test -d $(TBIN) || mkdir -p $(TBIN)
+build/parray.o: src/parray.c src/parray.h
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-$(TLOG):
-	test -d $(TLOG) || mkdir -p $(TLOG)
+build/str.o: src/str.c src/str.h
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
+build/db.o: src/db.c src/db.h
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-##############################
-# Main builds
-##############################
-
-
-$(CBUILD)/db.o: $(CSRC)/db.c $(CSRC)/db.h ./Makefile $(DEP_O) $(DEP_H)
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		-c -lstr -larray $(CSRC)/db.c -o $@
-
-$(CBUILD)/libdb.a: $(CBUILD)/db.o
-	ar ruv $(CBUILD)/libdb.a $(CBUILD)/db.o $(DEP_O)
-	ranlib $(CBUILD)/libdb.a
+build/libdb.a: build/db.o
+	ar ruv build/libdb.a build/db.o
+	ranlib build/libdb.a
 
 
-##############################
 # Test builds and executions
-##############################
+build/create: build/db.o src/test/create.c
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
-# compiling create test with .o
-$(TBIN)/create: $(CBUILD)/db.o $(TSRC)/create.c $(DEP_O)
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(DEP_O) \
-		$(CBUILD)/db.o \
-		$(TSRC)/create.c -o $@
+build/log_create: build/create
+	$< ressources/create.db > $@
 
-# execution of create test, result is ok if file 'create' is present
-$(TLOG)/create: $(TBIN)/create
-	$(TBIN)/create $(TRES)/create.db > $(TLOG)/create
+build/load_save: build/db.o src/test/load_save.c build/parray.o build/str.o
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
-# compiling load_save test with .o
-$(TBIN)/load_save: $(CBUILD)/db.o $(TSRC)/load_save.c $(DEP_O)
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		$(DEP_O) \
-		$(CBUILD)/db.o \
-		$(TSRC)/load_save.c -o $@
+build/log_load_save: build/load_save
+	$< ressources/create.db ressources/load_save.db > $@
 
-# execution of load_save test, result is ok if file 'load_save' is present
-$(TLOG)/load_save: $(TBIN)/load_save
-	$(TBIN)/load_save $(TRES)/create.db $(TRES)/load_save.db > $(TLOG)/load_save
+build/result: build/create build/load_save
+	@diff ressources/create.db ressources/load_save.db > build/result || exit 1
 
-$(TLOG)/result: $(TLOG)/create $(TLOG)/load_save
-	@diff $(TRES)/create.db $(TRES)/load_save.db > $(TLOG)/result || exit 1
-
-
-##############################
-# Cleaning
-##############################
 
 clean: 
-	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
-	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
-	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
+	if [ -d build ]; then rm -f build/*; rmdir build; fi
 
 

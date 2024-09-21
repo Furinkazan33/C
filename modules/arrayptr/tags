@@ -4,34 +4,34 @@
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/mathieu/C/modules/array/	//
+!_TAG_PROC_CWD	/home/mathieu/C/modules/arrayptr/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
-ARRAY_DECLARE	src/array.h	/^#define ARRAY_DECLARE(/;"	d
-ARRAY_FREE	src/array.h	/^#define ARRAY_FREE(/;"	d
-ARRAY_GET	src/array.h	/^#define ARRAY_GET(/;"	d
-ARRAY_GET_AS	src/array.h	/^#define ARRAY_GET_AS(/;"	d
-ARRAY_H	src/array.h	/^#define ARRAY_H$/;"	d
-ARRAY_MAP	src/array.h	/^#define ARRAY_MAP(/;"	d
-ARRAY_MAP1	src/array.h	/^#define ARRAY_MAP1(/;"	d
-ARRAY_SET	src/array.h	/^#define ARRAY_SET(/;"	d
+ARRAYPTR_DECLARE	src/arrayptr.h	/^#define ARRAYPTR_DECLARE(/;"	d
+ARRAYPTR_FREE	src/arrayptr.h	/^#define ARRAYPTR_FREE(/;"	d
+ARRAYPTR_FREE_F	src/arrayptr.h	/^#define ARRAYPTR_FREE_F(/;"	d
+ARRAYPTR_GET	src/arrayptr.h	/^#define ARRAYPTR_GET(/;"	d
+ARRAYPTR_GET_AS	src/arrayptr.h	/^#define ARRAYPTR_GET_AS(/;"	d
+ARRAYPTR_H	src/arrayptr.h	/^#define ARRAYPTR_H$/;"	d
+ARRAYPTR_INIT_ALLOC	src/arrayptr.h	/^#define ARRAYPTR_INIT_ALLOC /;"	d
+ARRAYPTR_MAP	src/arrayptr.h	/^#define ARRAYPTR_MAP(/;"	d
+ARRAYPTR_MAP1	src/arrayptr.h	/^#define ARRAYPTR_MAP1(/;"	d
+ARRAYPTR_REALLOC_COEF	src/arrayptr.h	/^#define ARRAYPTR_REALLOC_COEF /;"	d
 CC	Makefile	/^CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
 CFLAGS	Makefile	/^CFLAGS=$/;"	m
 LDFLAGS	Makefile	/^LDFLAGS=-I src -I test\/src -L build -L \/usr\/lib64$/;"	m
 TARGETS_BIN_TESTS	Makefile	/^TARGETS_BIN_TESTS=test\/build\/test1$/;"	m
-TARGETS_BUILDS	Makefile	/^TARGETS_BUILDS=build\/array.o build\/libarray.a$/;"	m
+TARGETS_BUILDS	Makefile	/^TARGETS_BUILDS=build\/arrayptr.o$/;"	m
 TARGETS_DIRS	Makefile	/^TARGETS_DIRS=build test\/build$/;"	m
 TARGETS_LOG_TESTS	Makefile	/^TARGETS_LOG_TESTS=test\/build\/log1$/;"	m
 __anon399525ed0108	test/src/test1.c	/^typedef struct {$/;"	s	file:
 all	Makefile	/^all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)$/;"	t
-array_new	src/array.c	/^array *array_new(size_t capacity, size_t size_of_item) {$/;"	f	typeref:typename:array *
-array_scale	src/array.c	/^array *array_scale(void *a, size_t new_size_of_item) {$/;"	f	typeref:typename:array *
+arrayptr_append	src/arrayptr.c	/^arrayptr *arrayptr_append(void *a, void *item) {$/;"	f	typeref:typename:arrayptr *
+arrayptr_new	src/arrayptr.c	/^arrayptr *arrayptr_new(size_t capacity) {$/;"	f	typeref:typename:arrayptr *
 build	Makefile	/^build: $/;"	t
-build/array.o	Makefile	/^build\/array.o: src\/array.c src\/array.h$/;"	t
-build/libarray.a	Makefile	/^build\/libarray.a: build\/array.o$/;"	t
-build/libarray.so	Makefile	/^build\/libarray.so: build\/array.o$/;"	t
+build/arrayptr.o	Makefile	/^build\/arrayptr.o: src\/arrayptr.c src\/arrayptr.h$/;"	t
 clean	Makefile	/^clean:$/;"	t
 debug	Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
 debug	Makefile	/^debug: all$/;"	t
@@ -39,18 +39,13 @@ dirs	Makefile	/^dirs: src test test\/src extern $(TARGETS_DIRS)$/;"	t
 extern	Makefile	/^extern: $/;"	t
 id	test/src/test1.c	/^	int id;$/;"	m	struct:__anon399525ed0108	typeref:typename:int	file:
 main	test/src/test1.c	/^int main(void) {$/;"	f	typeref:typename:int
-p1	test/src/test1.c	/^person p1 = { .id=1, .toto=10 };$/;"	v	typeref:typename:person
-p2	test/src/test1.c	/^person p2 = { .id=2, .toto=20 };$/;"	v	typeref:typename:person
-p3	test/src/test1.c	/^person p3 = { .id=3, .toto=30 };$/;"	v	typeref:typename:person
-p_inc_id	test/src/test1.c	/^void p_inc_id(void *i, void *inc) {$/;"	f	typeref:typename:void
-p_print	test/src/test1.c	/^void p_print(void *i ) {$/;"	f	typeref:typename:void
+p_inc_id	test/src/test1.c	/^void p_inc_id(person *p, void *inc) {$/;"	f	typeref:typename:void
+p_print	test/src/test1.c	/^void p_print(person *p) {$/;"	f	typeref:typename:void
 person	test/src/test1.c	/^} person;$/;"	t	typeref:struct:__anon399525ed0108	file:
-person_new	test/src/test1.c	/^person *person_new(int id, int toto) {$/;"	f	typeref:typename:person *
 src	Makefile	/^src: $/;"	t
 test	Makefile	/^test: $/;"	t
 test/build	Makefile	/^test\/build: $/;"	t
-test/build/log1	Makefile	/^test\/build\/log1: .\/test\/build\/test1$/;"	t
-test/build/test1	Makefile	/^test\/build\/test1: test\/src\/test1.c build\/array.o$/;"	t
+test/build/log1	Makefile	/^test\/build\/log1: test\/build\/test1$/;"	t
+test/build/test1	Makefile	/^test\/build\/test1: test\/src\/test1.c build\/arrayptr.o$/;"	t
 test/src	Makefile	/^test\/src: $/;"	t
-test_person	test/src/test1.c	/^void test_person() {$/;"	f	typeref:typename:void
 toto	test/src/test1.c	/^	int toto;$/;"	m	struct:__anon399525ed0108	typeref:typename:int	file:

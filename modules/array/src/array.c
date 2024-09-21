@@ -1,56 +1,29 @@
 #include <string.h>
+#include <stdio.h>
 #include "array.h"
 
-array *array_new(size_t capacity, size_t size_of_item) {
-	array *res = malloc(sizeof(*res));
-	res->count = 0;
-	res->size_of_item = size_of_item;
-	res->items = malloc(size_of_item * capacity);
-	res->capacity = capacity;
 
+array *array_new(size_t capacity, size_t size_of_item) {
+	MALLOC(array, res, );
+	MALLOCS(res->items, size_of_item * capacity, free(res));
+	res->size_of_item = size_of_item;
+	res->capacity = capacity;
 	return res;
 }
 
-void array_free(void *a) {
+// resize items into a new array
+array *array_scale(void *a, size_t new_size_of_item) {
 	array *ar = a;
+	array *res = array_new(ar->capacity, new_size_of_item);
+	IF_RNULL(!res, "array_new returned NULL", );
 
-	free(ar->items);
-	free(ar);
-}
+	size_t copy_size;
+	ASSIGN_IF(copy_size, new_size_of_item < ar->size_of_item, new_size_of_item, ar->size_of_item);
+	
+	FOR(i, 0, ar->capacity, 
+			memcpy(res->items + i * res->size_of_item, ar->items + i * ar->size_of_item, copy_size););
 
-array *array_append(void *a, void *item) {
-	array *ar = a;
-
-	if(ar->count == ar->capacity) {
-		if(ar->capacity == 0) {
-			ar->capacity = ARRAY_INIT_ALLOC;
-		}
-		else {
-			ar->capacity *= ARRAY_REALLOC_COEF;
-		}
-		ar->items = realloc(ar->items, ar->size_of_item * ar->capacity);
-	}
-
-	memcpy(ar->items + ar->count * ar->size_of_item, item, ar->size_of_item);
-	ar->count++;
-
-	return ar;
-}
-
-void array_map(void *a, void(*map)(void *)) {
-	array *ar = a;
-
-	for(size_t i = 0; i < ar->count; i++) {
-		map(ar->items + i * ar->size_of_item);
-	}
-}
-
-void array_map1(void *a, void(*map)(void *, void *), void *arg) {
-	array *ar = a;
-
-	for(size_t i = 0; i < ar->count; i++) {
-		map(ar->items + i * ar->size_of_item, arg);
-	}
+	return res;
 }
 
 

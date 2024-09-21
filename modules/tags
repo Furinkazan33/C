@@ -1,0 +1,764 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/mathieu/C/modules/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+$(CBUILD)	btree/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)	char/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)	cipher/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)	config/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)	fifo/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)	file_reader/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)	list/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)	matrix/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)	memory/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)	ntree/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)	str/Makefile	/^$(CBUILD):$/;"	t
+$(CBUILD)/btree.o	btree/Makefile	/^$(CBUILD)\/btree.o: $(CSRC)\/btree.c$/;"	t
+$(CBUILD)/char.o	char/Makefile	/^$(CBUILD)\/char.o: $(CSRC)\/char.c $(CSRC)\/char.h .\/Makefile$/;"	t
+$(CBUILD)/cipher.o	cipher/Makefile	/^$(CBUILD)\/cipher.o: $(CSRC)\/cipher.c $(CSRC)\/cipher.h$/;"	t
+$(CBUILD)/config.o	config/Makefile	/^$(CBUILD)\/config.o: $(CSRC)\/config.c $(CSRC)\/config.h .\/Makefile$/;"	t
+$(CBUILD)/fifo.o	fifo/Makefile	/^$(CBUILD)\/fifo.o: $(CSRC)\/fifo.c $(CSRC)\/fifo.h .\/Makefile$/;"	t
+$(CBUILD)/fr.o	file_reader/Makefile	/^$(CBUILD)\/fr.o: $(CSRC)\/fr.c $(CSRC)\/fr.h .\/Makefile$/;"	t
+$(CBUILD)/libbtree.a	btree/Makefile	/^$(CBUILD)\/libbtree.a: $(CBUILD)\/btree.o$/;"	t
+$(CBUILD)/libchar.a	char/Makefile	/^$(CBUILD)\/libchar.a: $(CBUILD)\/char.o$/;"	t
+$(CBUILD)/libconfig.a	config/Makefile	/^$(CBUILD)\/libconfig.a: $(CBUILD)\/config.o$/;"	t
+$(CBUILD)/libfifo.a	fifo/Makefile	/^$(CBUILD)\/libfifo.a: $(CBUILD)\/fifo.o$/;"	t
+$(CBUILD)/libfr.a	file_reader/Makefile	/^$(CBUILD)\/libfr.a: $(CBUILD)\/fr.o$/;"	t
+$(CBUILD)/liblist.a	list/Makefile	/^$(CBUILD)\/liblist.a: $(CBUILD)\/list.o$/;"	t
+$(CBUILD)/libmatrix.a	matrix/Makefile	/^$(CBUILD)\/libmatrix.a: $(CBUILD)\/matrix.o$/;"	t
+$(CBUILD)/libntree.a	ntree/Makefile	/^$(CBUILD)\/libntree.a: $(CBUILD)\/ntree.o$/;"	t
+$(CBUILD)/libstr.a	str/Makefile	/^$(CBUILD)\/libstr.a: $(CBUILD)\/str.o$/;"	t
+$(CBUILD)/list.o	list/Makefile	/^$(CBUILD)\/list.o: $(CSRC)\/list.c $(CSRC)\/list.h .\/Makefile$/;"	t
+$(CBUILD)/matrix.o	matrix/Makefile	/^$(CBUILD)\/matrix.o: $(CSRC)\/matrix.c $(CSRC)\/matrix.h .\/Makefile$/;"	t
+$(CBUILD)/mem.o	memory/Makefile	/^$(CBUILD)\/mem.o: $(CSRC)\/mem.c $(CSRC)\/mem.h .\/Makefile$/;"	t
+$(CBUILD)/ntree.o	ntree/Makefile	/^$(CBUILD)\/ntree.o: $(CSRC)\/ntree.c $(CSRC)\/ntree.h .\/Makefile$/;"	t
+$(CBUILD)/str.o	str/Makefile	/^$(CBUILD)\/str.o: $(CSRC)\/str.c $(CSRC)\/str.h .\/Makefile$/;"	t
+$(TBIN)	btree/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)	char/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)	cipher/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)	config/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)	fifo/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)	file_reader/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)	list/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)	matrix/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)	memory/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)	ntree/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)	str/Makefile	/^$(TBIN):$/;"	t
+$(TBIN)/btree_char	btree/Makefile	/^$(TBIN)\/btree_char: $(TSRC)\/btree_char.c $(CBUILD)\/libbtree.a$/;"	t
+$(TBIN)/btree_person	btree/Makefile	/^$(TBIN)\/btree_person: $(TSRC)\/btree_person.c $(TSRC)\/person.c $(CBUILD)\/libbtree.a$/;"	t
+$(TBIN)/encode	cipher/Makefile	/^$(TBIN)\/encode: $(CBUILD)\/cipher.o$/;"	t
+$(TBIN)/main	config/Makefile	/^$(TBIN)\/main: $(CBUILD)\/libconfig.a$/;"	t
+$(TBIN)/main	fifo/Makefile	/^$(TBIN)\/main: $(TSRC)\/main.c $(TSRC)\/message.c$/;"	t
+$(TBIN)/main	matrix/Makefile	/^$(TBIN)\/main: $(TSRC)\/main.c $(CBUILD)\/matrix.o$/;"	t
+$(TBIN)/main	memory/Makefile	/^$(TBIN)\/main: $(TSRC)\/main.c $(CBUILD)\/mem.o$/;"	t
+$(TBIN)/main_message	list/Makefile	/^$(TBIN)\/main_message: $(TSRC)\/message.c $(TSRC)\/message.h $(CBUILD)\/liblist.a $(TSRC)\/test_/;"	t
+$(TBIN)/main_person	list/Makefile	/^$(TBIN)\/main_person: $(TSRC)\/person.c $(TSRC)\/person.h $(CBUILD)\/liblist.a $(TSRC)\/test_per/;"	t
+$(TBIN)/ntree_char	ntree/Makefile	/^$(TBIN)\/ntree_char: $(TSRC)\/ntree_char.c $(CBUILD)\/libntree.a$/;"	t
+$(TBIN)/ntree_person	ntree/Makefile	/^$(TBIN)\/ntree_person: $(TSRC)\/ntree_person.c $(CBUILD)\/libntree.a$/;"	t
+$(TBIN)/test1	char/Makefile	/^$(TBIN)\/test1: $(TSRC)\/test1.c $(CBUILD)\/libchar.a$/;"	t
+$(TBIN)/test1	str/Makefile	/^$(TBIN)\/test1: $(CBUILD)\/str.o $(TSRC)\/test1.c$/;"	t
+$(TBIN)/test2	char/Makefile	/^$(TBIN)\/test2: $(TSRC)\/test2.c $(CBUILD)\/libchar.a$/;"	t
+$(TLOG)	btree/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)	char/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)	cipher/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)	config/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)	fifo/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)	file_reader/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)	list/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)	matrix/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)	memory/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)	ntree/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)	str/Makefile	/^$(TLOG):$/;"	t
+$(TLOG)/btree_char.log	btree/Makefile	/^$(TLOG)\/btree_char.log: $(TBIN)\/btree_char$/;"	t
+$(TLOG)/btree_person.log	btree/Makefile	/^$(TLOG)\/btree_person.log: $(TBIN)\/btree_person$/;"	t
+$(TLOG)/encode	cipher/Makefile	/^$(TLOG)\/encode: $(TBIN)\/encode$/;"	t
+$(TLOG)/main	matrix/Makefile	/^$(TLOG)\/main: $(TBIN)\/main$/;"	t
+$(TLOG)/main	memory/Makefile	/^$(TLOG)\/main: $(TBIN)\/main$/;"	t
+$(TLOG)/main.log	config/Makefile	/^$(TLOG)\/main.log: $(TBIN)\/main$/;"	t
+$(TLOG)/main.log	fifo/Makefile	/^$(TLOG)\/main.log: $(TBIN)\/main$/;"	t
+$(TLOG)/message.log	list/Makefile	/^$(TLOG)\/message.log: $(TBIN)\/main_message$/;"	t
+$(TLOG)/ntree_char.log	ntree/Makefile	/^$(TLOG)\/ntree_char.log: $(TBIN)\/ntree_char$/;"	t
+$(TLOG)/ntree_person.log	ntree/Makefile	/^$(TLOG)\/ntree_person.log: $(TBIN)\/ntree_person$/;"	t
+$(TLOG)/person.log	list/Makefile	/^$(TLOG)\/person.log: $(TBIN)\/main_person$/;"	t
+$(TLOG)/test1	char/Makefile	/^$(TLOG)\/test1: $(TBIN)\/test1$/;"	t
+$(TLOG)/test1	str/Makefile	/^$(TLOG)\/test1: $(TBIN)\/test1$/;"	t
+$(TLOG)/test2	char/Makefile	/^$(TLOG)\/test2: $(TBIN)\/test2$/;"	t
+ARRAY_INIT_ALLOC	array/src/array.h	/^#define ARRAY_INIT_ALLOC /;"	d
+ARRAY_REALLOC_COEF	array/src/array.h	/^#define ARRAY_REALLOC_COEF /;"	d
+BTREE_DATA_TYPE	btree/core/src/btree.h	/^	#define BTREE_DATA_TYPE /;"	d
+BTREE_DATA_TYPE	btree/test/src/btree_person.c	/^#define BTREE_DATA_TYPE /;"	d	file:
+BUF_SIZE	config/core/src/config.h	/^#define BUF_SIZE /;"	d
+CBUILD	btree/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CBUILD	char/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CBUILD	cipher/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CBUILD	config/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CBUILD	fifo/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CBUILD	file_reader/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CBUILD	list/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CBUILD	matrix/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CBUILD	memory/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CBUILD	ntree/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CBUILD	str/Makefile	/^CBUILD=$(DIR_CORE)\/build$/;"	m
+CC	Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	array/Makefile	/^CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+CC	array2d/Makefile	/^CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+CC	arrayptr/Makefile	/^CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+CC	btree/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	char/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	cipher/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	config/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	fifo/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	file_reader/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	list/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	matrix/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	memory/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	ntree/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	str/Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CFLAGS	Makefile	/^CFLAGS=$/;"	m
+CFLAGS	array/Makefile	/^CFLAGS=$/;"	m
+CFLAGS	array2d/Makefile	/^CFLAGS=$/;"	m
+CFLAGS	arrayptr/Makefile	/^CFLAGS=$/;"	m
+CFLAGS	btree/Makefile	/^CFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+CFLAGS	char/Makefile	/^CFLAGS=$/;"	m
+CFLAGS	cipher/Makefile	/^CFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+CFLAGS	config/Makefile	/^CFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+CFLAGS	fifo/Makefile	/^CFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+CFLAGS	file_reader/Makefile	/^CFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+CFLAGS	list/Makefile	/^CFLAGS=$/;"	m
+CFLAGS	matrix/Makefile	/^CFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+CFLAGS	memory/Makefile	/^CFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+CFLAGS	ntree/Makefile	/^CFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+CFLAGS	str/Makefile	/^CFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+CINC	config/Makefile	/^CINC=$(DIR_CORE)\/include$/;"	m
+CJSON_CDECL	config/core/include/cJSON.h	/^      void (CJSON_CDECL *free_fn)(void *ptr);$/;"	m	struct:cJSON_Hooks	typeref:typename:void (* free_fn)(void * ptr)
+CJSON_CDECL	config/core/include/cJSON.h	/^      void *(CJSON_CDECL *malloc_fn)(size_t sz);$/;"	m	struct:cJSON_Hooks	typeref:typename:void * (* malloc_fn)(size_t sz)
+CJSON_CDECL	config/core/include/cJSON.h	/^#define CJSON_CDECL /;"	d
+CJSON_EXPORT_SYMBOLS	config/core/include/cJSON.h	/^#define CJSON_EXPORT_SYMBOLS$/;"	d
+CJSON_NESTING_LIMIT	config/core/include/cJSON.h	/^#define CJSON_NESTING_LIMIT /;"	d
+CJSON_PUBLIC	config/core/include/cJSON.h	/^#define CJSON_PUBLIC(/;"	d
+CJSON_STDCALL	config/core/include/cJSON.h	/^#define CJSON_STDCALL /;"	d
+CJSON_VERSION_MAJOR	config/core/include/cJSON.h	/^#define CJSON_VERSION_MAJOR /;"	d
+CJSON_VERSION_MINOR	config/core/include/cJSON.h	/^#define CJSON_VERSION_MINOR /;"	d
+CJSON_VERSION_PATCH	config/core/include/cJSON.h	/^#define CJSON_VERSION_PATCH /;"	d
+CLIB	config/Makefile	/^CLIB=$(DIR_CORE)\/lib$/;"	m
+CSRC	btree/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CSRC	char/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CSRC	cipher/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CSRC	config/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CSRC	fifo/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CSRC	file_reader/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CSRC	list/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CSRC	matrix/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CSRC	memory/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CSRC	ntree/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CSRC	str/Makefile	/^CSRC=$(DIR_CORE)\/src$/;"	m
+CT_BLANK	char/core/src/char.h	/^	CT_BLANK,$/;"	e	enum:char_type
+CT_IGNORE	char/core/src/char.h	/^	CT_IGNORE,$/;"	e	enum:char_type
+CT_NEWLINE	char/core/src/char.h	/^		CT_NEWLINE,$/;"	e	enum:char_type
+CT_NONE	char/core/src/char.h	/^	CT_NONE = 0,$/;"	e	enum:char_type
+CT_SEPARATOR	char/core/src/char.h	/^	CT_SEPARATOR,$/;"	e	enum:char_type
+CT_SPACE	char/core/src/char.h	/^		CT_SPACE,$/;"	e	enum:char_type
+CT_TAB	char/core/src/char.h	/^		CT_TAB,$/;"	e	enum:char_type
+CT_WORD	char/core/src/char.h	/^	CT_WORD,$/;"	e	enum:char_type
+DIR_CORE	btree/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_CORE	char/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_CORE	cipher/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_CORE	config/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_CORE	fifo/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_CORE	file_reader/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_CORE	list/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_CORE	matrix/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_CORE	memory/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_CORE	ntree/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_CORE	str/Makefile	/^DIR_CORE=.\/core$/;"	m
+DIR_TEST	btree/Makefile	/^DIR_TEST=.\/test$/;"	m
+DIR_TEST	char/Makefile	/^DIR_TEST=.\/test$/;"	m
+DIR_TEST	cipher/Makefile	/^DIR_TEST=test$/;"	m
+DIR_TEST	config/Makefile	/^DIR_TEST=.\/test$/;"	m
+DIR_TEST	fifo/Makefile	/^DIR_TEST=.\/test$/;"	m
+DIR_TEST	file_reader/Makefile	/^DIR_TEST=.\/test$/;"	m
+DIR_TEST	list/Makefile	/^DIR_TEST=.\/test$/;"	m
+DIR_TEST	matrix/Makefile	/^DIR_TEST=.\/test$/;"	m
+DIR_TEST	memory/Makefile	/^DIR_TEST=.\/test$/;"	m
+DIR_TEST	ntree/Makefile	/^DIR_TEST=.\/test$/;"	m
+DIR_TEST	str/Makefile	/^DIR_TEST=.\/test$/;"	m
+FIFO_DATA_TYPE	fifo/core/src/fifo.h	/^	#define FIFO_DATA_TYPE /;"	d
+FR_RC_EOB	file_reader/core/src/fr.h	/^#define FR_RC_EOB /;"	d
+FR_RC_EOF	file_reader/core/src/fr.h	/^#define FR_RC_EOF /;"	d
+FR_RC_FINISHED	file_reader/core/src/fr.c	/^#define FR_RC_FINISHED /;"	d	file:
+FR_RC_NOT_FINISHED	file_reader/core/src/fr.h	/^#define FR_RC_NOT_FINISHED /;"	d
+FR_RC_READ_ERROR	file_reader/core/src/fr.h	/^#define FR_RC_READ_ERROR /;"	d
+FR_RC_TOO_LONG	file_reader/core/src/fr.h	/^#define FR_RC_TOO_LONG /;"	d
+LDFLAGS	Makefile	/^LDFLAGS=$/;"	m
+LDFLAGS	array/Makefile	/^LDFLAGS=-I src -I test\/src -L build -L \/usr\/lib64$/;"	m
+LDFLAGS	array2d/Makefile	/^LDFLAGS=-I src -I test\/src -L build$/;"	m
+LDFLAGS	arrayptr/Makefile	/^LDFLAGS=-I src -I test\/src -L build -L \/usr\/lib64$/;"	m
+LDFLAGS	btree/Makefile	/^LDFLAGS=-L $(CBUILD)$/;"	m
+LDFLAGS	char/Makefile	/^LDFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+LDFLAGS	cipher/Makefile	/^LDFLAGS=$/;"	m
+LDFLAGS	config/Makefile	/^LDFLAGS=-L $(CBUILD)$/;"	m
+LDFLAGS	fifo/Makefile	/^LDFLAGS=-L $(CBUILD)$/;"	m
+LDFLAGS	file_reader/Makefile	/^LDFLAGS=$/;"	m
+LDFLAGS	list/Makefile	/^LDFLAGS=-I $(CSRC) -I $(TSRC)$/;"	m
+LDFLAGS	matrix/Makefile	/^LDFLAGS=$/;"	m
+LDFLAGS	memory/Makefile	/^LDFLAGS=$/;"	m
+LDFLAGS	ntree/Makefile	/^LDFLAGS=-L $(CBUILD)$/;"	m
+LDFLAGS	str/Makefile	/^LDFLAGS=-L $(CBUILD)$/;"	m
+MAX_ASCII	cipher/core/src/cipher.c	/^#define MAX_ASCII /;"	d	file:
+MESS_MAX_LEN	fifo/test/src/message.h	/^#define MESS_MAX_LEN /;"	d
+MESS_MAX_LEN	list/test/src/message.h	/^#define MESS_MAX_LEN /;"	d
+NAME_LEN	memory/test/src/main.c	/^#define NAME_LEN /;"	d	file:
+NTREE_ALLOC	ntree/core/src/ntree.h	/^#define NTREE_ALLOC /;"	d
+NTREE_DATA_TYPE	ntree/core/src/ntree.h	/^  #define NTREE_DATA_TYPE /;"	d
+NTREE_DATA_TYPE	ntree/test/src/ntree_char.c	/^#define NTREE_DATA_TYPE /;"	d	file:
+NTREE_DATA_TYPE	ntree/test/src/ntree_person.c	/^#define NTREE_DATA_TYPE /;"	d	file:
+PARRAY_INIT_ALLOC	arrayptr/src/arrayptr.h	/^#define PARRAY_INIT_ALLOC /;"	d
+PARRAY_REALLOC_COEF	arrayptr/src/arrayptr.h	/^#define PARRAY_REALLOC_COEF /;"	d
+PERSONS_SIZE	memory/test/src/main.c	/^#define PERSONS_SIZE /;"	d	file:
+PERSON_ADRESS_LEN	btree/test/src/person.h	/^#define PERSON_ADRESS_LEN /;"	d
+PERSON_ADRESS_LEN	list/test/src/person.h	/^#define PERSON_ADRESS_LEN /;"	d
+PERSON_ADRESS_LEN	ntree/test/src/person.h	/^#define PERSON_ADRESS_LEN /;"	d
+PERSON_NAME_LEN	btree/test/src/person.h	/^#define PERSON_NAME_LEN /;"	d
+PERSON_NAME_LEN	list/test/src/person.h	/^#define PERSON_NAME_LEN /;"	d
+PERSON_NAME_LEN	ntree/test/src/person.h	/^#define PERSON_NAME_LEN /;"	d
+Person	memory/test/src/main.c	/^} Person;$/;"	t	typeref:struct:__anon4820ef290108	file:
+STR_INIT_ALLOC_LEN	str/core/src/str.h	/^#define STR_INIT_ALLOC_LEN /;"	d
+TARGETS_BIN_TESTS	array/Makefile	/^TARGETS_BIN_TESTS=test\/build\/test1$/;"	m
+TARGETS_BIN_TESTS	array2d/Makefile	/^TARGETS_BIN_TESTS=test\/build\/test1$/;"	m
+TARGETS_BIN_TESTS	arrayptr/Makefile	/^TARGETS_BIN_TESTS=test\/build\/test1$/;"	m
+TARGETS_BUILDS	array/Makefile	/^TARGETS_BUILDS=build\/array.o build\/libarray.a$/;"	m
+TARGETS_BUILDS	array2d/Makefile	/^TARGETS_BUILDS=build\/array2d.o build\/libarray2d.a$/;"	m
+TARGETS_BUILDS	arrayptr/Makefile	/^TARGETS_BUILDS=build\/arrayptr.o build\/libarrayptr.a build\/libarrayptr.so$/;"	m
+TARGETS_DIRS	array/Makefile	/^TARGETS_DIRS=build test\/build$/;"	m
+TARGETS_DIRS	array2d/Makefile	/^TARGETS_DIRS=build test\/build$/;"	m
+TARGETS_DIRS	arrayptr/Makefile	/^TARGETS_DIRS=build test\/build$/;"	m
+TARGETS_LOG_TESTS	array/Makefile	/^TARGETS_LOG_TESTS=test\/build\/log1$/;"	m
+TARGETS_LOG_TESTS	array2d/Makefile	/^TARGETS_LOG_TESTS=test\/build\/log1$/;"	m
+TARGETS_LOG_TESTS	arrayptr/Makefile	/^TARGETS_LOG_TESTS=test\/build\/log1$/;"	m
+TBIN	btree/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TBIN	char/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TBIN	cipher/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TBIN	config/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TBIN	fifo/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TBIN	file_reader/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TBIN	list/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TBIN	matrix/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TBIN	memory/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TBIN	ntree/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TBIN	str/Makefile	/^TBIN=$(DIR_TEST)\/bin$/;"	m
+TLOG	btree/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TLOG	char/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TLOG	cipher/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TLOG	config/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TLOG	fifo/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TLOG	file_reader/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TLOG	list/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TLOG	matrix/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TLOG	memory/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TLOG	ntree/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TLOG	str/Makefile	/^TLOG=$(DIR_TEST)\/log$/;"	m
+TRES	config/Makefile	/^TRES=$(DIR_TEST)\/ressources$/;"	m
+TSRC	btree/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+TSRC	char/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+TSRC	cipher/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+TSRC	config/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+TSRC	fifo/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+TSRC	file_reader/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+TSRC	list/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+TSRC	matrix/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+TSRC	memory/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+TSRC	ntree/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+TSRC	str/Makefile	/^TSRC=$(DIR_TEST)\/src$/;"	m
+_POSIX_C_SOURCE	btree/core/src/btree.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	btree/core/src/btree.h	/^#define _POSIX_C_SOURCE /;"	d
+_POSIX_C_SOURCE	btree/test/src/btree_char.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	btree/test/src/btree_person.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	memory/core/src/mem.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	memory/core/src/mem.h	/^#define _POSIX_C_SOURCE /;"	d
+_POSIX_C_SOURCE	memory/test/src/main.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	ntree/core/src/ntree.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	ntree/core/src/ntree.h	/^#define _POSIX_C_SOURCE /;"	d
+_POSIX_C_SOURCE	ntree/test/src/ntree_char.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	ntree/test/src/ntree_person.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+__WINDOWS__	config/core/include/cJSON.h	/^#define __WINDOWS__$/;"	d
+__anon2bdff6510108	array2d/test/src/test1.c	/^typedef struct {$/;"	s	file:
+__anon4820ef290108	memory/test/src/main.c	/^typedef struct {$/;"	s	file:
+__anon90ae11eb0108	arrayptr/src/arrayptr.h	/^typedef struct {$/;"	s
+__anon93c64e9f0108	array/src/array.h	/^typedef struct {$/;"	s
+__anonba3eb78b0108	array2d/src/array2d.h	/^typedef struct {$/;"	s
+__anonc0956fbb0108	array/test/src/test1.c	/^typedef struct {$/;"	s	file:
+__anonf398efd10108	arrayptr/test/src/test1.c	/^typedef struct {$/;"	s	file:
+__btree_find	btree/core/src/btree.c	/^BTREE_DATA_TYPE *__btree_find(btree *btree, int (*compare)(BTREE_DATA_TYPE *, BTREE_DATA_TYPE *)/;"	f	typeref:typename:BTREE_DATA_TYPE *
+__btree_run	btree/core/src/btree.c	/^void __btree_run(btree *btree, void (*func)(BTREE_DATA_TYPE *), int direction, int type) {$/;"	f	typeref:typename:void
+__ntree_run	ntree/core/src/ntree.c	/^void __ntree_run(ntree *tree, void (*func)(NTREE_DATA_TYPE *), int type) {$/;"	f	typeref:typename:void
+_fr_EOL	file_reader/core/src/fr.c	/^char _fr_EOL[] = { '\\0', '\\n', EOF };$/;"	v	typeref:typename:char[]
+_fr_char_is_eol	file_reader/core/src/fr.c	/^int _fr_char_is_eol(char c) {$/;"	f	typeref:typename:int
+_fr_part_next	file_reader/core/src/fr.c	/^int _fr_part_next(char *line, size_t lsize, size_t *llen, \\$/;"	f	typeref:typename:int
+_matrix_mult_lc	matrix/core/src/matrix.c	/^double _matrix_mult_lc(matrix *m1, size_t l, matrix *m2, size_t c) {$/;"	f	typeref:typename:double
+adress	btree/test/src/person.h	/^	char adress[PERSON_ADRESS_LEN];$/;"	m	struct:person	typeref:typename:char[]
+adress	list/test/src/person.h	/^	char adress[PERSON_ADRESS_LEN];$/;"	m	struct:person	typeref:typename:char[]
+adress	ntree/test/src/person.h	/^	char adress[PERSON_ADRESS_LEN];$/;"	m	struct:person	typeref:typename:char[]
+age	btree/test/src/person.h	/^	int age;$/;"	m	struct:person	typeref:typename:int
+age	list/test/src/person.h	/^	int age;$/;"	m	struct:person	typeref:typename:int
+age	ntree/test/src/person.h	/^	int age;$/;"	m	struct:person	typeref:typename:int
+all	Makefile	/^all: $/;"	t
+all	array/Makefile	/^all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)$/;"	t
+all	array2d/Makefile	/^all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)$/;"	t
+all	arrayptr/Makefile	/^all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)$/;"	t
+all	btree/Makefile	/^all: dirs builds tests execs$/;"	t
+all	char/Makefile	/^all: dirs builds tests execs$/;"	t
+all	cipher/Makefile	/^all: dirs builds tests execs$/;"	t
+all	config/Makefile	/^all: dirs builds tests execs$/;"	t
+all	fifo/Makefile	/^all: dirs builds tests execs$/;"	t
+all	file_reader/Makefile	/^all: dirs builds$/;"	t
+all	list/Makefile	/^all: dirs builds tests execs$/;"	t
+all	matrix/Makefile	/^all: dirs builds tests execs$/;"	t
+all	memory/Makefile	/^all: dirs builds tests execs$/;"	t
+all	ntree/Makefile	/^all: dirs builds tests execs$/;"	t
+all	str/Makefile	/^all: dirs builds tests execs$/;"	t
+alloc_len	str/core/src/str.h	/^	size_t alloc_len; \/\/ sizeof(char) * (alloc_len + 1)$/;"	m	struct:str	typeref:typename:size_t
+any	memory/core/src/mem.h	/^#define any /;"	d
+array	array/src/array.h	/^} array;$/;"	t	typeref:struct:__anon93c64e9f0108
+array2d	array2d/src/array2d.h	/^} array2d;$/;"	t	typeref:struct:__anonba3eb78b0108
+array2d_free	array2d/src/array2d.c	/^void array2d_free(void *a) {$/;"	f	typeref:typename:void
+array2d_get	array2d/src/array2d.c	/^void *array2d_get(void *ar, size_t l, size_t c) {$/;"	f	typeref:typename:void *
+array2d_map	array2d/src/array2d.c	/^void array2d_map(void *a, void(*map)(void *)) {$/;"	f	typeref:typename:void
+array2d_map1	array2d/src/array2d.c	/^void array2d_map1(void *a, void(*map)(void *, void *), void *arg) {$/;"	f	typeref:typename:void
+array2d_map2	array2d/src/array2d.c	/^void array2d_map2(void *a, void(*map)(void *, void *, void *), void *arg1, void *arg2) {$/;"	f	typeref:typename:void
+array2d_map_c	array2d/src/array2d.c	/^void array2d_map_c(void *a, size_t c, void(*map)(void *)) {$/;"	f	typeref:typename:void
+array2d_map_c1	array2d/src/array2d.c	/^void array2d_map_c1(void *a, size_t c, void(*map)(void *, void *), void *arg) {$/;"	f	typeref:typename:void
+array2d_map_c2	array2d/src/array2d.c	/^void array2d_map_c2(void *a, size_t c, void(*map)(void *, void *, void *), void *arg1, void *arg/;"	f	typeref:typename:void
+array2d_map_l	array2d/src/array2d.c	/^void array2d_map_l(void *a, size_t l, void(*map)(void *)) {$/;"	f	typeref:typename:void
+array2d_map_l1	array2d/src/array2d.c	/^void array2d_map_l1(void *a, size_t l, void(*map)(void *, void *), void *arg) {$/;"	f	typeref:typename:void
+array2d_map_l2	array2d/src/array2d.c	/^void array2d_map_l2(void *a, size_t l, void(*map)(void *, void *, void *), void *arg1, void *arg/;"	f	typeref:typename:void
+array2d_new	array2d/src/array2d.c	/^array2d *array2d_new(size_t height, size_t width, size_t size_of_item, void *init) {$/;"	f	typeref:typename:array2d *
+array2d_new_from_file	array2d/src/array2d.c	/^array2d *array2d_new_from_file(size_t height, size_t width, size_t size_of_item, FILE *fd) {$/;"	f	typeref:typename:array2d *
+array2d_resize	array2d/src/array2d.c	/^array2d *array2d_resize(void *a, size_t width, size_t height) {$/;"	f	typeref:typename:array2d *
+array2d_scale	array2d/src/array2d.c	/^array2d *array2d_scale(void *ar, size_t new_size_of_item) {$/;"	f	typeref:typename:array2d *
+array2d_set	array2d/src/array2d.c	/^array2d *array2d_set(void *a, size_t line, size_t col, void *item) {$/;"	f	typeref:typename:array2d *
+array2d_write_to_file	array2d/src/array2d.c	/^array2d *array2d_write_to_file(void *ar, FILE *fd) {$/;"	f	typeref:typename:array2d *
+array_free	array/src/array.c	/^void array_free(void *a) {$/;"	f	typeref:typename:void
+array_map	array/src/array.c	/^void array_map(void *a, void(*map)(void *)) {$/;"	f	typeref:typename:void
+array_map1	array/src/array.c	/^void array_map1(void *a, void(*map)(void *, void *), void *arg) {$/;"	f	typeref:typename:void
+array_new	array/src/array.c	/^array *array_new(size_t capacity, size_t size_of_item) {$/;"	f	typeref:typename:array *
+array_set	array/src/array.c	/^void array_set(void *a, size_t i, void *value) {$/;"	f	typeref:typename:void
+arrayptr	arrayptr/src/arrayptr.h	/^} arrayptr;$/;"	t	typeref:struct:__anon90ae11eb0108
+arrayptr_append	arrayptr/src/arrayptr.c	/^arrayptr *arrayptr_append(void *a, void *item) {$/;"	f	typeref:typename:arrayptr *
+arrayptr_free	arrayptr/src/arrayptr.c	/^void arrayptr_free(void *a, void (*custom_free)(void *)) {$/;"	f	typeref:typename:void
+arrayptr_map	arrayptr/src/arrayptr.c	/^void arrayptr_map(void *a, void(*map)(void *)) {$/;"	f	typeref:typename:void
+arrayptr_map1	arrayptr/src/arrayptr.c	/^void arrayptr_map1(void *a, void(*map)(void *, void *), void *arg) {$/;"	f	typeref:typename:void
+arrayptr_new	arrayptr/src/arrayptr.c	/^arrayptr *arrayptr_new(size_t capacity) {$/;"	f	typeref:typename:arrayptr *
+base_to_base	cipher/core/src/cipher.c	/^char *base_to_base(char *word, int from, int to) {$/;"	f	typeref:typename:char *
+base_to_decimal	cipher/core/src/cipher.c	/^int base_to_decimal(char *word, int base) {$/;"	f	typeref:typename:int
+btree	btree/core/src/btree.h	/^typedef struct btree {$/;"	s
+btree	btree/core/src/btree.h	/^} btree;$/;"	t	typeref:struct:btree
+btree_find_lr_inf	btree/core/src/btree.c	/^BTREE_DATA_TYPE *btree_find_lr_inf(btree *btree, int (*compare)(BTREE_DATA_TYPE *, BTREE_DATA_TY/;"	f	typeref:typename:BTREE_DATA_TYPE *
+btree_find_lr_post	btree/core/src/btree.c	/^BTREE_DATA_TYPE *btree_find_lr_post(btree *btree, int (*compare)(BTREE_DATA_TYPE *, BTREE_DATA_T/;"	f	typeref:typename:BTREE_DATA_TYPE *
+btree_find_lr_pre	btree/core/src/btree.c	/^BTREE_DATA_TYPE *btree_find_lr_pre(btree *btree, int (*compare)(BTREE_DATA_TYPE *, BTREE_DATA_TY/;"	f	typeref:typename:BTREE_DATA_TYPE *
+btree_find_rl_inf	btree/core/src/btree.c	/^BTREE_DATA_TYPE *btree_find_rl_inf(btree *btree, int (*compare)(BTREE_DATA_TYPE *, BTREE_DATA_TY/;"	f	typeref:typename:BTREE_DATA_TYPE *
+btree_find_rl_post	btree/core/src/btree.c	/^BTREE_DATA_TYPE *btree_find_rl_post(btree *btree, int (*compare)(BTREE_DATA_TYPE *, BTREE_DATA_T/;"	f	typeref:typename:BTREE_DATA_TYPE *
+btree_find_rl_pre	btree/core/src/btree.c	/^BTREE_DATA_TYPE *btree_find_rl_pre(btree *btree, int (*compare)(BTREE_DATA_TYPE *, BTREE_DATA_TY/;"	f	typeref:typename:BTREE_DATA_TYPE *
+btree_free	btree/core/src/btree.c	/^void btree_free(btree *tree, void (*free_func)(BTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+btree_new	btree/core/src/btree.c	/^btree *btree_new(BTREE_DATA_TYPE *data, btree *left, btree *right) {$/;"	f	typeref:typename:btree *
+btree_run_lr_inf	btree/core/src/btree.c	/^void btree_run_lr_inf(btree *btree, void (*func)(BTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+btree_run_lr_post	btree/core/src/btree.c	/^void btree_run_lr_post(btree *btree, void (*func)(BTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+btree_run_lr_pre	btree/core/src/btree.c	/^void btree_run_lr_pre(btree *btree, void (*func)(BTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+btree_run_rl_inf	btree/core/src/btree.c	/^void btree_run_rl_inf(btree *btree, void (*func)(BTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+btree_run_rl_post	btree/core/src/btree.c	/^void btree_run_rl_post(btree *btree, void (*func)(BTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+btree_run_rl_pre	btree/core/src/btree.c	/^void btree_run_rl_pre(btree *btree, void (*func)(BTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+build	array/Makefile	/^build: $/;"	t
+build	array2d/Makefile	/^build: $/;"	t
+build	arrayptr/Makefile	/^build: $/;"	t
+build/array.o	array/Makefile	/^build\/array.o: src\/array.c src\/array.h$/;"	t
+build/array2d.o	array2d/Makefile	/^build\/array2d.o: src\/array2d.c src\/array2d.h$/;"	t
+build/arrayptr.o	arrayptr/Makefile	/^build\/arrayptr.o: src\/arrayptr.c src\/arrayptr.h$/;"	t
+build/libarray.a	array/Makefile	/^build\/libarray.a: build\/array.o$/;"	t
+build/libarray.so	array/Makefile	/^build\/libarray.so: build\/array.o$/;"	t
+build/libarray2d.a	array2d/Makefile	/^build\/libarray2d.a: build\/array2d.o$/;"	t
+build/libarrayptr.a	arrayptr/Makefile	/^build\/libarrayptr.a: build\/arrayptr.o$/;"	t
+build/libarrayptr.so	arrayptr/Makefile	/^build\/libarrayptr.so: build\/arrayptr.o$/;"	t
+builds	btree/Makefile	/^builds: $(CBUILD)\/libbtree.a $(CBUILD)\/btree.o$/;"	t
+builds	char/Makefile	/^builds: $(CBUILD)\/char.o $(CBUILD)\/libchar.a$/;"	t
+builds	cipher/Makefile	/^builds: $(CBUILD)\/cipher.o$/;"	t
+builds	config/Makefile	/^builds: $(CBUILD)\/config.o $(CBUILD)\/libconfig.a$/;"	t
+builds	fifo/Makefile	/^builds: $(CBUILD)\/fifo.o $(CBUILD)\/libfifo.a$/;"	t
+builds	file_reader/Makefile	/^builds: $(CBUILD)\/fr.o $(CBUILD)\/libfr.a$/;"	t
+builds	list/Makefile	/^builds: $(CBUILD)\/list.o $(CBUILD)\/liblist.a$/;"	t
+builds	matrix/Makefile	/^builds: $(CBUILD)\/matrix.o $(CBUILD)\/libmatrix.a$/;"	t
+builds	memory/Makefile	/^builds: $(CBUILD)\/mem.o$/;"	t
+builds	ntree/Makefile	/^builds: $(CBUILD)\/ntree.o $(CBUILD)\/libntree.a$/;"	t
+builds	str/Makefile	/^builds: $(CBUILD)\/str.o $(CBUILD)\/libstr.a$/;"	t
+cJSON	config/core/include/cJSON.h	/^typedef struct cJSON$/;"	s
+cJSON	config/core/include/cJSON.h	/^} cJSON;$/;"	t	typeref:struct:cJSON
+cJSON_Array	config/core/include/cJSON.h	/^#define cJSON_Array /;"	d
+cJSON_ArrayForEach	config/core/include/cJSON.h	/^#define cJSON_ArrayForEach(/;"	d
+cJSON_False	config/core/include/cJSON.h	/^#define cJSON_False /;"	d
+cJSON_Hooks	config/core/include/cJSON.h	/^typedef struct cJSON_Hooks$/;"	s
+cJSON_Hooks	config/core/include/cJSON.h	/^} cJSON_Hooks;$/;"	t	typeref:struct:cJSON_Hooks
+cJSON_Invalid	config/core/include/cJSON.h	/^#define cJSON_Invalid /;"	d
+cJSON_IsReference	config/core/include/cJSON.h	/^#define cJSON_IsReference /;"	d
+cJSON_NULL	config/core/include/cJSON.h	/^#define cJSON_NULL /;"	d
+cJSON_Number	config/core/include/cJSON.h	/^#define cJSON_Number /;"	d
+cJSON_Object	config/core/include/cJSON.h	/^#define cJSON_Object /;"	d
+cJSON_Raw	config/core/include/cJSON.h	/^#define cJSON_Raw /;"	d
+cJSON_SetBoolValue	config/core/include/cJSON.h	/^#define cJSON_SetBoolValue(/;"	d
+cJSON_SetIntValue	config/core/include/cJSON.h	/^#define cJSON_SetIntValue(/;"	d
+cJSON_SetNumberValue	config/core/include/cJSON.h	/^#define cJSON_SetNumberValue(/;"	d
+cJSON_String	config/core/include/cJSON.h	/^#define cJSON_String /;"	d
+cJSON_StringIsConst	config/core/include/cJSON.h	/^#define cJSON_StringIsConst /;"	d
+cJSON_True	config/core/include/cJSON.h	/^#define cJSON_True /;"	d
+cJSON__h	config/core/include/cJSON.h	/^#define cJSON__h$/;"	d
+cJSON_bool	config/core/include/cJSON.h	/^typedef int cJSON_bool;$/;"	t	typeref:typename:int
+capacity	array/src/array.h	/^	size_t capacity;$/;"	m	struct:__anon93c64e9f0108	typeref:typename:size_t
+capacity	array2d/src/array2d.h	/^	size_t capacity; \/\/ height * width$/;"	m	struct:__anonba3eb78b0108	typeref:typename:size_t
+capacity	arrayptr/src/arrayptr.h	/^	size_t capacity;$/;"	m	struct:__anon90ae11eb0108	typeref:typename:size_t
+char_blanks	char/core/src/char.c	/^char *char_blanks = " \\t\\n\\r\\b";$/;"	v	typeref:typename:char *
+char_bos	char/core/src/char.c	/^char *char_bos(char *start, char *c) {$/;"	f	typeref:typename:char *
+char_bow	char/core/src/char.c	/^char *char_bow(char *s, char *p) {$/;"	f	typeref:typename:char *
+char_bow_r	char/core/src/char.c	/^char *char_bow_r(char *start, char *c) {$/;"	f	typeref:typename:char *
+char_daw	char/core/src/char.c	/^int char_daw(char *start, char *c) {$/;"	f	typeref:typename:int
+char_delete_range	char/core/src/char.c	/^void char_delete_range(char *from, char *to) {$/;"	f	typeref:typename:void
+char_dw	char/core/src/char.c	/^void char_dw(char *s, char *c) {$/;"	f	typeref:typename:void
+char_eos	char/core/src/char.c	/^char *char_eos(char *c) {$/;"	f	typeref:typename:char *
+char_eow	char/core/src/char.c	/^char *char_eow(char *c) {$/;"	f	typeref:typename:char *
+char_eow_r	char/core/src/char.c	/^char *char_eow_r(char *c) {$/;"	f	typeref:typename:char *
+char_get_type	char/core/src/char.c	/^char_type char_get_type(char c) {$/;"	f	typeref:typename:char_type
+char_ignore	char/core/src/char.c	/^char *char_ignore(char *s, char *p, int step) {$/;"	f	typeref:typename:char *
+char_is_blank	char/core/src/char.c	/^bool char_is_blank(char c) {$/;"	f	typeref:typename:bool
+char_is_bow	char/core/src/char.c	/^bool char_is_bow(char *s, char *c) {$/;"	f	typeref:typename:bool
+char_is_eow	char/core/src/char.c	/^bool char_is_eow(char *p) {$/;"	f	typeref:typename:bool
+char_is_separator	char/core/src/char.c	/^bool char_is_separator(char c) {$/;"	f	typeref:typename:bool
+char_is_word	char/core/src/char.c	/^bool char_is_word(char c) {$/;"	f	typeref:typename:bool
+char_separators	char/core/src/char.c	/^char *char_separators = " &~#{([-|`@)]=}+$%*?;.:\/!<>'\\\\\\"\\t\\n\\r\\b";$/;"	v	typeref:typename:char *
+char_type	char/core/src/char.h	/^typedef enum char_type {$/;"	g
+char_type	char/core/src/char.h	/^} char_type;$/;"	t	typeref:enum:char_type
+child	config/core/include/cJSON.h	/^    struct cJSON *child;$/;"	m	struct:cJSON	typeref:struct:cJSON *
+children	ntree/core/src/ntree.h	/^	struct ntree **children;$/;"	m	struct:ntree	typeref:struct:ntree **
+clean	Makefile	/^clean:$/;"	t
+clean	array/Makefile	/^clean:$/;"	t
+clean	array2d/Makefile	/^clean:$/;"	t
+clean	arrayptr/Makefile	/^clean:$/;"	t
+clean	btree/Makefile	/^clean:$/;"	t
+clean	char/Makefile	/^clean: $/;"	t
+clean	cipher/Makefile	/^clean: $/;"	t
+clean	config/Makefile	/^clean:$/;"	t
+clean	fifo/Makefile	/^clean:$/;"	t
+clean	file_reader/Makefile	/^clean:$/;"	t
+clean	list/Makefile	/^clean:$/;"	t
+clean	matrix/Makefile	/^clean:$/;"	t
+clean	memory/Makefile	/^clean: $/;"	t
+clean	ntree/Makefile	/^clean: $/;"	t
+clean	str/Makefile	/^clean:$/;"	t
+cols	matrix/core/src/matrix.h	/^	size_t cols;$/;"	m	struct:matrix	typeref:typename:size_t
+compare	btree/test/src/btree_char.c	/^int compare(void *d1, void *d2) {$/;"	f	typeref:typename:int
+compare	ntree/test/src/ntree_char.c	/^int compare(char *d1, char *d2) {$/;"	f	typeref:typename:int
+config_new	config/core/src/config.c	/^cJSON *config_new(const char *path) {$/;"	f	typeref:typename:cJSON *
+config_save	config/core/src/config.c	/^cJSON *config_save(cJSON *conf, char *path) {$/;"	f	typeref:typename:cJSON *
+container	fifo/core/src/fifo.h	/^typedef struct container {$/;"	s
+container	fifo/core/src/fifo.h	/^} container;$/;"	t	typeref:struct:container
+content	fifo/test/src/message.h	/^	char content[MESS_MAX_LEN];$/;"	m	struct:message	typeref:typename:char[]
+content	list/test/src/message.h	/^	char content[MESS_MAX_LEN];$/;"	m	struct:message	typeref:typename:char[]
+count	arrayptr/src/arrayptr.h	/^	size_t count;$/;"	m	struct:__anon90ae11eb0108	typeref:typename:size_t
+data	btree/core/src/btree.h	/^	BTREE_DATA_TYPE *data;$/;"	m	struct:btree	typeref:typename:BTREE_DATA_TYPE *
+data	fifo/core/src/fifo.h	/^	FIFO_DATA_TYPE *data;$/;"	m	struct:container	typeref:typename:FIFO_DATA_TYPE *
+data	list/core/src/list.h	/^	void *data;$/;"	m	struct:list	typeref:typename:void *
+data	ntree/core/src/ntree.h	/^	NTREE_DATA_TYPE *data;$/;"	m	struct:ntree	typeref:typename:NTREE_DATA_TYPE *
+data	str/core/src/str.h	/^	char *data;$/;"	m	struct:str	typeref:typename:char *
+debug	array/Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
+debug	array/Makefile	/^debug: all$/;"	t
+debug	array2d/Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
+debug	array2d/Makefile	/^debug: all$/;"	t
+debug	arrayptr/Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
+debug	arrayptr/Makefile	/^debug: all$/;"	t
+debug	list/Makefile	/^debug: CFLAGS+=-DDEBUG$/;"	t
+debug	list/Makefile	/^debug: all$/;"	t
+debug	str/Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
+debug	str/Makefile	/^debug: all$/;"	t
+debug2	list/Makefile	/^debug2: CFLAGS+=-DDEBUG2$/;"	t
+debug2	list/Makefile	/^debug2: all$/;"	t
+debug3	list/Makefile	/^debug3: CFLAGS+=-DDEBUG3$/;"	t
+debug3	list/Makefile	/^debug3: all$/;"	t
+decimal_to_base	cipher/core/src/cipher.c	/^char *decimal_to_base(int decimal, int base, int n_bits) {$/;"	f	typeref:typename:char *
+decode	cipher/core/src/cipher.c	/^void decode(char *dest, char *text, int base, int *n_bits) {$/;"	f	typeref:typename:void
+dirs	array/Makefile	/^dirs: src test test\/src extern $(TARGETS_DIRS)$/;"	t
+dirs	array2d/Makefile	/^dirs: src test test\/src extern $(TARGETS_DIRS)$/;"	t
+dirs	arrayptr/Makefile	/^dirs: src test test\/src extern $(TARGETS_DIRS)$/;"	t
+dirs	btree/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+dirs	char/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+dirs	cipher/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+dirs	config/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+dirs	fifo/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+dirs	file_reader/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+dirs	list/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+dirs	matrix/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+dirs	memory/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+dirs	ntree/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+dirs	str/Makefile	/^dirs: $(CBUILD) $(TBIN) $(TLOG)$/;"	t
+double_equal	matrix/test/src/main.c	/^int double_equal(double a, double b) {$/;"	f	typeref:typename:int
+encode	cipher/core/src/cipher.c	/^void encode(char *dest, char *text, int base, int *n_bits) {$/;"	f	typeref:typename:void
+execs	btree/Makefile	/^execs: $(TLOG)\/btree_char.log $(TLOG)\/btree_person.log$/;"	t
+execs	char/Makefile	/^execs: $(TLOG)\/test1 $(TLOG)\/test2$/;"	t
+execs	cipher/Makefile	/^execs: $(TLOG)\/encode$/;"	t
+execs	config/Makefile	/^execs: $(TLOG)\/main.log$/;"	t
+execs	fifo/Makefile	/^execs: $(TLOG)\/main.log$/;"	t
+execs	list/Makefile	/^execs: $(TLOG)\/message.log $(TLOG)\/person.log$/;"	t
+execs	matrix/Makefile	/^execs: $(TLOG)\/main$/;"	t
+execs	memory/Makefile	/^execs: $(TLOG)\/main$/;"	t
+execs	ntree/Makefile	/^execs: $(TLOG)\/ntree_char.log $(TLOG)\/ntree_person.log$/;"	t
+execs	str/Makefile	/^execs: $(TLOG)\/test1$/;"	t
+extern	array/Makefile	/^extern: $/;"	t
+extern	array2d/Makefile	/^extern: $/;"	t
+extern	arrayptr/Makefile	/^extern: $/;"	t
+fifo	fifo/core/src/fifo.h	/^typedef struct fifo {$/;"	s
+fifo	fifo/core/src/fifo.h	/^} fifo;$/;"	t	typeref:struct:fifo
+fifo_free	fifo/core/src/fifo.c	/^void fifo_free(fifo *f, void (*free_data)(FIFO_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+fifo_new	fifo/core/src/fifo.c	/^fifo *fifo_new() {$/;"	f	typeref:typename:fifo *
+fifo_pop	fifo/core/src/fifo.c	/^FIFO_DATA_TYPE *fifo_pop(fifo *f) {$/;"	f	typeref:typename:FIFO_DATA_TYPE *
+fifo_push	fifo/core/src/fifo.c	/^fifo *fifo_push(fifo *f, FIFO_DATA_TYPE *m) {$/;"	f	typeref:typename:fifo *
+foo	btree/test/src/btree_char.c	/^void foo(__attribute__((unused)) void *data) {}$/;"	f	typeref:typename:void
+foo	ntree/test/src/ntree_char.c	/^void foo(__attribute__((unused)) char *data) {}$/;"	f	typeref:typename:void
+fr_part_read	file_reader/core/src/fr.c	/^int fr_part_read(int fd, void (*handler)(int, char *, int, int *), \\$/;"	f	typeref:typename:int
+fr_readfile	file_reader/core/src/fr.c	/^char *fr_readfile(char *path) {$/;"	f	typeref:typename:char *
+fr_readnextline	file_reader/core/src/fr.c	/^char *fr_readnextline(FILE *f, size_t alloc, size_t realloc_coef, int *n_read) {$/;"	f	typeref:typename:char *
+fr_writefile	file_reader/core/src/fr.c	/^char *fr_writefile(char *path, char *string) {$/;"	f	typeref:typename:char *
+head	fifo/core/src/fifo.h	/^	container *head;$/;"	m	struct:fifo	typeref:typename:container *
+height	array2d/src/array2d.h	/^	size_t height;$/;"	m	struct:__anonba3eb78b0108	typeref:typename:size_t
+host	config/test/ressources/config.json	/^	"host":	"localhost",$/;"	s
+id	array/test/src/test1.c	/^	int id;$/;"	m	struct:__anonc0956fbb0108	typeref:typename:int	file:
+id	array2d/test/src/test1.c	/^	int id;$/;"	m	struct:__anon2bdff6510108	typeref:typename:int	file:
+id	arrayptr/test/src/test1.c	/^	int id;$/;"	m	struct:__anonf398efd10108	typeref:typename:int	file:
+id	btree/test/src/person.h	/^	int id;$/;"	m	struct:person	typeref:typename:int
+id	fifo/test/src/message.h	/^	int id;$/;"	m	struct:message	typeref:typename:int
+id	list/test/src/message.h	/^	int id;$/;"	m	struct:message	typeref:typename:int
+id	list/test/src/person.h	/^	int id;$/;"	m	struct:person	typeref:typename:int
+id	memory/test/src/main.c	/^	uint32_t id;$/;"	m	struct:__anon4820ef290108	typeref:typename:uint32_t	file:
+id	ntree/test/src/person.h	/^	int id;$/;"	m	struct:person	typeref:typename:int
+items	array/src/array.h	/^	char *items;$/;"	m	struct:__anon93c64e9f0108	typeref:typename:char *
+items	array2d/src/array2d.h	/^	char *items;$/;"	m	struct:__anonba3eb78b0108	typeref:typename:char *
+items	arrayptr/src/arrayptr.h	/^	void **items;$/;"	m	struct:__anon90ae11eb0108	typeref:typename:void **
+left	btree/core/src/btree.h	/^	struct btree *left;$/;"	m	struct:btree	typeref:struct:btree *
+lines	matrix/core/src/matrix.h	/^	size_t lines;$/;"	m	struct:matrix	typeref:typename:size_t
+list	list/core/src/list.h	/^typedef struct list {$/;"	s
+list	list/core/src/list.h	/^} list;$/;"	t	typeref:struct:list
+list_copy	list/core/src/list.c	/^list *list_copy(list *l, void *(*copy)(void *)) {$/;"	f	typeref:typename:list *
+list_equal	list/core/src/list.c	/^bool list_equal(list *l1, list *l2, bool (*eq)(void *, void *), list **e) {$/;"	f	typeref:typename:bool
+list_free	list/core/src/list.c	/^void list_free(list *l, void (*data_free)(void *)) {$/;"	f	typeref:typename:void
+list_free_all	list/core/src/list.c	/^void list_free_all(list *l, void (*data_free)(void *)) {$/;"	f	typeref:typename:void
+list_get	list/core/src/list.c	/^list *list_get(list *l, size_t n) {$/;"	f	typeref:typename:list *
+list_insert_after	list/core/src/list.c	/^list *list_insert_after(list *l, void *data) {$/;"	f	typeref:typename:list *
+list_insert_before	list/core/src/list.c	/^list *list_insert_before(list *l, void *data) {$/;"	f	typeref:typename:list *
+list_map	list/core/src/list.c	/^int list_map(list *l, int (*map)(void *)) {$/;"	f	typeref:typename:int
+list_map2	list/core/src/list.c	/^int list_map2(list *l, int (*map)(void *, void *), void *param) {$/;"	f	typeref:typename:int
+list_map_void	list/core/src/list.c	/^void list_map_void(list *l, void (*map)(void *)) {$/;"	f	typeref:typename:void
+list_map_void2	list/core/src/list.c	/^void list_map_void2(list *l, void (*map)(void *, void *), void *param) {$/;"	f	typeref:typename:void
+list_new	list/core/src/list.c	/^list *list_new(void *data) {$/;"	f	typeref:typename:list *
+list_next	list/core/src/list.c	/^list *list_next(list **ref) {$/;"	f	typeref:typename:list *
+list_tail	list/core/src/list.c	/^list *list_tail(list *l) {$/;"	f	typeref:typename:list *
+m_cast	fifo/test/src/message.h	/^#define m_cast(/;"	d
+m_cast	list/test/src/message.h	/^#define m_cast(/;"	d
+main	array/test/src/test1.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	array2d/test/src/test1.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	arrayptr/test/src/test1.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	btree/test/src/btree_char.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	btree/test/src/btree_person.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	char/test/src/main.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	char/test/src/test1.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	char/test/src/test2.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	cipher/test/src/encode.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	config/test/src/main.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	fifo/test/src/main.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	list/test/src/test_message.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	list/test/src/test_person.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	matrix/test/src/main.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	memory/test/src/main.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	ntree/test/src/ntree_char.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	ntree/test/src/ntree_person.c	/^int main(void) {$/;"	f	typeref:typename:int
+main	str/test/src/test1.c	/^int main(void) {$/;"	f	typeref:typename:int
+matrix	matrix/core/src/matrix.h	/^typedef struct matrix {$/;"	s
+matrix	matrix/core/src/matrix.h	/^} matrix;$/;"	t	typeref:struct:matrix
+matrix_add	matrix/core/src/matrix.c	/^matrix *matrix_add(matrix *m1, matrix *m2) {$/;"	f	typeref:typename:matrix *
+matrix_copy	matrix/core/src/matrix.c	/^matrix *matrix_copy(matrix *m) {$/;"	f	typeref:typename:matrix *
+matrix_equal	matrix/core/src/matrix.c	/^int matrix_equal(matrix *m1, matrix *m2, int (*double_equal)(double, double)) {$/;"	f	typeref:typename:int
+matrix_free	matrix/core/src/matrix.c	/^void matrix_free(matrix *m) {$/;"	f	typeref:typename:void
+matrix_get_value	matrix/core/src/matrix.c	/^double matrix_get_value(matrix *m, size_t l, size_t c) {$/;"	f	typeref:typename:double
+matrix_get_value_pointer	matrix/core/src/matrix.c	/^double *matrix_get_value_pointer(matrix *m, size_t l, size_t c) {$/;"	f	typeref:typename:double *
+matrix_mult	matrix/core/src/matrix.c	/^matrix *matrix_mult(matrix *m1, matrix *m2) {$/;"	f	typeref:typename:matrix *
+matrix_mult_scal	matrix/core/src/matrix.c	/^matrix *matrix_mult_scal(matrix *m, double scal) {$/;"	f	typeref:typename:matrix *
+matrix_new	matrix/core/src/matrix.c	/^matrix *matrix_new(size_t lines, size_t cols, double init_value) {$/;"	f	typeref:typename:matrix *
+matrix_new_id	matrix/core/src/matrix.c	/^matrix *matrix_new_id(size_t n) {$/;"	f	typeref:typename:matrix *
+matrix_print	matrix/core/src/matrix.c	/^void matrix_print(matrix *m) {$/;"	f	typeref:typename:void
+matrix_set_all	matrix/core/src/matrix.c	/^matrix *matrix_set_all(matrix *m, double value) {$/;"	f	typeref:typename:matrix *
+matrix_set_value	matrix/core/src/matrix.c	/^matrix *matrix_set_value(matrix *m, size_t l, size_t c, double v) {$/;"	f	typeref:typename:matrix *
+matrix_set_values	matrix/core/src/matrix.c	/^matrix *matrix_set_values(matrix *m, double *values) {$/;"	f	typeref:typename:matrix *
+matrix_sub	matrix/core/src/matrix.c	/^matrix *matrix_sub(matrix *m1, matrix *m2) {$/;"	f	typeref:typename:matrix *
+max_clients	config/test/ressources/config.json	/^	"max_clients":	256$/;"	n
+mem_find	memory/core/src/mem.c	/^any *mem_find(any *start, int n, int stride, any *value, int (*cmp)(any *, any*)) {$/;"	f	typeref:typename:any *
+mem_map	memory/core/src/mem.c	/^void *mem_map(any *start, int n, int stride, int (*function)(any *)) {$/;"	f	typeref:typename:void *
+message	fifo/test/src/message.h	/^typedef struct message {$/;"	s
+message	fifo/test/src/message.h	/^} message;$/;"	t	typeref:struct:message
+message	list/test/src/message.h	/^typedef struct message {$/;"	s
+message	list/test/src/message.h	/^} message;$/;"	t	typeref:struct:message
+message_cmp	fifo/test/src/message.c	/^int message_cmp(message *m1, message *m2) {$/;"	f	typeref:typename:int
+message_cmp	list/test/src/message.c	/^int message_cmp(void *m1, void *m2) {$/;"	f	typeref:typename:int
+message_copy	fifo/test/src/message.c	/^message *message_copy(message *m) {$/;"	f	typeref:typename:message *
+message_copy	list/test/src/message.c	/^message *message_copy(message *m) {$/;"	f	typeref:typename:message *
+message_free	fifo/test/src/message.c	/^void message_free(message *m) {$/;"	f	typeref:typename:void
+message_free	list/test/src/message.c	/^void message_free(void *m) {$/;"	f	typeref:typename:void
+message_new	fifo/test/src/message.c	/^message *message_new(int id, char *content) {$/;"	f	typeref:typename:message *
+message_new	list/test/src/message.c	/^message *message_new(int id, char *content) {$/;"	f	typeref:typename:message *
+message_print	fifo/test/src/message.c	/^void message_print(message *m) {$/;"	f	typeref:typename:void
+message_write	list/test/src/message.c	/^int message_write(void *m, void *file) {$/;"	f	typeref:typename:int
+my_pow	cipher/core/src/cipher.c	/^int my_pow(int a, int b) {$/;"	f	typeref:typename:int
+n	fifo/core/src/fifo.h	/^	size_t n;$/;"	m	struct:fifo	typeref:typename:size_t
+n	ntree/core/src/ntree.h	/^	size_t n;$/;"	m	struct:ntree	typeref:typename:size_t
+name	btree/test/src/person.h	/^	char name[PERSON_NAME_LEN];$/;"	m	struct:person	typeref:typename:char[]
+name	config/test/ressources/config.json	/^	"name":	"server",$/;"	s
+name	list/test/src/person.h	/^	char name[PERSON_NAME_LEN];$/;"	m	struct:person	typeref:typename:char[]
+name	memory/test/src/main.c	/^	char name[32];$/;"	m	struct:__anon4820ef290108	typeref:typename:char[32]	file:
+name	ntree/test/src/person.h	/^	char name[PERSON_NAME_LEN];$/;"	m	struct:person	typeref:typename:char[]
+next	config/core/include/cJSON.h	/^    struct cJSON *next;$/;"	m	struct:cJSON	typeref:struct:cJSON *
+next	fifo/core/src/fifo.h	/^	struct container *next;$/;"	m	struct:container	typeref:struct:container *
+next	list/core/src/list.h	/^	struct list *next;$/;"	m	struct:list	typeref:struct:list *
+ntree	ntree/core/src/ntree.h	/^typedef struct ntree {$/;"	s
+ntree	ntree/core/src/ntree.h	/^} ntree;$/;"	t	typeref:struct:ntree
+ntree_add_child	ntree/core/src/ntree.c	/^int ntree_add_child(ntree *tree, ntree *child) {$/;"	f	typeref:typename:int
+ntree_alloc	ntree/core/src/ntree.c	/^ntree *ntree_alloc(ntree *root) {$/;"	f	typeref:typename:ntree *
+ntree_find	ntree/core/src/ntree.c	/^NTREE_DATA_TYPE *ntree_find(ntree *tree, int (*compare)(NTREE_DATA_TYPE *, NTREE_DATA_TYPE *), N/;"	f	typeref:typename:NTREE_DATA_TYPE *
+ntree_free	ntree/core/src/ntree.c	/^void ntree_free(ntree *tree, void (*free_data)(NTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+ntree_run_lr_post	ntree/core/src/ntree.c	/^void ntree_run_lr_post(ntree *tree, void (*func)(NTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+ntree_run_lr_pre	ntree/core/src/ntree.c	/^void ntree_run_lr_pre(ntree *tree, void (*func)(NTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+ntree_to_s	ntree/core/src/ntree.c	/^void ntree_to_s(char *dest, ntree *tree, void (*to_s)(char *, NTREE_DATA_TYPE *)) {$/;"	f	typeref:typename:void
+p1	array/test/src/test1.c	/^person p1 = { .id=1, .toto=10 };$/;"	v	typeref:typename:person
+p1	array2d/test/src/test1.c	/^person p1 = { .id=1, .toto=10 };$/;"	v	typeref:typename:person
+p1	arrayptr/test/src/test1.c	/^person p1 = { .id=1, .toto=10 };$/;"	v	typeref:typename:person
+p2	array/test/src/test1.c	/^person p2 = { .id=2, .toto=20 };$/;"	v	typeref:typename:person
+p2	array2d/test/src/test1.c	/^person p2 = { .id=2, .toto=20 };$/;"	v	typeref:typename:person
+p2	arrayptr/test/src/test1.c	/^person p2 = { .id=2, .toto=20 };$/;"	v	typeref:typename:person
+p3	array/test/src/test1.c	/^person p3 = { .id=3, .toto=30 };$/;"	v	typeref:typename:person
+p3	array2d/test/src/test1.c	/^person p3 = { .id=3, .toto=30 };$/;"	v	typeref:typename:person
+p3	arrayptr/test/src/test1.c	/^person p3 = { .id=3, .toto=30 };$/;"	v	typeref:typename:person
+p_cast	btree/test/src/person.h	/^#define p_cast(/;"	d
+p_cast	list/test/src/person.h	/^#define p_cast(/;"	d
+p_cast	ntree/test/src/person.h	/^#define p_cast(/;"	d
+p_inc_id	array/test/src/test1.c	/^void p_inc_id(void *i, void *inc) {$/;"	f	typeref:typename:void
+p_inc_id	array2d/test/src/test1.c	/^void p_inc_id(void *i, void *inc) {$/;"	f	typeref:typename:void
+p_inc_id	arrayptr/test/src/test1.c	/^void p_inc_id(void *i, void *inc) {$/;"	f	typeref:typename:void
+p_print	array/test/src/test1.c	/^void p_print(void *i ) {$/;"	f	typeref:typename:void
+p_print	array2d/test/src/test1.c	/^void p_print(void *i ) {$/;"	f	typeref:typename:void
+p_print	arrayptr/test/src/test1.c	/^void p_print(void *i ) {$/;"	f	typeref:typename:void
+person	array/test/src/test1.c	/^} person;$/;"	t	typeref:struct:__anonc0956fbb0108	file:
+person	array2d/test/src/test1.c	/^} person;$/;"	t	typeref:struct:__anon2bdff6510108	file:
+person	arrayptr/test/src/test1.c	/^} person;$/;"	t	typeref:struct:__anonf398efd10108	file:
+person	btree/test/src/person.h	/^typedef struct person {$/;"	s
+person	btree/test/src/person.h	/^} person;$/;"	t	typeref:struct:person
+person	list/test/src/person.h	/^typedef struct person {$/;"	s
+person	list/test/src/person.h	/^} person;$/;"	t	typeref:struct:person
+person	ntree/test/src/person.h	/^typedef struct person {$/;"	s
+person	ntree/test/src/person.h	/^} person;$/;"	t	typeref:struct:person
+person_cmp	btree/test/src/person.c	/^int person_cmp(person *p1, person *p2) {$/;"	f	typeref:typename:int
+person_cmp	list/test/src/person.c	/^int person_cmp(void *p1, void *p2) {$/;"	f	typeref:typename:int
+person_cmp	ntree/test/src/person.c	/^int person_cmp(person *p1, person *p2) {$/;"	f	typeref:typename:int
+person_copy	btree/test/src/person.c	/^person *person_copy(person *p) {$/;"	f	typeref:typename:person *
+person_copy	list/test/src/person.c	/^person *person_copy(person *p) {$/;"	f	typeref:typename:person *
+person_copy	ntree/test/src/person.c	/^person *person_copy(person *p) {$/;"	f	typeref:typename:person *
+person_free	btree/test/src/person.c	/^void person_free(person *p) {$/;"	f	typeref:typename:void
+person_free	list/test/src/person.c	/^void person_free(void *p) {$/;"	f	typeref:typename:void
+person_free	ntree/test/src/person.c	/^void person_free(person *p) {$/;"	f	typeref:typename:void
+person_new	array/test/src/test1.c	/^person *person_new(int id, int toto) {$/;"	f	typeref:typename:person *
+person_new	array2d/test/src/test1.c	/^person *person_new(int id, int toto) {$/;"	f	typeref:typename:person *
+person_new	btree/test/src/person.c	/^person *person_new(int id, int age, char *name, char *adress) {$/;"	f	typeref:typename:person *
+person_new	list/test/src/person.c	/^person *person_new(int id, int age, char *name, char *adress) {$/;"	f	typeref:typename:person *
+person_new	ntree/test/src/person.c	/^person *person_new(int id, int age, char *name, char *adress) {$/;"	f	typeref:typename:person *
+person_print	btree/test/src/person.c	/^void person_print(person *p) {$/;"	f	typeref:typename:void
+person_print	ntree/test/src/person.c	/^void person_print(person *p) {$/;"	f	typeref:typename:void
+person_to_json	btree/test/src/person.c	/^void person_to_json(char *dest, person *p) {$/;"	f	typeref:typename:void
+person_to_json	list/test/src/person.c	/^void person_to_json(char *dest, person *p) {$/;"	f	typeref:typename:void
+person_to_json	ntree/test/src/person.c	/^void person_to_json(char *dest, person *p) {$/;"	f	typeref:typename:void
+person_write	list/test/src/person.c	/^int person_write(void *p, void *file) {$/;"	f	typeref:typename:int
+port	config/test/ressources/config.json	/^	"port":	8080,$/;"	n
+prev	config/core/include/cJSON.h	/^    struct cJSON *prev;$/;"	m	struct:cJSON	typeref:struct:cJSON *
+print_char	memory/test/src/main.c	/^int print_char(any *s) {$/;"	f	typeref:typename:int
+print_data	btree/test/src/btree_char.c	/^void print_data(void *data) {$/;"	f	typeref:typename:void
+print_data	ntree/test/src/ntree_char.c	/^void print_data(char *data) {$/;"	f	typeref:typename:void
+print_uint32	memory/test/src/main.c	/^int print_uint32(any *s) {$/;"	f	typeref:typename:int
+right	btree/core/src/btree.h	/^	struct btree *right;$/;"	m	struct:btree	typeref:struct:btree *
+size	ntree/core/src/ntree.h	/^	size_t size;$/;"	m	struct:ntree	typeref:typename:size_t
+size_of_item	array/src/array.h	/^	size_t size_of_item;$/;"	m	struct:__anon93c64e9f0108	typeref:typename:size_t
+size_of_item	array2d/src/array2d.h	/^	size_t size_of_item;$/;"	m	struct:__anonba3eb78b0108	typeref:typename:size_t
+src	array/Makefile	/^src: $/;"	t
+src	array2d/Makefile	/^src: $/;"	t
+src	arrayptr/Makefile	/^src: $/;"	t
+str	str/core/src/str.h	/^typedef struct str {$/;"	s
+str	str/core/src/str.h	/^} str;$/;"	t	typeref:struct:str
+str_cat	str/core/src/str.c	/^str *str_cat(str *string, char *c, size_t len) {$/;"	f	typeref:typename:str *
+str_cats	str/core/src/str.c	/^str *str_cats(str *dest, str *src) {$/;"	f	typeref:typename:str *
+str_cmp	str/core/src/str.c	/^int str_cmp(void *s1, void *s2) {$/;"	f	typeref:typename:int
+str_escape	str/core/src/str.c	/^str *str_escape(str *s, const char *list, char escape_char) {$/;"	f	typeref:typename:str *
+str_free	str/core/src/str.c	/^void str_free(void *s) {$/;"	f	typeref:typename:void
+str_insert	str/core/src/str.c	/^str *str_insert(str *dest, size_t position, char *src) {$/;"	f	typeref:typename:str *
+str_insert_char	str/core/src/str.c	/^str *str_insert_char(str *s, size_t idx, char c) {$/;"	f	typeref:typename:str *
+str_inserts	str/core/src/str.c	/^str *str_inserts(str *dest, size_t position, str *src) {$/;"	f	typeref:typename:str *
+str_new	str/core/src/str.c	/^str *str_new(char *s) {$/;"	f	typeref:typename:str *
+str_normalize	str/core/src/str.c	/^str *str_normalize(str *s, char escape_char) {$/;"	f	typeref:typename:str *
+str_realloc	str/core/src/str.c	/^str *str_realloc(str *string, double coef) {$/;"	f	typeref:typename:str *
+str_remove_char	str/core/src/str.c	/^str *str_remove_char(str *s, size_t idx) {$/;"	f	typeref:typename:str *
+str_replace	str/core/src/str.c	/^str *str_replace(str *s, char *value) {$/;"	f	typeref:typename:str *
+str_set	str/core/src/str.c	/^str *str_set(str *s, char *value, size_t alloc_len) {$/;"	f	typeref:typename:str *
+str_shift	str/core/src/str.c	/^str *str_shift(str *string, size_t idx, int n) {$/;"	f	typeref:typename:str *
+str_tokenize	str/core/src/str.c	/^char **str_tokenize(str *s) {$/;"	f	typeref:typename:char **
+str_write	str/core/src/str.c	/^void str_write(void *s, FILE *file) {$/;"	f	typeref:typename:void
+string	config/core/include/cJSON.h	/^    char *string;$/;"	m	struct:cJSON	typeref:typename:char *
+tail	fifo/core/src/fifo.h	/^	container *tail;$/;"	m	struct:fifo	typeref:typename:container *
+test	array/Makefile	/^test: $/;"	t
+test	array2d/Makefile	/^test: $/;"	t
+test	arrayptr/Makefile	/^test: $/;"	t
+test/build	array/Makefile	/^test\/build: $/;"	t
+test/build	array2d/Makefile	/^test\/build: $/;"	t
+test/build	arrayptr/Makefile	/^test\/build: $/;"	t
+test/build/log1	array/Makefile	/^test\/build\/log1: .\/test\/build\/test1$/;"	t
+test/build/log1	array2d/Makefile	/^test\/build\/log1: .\/test\/build\/test1$/;"	t
+test/build/log1	arrayptr/Makefile	/^test\/build\/log1: test\/build\/test1$/;"	t
+test/build/test1	array/Makefile	/^test\/build\/test1: test\/src\/test1.c build\/array.o$/;"	t
+test/build/test1	array2d/Makefile	/^test\/build\/test1: test\/src\/test1.c build\/array2d.o$/;"	t
+test/build/test1	arrayptr/Makefile	/^test\/build\/test1: test\/src\/test1.c $/;"	t
+test/src	array/Makefile	/^test\/src: $/;"	t
+test/src	array2d/Makefile	/^test\/src: $/;"	t
+test/src	arrayptr/Makefile	/^test\/src: $/;"	t
+test1	char/test/src/main.c	/^void test1(char *line) {$/;"	f	typeref:typename:void
+test1	char/test/src/test1.c	/^void test1(char *line) {$/;"	f	typeref:typename:void
+test2	char/test/src/main.c	/^void test2(char *line) {$/;"	f	typeref:typename:void
+test2	char/test/src/test2.c	/^void test2(char *line) {$/;"	f	typeref:typename:void
+test_cat	str/test/src/test1.c	/^void test_cat() {$/;"	f	typeref:typename:void
+test_escape_normalize	str/test/src/test1.c	/^void test_escape_normalize() {$/;"	f	typeref:typename:void
+test_insert	str/test/src/test1.c	/^void test_insert() {$/;"	f	typeref:typename:void
+test_person	array/test/src/test1.c	/^void test_person() {$/;"	f	typeref:typename:void
+test_person	array2d/test/src/test1.c	/^void test_person() {$/;"	f	typeref:typename:void
+test_replace	str/test/src/test1.c	/^void test_replace() {$/;"	f	typeref:typename:void
+test_tokenize	str/test/src/test1.c	/^void test_tokenize(char *src) {$/;"	f	typeref:typename:void
+tests	btree/Makefile	/^tests: $(TBIN)\/btree_person $(TBIN)\/btree_char$/;"	t
+tests	char/Makefile	/^tests: $(TBIN)\/test1 $(TBIN)\/test2$/;"	t
+tests	cipher/Makefile	/^tests: $(TBIN)\/encode$/;"	t
+tests	config/Makefile	/^tests: $(TBIN)\/main$/;"	t
+tests	fifo/Makefile	/^tests: $(TBIN)\/main$/;"	t
+tests	list/Makefile	/^tests: $(TBIN)\/main_person $(TBIN)\/main_message$/;"	t
+tests	matrix/Makefile	/^tests: $(TBIN)\/main$/;"	t
+tests	memory/Makefile	/^tests: $(TBIN)\/main$/;"	t
+tests	ntree/Makefile	/^tests: $(TBIN)\/ntree_char $(TBIN)\/ntree_person$/;"	t
+tests	str/Makefile	/^tests: $(TBIN)\/test1$/;"	t
+toto	array/test/src/test1.c	/^	int toto;$/;"	m	struct:__anonc0956fbb0108	typeref:typename:int	file:
+toto	array2d/test/src/test1.c	/^	int toto;$/;"	m	struct:__anon2bdff6510108	typeref:typename:int	file:
+toto	arrayptr/test/src/test1.c	/^	int toto;$/;"	m	struct:__anonf398efd10108	typeref:typename:int	file:
+type	config/core/include/cJSON.h	/^    int type;$/;"	m	struct:cJSON	typeref:typename:int
+usage	config/test/src/main.c	/^void usage(char *exec) {$/;"	f	typeref:typename:void
+valuedouble	config/core/include/cJSON.h	/^    double valuedouble;$/;"	m	struct:cJSON	typeref:typename:double
+valueint	config/core/include/cJSON.h	/^    int valueint;$/;"	m	struct:cJSON	typeref:typename:int
+values	matrix/core/src/matrix.h	/^	double *values;$/;"	m	struct:matrix	typeref:typename:double *
+valuestring	config/core/include/cJSON.h	/^    char *valuestring;$/;"	m	struct:cJSON	typeref:typename:char *
+width	array2d/src/array2d.h	/^	size_t width;$/;"	m	struct:__anonba3eb78b0108	typeref:typename:size_t

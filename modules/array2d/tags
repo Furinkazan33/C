@@ -4,34 +4,43 @@
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/mathieu/C/modules/array/	//
+!_TAG_PROC_CWD	/home/mathieu/C/modules/array2d/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
-ARRAY_DECLARE	src/array.h	/^#define ARRAY_DECLARE(/;"	d
-ARRAY_FREE	src/array.h	/^#define ARRAY_FREE(/;"	d
-ARRAY_GET	src/array.h	/^#define ARRAY_GET(/;"	d
-ARRAY_GET_AS	src/array.h	/^#define ARRAY_GET_AS(/;"	d
-ARRAY_H	src/array.h	/^#define ARRAY_H$/;"	d
-ARRAY_MAP	src/array.h	/^#define ARRAY_MAP(/;"	d
-ARRAY_MAP1	src/array.h	/^#define ARRAY_MAP1(/;"	d
-ARRAY_SET	src/array.h	/^#define ARRAY_SET(/;"	d
+ARRAY2D	src/array2d.h	/^#define ARRAY2D$/;"	d
+ARRAY2D_DECLARE	src/array2d.h	/^#define ARRAY2D_DECLARE(/;"	d
+ARRAY2D_FREE	src/array2d.h	/^#define ARRAY2D_FREE(/;"	d
+ARRAY2D_GET	src/array2d.h	/^#define ARRAY2D_GET(/;"	d
+ARRAY2D_GET_AS	src/array2d.h	/^#define ARRAY2D_GET_AS(/;"	d
+ARRAY2D_MAP	src/array2d.h	/^#define ARRAY2D_MAP(/;"	d
+ARRAY2D_MAP1	src/array2d.h	/^#define ARRAY2D_MAP1(/;"	d
+ARRAY2D_MAP2	src/array2d.h	/^#define ARRAY2D_MAP2(/;"	d
+ARRAY2D_MAP_C	src/array2d.h	/^#define ARRAY2D_MAP_C(/;"	d
+ARRAY2D_MAP_C1	src/array2d.h	/^#define ARRAY2D_MAP_C1(/;"	d
+ARRAY2D_MAP_C2	src/array2d.h	/^#define ARRAY2D_MAP_C2(/;"	d
+ARRAY2D_MAP_L	src/array2d.h	/^#define ARRAY2D_MAP_L(/;"	d
+ARRAY2D_MAP_L1	src/array2d.h	/^#define ARRAY2D_MAP_L1(/;"	d
+ARRAY2D_MAP_L2	src/array2d.h	/^#define ARRAY2D_MAP_L2(/;"	d
+ARRAY2D_SET	src/array2d.h	/^#define ARRAY2D_SET(/;"	d
 CC	Makefile	/^CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
 CFLAGS	Makefile	/^CFLAGS=$/;"	m
-LDFLAGS	Makefile	/^LDFLAGS=-I src -I test\/src -L build -L \/usr\/lib64$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=-I src -I test\/src -L build$/;"	m
 TARGETS_BIN_TESTS	Makefile	/^TARGETS_BIN_TESTS=test\/build\/test1$/;"	m
-TARGETS_BUILDS	Makefile	/^TARGETS_BUILDS=build\/array.o build\/libarray.a$/;"	m
+TARGETS_BUILDS	Makefile	/^TARGETS_BUILDS=build\/array2d.o build\/libarray2d.a$/;"	m
 TARGETS_DIRS	Makefile	/^TARGETS_DIRS=build test\/build$/;"	m
 TARGETS_LOG_TESTS	Makefile	/^TARGETS_LOG_TESTS=test\/build\/log1$/;"	m
 __anon399525ed0108	test/src/test1.c	/^typedef struct {$/;"	s	file:
 all	Makefile	/^all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)$/;"	t
-array_new	src/array.c	/^array *array_new(size_t capacity, size_t size_of_item) {$/;"	f	typeref:typename:array *
-array_scale	src/array.c	/^array *array_scale(void *a, size_t new_size_of_item) {$/;"	f	typeref:typename:array *
+array2d_new	src/array2d.c	/^array2d *array2d_new(size_t height, size_t width, size_t size_of_item, void *init) {$/;"	f	typeref:typename:array2d *
+array2d_new_from_file	src/array2d.c	/^array2d *array2d_new_from_file(size_t height, size_t width, size_t size_of_item, FILE *fd) {$/;"	f	typeref:typename:array2d *
+array2d_resize	src/array2d.c	/^array2d *array2d_resize(void *a, size_t width, size_t height) {$/;"	f	typeref:typename:array2d *
+array2d_scale	src/array2d.c	/^array2d *array2d_scale(void *ar, size_t new_size_of_item) {$/;"	f	typeref:typename:array2d *
+array2d_write_to_file	src/array2d.c	/^array2d *array2d_write_to_file(void *ar, FILE *fd) {$/;"	f	typeref:typename:array2d *
 build	Makefile	/^build: $/;"	t
-build/array.o	Makefile	/^build\/array.o: src\/array.c src\/array.h$/;"	t
-build/libarray.a	Makefile	/^build\/libarray.a: build\/array.o$/;"	t
-build/libarray.so	Makefile	/^build\/libarray.so: build\/array.o$/;"	t
+build/array2d.o	Makefile	/^build\/array2d.o: src\/array2d.c src\/array2d.h$/;"	t
+build/libarray2d.a	Makefile	/^build\/libarray2d.a: build\/array2d.o$/;"	t
 clean	Makefile	/^clean:$/;"	t
 debug	Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
 debug	Makefile	/^debug: all$/;"	t
@@ -42,15 +51,15 @@ main	test/src/test1.c	/^int main(void) {$/;"	f	typeref:typename:int
 p1	test/src/test1.c	/^person p1 = { .id=1, .toto=10 };$/;"	v	typeref:typename:person
 p2	test/src/test1.c	/^person p2 = { .id=2, .toto=20 };$/;"	v	typeref:typename:person
 p3	test/src/test1.c	/^person p3 = { .id=3, .toto=30 };$/;"	v	typeref:typename:person
-p_inc_id	test/src/test1.c	/^void p_inc_id(void *i, void *inc) {$/;"	f	typeref:typename:void
-p_print	test/src/test1.c	/^void p_print(void *i ) {$/;"	f	typeref:typename:void
+p_inc_id	test/src/test1.c	/^void p_inc_id(person  *p, void *inc) {$/;"	f	typeref:typename:void
+p_print	test/src/test1.c	/^void p_print(person *p ) {$/;"	f	typeref:typename:void
 person	test/src/test1.c	/^} person;$/;"	t	typeref:struct:__anon399525ed0108	file:
 person_new	test/src/test1.c	/^person *person_new(int id, int toto) {$/;"	f	typeref:typename:person *
 src	Makefile	/^src: $/;"	t
 test	Makefile	/^test: $/;"	t
 test/build	Makefile	/^test\/build: $/;"	t
 test/build/log1	Makefile	/^test\/build\/log1: .\/test\/build\/test1$/;"	t
-test/build/test1	Makefile	/^test\/build\/test1: test\/src\/test1.c build\/array.o$/;"	t
+test/build/test1	Makefile	/^test\/build\/test1: test\/src\/test1.c build\/array2d.o$/;"	t
 test/src	Makefile	/^test\/src: $/;"	t
 test_person	test/src/test1.c	/^void test_person() {$/;"	f	typeref:typename:void
 toto	test/src/test1.c	/^	int toto;$/;"	m	struct:__anon399525ed0108	typeref:typename:int	file:
