@@ -45,6 +45,6 @@ test/build/log1: ./test/build/test1
 
 
 clean:
-	rm -f $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)
+	rm -f $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS) tags
 	rmdir $(TARGETS_DIRS) 2> /dev/null; return 0;
 

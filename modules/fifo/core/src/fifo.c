@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "fifo.h"
 
-fifo *fifo_new() {
-	fifo *f = (fifo *)malloc(sizeof(*f));
+void *fifo_new() {
+	fifo *f = malloc(sizeof(*f));
 	if(!f) {
 		perror("fifo_new : alloc failed");
 		return NULL;
@@ -14,7 +14,8 @@ fifo *fifo_new() {
 	return f;
 }
 
-fifo *fifo_push(fifo *f, FIFO_DATA_TYPE *m) {
+void *fifo_push(void *fi, void *m) {
+	fifo *f = fi;
 	container *c = malloc(sizeof(container));
 	if(!c) {
 		perror("");
@@ -38,11 +39,12 @@ fifo *fifo_push(fifo *f, FIFO_DATA_TYPE *m) {
 	return f;
 }
 
-FIFO_DATA_TYPE *fifo_pop(fifo *f) {
-	FIFO_DATA_TYPE *res;
+void *fifo_pop(void *fi) {
+	fifo *f = fi;
+	void *res;
 	container *c;
 
-	/* empty fifo */
+	/* empty void */
 	if(!f->head) {
 		return NULL;
 	}
@@ -52,7 +54,7 @@ FIFO_DATA_TYPE *fifo_pop(fifo *f) {
 	free(c);
 	f->n--;
 
-	/* empty fifo */
+	/* empty void */
 	if(!f->head) {
 		f->tail = NULL;
 	}
@@ -60,17 +62,4 @@ FIFO_DATA_TYPE *fifo_pop(fifo *f) {
 	return res;
 }
 
-void fifo_free(fifo *f, void (*free_data)(FIFO_DATA_TYPE *)) {
-	FIFO_DATA_TYPE *m;
-	container *c = f->head;
-
-	while(c) {
-		m = c->data;
-		f->head = f->head->next;
-		free_data(m);
-		free(c);
-		c = f->head;
-	}
-	free(f);
-}
 

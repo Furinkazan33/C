@@ -11,17 +11,16 @@
 
 int main(void) {
 	person *found;
-	btree *left, *right, *root;
 
 	person *p0 = person_new(0, 10, "p0", "");
 	person *p1 = person_new(1, 11, "p1", "");
 	person *p2 = person_new(2, 12, "p2", "");
 
-	left = btree_new(p1, NULL, NULL);
-	right = btree_new(p2, NULL, NULL);
-	root = btree_new(p0, left, right);
+	btree *left = btree_new(p1, NULL, NULL);
+	btree *right = btree_new(p2, NULL, NULL);
+	btree *root = btree_new(p0, left, right);
 
-	found = btree_find_lr_pre(root, person_cmp, p2);
+	found = BTREE_FIND(root, person_cmp, p2);
 
 	if(found) {
 		printf("Found : %s\n", found->name);
@@ -29,7 +28,7 @@ int main(void) {
 		printf("Not found !\n");
 	}
 
-	btree_free(root, person_free);
+	BTREE_FREE(root, person_free);
 
 	return 0;
 }

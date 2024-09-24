@@ -32,7 +32,7 @@ int main(void) {
 	printf("Asserting that fifo is empty\n");
 	assert(f->n == 0 && f->head == NULL && f->tail == NULL);
 
-	fifo_free(f, free);
+	FIFO_FREE(f, free);
 
 	return 0;
 }

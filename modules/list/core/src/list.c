@@ -77,28 +77,6 @@ list *list_next(list **ref) {
 	return *ref;
 }
 
-void list_free(list *l, void (*data_free)(void *)) {
-	assert(l);
-	assert(l->data);
-	assert(data_free);
-
-	if(data_free) {
-		data_free(l->data);
-	}
-	free(l);
-}
-
-void list_free_all(list *l, void (*data_free)(void *)) {
-	assert(l);
-	assert(data_free);
-
-	list *next = NULL;
-	for(list *p = l; p; p = next) {
-		next = p->next;
-		list_free(p, data_free);
-	}
-}
-
 list *list_copy(list *l, void *(*copy)(void *)) {
 	assert(l);
 	assert(l->data);
@@ -153,63 +131,5 @@ bool list_equal(list *l1, list *l2, bool (*eq)(void *, void *), list **e) {
 	}
 	*e = l1;
 	return true;
-}
-
-void list_map_void(list *l, void (*map)(void *)) {
-	assert(l);
-	assert(map);
-
-	list *p = l;
-
-	while(p) {
-		map(p->data);
-		p = p->next;
-	}
-}
-
-void list_map_void2(list *l, void (*map)(void *, void *), void *param) {
-	assert(l);
-	assert(map);
-
-	list *p = l;
-
-	while(p) {
-		map(p->data, param);
-		p = p->next;
-	}
-}
-
-int list_map(list *l, int (*map)(void *)) {
-	assert(l);
-	assert(map);
-
-	list *p = l;
-	int rc;
-
-	while(p) {
-		rc = map(p->data);
-		if(!rc) {
-			return rc;
-		}
-		p = p->next;
-	}
-	return 1;
-}
-
-int list_map2(list *l, int (*map)(void *, void *), void *param) {
-	assert(l);
-	assert(map);
-
-	list *p = l;
-	int rc;
-
-	while(p) {
-		rc = map(p->data, param);
-		if(!rc) {
-			return rc;
-		}
-		p = p->next;
-	}
-	return 1;
 }
 

@@ -8,12 +8,12 @@
 
 void foo(__attribute__((unused)) void *data) {}
 
-void print_data(void *data) {
-	printf("%s-", (char *)data);
+void print_data(char *data) {
+	printf("%s-", data);
 }
 
-int compare(void *d1, void *d2) {
-	return strcmp((char *)d1, (char *)d2);
+int compare(char *d1, char *d2) {
+	return strcmp(d1, d2);
 }
 
 int main(void) {
@@ -24,13 +24,13 @@ int main(void) {
 	btree *t2 = btree_new(c2, NULL, NULL);
 	btree *root = btree_new(c0, t1, t2);
 
-	btree_run_lr_inf(root, print_data);
+	BTREE_MAP(root, print_data);
 
 	puts("");
 
-	printf("Found : %s\n", (char *)btree_find_lr_pre(root, compare, "root"));
+	printf("Found : %s\n", (char *) BTREE_FIND(root, compare, "root"));
 
-	btree_free(root, foo);
+	BTREE_FREE(root, NULL);
 
 	return 0;
 }

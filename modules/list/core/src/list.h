@@ -1,14 +1,22 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct list {
-	void *data;
-	struct list *next;
-} list;
+#ifndef LIST_H
+#define LIST_Ha
+
+#define LIST_DECLARE(type, name) typedef struct name { type *data; struct name *next; } name
+
+LIST_DECLARE(void, list);
+
+#define LIST_MAP(l, f) { while(l) { f(l->data); l = l->next; } }
+#define LIST_MAP1(l, f, arg) { list *__tmp = l; while(__tmp) { f(__tmp->data, arg); __tmp = __tmp->next; } }
+
+#define LIST_FREE(l, func) func(((list *)l)->data); free(l)
+#define LIST_FREE_ALL(l, func) { list *__n = NULL; for(list *p = l; p; p = __n) { __n = p->next; LIST_FREE(p, func); } }
+#endif
 
 
 list *list_new(void *data);
-
 list *list_tail(list *l);
 list *list_insert_before(list *l, void *data);
 list *list_insert_after(list *l, void *data);
@@ -22,13 +30,5 @@ list *list_next(list **ref);
 list *list_copy(list *l, void *(*copy)(void *));
 /* compare l1 to l2. l1 can be longer than l2 */
 bool list_equal(list *l1, list *l2, bool (*eq)(void *, void *), list **e);
-void list_map_void(list *l, void (*map)(void *));
-void list_map_void2(list *l, void (*map)(void *, void *), void *param);
-int list_map(list *l, int (*map)(void *));
-int list_map2(list *l, int (*map)(void *, void *), void *param);
-
-/* free */
-void list_free(list *l, void (*data_free)(void *));
-void list_free_all(list *l, void (*data_free)(void *));
 
 

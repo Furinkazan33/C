@@ -1,16 +1,5 @@
 
 
-typedef enum char_type {
-	CT_NONE = 0,
-	CT_SEPARATOR,
-	CT_BLANK,
-		CT_SPACE,
-		CT_TAB,
-		CT_NEWLINE,
-	CT_IGNORE,
-	CT_WORD,
-} char_type;
-
 /*
  * Functions with no mopdification of curent cursor position
  * */

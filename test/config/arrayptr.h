@@ -18,10 +18,10 @@
 #define ARRAYPTR_GET_AS(a, i, type) (type *)(a->items[i])
 
 #define ARRAYPTR_FREE(a) free(a->items); free(a)
-#define ARRAYPTR_FREE_F(a, f) FOR(i, 0, a->count, f((void *)(a->items[i]));); free(a->items); free(a)
+#define ARRAYPTR_FREE_F(a, f) FOR(i, 0, a->count, f(a->items[i]);); free(a->items); free(a)
 
-#define ARRAYPTR_MAP(a, f) FOR(i, 0, a->count, f((void *)(a->items[i]));)
-#define ARRAYPTR_MAP1(a, f, arg) FOR(i, 0, a->count, f((void *)(a->items[i]), arg);)
+#define ARRAYPTR_MAP(a, f) FOR(i, 0, a->count, f(a->items[i]);)
+#define ARRAYPTR_MAP1(a, f, arg) FOR(i, 0, a->count, f(a->items[i], arg);)
 
 ARRAYPTR_DECLARE(void, arrayptr);
 

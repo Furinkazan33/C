@@ -5,19 +5,21 @@
 
 
 
-void test2(char *line) {
+void test2() {
+	char *line = malloc(sizeof(char) * 128);
 	strcpy(line, "un petit      oiseau bleu.");
 	char *start = line;
 	char *p = start;
 
-	puts("Test de suppression d'un mot");
+	printf("newline=%s\n", line);
 
-	printf("%s \n", p);
+	puts("déplacement sur petit");
 	p = char_eow_r(p);
 	p = char_eow_r(p);
 	p = char_bow_r(start, p);
 	printf("%s \n", p);
 
+	puts("daw");	
 	char_daw(start, p);
 	printf("%s \n", p);
 
@@ -26,18 +28,19 @@ void test2(char *line) {
 	printf("%s \n", p);
 
 	strcpy(line, "un petit      oiseau bleu.");
-	printf("%s \n", line);
 	p = &line[10];
+	printf("newline=[%s], position on [%s]\n", line, p);
+	puts("daw");
 	char_daw(start, p);
 	printf("%s \n", line);
+	free(line);
 }
 
 
 
 int main(void) {
-	char *line = malloc(sizeof(char) * 128);
 
-	test2(line);
+	test2();
 
 	return 0;
 }

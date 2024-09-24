@@ -1,25 +1,37 @@
 #include <stdlib.h>
 
-#ifndef FIFO_DATA_TYPE
-	#define FIFO_DATA_TYPE void
+#ifndef FIFO_h
+#define FIFO_h
+
+#define FIFO_DECLARE(data_type, fifo_name, container_name) typedef struct container_name {\
+	data_type *data;\
+	struct container_name *next;\
+} container_name;\
+typedef struct fifo_name {\
+	size_t n;\
+	container_name *head;\
+	container_name *tail;\
+} fifo_name
+
+#define FIFO_FREE(fi, func) { \
+	fifo *f = fi; \
+	container *c = f->head; \
+	while(c) { \
+		f->head = f->head->next;\
+		func(c->data);\
+		free(c);\
+		c = f->head;\
+	}\
+	free(f); \
+}
+
+
+FIFO_DECLARE(void, fifo, container);
+
 #endif
 
-typedef struct container {
-	FIFO_DATA_TYPE *data;
-	struct container *next;
-} container;
 
-
-typedef struct fifo {
-	size_t n;
-	container *head;
-	container *tail;
-} fifo;
-
-
-fifo *fifo_new();
-void fifo_free(fifo *f, void (*free_data)(FIFO_DATA_TYPE *));
-
-fifo *fifo_push(fifo *f, FIFO_DATA_TYPE *m);
-FIFO_DATA_TYPE *fifo_pop(fifo *f);
+void *fifo_new();
+void *fifo_push(void *f, void *m);
+void *fifo_pop(void *f);
 

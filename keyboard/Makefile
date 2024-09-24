@@ -1,7 +1,3 @@
-
-#
-# Compiler flags
-#
 CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)
 CFLAGS=-I $(CINC) -I $(CSRC)
 LDFLAGS=-L $(CLIB) -L $(CBUILD)

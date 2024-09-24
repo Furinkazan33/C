@@ -23,21 +23,21 @@
 ARRAY2D_DECLARE(char, array2d);
 
 #define ARRAY2D_FREE(a) free(a->items); free(a)
-#define ARRAY2D_SET(a, l, c, v) memcpy(a->items + (l * a->width + c) * a->size_of_item, v, a->size_of_item)
-#define ARRAY2D_GET(a, l, c) a->items + l * a->width + c
-#define ARRAY2D_GET_AS(a, l, c, type) (type *)(a->items + l * a->width + c)
+#define ARRAY2D_SET(a, l, c, v) memcpy(((char *)a->items) + (l * a->width + c) * a->size_of_item, v, a->size_of_item)
+#define ARRAY2D_GET(a, l, c) (void *)(((char *)a->items) + l * a->width + c)
+#define ARRAY2D_GET_AS(a, l, c, type) (type *)(((char *)a->items) + l * a->width + c)
 
-#define ARRAY2D_MAP(a, f) FOR(i, 0, a->capacity, f(a->items + i * a->size_of_item);)
-#define ARRAY2D_MAP1(a, f, arg) FOR(i, 0, a->capacity, f(a->items + i * a->size_of_item, arg);)
-#define ARRAY2D_MAP2(a, f, arg1, arg2) FOR(i, 0, a->capacity, f(a->items + i * a->size_of_item, arg1, arg2);)
+#define ARRAY2D_MAP(a, f) FOR(i, 0, a->capacity, f((void *)(((char *)a->items) + i * a->size_of_item));)
+#define ARRAY2D_MAP1(a, f, arg) FOR(i, 0, a->capacity, f((void *)(((char *)a->items) + i * a->size_of_item), arg);)
+#define ARRAY2D_MAP2(a, f, arg1, arg2) FOR(i, 0, a->capacity, f((void *)(((char *)a->items) + i * a->size_of_item), arg1, arg2);)
 
-#define ARRAY2D_MAP_L(a, l, f) FOR(c, 0, a->width, f(a->items + a->size_of_item * (l * a->width + c));)
-#define ARRAY2D_MAP_L1(a, l, f, arg) FOR(c, 0, a->width, f(a->items + a->size_of_item * (l * a->width + c), arg);)
-#define ARRAY2D_MAP_L2(a, l, f, arg1, arg2) FOR(c, 0, a->width, f(a->items + a->size_of_item * (l * a->width + c), arg1, arg2);)
+#define ARRAY2D_MAP_L(a, l, f) FOR(c, 0, a->width, f((void *)(((char *)a->items) + a->size_of_item * (l * a->width + c)));)
+#define ARRAY2D_MAP_L1(a, l, f, arg) FOR(c, 0, a->width, f((void *)(((char *)a->items) + a->size_of_item * (l * a->width + c)), arg);)
+#define ARRAY2D_MAP_L2(a, l, f, arg1, arg2) FOR(c, 0, a->width, f((void *)(((char *)a->items) + a->size_of_item * (l * a->width + c)), arg1, arg2);)
 
-#define ARRAY2D_MAP_C(a, c, f) FOR(l, 0, a->height, f(a->items + a->size_of_item * (l * a->width + c));)
-#define ARRAY2D_MAP_C1(a, c, f, arg) FOR(l, 0, a->height, f(a->items + a->size_of_item * (l * a->width + c), arg);)
-#define ARRAY2D_MAP_C2(a, c, f, arg1, arg2) FOR(l, 0, a->height, f(a->items + a->size_of_item * (l * a->width + c), arg1, arg2);)
+#define ARRAY2D_MAP_C(a, c, f) FOR(l, 0, a->height, f((void *)(((char *)a->items) + a->size_of_item * (l * a->width + c)));)
+#define ARRAY2D_MAP_C1(a, c, f, arg) FOR(l, 0, a->height, f((void *)(((char *)a->items) + a->size_of_item * (l * a->width + c)), arg);)
+#define ARRAY2D_MAP_C2(a, c, f, arg1, arg2) FOR(l, 0, a->height, f((void *)(((char *)a->items) + a->size_of_item * (l * a->width + c)), arg1, arg2);)
 
 #endif
 

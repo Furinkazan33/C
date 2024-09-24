@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
-#include <stdbool.h>
+#include <ctype.h>
 #include "char.h"
 
 
@@ -18,63 +18,31 @@
  *
  * */
 
-char *char_separators = " &~#{([-|`@)]=}+$%*?;.:/!<>'\\\"\t\n\r\b";
-char *char_blanks = " \t\n\r\b";
-
-
-
-/*
- * helpers
- * */
-
-
-char_type char_get_type(char c) {
-	if(strchr(char_separators, c)) {
-		return CT_SEPARATOR;
-	}
-	if(strchr(char_blanks, c)) {
-		return CT_BLANK;
-	}
-	return CT_WORD;
+int char_is_word(int c) {
+	return c == '_' || islower(c) || isupper(c);
 }
 
-bool char_is_blank(char c) {
-	return char_get_type(c) == CT_BLANK;
-}
-
-bool char_is_word(char c) {
-	return char_get_type(c) == CT_WORD;
-}
-
-bool char_is_separator(char c) {
-	return char_get_type(c) == CT_SEPARATOR;
+int char_is_separator(int c) {
+	return !char_is_word(c) && !isspace(c);
 }
 
 /* on the last char of a word */
-bool char_is_eow(char *p) {
+int char_is_eow(char *p) {
 	assert(p);
 
-	if(!char_is_word(*p)) {
-		return false;
-	}
-	if(char_is_word(*(p+1))) {
-		return false;
-	}
-	return true;
+	if(!char_is_word(*p)) { return 0; }
+	if(char_is_word(*(p+1))) { return 0; }
+	return 1;
 }
 
 /* on the first char of the word */
-bool char_is_bow(char *s, char *c) {
+int char_is_bow(char *s, char *c) {
 	assert(s);
 	assert(c);
 
-	if(!char_is_word(*c)) {
-		return false;
-	}
-	if(c-1 >= s && char_is_word(*(c-1))) {
-		return false;
-	}
-	return true;
+	if(!char_is_word(*c)) { return 0; }
+	if(c-1 >= s && char_is_word(*(c-1))) { return 0; }
+	return 1;
 }
 
 
@@ -84,74 +52,58 @@ bool char_is_bow(char *s, char *c) {
  *
  * */
 
-char *char_ignore(char *s, char *p, int step) {
+char *char_ignore_left(char *s, char *p) {
+	assert(s);
 	assert(p);
-
-	char *res = p;
-	bool (*_is_)(char) = NULL;
-
-	if(char_is_blank(*p)) {
-		_is_ = char_is_blank;
-	}
-	else if(char_is_word(*p)) {
-		_is_ = char_is_word;
-	}
-
-	while(*res && res >= s && _is_(*res)) {
-		res+=step;
-	}
-	return res;
+	int (*_is_)(int) = NULL;
+	if(isspace(*p)) { _is_ = isspace; }
+	else if(char_is_word(*p)) { _is_ = char_is_word; }
+	else if(char_is_separator(*p)) { _is_ = char_is_separator; }
+	while(*p && p > s && _is_(*p)) { p--; }
+	return p;
 }
+
+char *char_ignore_right(char *p) {
+	assert(p);
+	int (*_is_)(int) = NULL;
+	if(isspace(*p)) { _is_ = isspace; }
+	else if(char_is_word(*p)) { _is_ = char_is_word; }
+	else if(char_is_separator(*p)) { _is_ = char_is_separator; }
+	while(*p && _is_(*p)) { p++; }
+	return p;
+}
+
 
 
 /* first char of current eword */
 char *char_bow(char *s, char *p) {
-	assert(s);
 	assert(p);
 
-	char *res = NULL;
-
-	if(p == s || char_is_separator(*p)) {
-		return p;
+	if(char_is_separator(*p)) {
+		while(p != s && char_is_separator(*p)) p--;
+		if(p != s) p++;
 	}
-	if(char_is_blank(*p)) {
-		res = char_ignore(s, res, -1);
-		res = char_ignore(s, res, -1);
+	else if(isspace(*p)) {
+		while(p != s && isspace(*p)) p--;
+		if(p != s) return char_bow(s, p);
 	}
-	else if(char_is_word(*res)) {
-		res = char_ignore(s, res, -1);
+	else if(char_is_word(*p)) {
+		while(p != s && char_is_word(*p)) p--;
+		if(p != s) p++;
 	}
-
-	if(res != s) {
-		res++;
-	}
-
-	return res;
+	return p;
 }
 
 /* last char of current eword */
 char *char_eow(char *c) {
-	char *res = c;
-
-	if(char_is_blank(*res)) {
-		res = char_ignore(NULL, res, 1);
-
-		if(char_is_word(*res)) {
-			res = char_ignore(NULL, res, 1);
-		}
+	if(isspace(*c)) {
+		c = char_ignore_right(c);
+		if(char_is_word(*c)) { c = char_ignore_right(c); }
 	}
+	else if(char_is_word(*c)) {  c = char_ignore_right(c); }
+	else if(char_is_separator(*c)) { c++; }
 
-	else if(char_is_word(*res)) {
-		res = char_ignore(NULL, res, 1);
-	}
-
-	else if(char_is_separator(*res)) {
-		res++;
-	}
-
-	res--;
-
-	return res;
+	return --c;
 }
 
 /* like char_bow, moving to the previous word when already at the bow */
@@ -181,9 +133,9 @@ char *char_eow_r(char *c) {
 
 /* first space char */
 char *char_bos(char *start, char *c) {
-	assert(char_is_blank(*c));
+	assert(isspace(*c));
 
-	char *res = char_ignore(start, c, -1);
+	char *res = char_ignore_left(start, c);
 
 	if(res != start) {
 		res++;
@@ -193,9 +145,9 @@ char *char_bos(char *start, char *c) {
 
 /* last space char */
 char *char_eos(char *c) {
-	assert(char_is_blank(*c));
+	assert(isspace(*c));
 
-	char *res = char_ignore(NULL, c, 1);
+	char *res = char_ignore_right(c);
 	res--;
 
 	return res;
@@ -210,20 +162,18 @@ char *char_eos(char *c) {
  * */
 
 void char_delete_range(char *from, char *to) {
-	char *tmp = NULL;
-	if(from < to) {
-		tmp = from;
+	if(from > to) {
+		char *tmp = from;
 		from = to;
 		to = tmp;
 	}
-
-	memcpy(from, to + 1, strlen(to));
+	memcpy(from, to, strlen(to) + 1);
 }
 
 /* Delete just the current word */
 void char_dw(char *s, char *c) {
 	assert(s);
-	assert(c);
+	assert(char_is_word(*c));
 
 	char *from = char_bow(s, c);
 	char *to = char_eow(c);
@@ -238,7 +188,7 @@ int char_daw(char *start, char *c) {
 	char *res = c;
 	char *from, *to;
 
-	if(char_is_blank(*res)) {
+	if(isspace(*res)) {
 		from = char_bos(start, c);
 		to = char_eow(c);
 		to++;
@@ -247,7 +197,7 @@ int char_daw(char *start, char *c) {
 		from = char_bow(start, c);
 		to = char_eow(c);
 		to++;
-		if(char_is_blank(*to)) {
+		if(isspace(*to)) {
 			to = char_eos(to);
 			to++;
 		}

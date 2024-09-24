@@ -25,9 +25,9 @@ int main(void) {
 	p = list_insert_after(p, p6);
 	p = list_insert_after(p, p5);
 
-	list_map2(l, person_write, stdout);
+	LIST_MAP1(l, person_write, stdout);
 
-	list_free_all(l, person_free);
+	LIST_FREE_ALL(l, person_free);
 
 	return 0;
 }

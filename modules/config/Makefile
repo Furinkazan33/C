@@ -23,9 +23,7 @@ tests: $(TBIN)/main
 execs: $(TLOG)/main.log
 
 
-#
 # Folders creations
-#
 $(CBUILD):
 	test -d $(CBUILD) || mkdir -p $(CBUILD)
 
@@ -36,30 +34,20 @@ $(TLOG):
 	test -d $(TLOG) || mkdir -p $(TLOG)
 
 
-#
 # Main builds
-#
 $(CBUILD)/config.o: $(CSRC)/config.c $(CSRC)/config.h ./Makefile
-	$(CC) $(CFLAGS) -c $(CSRC)/config.c \
-			$(LDFLAGS) -lcjson \
-			-o $@
+	$(CC) $(CFLAGS) -c $(CSRC)/config.c $(LDFLAGS) -lcjson -o $@
 
 $(CBUILD)/libconfig.a: $(CBUILD)/config.o
 	ar ruv $(CBUILD)/libconfig.a $(CBUILD)/config.o
 	ranlib $(CBUILD)/libconfig.a
 
 
-#
 # Tests compilations
-#
 $(TBIN)/main: $(CBUILD)/libconfig.a
-	$(CC) $(CFLAGS) $(TSRC)/main.c \
-			$(LDFLAGS) -lconfig -lcjson \
-			-o $@
+	$(CC) $(CFLAGS) $(TSRC)/main.c $(LDFLAGS) -lconfig -lcjson -o $@
 
-#
 # Tests executions
-#
 $(TLOG)/main.log: $(TBIN)/main
 	@echo "########## Testing config #################"
 	rm -f $(TRES)/config.json2
@@ -67,9 +55,7 @@ $(TLOG)/main.log: $(TBIN)/main
 	@echo "########## end testing config #############"
 
 
-#
 # Cleaning
-#
 clean:
 	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
 	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi

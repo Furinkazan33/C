@@ -21,9 +21,9 @@ int main(void) {
 		}
 	}
 
-	list_map2(l, message_write, stdout);
+	LIST_MAP1(l, message_write, stdout);
 
-	list_free_all(l, message_free);
+	LIST_FREE_ALL(l, message_free);
 
 	return 0;
 }
