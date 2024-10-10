@@ -3,9 +3,8 @@ CFLAGS=-I $(CSRC) -I $(TSRC)
 LDFLAGS=-L $(CBUILD)
 
 
-DIR_CORE=./core
-CSRC=$(DIR_CORE)/src
-CBUILD=$(DIR_CORE)/build
+CSRC=src
+CBUILD=build
 
 DIR_TEST=./test
 TSRC=$(DIR_TEST)/src
@@ -24,13 +23,13 @@ debug: all
 
 
 $(CBUILD):
-	test -d $(CBUILD) || mkdir -p $(CBUILD)
+	test -d @ || mkdir -p $@
 
 $(TBIN):
-	test -d $(TBIN) || mkdir -p $(TBIN)
+	test -d @ || mkdir -p $@
 
 $(TLOG):
-	test -d $(TLOG) || mkdir -p $(TLOG)
+	test -d @ || mkdir -p $@
 
 
 $(CBUILD)/str.o: $(CSRC)/str.c $(CSRC)/str.h ./Makefile
@@ -45,7 +44,7 @@ $(TBIN)/test1: $(CBUILD)/str.o $(TSRC)/test1.c
 	$(CC) $(CFLAGS) $(TSRC)/test1.c $(LDFLAGS) -lstr -o $@
 
 $(TLOG)/test1: $(TBIN)/test1
-	$(TBIN)/test1  # > $(TLOG)/test1
+	$(TBIN)/test1  > $(TLOG)/test1 || exit 1
 
 
 clean:

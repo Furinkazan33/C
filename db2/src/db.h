@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
-#include "parray.h"
+#include "arrayptr.h"
 #include "str.h"
 
 /*
@@ -40,8 +40,8 @@ typedef struct db_base {
 	char name[DB_MAX_NAME_LEN];
 	char comment[DB_MAX_COMMENT_LEN];
 	int current_id;
-	parray *cols;	// array of db_col
-	parray *lines;	// array of array of void *
+	arrayptr *cols;	// array of db_col
+	arrayptr *lines;	// array of array of void *
 } db_base;
 
 
@@ -51,18 +51,18 @@ typedef struct db_base {
 db_base *db_new(size_t a_cols, size_t a_lines, char *name, char *comment);
 db_base *db_new_with_id(size_t a_cols, size_t a_lines, char *name, char *comment);
 db_base *db_col_add(db_base *db, bool mandatory, bool unique, int type, char *name, char *comment);
-parray *db_line_new(db_base *db);
-parray *db_line_new_with_id(db_base *db);
+arrayptr *db_line_new(db_base *db);
+arrayptr *db_line_new_with_id(db_base *db);
 
 
 /*
  * Accessors
  */
 int db_get_type(db_base *db, size_t c);
-parray *db_get(db_base *db, int id);
-parray *db_find(db_base *db, parray *search, int (*cmp)(void *, void *));
-parray *db_find_all(db_base *db, parray *search, int (*cmp)(void *, void *), size_t init_alloc);
-parray *db_find_by_id(db_base *db, int id);
+arrayptr *db_get(db_base *db, int id);
+arrayptr *db_find(db_base *db, arrayptr *search, int (*cmp)(void *, void *));
+arrayptr *db_find_all(db_base *db, arrayptr *search, int (*cmp)(void *, void *), size_t init_alloc);
+arrayptr *db_find_by_id(db_base *db, int id);
 
 
 /*
@@ -75,10 +75,10 @@ int db_cmp_id(void *id1, void *id2);
  * Modifiers
  */
 void db_set_cmp(db_base *db, int (*cmp)(void *, void *));
-db_base *db_insert(db_base *res, parray *line);
+db_base *db_insert(db_base *res, arrayptr *line);
 /* set value by reference. In case of strings, set string->alloc_len */
-db_base *db_line_set(db_base *db, parray *line, size_t c, int type, void *value, size_t alloc_len);
-db_base *db_line_set_null(db_base *db, parray *line, size_t c, int type);
+db_base *db_line_set(db_base *db, arrayptr *line, size_t c, int type, void *value, size_t alloc_len);
+db_base *db_line_set_null(db_base *db, arrayptr *line, size_t c, int type);
 /* remove NULL lines */
 void db_remove_nulls(db_base *db);
 /* resize to a_lines * new_coef if n_lines < a_lines * coef */
@@ -89,8 +89,8 @@ void db_delete(db_base *db, size_t l, bool keep_null);
 /*
  * free functions
  */
-void db_line_col_free(db_base *db, parray *line, size_t c);
-void db_line_free(db_base *db, parray *line);
+void db_line_col_free(db_base *db, arrayptr *line, size_t c);
+void db_line_free(db_base *db, arrayptr *line);
 void db_free(db_base *db);
 
 

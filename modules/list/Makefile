@@ -7,9 +7,8 @@ LDFLAGS=-I $(CSRC) -I $(TSRC)
 #
 
 
-DIR_CORE=./core
-CSRC=$(DIR_CORE)/src
-CBUILD=$(DIR_CORE)/build
+CSRC=src
+CBUILD=build
 
 DIR_TEST=./test
 TSRC=$(DIR_TEST)/src

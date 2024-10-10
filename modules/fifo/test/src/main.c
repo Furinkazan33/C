@@ -24,7 +24,7 @@ int main(void) {
 	m = fifo_pop(f);
 
 	while(m) {
-		//message_print(m);
+		message_print(m);
 		free(m);
 		m = fifo_pop(f);
 	}
@@ -32,7 +32,7 @@ int main(void) {
 	printf("Asserting that fifo is empty\n");
 	assert(f->n == 0 && f->head == NULL && f->tail == NULL);
 
-	FIFO_FREE(f, free);
+	free(f);
 
 	return 0;
 }

@@ -10,7 +10,7 @@ TARGETS_LOG_TESTS=test/build/log1
 
 
 all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)
-dirs: src test test/src extern $(TARGETS_DIRS)
+dirs: src test test/src $(TARGETS_DIRS)
 
 
 debug: CFLAGS += -DDEBUG
@@ -22,8 +22,6 @@ test:
 	[ -d $@ ] || mkdir $@
 test/src: 
 	[ -d $@ ] || mkdir $@
-extern: 
-	[ -d $@ ] || mkdir $@
 build: 
 	[ -d $@ ] || mkdir $@
 test/build: 
@@ -31,7 +29,7 @@ test/build:
 
 
 build/array.o: src/array.c src/array.h
-	ctags -R
+	ctags src/array.h -lc --declarations --global --defines -o tags
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
 build/libarray.a: build/array.o

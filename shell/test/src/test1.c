@@ -32,29 +32,19 @@ int main(void) {
 
 	char *cmd;
 	char **cmds;
-	size_t n;
 
     while(1) {
-
 		cmd = read_cmd();
 
-		if(strlen(cmd) >= 1) {
+		if(strlen(cmd) > 0) {
 			print_ps1(ps1);
 
-			cmds = split(cmd, &n);
+			cmds = split(cmd);
 
-
-			int rc = execute(cmds[0], &cmds[1], n - 1);
-
-			if(rc == SHELL_RC_EXIT) {
+			if (execute(cmds) == SHELL_RC_EXIT) {
 				return 0;
 			}
-
-			/* free */
-			for(size_t i = 0; i < n; i++) {
-				free(cmds[i]);
-			}
-			free(cmds);
+			cmds_free(cmds);
 		}
 
 		print_ps1(ps1);
@@ -62,12 +52,12 @@ int main(void) {
 		free(cmd);
 	}
 
-    /*
+	/*
 	 * restore old settings
 	 * */
-    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 
-    return 0;
+	return 0;
 }
 
 

@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 
 	if(!fb_save(buf, argv[2])) { return 1; }
 
-	fb_write(buf, stdout);
+	fb_write(stdout, buf);
 
 	fb_free(buf);
 

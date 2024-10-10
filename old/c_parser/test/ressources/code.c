@@ -15,9 +15,10 @@
 int glob;
 int glob_ass = 3;
 
+/*
 const int glob_const;
 const int glob_const_ass = 3;
-
+*/
 
 int add1(int a) {
 	return a + 1;

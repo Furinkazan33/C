@@ -14,13 +14,13 @@ db_base *db_new(size_t a_cols, size_t a_lines, char *name, char *comment) {
 		perror("db_new : arror alloc base");
 		return NULL;
 	}
-	res->cols = parray_new(a_cols);
+	res->cols = arrayptr_new(a_cols);
 	if(!res->cols) {
 		fprintf(stderr, "db_new : error alloc types\n");
 		return NULL;
 	}
 
-	res->lines = parray_new(a_lines);
+	res->lines = arrayptr_new(a_lines);
 	if(!res->lines) {
 		fprintf(stderr, "db_new : error alloc lines\n");
 		return NULL;
@@ -40,13 +40,13 @@ db_base *db_new_with_id(size_t a_cols, size_t a_lines, char *name, char *comment
 		perror("db_new : arror alloc base");
 		return NULL;
 	}
-	res->cols = parray_new(a_cols);
+	res->cols = arrayptr_new(a_cols);
 	if(!res->cols) {
 		fprintf(stderr, "db_new : error alloc types\n");
 		return NULL;
 	}
 
-	res->lines = parray_new(a_lines);
+	res->lines = arrayptr_new(a_lines);
 	if(!res->lines) {
 		fprintf(stderr, "db_new : error alloc lines\n");
 		return NULL;
@@ -82,13 +82,13 @@ db_col *db_col_new(bool mandatory, bool unique, int type, char *name, char *comm
 	return res;
 }
 
-parray *db_line_new(db_base *db) {
+arrayptr *db_line_new(db_base *db) {
 	if(!db) {
 		return NULL;
 	}
 	assert(db->cols->count > 0);
 
-	parray *res = parray_new(db->cols->capacity);
+	arrayptr *res = arrayptr_new(db->cols->capacity);
 	if(!res) {
 		fprintf(stderr, "db_line_new : line creation failed");
 		return NULL;
@@ -100,19 +100,19 @@ parray *db_line_new(db_base *db) {
 #endif
 
 	for(size_t c = 0; c < db->cols->count; c++) {
-		parray_append(res, NULL);
+		arrayptr_append(res, NULL);
 	}
 
 	return res;
 }
 
-parray *db_line_new_with_id(db_base *db) {
+arrayptr *db_line_new_with_id(db_base *db) {
 	if(!db) {
 		return NULL;
 	}
 	assert(db->cols->count > 0);
 
-	parray *res = parray_new(db->cols->capacity);
+	arrayptr *res = arrayptr_new(db->cols->capacity);
 	if(!res) {
 		fprintf(stderr, "db_line_new : line creation failed");
 		return NULL;
@@ -129,10 +129,10 @@ parray *db_line_new_with_id(db_base *db) {
 		return NULL;
 	}
 	*id = db->current_id++;
-	parray_append(res, id);
+	arrayptr_append(res, id);
 
 	for(size_t c = 1; c < db->cols->count; c++) {
-		parray_append(res, NULL);
+		arrayptr_append(res, NULL);
 	}
 
 	return res;
@@ -154,16 +154,16 @@ int db_get_type(db_base *db, size_t c) {
 }
 
 
-parray *db_find(db_base *db, parray *search, int (*cmp)(void *, void *)) {
-	return parray_find(db->lines, search);
+arrayptr *db_find(db_base *db, arrayptr *search, int (*cmp)(void *, void *)) {
+	return arrayptr_find(db->lines, search);
 }
 
 int db_cmp_id(void *id1, void *id2) {
 	return *(int *)id1 - *(int *)id2;
 }
 
-parray *db_find_by_id(db_base *db, int id) {
-	parray *search = db_line_new(db);
+arrayptr *db_find_by_id(db_base *db, int id) {
+	arrayptr *search = db_line_new(db);
 	if(!search) {
 		fprintf(stderr, "db_find_by_id : call to db_line_new returned NULL\n");
 		return NULL;
@@ -180,15 +180,15 @@ parray *db_find_by_id(db_base *db, int id) {
 		return NULL;
 	}
 
-	parray *res = db_find(db, search, db_cmp_id);
+	arrayptr *res = db_find(db, search, db_cmp_id);
 
 	db_line_free(db, search);
 
 	return res;
 }
 
-parray *db_find_all(db_base *db, parray *search, int (*cmp)(void *, void *), size_t init_alloc) {
-	return parray_find_all(db->lines, search, init_alloc);
+arrayptr *db_find_all(db_base *db, arrayptr *search, int (*cmp)(void *, void *), size_t init_alloc) {
+	return arrayptr_find_all(db->lines, search, init_alloc);
 }
 
 /*
@@ -199,7 +199,7 @@ db_base *db_col_add(db_base *db, bool mandatory, bool unique, int type, char *na
 	if(!db) {
 		return NULL;
 	}
-	parray *line = NULL;
+	arrayptr *line = NULL;
 	db_col *col = db_col_new(mandatory, unique, type, name, comment);
 	if(!col) {
 		fprintf(stderr, "db_col_add : error creating col\n");
@@ -210,7 +210,7 @@ db_base *db_col_add(db_base *db, bool mandatory, bool unique, int type, char *na
 	fprintf(stdout, "db_col_add : appending col [%s] to db\n", name);
 	fflush(stdout);
 #endif
-	if(!parray_append(db->cols, col)) {
+	if(!arrayptr_append(db->cols, col)) {
 		fprintf(stderr, "db_col_add : error adding column\n");
 		return NULL;
 	}
@@ -222,7 +222,7 @@ db_base *db_col_add(db_base *db, bool mandatory, bool unique, int type, char *na
 #endif
 	for(size_t l = 0; l < db->lines->count; l++) {
 		line = db->lines->items[l];
-		if(!parray_append(line, NULL)) {
+		if(!arrayptr_append(line, NULL)) {
 			fprintf(stderr, "db_col_add : error adding NULL value for line %ld\n", l);
 			return NULL;
 		}
@@ -232,7 +232,7 @@ db_base *db_col_add(db_base *db, bool mandatory, bool unique, int type, char *na
 }
 
 //TODO check required fields
-db_base *db_insert(db_base *res, parray *line) {
+db_base *db_insert(db_base *res, arrayptr *line) {
 	if(!res) {
 		fprintf(stderr, "db_insert : NULL parameter\n");
 		return NULL;
@@ -243,7 +243,7 @@ db_base *db_insert(db_base *res, parray *line) {
 	fprintf(stdout, "db_insert : appending line to db\n");
 	fflush(stdout);
 #endif
-	if(!parray_append(res->lines, line)) {
+	if(!arrayptr_append(res->lines, line)) {
 		fprintf(stderr, "db_insert : error adding element\n");
 		return NULL;
 	}
@@ -269,7 +269,7 @@ db_col *db_col_assert_type(db_base *db, size_t c, int type) {
 }
 
 /* free possible existing value and set new value by reference */
-db_base *db_line_set(db_base *db, parray *line, size_t c, int type, void *value, size_t alloc_len) {
+db_base *db_line_set(db_base *db, arrayptr *line, size_t c, int type, void *value, size_t alloc_len) {
 	assert(db);
 	assert(line);
 	assert(c < db->cols->count);
@@ -289,14 +289,14 @@ db_base *db_line_set(db_base *db, parray *line, size_t c, int type, void *value,
 				return NULL;
 			}
 			str_set(s, value, alloc_len);
-			parray_replace(line, c, s);
+			arrayptr_replace(line, c, s);
 		}
 		else {
-			parray_replace(line, c, NULL);
+			arrayptr_replace(line, c, NULL);
 		}
 	}
 	else {
-		parray_replace(line, c, value);
+		arrayptr_replace(line, c, value);
 	}
 
 	return db;
@@ -304,7 +304,7 @@ db_base *db_line_set(db_base *db, parray *line, size_t c, int type, void *value,
 
 /* TODO: check not required field
  * set NULL value in line's column */
-db_base *db_line_set_null(db_base *db, parray *line, size_t c, int type) {
+db_base *db_line_set_null(db_base *db, arrayptr *line, size_t c, int type) {
 	assert(db);
 	assert(line);
 	assert(c < db->cols->count);
@@ -319,7 +319,7 @@ db_base *db_line_set_null(db_base *db, parray *line, size_t c, int type) {
 		else {
 			free(value);
 		}
-		parray_replace(line, c, NULL);
+		arrayptr_replace(line, c, NULL);
 	}
 
 	return db;
@@ -328,7 +328,7 @@ db_base *db_line_set_null(db_base *db, parray *line, size_t c, int type) {
 void db_remove_nulls(db_base *db) {
 	assert(db);
 
-	parray_remove_nulls(db->lines);
+	arrayptr_remove_nulls(db->lines);
 }
 
 db_base *db_resize(db_base *db, double coef, double new_coef) {
@@ -336,7 +336,7 @@ db_base *db_resize(db_base *db, double coef, double new_coef) {
 	assert(coef < new_coef);
 
 	if(db->lines->count < db->lines->capacity * coef) {
-		if(!parray_resize(db->lines, db->lines->capacity * new_coef)) {
+		if(!arrayptr_resize(db->lines, db->lines->capacity * new_coef)) {
 			fprintf(stderr, "db_resize : error realloc lines\n");
 			return NULL;
 		}
@@ -366,7 +366,7 @@ void db_delete(db_base *db, size_t l, bool keep_null) {
  * free functions
  */
 
-void db_line_col_free(db_base *db, parray *line, size_t c) {
+void db_line_col_free(db_base *db, arrayptr *line, size_t c) {
 	assert(db);
 	assert(db->lines);
 	assert(line);
@@ -395,7 +395,7 @@ void db_line_col_free(db_base *db, parray *line, size_t c) {
 	}
 }
 
-void db_line_free(db_base *db, parray *line) {
+void db_line_free(db_base *db, arrayptr *line) {
 	assert(db);
 
 	if(line) {
@@ -459,7 +459,7 @@ void db_line_write(db_base *db, FILE *file, size_t l) {
 	assert(db->cols);
 
 	void *value;
-	parray *line = db->lines->items[l];
+	arrayptr *line = db->lines->items[l];
 	str *s;
 
 	if(line) {
@@ -654,7 +654,7 @@ double *db_read_col_as_double(char *src, size_t len) {
 }
 
 /* Read columns from string and alloc values into db */
-parray *db_line_new_from_s(db_base *db, char *string) {
+arrayptr *db_line_new_from_s(db_base *db, char *string) {
 	assert(db);
 	assert(string);
 	assert(db->cols->count >= 1);
@@ -669,7 +669,7 @@ parray *db_line_new_from_s(db_base *db, char *string) {
 	int len;
 
 	/* new line without values allocation */
-	parray *line = db_line_new(db);
+	arrayptr *line = db_line_new(db);
 	if(!line) {
 		fprintf(stderr, "db_line_new_from_s : error creating line\n");
 		return NULL;
@@ -828,7 +828,7 @@ db_base *db_file_load(db_base *db, FILE *file) {
 
 	char *tmp;
 	size_t n_read, n_cols, n_lines;
-	parray *line;
+	arrayptr *line;
 
 	// read first line (number of columns, lines)
 	tmp = db_file_readline(file, 32, 2, &n_read);

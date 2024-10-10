@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <ctype.h>
 #include "shell.h"
 
 int char_is_separator(char c) {
@@ -17,47 +18,55 @@ char *cmds_alloc(size_t size) {
 	return res;
 }
 
-char **split(char *string, size_t *n) {
-	assert(string);
+char **split(char *s) {
+	size_t tokens_len = 4;
+	size_t token_len = 8;
+	size_t n = 0;
+	size_t i = 0;
+	char **res = malloc(sizeof(*res) * (tokens_len + 1)); // NULL terminated
 
-	char *p = string;
-	size_t size = CMDS_ALLOC_POINTERS;
-	char **cmds;
-
-	cmds = malloc(sizeof(char *) * (size + 1)); if(!cmds) { perror(""); return NULL; }
-	cmds[0] = cmds_alloc(CMDS_ALLOC_CHARS); if(!cmds[0]) { return NULL; }
-
-	size_t l;
-	for(*n = 0, l = 0; *p != '\0';) {
-		/* realloc */
-		if(*n >= size) {
-			size *= 2;
-			cmds = realloc(cmds, (size + 1)); if(!cmds) { perror(""); return NULL; }
+	while(s && *s) {
+		// new token
+		if(i == 0) {
+			token_len = 8;
+			res[n] = malloc(sizeof(char) * (token_len + 1));
 		}
 
-		if(char_is_separator(*p)) {
-			cmds[*n][l] = '\0';
-			l = 0;
+		// realloc array
+		if(n == tokens_len) {
+			tokens_len *= 2;
+			res = realloc(res, sizeof(char *) * (tokens_len + 1));
+		}
 
-			while(char_is_separator(*p)) {
-				p++;
+		while(isblank(*s)) { s++; }
+
+		while(s && *s && !isblank(*s)) {
+			// realloc token
+			if(i == token_len) {
+				token_len *= 2;
+				res[n] = realloc(res[n], sizeof(char) * (token_len + 1));
 			}
-			if(*p != '\0') {
-				(*n)++;
-				cmds[*n] = cmds_alloc(CMDS_ALLOC_CHARS); if(!cmds[*n]) { return NULL; }
-			}
+			res[n][i++] = *s++;
+		}
+		// only blanks have been read
+		if(i == 0) {
+			free(res[n]);
 		}
 		else {
-			cmds[*n][l] = *p;
-			l++;
-			p++;
+			if(!s || !*s) {
+				res[n++][i] = '\0';
+			}
+
+			if(s && *s && isblank(*s)) {
+				res[n++][i] = '\0';
+				i = 0;
+				s++;
+			}
 		}
 	}
+	res[n] = NULL;
 
-	cmds[*n][l] = '\0';
-	(*n)++;
-
-	return cmds;
+	return res;
 }
 
 
@@ -65,18 +74,52 @@ void print_ps1(char *ps1) {
 	printf("%s", ps1);
 }
 
+static const char *commands[] = {
+	"help",
+	"echo",
+	0
+};
 
 
-int execute(char *cmd, char **parameters, size_t n) {
-	puts("");
-	printf("command : [%s], parameters : [", cmd);
-	for(size_t i = 0; i < n; i++) {
-		printf("%s, ", parameters[i]);
+int help(char **cmd) {
+	if(!cmd) {
+		printf("list of available commands :\n");
+		for(size_t i = 0; commands[i]; i++) {
+			printf("%s\n", commands[i]);
+		}
+		return 0;
 	}
-	printf("]\n");
 
-	if(strcmp(cmd, "exit") == 0) {
+	printf("help for [%s]\n", cmd[1]);
+	printf("TODO\n");
+
+	return 0;
+}
+
+int execute(char **cmd) {
+#ifdef DEBUG
+	printf("command : [%s]", cmd[0]);
+	if(cmd[1]) {
+		printf(", parameters : [");
+		for(size_t i = 1; cmd[i]; i++) {
+			printf("%s, ", cmd[i]);
+		}
+		printf("]");
+	}
+	printf("\n");
+#endif
+
+	if(!strcmp(cmd[0], "exit")) {
 		return SHELL_RC_EXIT;
+	}
+
+	if(!strcmp(cmd[0], "help")) {
+		if(!cmd[1]) {
+			help(0);
+		}
+		else {
+			help(cmd);
+		}
 	}
 
 	return SHELL_RC_OK;
@@ -93,27 +136,27 @@ char *read_cmd() {
 	char *p = res;
 	while((*p = getchar()) != '\n') {
 		switch(*p)
-    	{
-	    	case 91:
+		{
+			case 91:
 				*p = getchar();
 
 				switch(*p) {
 					case 65:
-		   				printf("\nUp Arrow");
-		                break;
+						printf("\nUp Arrow");
+						break;
 					case 66:
-		  				printf("\nDown Arrow");
-		                break;
+						printf("\nDown Arrow");
+						break;
 					case 67:
-				   		printf("\nRight Arrow");
-		                break;
+						printf("\nRight Arrow");
+						break;
 					case 68:
-				  		printf("\nLeft Arrow");
-                		break;
+						printf("\nLeft Arrow");
+						break;
 				}
-		    default:
+			default:
 				break;
-	    }
+		}
 
 		p++;
 		if((size_t)(p - res) >= size) {
@@ -128,5 +171,12 @@ char *read_cmd() {
 	*p = '\0';
 
 	return res;
+}
+
+void cmds_free(char **cmds) {
+	for(size_t i = 0; cmds[i]; i++) {
+		free(cmds[i]);
+	}
+	free(cmds);
 }
 

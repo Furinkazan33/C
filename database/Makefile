@@ -17,7 +17,7 @@ build:
 	[ -d $@ ] || mkdir $@
 
 
-build/arrayptr.o: src/extern/arrayptr.c
+build/arrayptr.o: src/arrayptr.c
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
 build/database.o: src/database.c src/database.h

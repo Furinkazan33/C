@@ -1,51 +1,14 @@
-!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
-!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
-!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
-!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
-!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
-!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/mathieu/C/modules/arrayptr/	//
-!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
-!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
-!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	5.9.0	//
-ARRAYPTR_DECLARE	src/arrayptr.h	/^#define ARRAYPTR_DECLARE(/;"	d
-ARRAYPTR_FREE	src/arrayptr.h	/^#define ARRAYPTR_FREE(/;"	d
-ARRAYPTR_FREE_F	src/arrayptr.h	/^#define ARRAYPTR_FREE_F(/;"	d
-ARRAYPTR_GET	src/arrayptr.h	/^#define ARRAYPTR_GET(/;"	d
-ARRAYPTR_GET_AS	src/arrayptr.h	/^#define ARRAYPTR_GET_AS(/;"	d
-ARRAYPTR_H	src/arrayptr.h	/^#define ARRAYPTR_H$/;"	d
-ARRAYPTR_INIT_ALLOC	src/arrayptr.h	/^#define ARRAYPTR_INIT_ALLOC /;"	d
-ARRAYPTR_MAP	src/arrayptr.h	/^#define ARRAYPTR_MAP(/;"	d
-ARRAYPTR_MAP1	src/arrayptr.h	/^#define ARRAYPTR_MAP1(/;"	d
-ARRAYPTR_REALLOC_COEF	src/arrayptr.h	/^#define ARRAYPTR_REALLOC_COEF /;"	d
-CC	Makefile	/^CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
-CFLAGS	Makefile	/^CFLAGS=$/;"	m
-LDFLAGS	Makefile	/^LDFLAGS=-I src -I test\/src -L build -L \/usr\/lib64$/;"	m
-TARGETS_BIN_TESTS	Makefile	/^TARGETS_BIN_TESTS=test\/build\/test1$/;"	m
-TARGETS_BUILDS	Makefile	/^TARGETS_BUILDS=build\/arrayptr.o$/;"	m
-TARGETS_DIRS	Makefile	/^TARGETS_DIRS=build test\/build$/;"	m
-TARGETS_LOG_TESTS	Makefile	/^TARGETS_LOG_TESTS=test\/build\/log1$/;"	m
-__anon399525ed0108	test/src/test1.c	/^typedef struct {$/;"	s	file:
-all	Makefile	/^all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)$/;"	t
-arrayptr_append	src/arrayptr.c	/^arrayptr *arrayptr_append(void *a, void *item) {$/;"	f	typeref:typename:arrayptr *
-arrayptr_new	src/arrayptr.c	/^arrayptr *arrayptr_new(size_t capacity) {$/;"	f	typeref:typename:arrayptr *
-build	Makefile	/^build: $/;"	t
-build/arrayptr.o	Makefile	/^build\/arrayptr.o: src\/arrayptr.c src\/arrayptr.h$/;"	t
-clean	Makefile	/^clean:$/;"	t
-debug	Makefile	/^debug: CFLAGS += -DDEBUG$/;"	t
-debug	Makefile	/^debug: all$/;"	t
-dirs	Makefile	/^dirs: src test test\/src extern $(TARGETS_DIRS)$/;"	t
-extern	Makefile	/^extern: $/;"	t
-id	test/src/test1.c	/^	int id;$/;"	m	struct:__anon399525ed0108	typeref:typename:int	file:
-main	test/src/test1.c	/^int main(void) {$/;"	f	typeref:typename:int
-p_inc_id	test/src/test1.c	/^void p_inc_id(person *p, void *inc) {$/;"	f	typeref:typename:void
-p_print	test/src/test1.c	/^void p_print(person *p) {$/;"	f	typeref:typename:void
-person	test/src/test1.c	/^} person;$/;"	t	typeref:struct:__anon399525ed0108	file:
-src	Makefile	/^src: $/;"	t
-test	Makefile	/^test: $/;"	t
-test/build	Makefile	/^test\/build: $/;"	t
-test/build/log1	Makefile	/^test\/build\/log1: test\/build\/test1$/;"	t
-test/build/test1	Makefile	/^test\/build\/test1: test\/src\/test1.c build\/arrayptr.o$/;"	t
-test/src	Makefile	/^test\/src: $/;"	t
-toto	test/src/test1.c	/^	int toto;$/;"	m	struct:__anon399525ed0108	typeref:typename:int	file:
+ARRAYPTR_DECLARE	src/arrayptr.h	/^#define ARRAYPTR_DECLARE(type, name) typedef struc/
+ARRAYPTR_DECLARE	src/arrayptr.h	/^ARRAYPTR_DECLARE(void, arrayptr);$/
+ARRAYPTR_FREE	src/arrayptr.h	/^#define ARRAYPTR_FREE(a) free(a->items); free(a)$/
+ARRAYPTR_FREE_F	src/arrayptr.h	/^#define ARRAYPTR_FREE_F(a, f) FOR(i, 0, a->count, /
+ARRAYPTR_GET	src/arrayptr.h	/^#define ARRAYPTR_GET(a, i) a->items[i]$/
+ARRAYPTR_GET_AS	src/arrayptr.h	/^#define ARRAYPTR_GET_AS(a, i, type) (type *)(a->it/
+ARRAYPTR_H	src/arrayptr.h	6
+ARRAYPTR_INIT_ALLOC	src/arrayptr.h	15
+ARRAYPTR_MAP	src/arrayptr.h	/^#define ARRAYPTR_MAP(a, f) FOR(i, 0, a->count, f((/
+ARRAYPTR_MAP1	src/arrayptr.h	/^#define ARRAYPTR_MAP1(a, f, arg) FOR(i, 0, a->coun/
+ARRAYPTR_REALLOC_COEF	src/arrayptr.h	14
+arrayptr_append	src/arrayptr.h	/^arrayptr *arrayptr_append(void *a, void *i);$/
+arrayptr_find	src/arrayptr.h	/^void *arrayptr_find(void *a, void *i, int (*cmp)(v/
+arrayptr_new	src/arrayptr.h	/^arrayptr *arrayptr_new(size_t capacity);$/

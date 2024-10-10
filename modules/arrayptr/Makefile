@@ -1,6 +1,6 @@
 CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)
 CFLAGS=
-LDFLAGS=-I src -I test/src -L build -L /usr/lib64
+LDFLAGS=-I src -I /home/mathieu/C/ -I test/src
 
 
 TARGETS_DIRS=build test/build
@@ -10,7 +10,7 @@ TARGETS_LOG_TESTS=test/build/log1
 
 
 all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)
-dirs: src test test/src extern $(TARGETS_DIRS)
+dirs: src test test/src $(TARGETS_DIRS)
 
 
 debug: CFLAGS += -DDEBUG
@@ -22,20 +22,18 @@ test:
 	[ -d $@ ] || mkdir $@
 test/src: 
 	[ -d $@ ] || mkdir $@
-extern: 
-	[ -d $@ ] || mkdir $@
 build: 
 	[ -d $@ ] || mkdir $@
 test/build: 
 	[ -d $@ ] || mkdir $@
 
 
-build/arrayptr.o: src/arrayptr.c src/arrayptr.h
-	ctags -R
+build/arrayptr.o: src/arrayptr.c src/arrayptr.h /home/mathieu/C/macros.h
+	ctags src/arrayptr.h -lc --declarations --global --defines -o tags
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
 test/build/test1: test/src/test1.c build/arrayptr.o
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ -larrayptr
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
 test/build/log1: test/build/test1
 	$< > $@

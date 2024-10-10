@@ -12,8 +12,9 @@
 
 int char_is_separator(char c);
 char *cmds_alloc(size_t size);
-char **split(char *string, size_t *n);
+char **split(char *s);
 void print_ps1(char *ps1);
-int execute(char *cmd, char **parameters, size_t n);
+int execute(char **cmd);
 char *read_cmd();
 
+void cmds_free(char **cmds);

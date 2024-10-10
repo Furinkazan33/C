@@ -6,9 +6,9 @@
 
 
 int main(void) {
-	list *l = NULL;
+	LIST_DECLARE(person, list);
 
-	
+	list *l = NULL;
 
 	person *p1 = person_new(1, 21, "toto 1", "");
 	person *p2 = person_new(2, 22, "toto 2", "");
@@ -17,7 +17,7 @@ int main(void) {
 	person *p5 = person_new(5, 25, "toto 5", "");
 	person *p6 = person_new(6, 26, "toto 6", "");
 
-	l = list_new(p3); if(!l) { return 1; }
+	l = (list *) list_new(p3); if(!l) { return 1; }
 	list *p = l;
 	p = list_insert_after(p, p2);
 	p = list_insert_after(p, p1);

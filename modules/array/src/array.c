@@ -4,8 +4,9 @@
 
 
 array *array_new(size_t capacity, size_t size_of_item) {
-	MALLOC(array, res, );
-	MALLOCS(res->items, size_of_item * capacity, free(res));
+	array *res;
+	MALLOC(res, sizeof(*res), );
+	MALLOC(res->items, size_of_item * capacity, free(res););
 	res->size_of_item = size_of_item;
 	res->capacity = capacity;
 	return res;

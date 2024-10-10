@@ -1,0 +1,6 @@
+{
+	"name":	"server",
+	"port":	8080,
+	"host":	"localhost",
+	"max_clients":	256
+}

@@ -1,44 +1,13 @@
-
-#
 # Compiler flags
-#
-CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)
-CFLAGS=-I $(CINC) -I $(CSRC)
-LDFLAGS=-L $(CLIB) -L $(CBUILD)
+CC=gcc
+CFLAGS=-W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)
+LDFLAGS=-I extern -I src -L build
 
-#
-# Core folders
-#
-CSRC=core/src
-CBUILD=core/build
-COBJ=core/obj
-CINC=core/include
-CLIB=core/lib
-
-#
-# Tests folders
-#
-TEST=test
-TSRC=$(TEST)/src
-TBIN=$(TEST)/bin
-TLOG=$(TEST)/log
-TRES=$(TEST)/ressources
-
-#
-# Dependencies
-#
-DEP_O=$(COBJ)/list.o  $(COBJ)/fr.o
-DEP_H=$(CINC)/list.h $(CINC)/fr.h
-DEP_A=$(CLIB)/liblist.a $(CLIB)/libfr.a
-
-#
-# Rules
-#
 all: dirs builds tests execs
-dirs: $(CBUILD) $(TBIN) $(TLOG)
-builds: $(CBUILD)/lexer.o $(CBUILD)/liblexer.a $(CBUILD)/parser.o $(CBUILD)/libparser.a
-tests: $(TBIN)/test1
-execs: $(TLOG)/test1 $(TLOG)/test_stdio
+dirs: build test/bin test/log
+builds: build/lexer.o build/parser.o
+tests: test/bin/test1
+execs: test/log/test1 test/log/test_stdio
 
 debug: CFLAGS += -DDEBUG
 debug: all
@@ -49,67 +18,42 @@ debug2: all
 debug3: CFLAGS += -DDEBUG -DDEBUG2 -DDEBUG3
 debug3: all
 
-
-##############################
 # Directories creation
-##############################
-$(CBUILD):
-	test -d $(CBUILD) || mkdir -p $(CBUILD)
+build:
+	test -d $@ || mkdir -p $@
 
-$(TBIN):
-	test -d $(TBIN) || mkdir -p $(TBIN)
+test/bin:
+	test -d $@ || mkdir -p $@
 
-$(TLOG):
-	test -d $(TLOG) || mkdir -p $(TLOG)
+test/log:
+	test -d $@ || mkdir -p $@
 
-
-##############################
 # Main builds
-##############################
+build/list.o: extern/list.c extern/list.h
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
+build/lexer.o: src/lexer.c src/lexer.h
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-$(CBUILD)/lexer.o: $(CSRC)/lexer.c $(CSRC)/lexer.h ./Makefile $(DEP_O) $(DEP_H)
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		-c -llist $(CSRC)/lexer.c -o $@
+build/parser.o: src/parser.c src/parser.h
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
-$(CBUILD)/liblexer.a: $(CBUILD)/lexer.o
-	ar ruv $(CBUILD)/liblexer.a $(CBUILD)/lexer.o $(DEP_O)
-	ranlib $(CBUILD)/liblexer.a
+# Tests
+test/bin/test1: build/lexer.o build/parser.o test/src/test1.c build/list.o
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
+test/log/test1: test/bin/test1
+	test/bin/test1 test/ressources/code.c > test/log/test1
 
-$(CBUILD)/parser.o: $(CSRC)/parser.c $(CSRC)/parser.h ./Makefile $(DEP_O) $(DEP_H)
-	$(CC) $(CFLAGS) $(LDFLAGS) \
-		-c -llist $(CSRC)/parser.c -o $@
+test/log/test_stdio: test/bin/test1
+	test/bin/test1 /usr/include/stdio.h > test/log/test_stdio
 
-$(CBUILD)/libparser.a: $(CBUILD)/parser.o
-	ar ruv $(CBUILD)/libparser.a $(CBUILD)/parser.o $(DEP_O)
-	ranlib $(CBUILD)/libparser.a
-
-##############################
-# Test builds and executions
-##############################
-
-$(TBIN)/test1: $(CBUILD)/lexer.o $(CBUILD)/parser.o $(TSRC)/test1.c $(DEP_O)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(DEP_O) \
-		$(CBUILD)/lexer.o $(CBUILD)/parser.o \
-		$(TSRC)/test1.c -o $@
-
-$(TLOG)/test1: $(TBIN)/test1
-	$(TBIN)/test1 $(TRES)/code.c > $(TLOG)/test1
-
-$(TLOG)/test_stdio: $(TBIN)/test1
-	$(TBIN)/test1 /usr/include/stdio.h > $(TLOG)/test_stdio
-
-
-##############################
 # Cleaning
-##############################
-
 clean: 
-	rm -f $(TSRC)/*~
-	rm -f $(CSRC)/*~
-	if [ -d $(CBUILD) ]; then rm -f $(CBUILD)/*; rmdir $(CBUILD); fi
-	if [ -d $(TBIN) ]; then rm -f $(TBIN)/*; rmdir $(TBIN); fi
-	if [ -d $(TLOG) ]; then rm -f $(TLOG)/*; rmdir $(TLOG); fi
+	rm -f test/src/*~
+	rm -f src/*~
+	if [ -d build ]; then rm -f build/*; rmdir build; fi
+	if [ -d test/bin ]; then rm -f test/bin/*; rmdir test/bin; fi
+	if [ -d test/log ]; then rm -f test/log/*; rmdir test/log; fi
 
 

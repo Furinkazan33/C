@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <assert.h>
-#include <helpers.h>
+#include "macros.h"
 #include "pix2d.h"
 
 rgba rgba_black = { 0, 0, 0, 255 };
@@ -75,7 +75,7 @@ ppm *ppm_read(ppm *dest) {
 
 	// ppm file pixels are rgb
 	dest->pixels = malloc(3 * sizeof(uint8_t) * atoi(width) * atoi(height));
-	IF_PERROR(!dest->pixels, "malloc failed", fclose(fd));
+	IF_PERROR(!dest->pixels, "malloc failed", fclose(fd););
 
 	fclose(fd);
 

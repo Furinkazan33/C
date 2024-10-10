@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-#include <helpers.h>
+#include "macros.h"
 #include "str.h"
 
 
@@ -78,6 +78,7 @@ void test_escape_normalize() {
 	assert(!strcmp(s->data, string));
 	str_free(s);
 }
+
 
 int main(void) {
 	TEST(insert);

@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "config.h"
-#include "cJSON.h"
+#include "cjson/cJSON.h"
 #include "socket.h"
 #include "server.h"
 

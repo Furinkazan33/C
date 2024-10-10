@@ -7,7 +7,7 @@ int main() {
 	load_cities();
 	load_counties();
 
-	person *p = arrayptr_get(persons, 1);
+	person *p = persons->items[1];
 
 	printf("Looking for person %d %s city %d\n", p->id, p->name, p->city);
 

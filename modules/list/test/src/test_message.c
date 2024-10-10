@@ -6,6 +6,8 @@
 
 
 int main(void) {
+	LIST_DECLARE(message, list);
+
 	list *l = NULL;
 	list *p = NULL;
 	message *m = NULL;

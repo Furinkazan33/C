@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdint.h>
-#include <helpers.h>
+#include "macros.h"
 
 #ifndef ARRAY_H
 #define ARRAY_H
