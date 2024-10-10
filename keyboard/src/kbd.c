@@ -12,8 +12,8 @@
 enum ev_int { RELEASED = 0, PRESSED, REPEATED };
 
 void kbd_reinit(keyboard *k) {
-	memset(k->pressed, 0, KB_MAX_KEYS);
-	memset(k->repeated, 0, KB_MAX_KEYS);
+	k->count = 0;
+	memset(k->pressed, 0, sizeof(int) * KB_MAX_KEYS);
 }
 
 keyboard *kbd_new(char *file, int fd) {
@@ -57,14 +57,14 @@ void kbd_filelist_print(char **list) {
 }
 
 /* looking for substrings (if not NULL) in name and returns true if found */
-bool kbd_filename_match(char *name, char *substring1, char *substring2) {
+int kbd_filename_match(char *name, char *substring1, char *substring2) {
 	if(substring1 && !strstr(name, substring1)) {
-		return false;
+		return 0;
 	}
 	if(substring2 && !strstr(name, substring2)) {
-		return false;
+		return 0;
 	}
-	return true;
+	return 1;
 }
 
 char **kbd_filelist_get(char *folder, char *substring1, char *substring2) {
@@ -152,25 +152,21 @@ keyboard *kbd_open(char *folder) {
 }
 
 
-void kbd_write(keyboard *k, FILE *file) {
-	fprintf(file, "[%d], pressed:[", k->fd);
+void kbd_fprintf(FILE *file, keyboard *k) {
+	fprintf(file, "[fd:%d, count:%d, [", k->fd, k->count);
 
 	for(unsigned short i = 0; i < KB_MAX_KEYS; i++) {
-		if(k->pressed[i]) {
-			fprintf(file, "%hu,", i);
+		if(k->pressed[i] > 0) {
+			fprintf(file, "%hu[%d],", i, k->pressed[i]);
 		}
 	}
 	
-	printf("], repeated:[");
-
-	for(unsigned short i = 0; i < KB_MAX_KEYS; i++) {
-		if(k->repeated[i]) {
-			fprintf(file, "%hu,", i);
-		}
-	}
 	printf("]\n");
 }
 
+void kbd_printf(keyboard *k) {
+	kbd_fprintf(stdout, k);
+}
 
 keyboard *kbd_read(keyboard *k) {
 	assert(k);
@@ -198,18 +194,19 @@ keyboard *kbd_read(keyboard *k) {
 		case EV_KEY:
 			switch(ev.value) {
 				case RELEASED:
-					k->pressed[ev.code] = false;
-					k->repeated[ev.code] = false;
+					if(k->count > 0) { k->count--; }
+					k->pressed[ev.code] = 0;
 					//printf("RELEASED 0x%04x (%hu)\n", ev.code, ev.code);
 					break;
 
 				case PRESSED:
-					k->pressed[ev.code] = true;
+					k->pressed[ev.code]++;
+					if(k->pressed[ev.code] == 1) { k->count++; }
 					//printf("PRESSED  0x%04x (%hu)\n", ev.code, ev.code);
 					break;
 
 				case REPEATED:
-					k->repeated[ev.code] = true;
+					k->pressed[ev.code]++;
 					//printf("REPEATED 0x%04x (%hu)\n", ev.code, ev.code);
 					break;
 			}
@@ -272,4 +269,7 @@ keyboard *kbd_read(keyboard *k) {
 	return k;
 }
 
+int kbd_any(keyboard *k) {
+	return k->count > 0;
+}
 

@@ -18,9 +18,9 @@ int main(int argc, char **argv)
 	while(1) {
 		kbd_read(k);
 #ifdef DEBUG
-	kbd_write(k, stdout);
+		kbd_printf(k);
 #endif
-		if(k->pressed[KEY_LEFTCTRL] && k->pressed[KEY_Q]) {
+		if(k->pressed[KEY_LEFTCTRL] && k->pressed[KEY_Q] == 1) {
 			puts("CTRL A");
 		}
 	}
