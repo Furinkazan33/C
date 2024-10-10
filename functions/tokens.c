@@ -7,14 +7,14 @@
 char **str_tokenize(char *s, size_t tokens_init_len, char *delims, size_t *n) {
 	size_t tokens_len = tokens_init_len;
 	size_t n_tokens = 0;
-	char **res;
+	char **res, **tmp;
 
 	MALLOC(res, sizeof(char *) * (tokens_len + 1), );
 
 	for(char *t = strtok(s, delims); t; t = strtok(NULL, delims)) {
 		while(n_tokens >= tokens_len) {
 			tokens_len *= 2;
-			REALLOC(res, sizeof(char *) * (tokens_len + 1), free(res);)
+			REALLOC(res, tmp, sizeof(char *) * (tokens_len + 1), free(res);)
 		}
 		res[n_tokens++] = t;
 	}
