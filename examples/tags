@@ -1,0 +1,28 @@
+ARRAY_ALLOC	ext/macros.h	/^#define ARRAY_ALLOC(a, n, post) MALLOC(a, sizeof(*/
+ARRAY_DO	ext/macros.h	/^#define ARRAY_DO(a, n, ptr, block) { void *ptr = N/
+ARRAY_SET	ext/macros.h	/^#define ARRAY_SET(a, i, v) memcpy(a + i, v, sizeof/
+ASSIGN_IF	ext/macros.h	/^#define ASSIGN_IF(var, cond, v1, v2) if(cond) { va/
+FFOR	ext/macros.h	/^#define FFOR(i, mini, maxi, j, minj, maxj, block) /
+FOR	ext/macros.h	/^#define FOR(i, min, max, block) for(size_t i = min/
+LOG	ext/macros.h	/^#define LOG(stream, mess) fprintf(stream, "%s:%s:%/
+LOGE	ext/macros.h	/^#define LOGE(mess) LOG(stderr, mess);$/
+LOGS	ext/macros.h	/^#define LOGS(mess) LOG(stdout, mess);$/
+MACROS_H	ext/macros.h	5
+MALLOC	ext/macros.h	/^#define MALLOC(var, size, post) var = malloc(size)/
+PERROR	ext/macros.h	/^#define PERROR(var, mess) perror(mess); LOGE(mess /
+REALLOC	ext/macros.h	/^#define REALLOC(var, size, post) { void *tmp = rea/
+TEST	ext/macros.h	/^#define TEST(funcname) { printf("%s : ", test_name/
+TESTA	ext/macros.h	/^#define TESTA(funcname, arg) { printf("%s : ", tes/
+TEST_INIT	ext/macros.h	/^#define TEST_INIT(name) int test_count = 0; char */
+TEST_RESULTS	ext/macros.h	/^#define TEST_RESULTS() {\\$/
+fr_readfile	src/fr.h	/^char *fr_readfile(char *path);$/
+fr_readline	src/fr.h	/^char *fr_readline(FILE *f, char *dest, size_t *len/
+str_end	src/str.h	/^char *str_end(char *start);$/
+str_insert	src/str.h	/^char *str_insert(char *dest, size_t position, char/
+str_next_blank	src/str.h	/^char *str_next_blank(char *start);$/
+str_next_non_blank	src/str.h	/^char *str_next_non_blank(char *start);$/
+str_next_word	src/str.h	/^char *str_next_word(char *start);$/
+str_shift	src/str.h	/^char *str_shift(char *s, size_t start, int amount)/
+str_shift_left	src/str.h	/^void str_shift_left(char *s, size_t amount);$/
+str_shift_right	src/str.h	/^char *str_shift_right(char *s, size_t start, size_/
+str_start	src/str.h	/^char *str_start(char *begin, char *start);$/

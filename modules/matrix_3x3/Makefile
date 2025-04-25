@@ -1,0 +1,91 @@
+ifeq ($(ENV),)
+	ENV=prod
+endif
+
+CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)
+CFLAGS=
+LDFLAGS=-I ext/ -I src/
+
+all: dirs tags builds_ext builds test_builds test_results
+dirs: ext src build test test/src test/build test/results
+builds_ext: ext/arrayptr.o
+builds: build/m33.o
+test_builds: test/build/test1
+test_results: test/results/ok_1
+
+debug: CFLAGS += -DDEBUG
+debug: all
+
+
+ext:
+	[ -d $@ ] || mkdir $@
+
+src: 
+	[ -d $@ ] || mkdir $@
+
+build: 
+	[ -d $@ ] || mkdir $@
+
+test: 
+	[ -d $@ ] || mkdir $@
+
+test/src: 
+	[ -d $@ ] || mkdir $@
+
+test/build: 
+	[ -d $@ ] || mkdir $@
+
+test/results:
+	[ -d $@ ] || mkdir $@
+
+# 
+# copy external dependencies in dev mode
+#
+ifeq ($(ENV),dev)
+
+ext/macros.h: /home/mathieu/C/0_template/src/macros.h
+	cp $< $@
+
+ext/arrayptr.h: /home/mathieu/C/modules/arrayptr/src/arrayptr.h
+	cp $< $@
+
+ext/arrayptr.c: /home/mathieu/C/modules/arrayptr/src/arrayptr.c
+	cp $< $@
+
+endif
+#
+#
+#
+
+ext/arrayptr.o: ext/arrayptr.c ext/arrayptr.h
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
+
+tags: ext/macros.h ext/arrayptr.h
+	ctags $^ -lc --declarations --global --defines -o $@
+
+build/m33.o: src/m33.c src/m33.h ext/macros.h
+	ctags src/m33.h -lc --declarations --global --defines -o tags
+	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
+
+test/build/test1: test/src/test1.c build/m33.o ext/arrayptr.o ext/macros.h
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+
+test/results/ok_1: ./test/build/test1
+	$< && touch $@ || { rm -f $@; exit 1; }
+
+
+ifeq ($(ENV),dev)
+
+clean:
+	rm -f build/*; rmdir build;
+	rm -f test/build/*; rmdir test/build;
+	rm -f ext/*.*; rmdir ext;
+
+else
+
+clean:
+	rm -f build/*; rmdir build;
+	rm -f test/build/*; rmdir test/build;
+
+endif
+

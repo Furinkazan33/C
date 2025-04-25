@@ -1,0 +1,4 @@
+LEXER : VALUE : 1
+LEXER : STRING_LIT : "2;3"
+LEXER : STRING_LIT : "3;4"
+1;"2;3";"3;4"

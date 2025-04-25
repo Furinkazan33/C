@@ -1,0 +1,73 @@
+PARSER : comments
+LEXER : TYPEDEF : typedef
+LEXER : VARNAME : vehicle
+LEXER : SINGLE : (
+LEXER : TYPE : string
+LEXER : VARNAME : manufacturer
+LEXER : SINGLE : ,
+LEXER : TYPE : string
+LEXER : VARNAME : model
+LEXER : SINGLE : ,
+LEXER : TYPE : array
+LEXER : VARNAME : components
+LEXER : SINGLE : )
+PARSER : type_def
+LEXER : TYPEDEF : typedef
+LEXER : VARNAME : motor
+LEXER : SINGLE : (
+LEXER : TYPE : string
+LEXER : VARNAME : manufacturer
+LEXER : SINGLE : ,
+LEXER : TYPE : string
+LEXER : VARNAME : model
+LEXER : SINGLE : )
+PARSER : type_def
+LEXER : TYPEDEF : typedef
+LEXER : VARNAME : tire
+LEXER : SINGLE : (
+LEXER : TYPE : string
+LEXER : VARNAME : manufacturer
+LEXER : SINGLE : ,
+LEXER : TYPE : int
+LEXER : VARNAME : size
+LEXER : SINGLE : )
+PARSER : type_def
+LEXER : VARNAME : tire
+LEXER : VARNAME : michelin
+LEXER : SINGLE : =
+LEXER : SINGLE : {
+LEXER : LIT_STRING : "Michelin"
+LEXER : SINGLE : ,
+LEXER : LIT_INT : 42
+LEXER : SINGLE : }
+PARSER : var_assign
+LEXER : VARNAME : motor
+LEXER : VARNAME : ferrari
+LEXER : SINGLE : =
+LEXER : SINGLE : {
+LEXER : LIT_STRING : "ferrari"
+LEXER : SINGLE : ,
+LEXER : LIT_STRING : "V8turbo"
+LEXER : SINGLE : }
+PARSER : var_assign
+LEXER : TYPE : string
+LEXER : VARNAME : name
+LEXER : SINGLE : =
+LEXER : LIT_STRING : "205"
+PARSER : var_assign
+LEXER : VARNAME : vehicle
+LEXER : VARNAME : car
+LEXER : SINGLE : =
+LEXER : SINGLE : {
+LEXER : LIT_STRING : "Peugeot"
+LEXER : SINGLE : ,
+LEXER : VARNAME : name
+LEXER : SINGLE : ,
+LEXER : SINGLE : [
+LEXER : VARNAME : michelin
+LEXER : SINGLE : ,
+LEXER : VARNAME : ferrari
+LEXER : SINGLE : ]
+LEXER : SINGLE : }
+PARSER : var_assign
+PARSER : comment

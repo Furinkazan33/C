@@ -1,0 +1,9 @@
+str_begin	ext/str.h	/^char *str_begin(char *begin, char *start);$/
+str_end	ext/str.h	/^char *str_end(char *start);$/
+str_insert	ext/str.h	/^char *str_insert(char *dest, size_t position, char/
+str_next_blank	ext/str.h	/^char *str_next_blank(char *start);$/
+str_next_non_blank	ext/str.h	/^char *str_next_non_blank(char *start);$/
+str_next_word	ext/str.h	/^char *str_next_word(char *start);$/
+str_shift	ext/str.h	/^char *str_shift(char *s, size_t start, int amount)/
+str_shift_left	ext/str.h	/^void str_shift_left(char *s, size_t amount);$/
+str_shift_right	ext/str.h	/^char *str_shift_right(char *s, size_t start, size_/

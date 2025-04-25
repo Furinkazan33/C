@@ -1,0 +1,15 @@
+
+re_bs="\s\{0,\}"
+
+re_ident="[a-z]\{1,\}[_a-zA-Z0-9]\{0,\}"
+
+re_type1="$re_ident$re_bs[*]\{1,1\}"
+re_type2="$re_ident[*]\{1,1\}$re_bs"
+re_type="\($re_type1\|$re_type2\)"
+
+re_var="$re_type$re_ident"
+
+re_params=".*"
+
+re_func="^$re_bs$re_type$re_ident($re_params)"
+

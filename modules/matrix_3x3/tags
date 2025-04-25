@@ -1,0 +1,4 @@
+m33	src/m33.h	5
+m33_add	src/m33.h	/^void m33_add(m33 *dest, m33 src);$/
+m33_add_to	src/m33.h	/^void m33_add_to(m33 *dest, m33 m1, m33 m2);$/
+m33_print	src/m33.h	/^void m33_print(m33 m);$/

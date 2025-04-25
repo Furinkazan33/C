@@ -1,0 +1,18 @@
+P_DIRECTIVE	src/parser.h	9
+P_FUNC_BLOCK	src/parser.h	14
+P_FUNC_CALL	src/parser.h	11
+P_FUNC_DEF	src/parser.h	10
+P_FUNC_PARAM	src/parser.h	12
+P_FUNC_PARAMS	src/parser.h	13
+P_NONE	src/parser.h	8
+P_STRUCT_TYPE	src/parser.h	17
+P_VAR_ASS	src/parser.h	16
+P_VAR_DECL	src/parser.h	15
+end	src/parser.h	24
+len	src/parser.h	22
+parser	src/parser.h	/^arrayptr *parser(arrayptr *lextokens);$/
+parser_get_funcname	src/parser.h	/^LEX_token *parser_get_funcname(pstruct *function);/
+pstruct	src/parser.h	20
+pstruct	src/parser.h	25
+start	src/parser.h	23
+type	src/parser.h	21

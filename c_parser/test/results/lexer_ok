@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+/*
+ * multi-lines comment
+ */
+
+// test de commentaire.
+static const int toto = 4;
+
+
+static void *test_function(int n, char *s, const char c) {
+	if(n || s) {
+		return s;
+	}
+	return NULL;
+}
+
+int toto() {
+	return 12;
+}
+
+
+int main() {
+
+	return 0;
+}
+
+
