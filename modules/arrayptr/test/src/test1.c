@@ -17,7 +17,7 @@ void p_inc_id(person *p, void *inc) {
 }
 
 int main(void) {
-	ARRAYPTR_DECLARE(person, parray);
+	typedef arrayptr parray;
 
 	parray *a = (parray *) arrayptr_new(10);
 

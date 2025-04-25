@@ -5,6 +5,11 @@
 
 type_array *array_new() {
 	type_array *res = malloc(sizeof(*res));
+	if(!res) {
+		perror("malloc failed");
+		fprintf(stderr, "%s:%s:%d:%s\n", __FILE__, __func__, __LINE__, "failed to alloc array");
+		return NULL;
+	}
 	res->size = ARRAY_INIT_SIZE;
 	res->n = 0;
 	res->data = malloc(sizeof(void *) * res->size);

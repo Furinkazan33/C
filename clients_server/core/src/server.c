@@ -52,7 +52,7 @@ void serv_sig_catch(int signal) {
 }
 
 /* 
- * Read socket until the end and return has single string.
+ * Read socket until the end and return as single string.
  * Can result of multiple messages or incomplete messages.
  * Provide incomplete message at next call.
  * */
@@ -131,7 +131,16 @@ int server_launch(char *confpath, int (*mess_hdl)(int, char *), int (*adm_hdl)(i
 
 	cJSON *c_adm_fd = cJSON_GetObjectItemCaseSensitive(conf, "adm_rd");
 
-	adm_fd = open(c_adm_fd->valuestring, O_RDONLY | O_NONBLOCK);
+	// file doesn't exist
+	if(access(c_adm_fd->valuestring, F_OK)) {
+		printf("server_launch : file does not exist, creating\n");
+		adm_fd = open(c_adm_fd->valuestring, O_CREAT | O_RDONLY | O_NONBLOCK);
+
+	}
+	else {
+		adm_fd = open(c_adm_fd->valuestring, O_RDONLY | O_NONBLOCK);
+	}
+
 	if(adm_fd <= 0) {
 		perror("server_launch : open error");
 		fprintf(stderr, "server_launch : %d\n", adm_fd);

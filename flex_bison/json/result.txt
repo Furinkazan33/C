@@ -17,7 +17,7 @@
 {
 "row": 3, INT
 "col": 1, INT
-"value": null, NULL
+"value": null, 
 }, OBJ
 {
 "row": 3, INT

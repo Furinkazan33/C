@@ -1,30 +1,34 @@
-#include <string.h>
 #include <stdio.h>
+#include <string.h>
 #include "array.h"
 
-
-array *array_new(size_t capacity, size_t size_of_item) {
+array *array_new(size_t size, size_t capacity)	{
 	array *res;
 	MALLOC(res, sizeof(*res), );
-	MALLOC(res->items, size_of_item * capacity, free(res););
-	res->size_of_item = size_of_item;
+	MALLOC(res->items, size * capacity, free(res); return NULL);
+	res->size = size;
+	res->count = 0;
 	res->capacity = capacity;
 	return res;
 }
 
-// resize items into a new array
-array *array_scale(void *a, size_t new_size_of_item) {
-	array *ar = a;
-	array *res = array_new(ar->capacity, new_size_of_item);
-	IF_RNULL(!res, "array_new returned NULL", );
+array *array_add(array *a, void *item) {
+	if(a->count == a->capacity) {
+		REALLOC(a->items, a->size * a->capacity * ARRAY_REALLOC_COEF, return NULL);
+		a->capacity *= ARRAY_REALLOC_COEF;
+	}
 
-	size_t copy_size;
-	ASSIGN_IF(copy_size, new_size_of_item < ar->size_of_item, new_size_of_item, ar->size_of_item);
-	
-	FOR(i, 0, ar->capacity, 
-			memcpy(res->items + i * res->size_of_item, ar->items + i * ar->size_of_item, copy_size););
+	memcpy((char *)a->items + a->size * a->count++, item, a->size);
 
-	return res;
+	return a;
 }
 
+void *array_get(array *a, size_t i) {
+	return (char *)a->items + i * a->size;
+}
+
+void array_free(array *a) {
+	free(a->items);
+	free(a);
+}
 

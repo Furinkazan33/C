@@ -1,5 +1,3 @@
-ARRAYPTR_DECLARE	src/arrayptr.h	/^#define ARRAYPTR_DECLARE(type, name) typedef struc/
-ARRAYPTR_DECLARE	src/arrayptr.h	/^ARRAYPTR_DECLARE(void, arrayptr);$/
 ARRAYPTR_FREE	src/arrayptr.h	/^#define ARRAYPTR_FREE(a) free(a->items); free(a)$/
 ARRAYPTR_FREE_F	src/arrayptr.h	/^#define ARRAYPTR_FREE_F(a, f) FOR(i, 0, a->count, /
 ARRAYPTR_GET	src/arrayptr.h	/^#define ARRAYPTR_GET(a, i) a->items[i]$/
@@ -9,6 +7,12 @@ ARRAYPTR_INIT_ALLOC	src/arrayptr.h	15
 ARRAYPTR_MAP	src/arrayptr.h	/^#define ARRAYPTR_MAP(a, f) FOR(i, 0, a->count, f((/
 ARRAYPTR_MAP1	src/arrayptr.h	/^#define ARRAYPTR_MAP1(a, f, arg) FOR(i, 0, a->coun/
 ARRAYPTR_REALLOC_COEF	src/arrayptr.h	14
-arrayptr_append	src/arrayptr.h	/^arrayptr *arrayptr_append(void *a, void *i);$/
-arrayptr_find	src/arrayptr.h	/^void *arrayptr_find(void *a, void *i, int (*cmp)(v/
+arrayptr	src/arrayptr.h	12
+arrayptr_append	src/arrayptr.h	/^arrayptr *arrayptr_append(void *array, void *item)/
+arrayptr_find	src/arrayptr.h	/^void *arrayptr_find(void *array, void *search, int/
+arrayptr_find_all	src/arrayptr.h	/^arrayptr *arrayptr_find_all(void *array, void *sea/
+arrayptr_find_rec	src/arrayptr.h	/^void *arrayptr_find_rec(void *array, void *search,/
 arrayptr_new	src/arrayptr.h	/^arrayptr *arrayptr_new(size_t capacity);$/
+capacity	src/arrayptr.h	11
+count	src/arrayptr.h	10
+items	src/arrayptr.h	9

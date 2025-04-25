@@ -42,7 +42,7 @@ $(TLOG):
 
 # Objects dependencies
 $(CBUILD)/main: $(CSRC)/object.c $(CSRC)/object.h $(CSRC)/load_save.c
-	$(CC) $(CFLAGS) $(CSRC)/load_save.c $(CSRC)/object.c -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 	
 
 # Cleaning

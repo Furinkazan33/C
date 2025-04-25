@@ -1,8 +1,11 @@
 CC = gcc
 OPT = -O3 -std=c11
 
-all: ./result.txt
+all: build ./result.txt
 
+
+build:
+	test -d $@ || mkdir $@
 
 build/parser.h build/parser.c: src/parser.y ./Makefile
 	bison -d -v -o build/parser.c src/parser.y

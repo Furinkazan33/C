@@ -4,14 +4,14 @@
 #ifndef LIST_H
 #define LIST_H
 
-#define LIST_DECLARE(type, name) typedef struct name { type *data; struct name *next; } name
-LIST_DECLARE(void, vlist);
+typedef struct vlist { void *data; struct vlist *next; } vlist;
 
-#define LIST_MAP(l, f) { vlist *tmp = (vlist *) l; while(tmp) { f(tmp->data); tmp = tmp->next; } }
-#define LIST_MAP1(l, f, arg) { vlist *tmp = (vlist *) l; while(tmp) { f(tmp->data, arg); tmp = tmp->next; } }
+#define LIST_DO(l, ptr, block) { vlist *_tmp = NULL; for(vlist *ptr = (vlist *) l; ptr; ptr = _tmp) { _tmp = ptr->next; block; } }
+#define LIST_MAP(l, f) LIST_DO(l, tmp, f(tmp->data))
+#define LIST_MAP1(l, f, arg) LIST_DO(l, tmp, f(tmp->data, arg))
 
 #define LIST_FREE(l, func) func(((vlist *)l)->data); free(l)
-#define LIST_FREE_ALL(l, func) { vlist *tmp = NULL; for(vlist *p = (vlist *) l; p; p = tmp) { tmp = p->next; LIST_FREE(p, func); } }
+#define LIST_FREE_ALL(l, func) LIST_DO(l, ptr, LIST_FREE(ptr, func))
 
 #endif
 

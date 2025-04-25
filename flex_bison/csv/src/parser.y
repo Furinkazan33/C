@@ -1,12 +1,9 @@
-/* calculator. */
 %{
  #include <stdio.h>
  #include <stdlib.h>
  #include "lexer.h"
  #include "types.h"
-
- void yyerror(const char *msg);
-
+ #include "parser_main.c"
 %}
 
 
@@ -18,7 +15,8 @@
 %define parse.error verbose
 %locations
 
-%token <vstring> ELT
+%token <vstring> value
+%token separator
 
 %type <varray> lines
 %type <varray> line
@@ -27,40 +25,20 @@
 %%
 
 file
-	: lines					{ lines_print((void *)$1); }
+	: lines				{ 	lines_print((void *)$1); }
 	;
 
 lines
-	: lines line			{ $$ = array_add($1, $2); }
-	| %empty				{ $$ = array_new(); }
+	: lines line			{ 	$$ = array_add($1, $2); CHECK($$, "failed to add line"); } 
+	| %empty			{ 	$$ = array_new(); 	CHECK($$, "failed to create lines"); }
 	;
 
 line
-	: line ';' ELT			{ $$ = array_add($1, $3); }
-	| ELT					{ $$ = array_new_from($1); }
+	: line separator value 		{ 	$$ = array_add($1, $3); CHECK($$, "failed to add elt"); }
+	| value 			{ 	$$ = array_new(); 	CHECK($$, "failed to create line"); 
+						$$ = array_add($$, $1); CHECK($$, "failed to add first elt"); }
 	;
 
 %%
-
-#include <stdio.h>
-
-void yyerror(const char *s)
-{
-	fflush(stdout);
-	fprintf(stderr, "*** %s\n", s);
-}
-
-
-int main(int argc, char **argv) {
-   if (argc > 1) {
-      yyin = fopen(argv[1], "r");
-      if (yyin == NULL){
-         printf("syntax: %s filename\n", argv[0]);
-      }
-   }
-   yyparse(); // Calls yylex() for tokens.
-
-   return 0;
-}
 
 

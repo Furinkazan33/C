@@ -1,33 +1,43 @@
-%option never-interactive
-
-WS  [ \t\v\n\f]
-
 %{
 #include <stdio.h>
 #include <string.h>
 #include "types.h"
 #include "parser.h"
 
-extern void yyerror(const char *);  /* prints grammar violation message */
+/* prints message */
+extern void yyerror(const char *);  
+
+/* called at end of input */
+int yywrap(void) {
+	/* terminate now */
+    return 1;
+}
 
 %}
 
+%option never-interactive
+
+WS  [ \t\v\n\f]
+NEWLINE [\n]
+SEP [;]
+STRING_LIT \"[^"]*\"
+VALUE [^;\n]*
+
 %%
 
-[\n]		{ ; }
+{NEWLINE}		{ ; }
 
-[;]			{	return *yytext; }
+{SEP}			{	return separator; }
 
-[^;\n]*		{	yylval.vstring = malloc(sizeof(char) * (strlen(yytext) + 1)); 
+{STRING_LIT}	{	yylval.vstring = malloc(sizeof(char) * (strlen(yytext) + 1)); 
 				strcpy(yylval.vstring, yytext);
-				//printf("LEXER : ELT : %s\n", yylval.vstring);
-				return ELT; }
+				printf("LEXER : STRING_LIT : %s\n", yylval.vstring);
+				return value; }
+
+{VALUE}			{	yylval.vstring = malloc(sizeof(char) * (strlen(yytext) + 1)); 
+				strcpy(yylval.vstring, yytext);
+				printf("LEXER : VALUE : %s\n", yylval.vstring);
+				return value; }
 
 %%
-
-int yywrap(void)        /* called at end of input */
-{
-    return 1;           /* terminate now */
-}
-
 

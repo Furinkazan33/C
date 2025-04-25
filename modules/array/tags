@@ -1,11 +1,11 @@
-ARRAY_DECLARE	src/array.h	/^#define ARRAY_DECLARE(type, name) typedef struct {/
-ARRAY_DECLARE	src/array.h	/^ARRAY_DECLARE(char, array);$/
-ARRAY_FREE	src/array.h	/^#define ARRAY_FREE(a) free(a->items); free(a)$/
-ARRAY_GET	src/array.h	/^#define ARRAY_GET(a, i) ARRAY_GET_AS(a, i, void)$/
-ARRAY_GET_AS	src/array.h	/^#define ARRAY_GET_AS(a, i, type) (type *)(((char */
-ARRAY_H	src/array.h	6
-ARRAY_MAP	src/array.h	/^#define ARRAY_MAP(a, f) FOR(i, 0, a->capacity, f((/
-ARRAY_MAP1	src/array.h	/^#define ARRAY_MAP1(a, f, arg) FOR(i, 0, a->capacit/
-ARRAY_SET	src/array.h	/^#define ARRAY_SET(a, i, v) memcpy(((char *)a->item/
-array_new	src/array.h	/^array *array_new(size_t capacity, size_t size_of_i/
-array_scale	src/array.h	/^array *array_scale(void *a, size_t new_size_of_ite/
+ARRAY	src/array.h	6
+ARRAY_REALLOC_COEF	src/array.h	8
+array	src/array.h	15
+array_add	src/array.h	/^array *array_add(array *a, void *item);$/
+array_free	src/array.h	/^void array_free(array *a);$/
+array_get	src/array.h	/^void *array_get(array *a, size_t i);$/
+array_new	src/array.h	/^array *array_new(size_t size, size_t capacity);$/
+capacity	src/array.h	14
+count	src/array.h	13
+items	src/array.h	11
+size	src/array.h	12

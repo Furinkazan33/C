@@ -6,7 +6,7 @@
 
 
 int main(void) {
-	LIST_DECLARE(person, list);
+	typedef vlist list;
 
 	list *l = NULL;
 

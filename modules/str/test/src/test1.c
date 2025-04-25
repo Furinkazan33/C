@@ -1,95 +1,135 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <assert.h>
 #include "macros.h"
 #include "str.h"
 
+int test_insert() {
+	puts("==== test_insert ====");
 
-void test_insert() {
-	str *s1 = str_new("un chat gris.");
-	str *i = str_new("petit ");
-	str *expected = str_new("un petit chat gris.");
+	char *s1, *s2;
+   
+	s1 = malloc(sizeof(char) * 10); strcpy(s1, "123456789");
+	s2 = malloc(sizeof(char) * 10); strcpy(s2, "abcdefghi");
+	str_insert(s1, 4, s2);
+	printf("%s\n", s1);
 
-	str_write(s1, stdout);
-	str_write(i, stdout);
-	str_inserts(s1, 3, i);
-	str_write(s1, stdout);
+	s1 = malloc(sizeof(char) * 10); strcpy(s1, "123456789");
+	s2 = malloc(sizeof(char) * 10); strcpy(s2, "abcdefghi");
+	str_insert(s1, 0, s2);
+	printf("%s\n", s1);
 
-	assert(!str_cmp(s1, expected));
-
-	str_free(s1);
-	str_free(i);
-	str_free(expected);
-}
-
-void test_cat() {
-	str *s = str_new("");
-	str *cat = str_new("0123456789");
-
-	str_write(s, stdout);
-	str_write(cat, stdout);
-
-	str_cats(s, cat);
-
-	str_write(s, stdout);
-
-	assert(!str_cmp(s, cat));
-
-	str_free(s);
-	str_free(cat);
-}
-
-void test_replace() {
-	str *s = str_new("");
-	str_write(s, stdout);
-	str_replace(s, "123");
-	str_write(s, stdout);
-	assert(!strcmp(s->data, "123"));
-	str_free(s);
-}
-
-void test_tokenize(char *src) {
-	str *s = str_new(src);
-	char **tokens = str_tokenize(s);
-
-	str_write(s, stdout);
-	for(size_t i = 0; tokens[i]; i++) {
-		printf("[%s]", tokens[i]);
-	}
-	puts("");
-	
-	for(size_t i = 0; tokens[i]; i++) {
-		free(tokens[i]);
-	}
-	free(tokens);
-	str_free(s);
-}
-
-void test_escape_normalize() {
-	char *string = "0\1\t234\\@56789";
-	str *s = str_new(string);
-
-	str_write(s, stdout); fflush(stdout);
-	str_escape(s, "\\@", '\\');
-	str_write(s, stdout); fflush(stdout);
-	str_normalize(s, '\\');
-	str_write(s, stdout); fflush(stdout);
-
-	assert(!strcmp(s->data, string));
-	str_free(s);
-}
+	s1 = malloc(sizeof(char) * 10); strcpy(s1, "123456789");
+	s2 = malloc(sizeof(char) * 10); strcpy(s2, "abcdefghi");
+	str_insert(s1, strlen(s1), s2);
+	printf("%s\n", s1);
 
 
-int main(void) {
-	TEST(insert);
-	TEST(cat);
-	TEST(replace);
-	TEST(escape_normalize);
-	TESTA(tokenize, "un petit chat noir.");
-	TESTA(tokenize, ".");
-	TESTA(tokenize, "");
-
-	fprintf(stdout, "test1 : test OK\n");
+	free(s1);
+	free(s2);
 
 	return 0;
 }
+
+int test_shift() {
+	puts("==== test_shift ====");
+
+	char *s = malloc(sizeof(char) * 10);
+	strcpy(s, "123456789");
+	printf("%s\n", s);
+
+	puts("shifting left");
+	str_shift(s, 0, -5);
+	printf("%s\n", s);
+
+	strcpy(s, "123456789");
+	str_shift(s, 3, -5);
+	printf("%s\n", s);
+
+	puts("shifting right");
+	strcpy(s, "123456789");
+	str_shift(s, 0, 0);
+	printf("%s\n", s);
+
+	strcpy(s, "123456789");
+	str_shift(s, 0, 3);
+	printf("%s\n", s);
+
+	strcpy(s, "123456789");
+	str_shift(s, 0, 9);
+	printf("%s\n", s);
+
+	strcpy(s, "123456789");
+	str_shift(s, 3, 0);
+	printf("%s\n", s);
+
+	strcpy(s, "123456789");
+	str_shift(s, 3, 2);
+	printf("%s\n", s);
+
+	strcpy(s, "123456789");
+	str_shift(s, 3, 5);
+	printf("%s\n", s);
+
+	free(s);
+
+	return 0;
+}
+
+int test_move() {
+	puts("==== test_move ====");
+
+	char *s = malloc(sizeof(char) * 256); strcpy(s, "un    oiseau    bleu     et jaune s'envole      \t vers le ciel.");
+	printf("%s\n", s);
+
+	char *p = str_next_blank(s);
+	printf("%s\n", p);
+
+	p = str_next_blank(p);
+	printf("%s\n", p);
+
+	p = str_next_non_blank(p);
+	printf("%s\n", p);
+
+	p = str_next_non_blank(p);
+	printf("%s\n", p);
+
+	p = str_end(p);
+	printf("%s\n", p);
+
+	p = str_next_blank(p);
+	p = str_end(p);
+	printf("%s\n", p);
+
+	p = str_begin(s, p);
+	printf("%s\n", p);
+
+	p = str_next_non_blank(p);
+	p = str_begin(s, ++p);
+	printf("%s\n", p);
+
+	p = str_next_word(p);
+	printf("%s\n", p);
+
+	p = str_next_blank(p);
+	p = str_next_word(p);
+	printf("%s\n", p);
+
+	return 0;
+}
+
+
+int main(int argc, char **argv) {
+	if(argc != 0) { printf("usage : %s\n", argv[0]); }
+
+	TEST_INIT(argv[0]);
+
+	TEST(shift);
+	TEST(insert);
+	TEST(move);
+
+	TEST_RESULTS();
+
+	return 0;
+}
+

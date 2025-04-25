@@ -5,8 +5,8 @@ LDFLAGS=-I src -I /home/mathieu/C/ -I test/src
 
 TARGETS_DIRS=build test/build
 TARGETS_BUILDS=build/arrayptr.o
-TARGETS_BIN_TESTS=test/build/test1
-TARGETS_LOG_TESTS=test/build/log1
+TARGETS_BIN_TESTS=test/build/test1 test/build/test2
+TARGETS_LOG_TESTS=test/build/log1 test/build/log2
 
 
 all: dirs $(TARGETS_BUILDS) $(TARGETS_BIN_TESTS) $(TARGETS_LOG_TESTS)
@@ -28,14 +28,20 @@ test/build:
 	[ -d $@ ] || mkdir $@
 
 
-build/arrayptr.o: src/arrayptr.c src/arrayptr.h /home/mathieu/C/macros.h
+build/arrayptr.o: src/arrayptr.c src/arrayptr.h src/macros.h
 	ctags src/arrayptr.h -lc --declarations --global --defines -o tags
 	$(CC) $(CFLAGS) $(LDFLAGS) -c $< -o $@
 
 test/build/test1: test/src/test1.c build/arrayptr.o
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
+test/build/test2: test/src/test2.c build/arrayptr.o
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+
 test/build/log1: test/build/test1
+	$< > $@
+
+test/build/log2: test/build/test2
 	$< > $@
 
 
