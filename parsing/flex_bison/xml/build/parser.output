@@ -1,0 +1,225 @@
+Grammar
+
+    0 $accept: file $end
+
+    1 file: balise
+
+    2 balise: '<' IDENTIFIER attribute_list '>' balise_list '<' '/' IDENTIFIER '>'
+    3       | '<' IDENTIFIER attribute_list CONTENT '/' IDENTIFIER '>'
+
+    4 balise_list: balise_list balise
+    5            | ε
+
+    6 attribute: IDENTIFIER '=' STRING
+
+    7 attribute_list: attribute_list attribute
+    8               | ε
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '/' (47) 2 3
+    '<' (60) 2 3
+    '=' (61) 6
+    '>' (62) 2 3
+    error (256)
+    IDENTIFIER <vstring> (258) 2 3 6
+    STRING <vstring> (259) 6
+    CONTENT <vstring> (260) 3
+
+
+Nonterminals, with rules where they appear
+
+    $accept (10)
+        on left: 0
+    file (11)
+        on left: 1
+        on right: 0
+    balise <vbalise> (12)
+        on left: 2 3
+        on right: 1 4
+    balise_list <varray> (13)
+        on left: 4 5
+        on right: 2 4
+    attribute <vattribute> (14)
+        on left: 6
+        on right: 7
+    attribute_list <varray> (15)
+        on left: 7 8
+        on right: 2 3 7
+
+
+State 0
+
+    0 $accept: • file $end
+
+    '<'  shift, and go to state 1
+
+    file    go to state 2
+    balise  go to state 3
+
+
+State 1
+
+    2 balise: '<' • IDENTIFIER attribute_list '>' balise_list '<' '/' IDENTIFIER '>'
+    3       | '<' • IDENTIFIER attribute_list CONTENT '/' IDENTIFIER '>'
+
+    IDENTIFIER  shift, and go to state 4
+
+
+State 2
+
+    0 $accept: file • $end
+
+    $end  shift, and go to state 5
+
+
+State 3
+
+    1 file: balise •
+
+    $default  reduce using rule 1 (file)
+
+
+State 4
+
+    2 balise: '<' IDENTIFIER • attribute_list '>' balise_list '<' '/' IDENTIFIER '>'
+    3       | '<' IDENTIFIER • attribute_list CONTENT '/' IDENTIFIER '>'
+
+    $default  reduce using rule 8 (attribute_list)
+
+    attribute_list  go to state 6
+
+
+State 5
+
+    0 $accept: file $end •
+
+    $default  accept
+
+
+State 6
+
+    2 balise: '<' IDENTIFIER attribute_list • '>' balise_list '<' '/' IDENTIFIER '>'
+    3       | '<' IDENTIFIER attribute_list • CONTENT '/' IDENTIFIER '>'
+    7 attribute_list: attribute_list • attribute
+
+    IDENTIFIER  shift, and go to state 7
+    CONTENT     shift, and go to state 8
+    '>'         shift, and go to state 9
+
+    attribute  go to state 10
+
+
+State 7
+
+    6 attribute: IDENTIFIER • '=' STRING
+
+    '='  shift, and go to state 11
+
+
+State 8
+
+    3 balise: '<' IDENTIFIER attribute_list CONTENT • '/' IDENTIFIER '>'
+
+    '/'  shift, and go to state 12
+
+
+State 9
+
+    2 balise: '<' IDENTIFIER attribute_list '>' • balise_list '<' '/' IDENTIFIER '>'
+
+    $default  reduce using rule 5 (balise_list)
+
+    balise_list  go to state 13
+
+
+State 10
+
+    7 attribute_list: attribute_list attribute •
+
+    $default  reduce using rule 7 (attribute_list)
+
+
+State 11
+
+    6 attribute: IDENTIFIER '=' • STRING
+
+    STRING  shift, and go to state 14
+
+
+State 12
+
+    3 balise: '<' IDENTIFIER attribute_list CONTENT '/' • IDENTIFIER '>'
+
+    IDENTIFIER  shift, and go to state 15
+
+
+State 13
+
+    2 balise: '<' IDENTIFIER attribute_list '>' balise_list • '<' '/' IDENTIFIER '>'
+    4 balise_list: balise_list • balise
+
+    '<'  shift, and go to state 16
+
+    balise  go to state 17
+
+
+State 14
+
+    6 attribute: IDENTIFIER '=' STRING •
+
+    $default  reduce using rule 6 (attribute)
+
+
+State 15
+
+    3 balise: '<' IDENTIFIER attribute_list CONTENT '/' IDENTIFIER • '>'
+
+    '>'  shift, and go to state 18
+
+
+State 16
+
+    2 balise: '<' • IDENTIFIER attribute_list '>' balise_list '<' '/' IDENTIFIER '>'
+    2       | '<' IDENTIFIER attribute_list '>' balise_list '<' • '/' IDENTIFIER '>'
+    3       | '<' • IDENTIFIER attribute_list CONTENT '/' IDENTIFIER '>'
+
+    IDENTIFIER  shift, and go to state 4
+    '/'         shift, and go to state 19
+
+
+State 17
+
+    4 balise_list: balise_list balise •
+
+    $default  reduce using rule 4 (balise_list)
+
+
+State 18
+
+    3 balise: '<' IDENTIFIER attribute_list CONTENT '/' IDENTIFIER '>' •
+
+    $default  reduce using rule 3 (balise)
+
+
+State 19
+
+    2 balise: '<' IDENTIFIER attribute_list '>' balise_list '<' '/' • IDENTIFIER '>'
+
+    IDENTIFIER  shift, and go to state 20
+
+
+State 20
+
+    2 balise: '<' IDENTIFIER attribute_list '>' balise_list '<' '/' IDENTIFIER • '>'
+
+    '>'  shift, and go to state 21
+
+
+State 21
+
+    2 balise: '<' IDENTIFIER attribute_list '>' balise_list '<' '/' IDENTIFIER '>' •
+
+    $default  reduce using rule 2 (balise)

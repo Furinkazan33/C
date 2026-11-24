@@ -1,0 +1,98 @@
+Grammar
+
+    0 $accept: file $end
+
+    1 file: file param
+    2     | ε
+
+    3 param: VALUE EQUAL QUOTE VALUE QUOTE
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    VALUE <vstring> (258) 3
+    EQUAL (259) 3
+    QUOTE (260) 3
+
+
+Nonterminals, with rules where they appear
+
+    $accept (6)
+        on left: 0
+    file <varray> (7)
+        on left: 1 2
+        on right: 0 1
+    param <varray> (8)
+        on left: 3
+        on right: 1
+
+
+State 0
+
+    0 $accept: • file $end
+
+    $default  reduce using rule 2 (file)
+
+    file  go to state 1
+
+
+State 1
+
+    0 $accept: file • $end
+    1 file: file • param
+
+    $end   shift, and go to state 2
+    VALUE  shift, and go to state 3
+
+    param  go to state 4
+
+
+State 2
+
+    0 $accept: file $end •
+
+    $default  accept
+
+
+State 3
+
+    3 param: VALUE • EQUAL QUOTE VALUE QUOTE
+
+    EQUAL  shift, and go to state 5
+
+
+State 4
+
+    1 file: file param •
+
+    $default  reduce using rule 1 (file)
+
+
+State 5
+
+    3 param: VALUE EQUAL • QUOTE VALUE QUOTE
+
+    QUOTE  shift, and go to state 6
+
+
+State 6
+
+    3 param: VALUE EQUAL QUOTE • VALUE QUOTE
+
+    VALUE  shift, and go to state 7
+
+
+State 7
+
+    3 param: VALUE EQUAL QUOTE VALUE • QUOTE
+
+    QUOTE  shift, and go to state 8
+
+
+State 8
+
+    3 param: VALUE EQUAL QUOTE VALUE QUOTE •
+
+    $default  reduce using rule 3 (param)

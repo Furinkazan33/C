@@ -1,0 +1,28 @@
+LEXER : TYPE : int
+LEXER : VARNAME : toto
+PARSER : var_decl_list
+LEXER : TYPE : static
+LEXER : TYPE : const
+LEXER : TYPE : char
+LEXER : TYPE : *
+LEXER : VARNAME : string
+LEXER : STRING_LIT : "Mon petit text."
+PARSER : var_decl_assign
+LEXER : TYPE : void
+LEXER : TYPE : *
+LEXER : TYPE : *
+LEXER : VARNAME : data
+LEXER : NULL : NULL
+PARSER : var_decl_assign
+LEXER : TYPEDEF : typedef
+LEXER : STRUCT : struct
+LEXER : VARNAME : toto
+LEXER : TYPE : char
+LEXER : TYPE : *
+LEXER : VARNAME : a
+LEXER : TYPE : void
+LEXER : TYPE : *
+LEXER : TYPE : *
+LEXER : VARNAME : data
+LEXER : VARNAME : toto
+PARSER : structure : toto

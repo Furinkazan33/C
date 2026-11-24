@@ -1,0 +1,176 @@
+State 0 conflicts: 1 reduce/reduce
+
+
+Grammar
+
+    0 $accept: file $end
+
+    1 file: file_param
+    2     | file_tpl
+
+    3 file_param: params
+
+    4 params: params param
+    5       | ε
+
+    6 param: VARNAME EQUAL VALUE SEMI
+
+    7 file_tpl: list
+
+    8 list: list VARIABLE
+    9     | list ANY
+   10     | ε
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    VARNAME <vstring> (258) 6
+    VALUE <vstring> (259) 6
+    ANY <vstring> (260) 9
+    VARIABLE <vstring> (261) 8
+    EQUAL (262) 6
+    SEMI (263) 6
+
+
+Nonterminals, with rules where they appear
+
+    $accept (9)
+        on left: 0
+    file (10)
+        on left: 1 2
+        on right: 0
+    file_param (11)
+        on left: 3
+        on right: 1
+    params <varray> (12)
+        on left: 4 5
+        on right: 3 4
+    param <varray> (13)
+        on left: 6
+        on right: 4
+    file_tpl (14)
+        on left: 7
+        on right: 2
+    list <varray> (15)
+        on left: 8 9 10
+        on right: 7 8 9
+
+
+State 0
+
+    0 $accept: • file $end
+
+    $end      reduce using rule 5 (params)
+    $end      [reduce using rule 10 (list)]
+    ANY       reduce using rule 10 (list)
+    VARIABLE  reduce using rule 10 (list)
+    $default  reduce using rule 5 (params)
+
+    file        go to state 1
+    file_param  go to state 2
+    params      go to state 3
+    file_tpl    go to state 4
+    list        go to state 5
+
+
+State 1
+
+    0 $accept: file • $end
+
+    $end  shift, and go to state 6
+
+
+State 2
+
+    1 file: file_param •
+
+    $default  reduce using rule 1 (file)
+
+
+State 3
+
+    3 file_param: params •
+    4 params: params • param
+
+    VARNAME  shift, and go to state 7
+
+    $default  reduce using rule 3 (file_param)
+
+    param  go to state 8
+
+
+State 4
+
+    2 file: file_tpl •
+
+    $default  reduce using rule 2 (file)
+
+
+State 5
+
+    7 file_tpl: list •
+    8 list: list • VARIABLE
+    9     | list • ANY
+
+    ANY       shift, and go to state 9
+    VARIABLE  shift, and go to state 10
+
+    $default  reduce using rule 7 (file_tpl)
+
+
+State 6
+
+    0 $accept: file $end •
+
+    $default  accept
+
+
+State 7
+
+    6 param: VARNAME • EQUAL VALUE SEMI
+
+    EQUAL  shift, and go to state 11
+
+
+State 8
+
+    4 params: params param •
+
+    $default  reduce using rule 4 (params)
+
+
+State 9
+
+    9 list: list ANY •
+
+    $default  reduce using rule 9 (list)
+
+
+State 10
+
+    8 list: list VARIABLE •
+
+    $default  reduce using rule 8 (list)
+
+
+State 11
+
+    6 param: VARNAME EQUAL • VALUE SEMI
+
+    VALUE  shift, and go to state 12
+
+
+State 12
+
+    6 param: VARNAME EQUAL VALUE • SEMI
+
+    SEMI  shift, and go to state 13
+
+
+State 13
+
+    6 param: VARNAME EQUAL VALUE SEMI •
+
+    $default  reduce using rule 6 (param)

@@ -1,0 +1,105 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/mnt/c/Users/Mathieu/Documents/MEGA/Prog/C/mesh_model/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+CC	Makefile	/^CC=gcc -W -Wall -ansi -pedantic -std=c18 -D_POSIX_C_SOURCE=200809L $(flags)$/;"	m
+CC	libs/Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-I src -I test\/src -I libs$/;"	m
+CFLAGS	libs/Makefile	/^CFLAGS=-W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=$/;"	m
+LDFLAGS	libs/Makefile	/^LDFLAGS=-I .\/$/;"	m
+LINE_MAX_LEN	src/object.h	/^#define LINE_MAX_LEN /;"	d
+LINE_MAX_TOK	src/object.h	/^#define LINE_MAX_TOK /;"	d
+OBJ_MAX_COMMENTS	src/object.h	/^#define OBJ_MAX_COMMENTS /;"	d
+OBJ_MAX_COMMENT_LEN	src/object.h	/^#define OBJ_MAX_COMMENT_LEN /;"	d
+OBJ_MAX_FACES	src/object.h	/^#define OBJ_MAX_FACES /;"	d
+OBJ_MAX_NAME_LEN	src/object.h	/^#define OBJ_MAX_NAME_LEN /;"	d
+OBJ_MAX_NORMALS	src/object.h	/^#define OBJ_MAX_NORMALS /;"	d
+OBJ_MAX_TEXTURES	src/object.h	/^#define OBJ_MAX_TEXTURES /;"	d
+OBJ_MAX_VERTEX	src/object.h	/^#define OBJ_MAX_VERTEX /;"	d
+TOK_MAX_LEN	src/object.h	/^#define TOK_MAX_LEN /;"	d
+T_COMMENT	src/object.c	/^#define T_COMMENT /;"	d	file:
+T_FACE	src/object.c	/^#define T_FACE /;"	d	file:
+T_NEWLINE	src/object.c	/^#define T_NEWLINE /;"	d	file:
+T_OBJ_NAME	src/object.c	/^#define T_OBJ_NAME /;"	d	file:
+T_VERTEX	src/object.c	/^#define T_VERTEX /;"	d	file:
+T_VERTEX_NORMAL	src/object.c	/^#define T_VERTEX_NORMAL /;"	d	file:
+T_VERTEX_TEXTURE	src/object.c	/^#define T_VERTEX_TEXTURE /;"	d	file:
+XXXX.o	libs/Makefile	/^XXXX.o: XXXX.c XXXX.h macros.h$/;"	t
+_POSIX_C_SOURCE	src/object.c	/^#define _POSIX_C_SOURCE /;"	d	file:
+_POSIX_C_SOURCE	src/object.h	/^#define _POSIX_C_SOURCE /;"	d
+__anon932297490108	src/object.h	/^typedef struct {$/;"	s
+__anon932297490208	src/object.h	/^typedef struct {$/;"	s
+all	Makefile	/^all: dirs tags builds tests execs$/;"	t
+all	Makefile	/^all: make_libs$/;"	t
+all	libs/Makefile	/^all: tags$/;"	t
+build	Makefile	/^build:$/;"	t
+build/main	Makefile	/^build\/main: src\/object.c src\/object.h src\/load_save.c$/;"	t
+builds	Makefile	/^builds: build\/main$/;"	t
+char_inside	src/object.c	/^int char_inside(char c, char *delims) {$/;"	f	typeref:typename:int
+clean	Makefile	/^clean: $/;"	t
+clean	libs/Makefile	/^clean:$/;"	t
+comment	src/object.h	/^	char comment[OBJ_MAX_COMMENTS][OBJ_MAX_COMMENT_LEN];$/;"	m	struct:object	typeref:typename:char[][]
+dirs	Makefile	/^dirs: build test\/bin test\/logs$/;"	t
+execs	Makefile	/^execs:$/;"	t
+face	src/object.h	/^typedef struct face {$/;"	s
+face	src/object.h	/^} face;$/;"	t	typeref:struct:face
+faces	src/object.h	/^	face faces[OBJ_MAX_FACES];$/;"	m	struct:object	typeref:typename:face[]
+facette	src/object.h	/^typedef struct facette {$/;"	s
+facette	src/object.h	/^} facette;$/;"	t	typeref:struct:facette
+facettes	src/object.h	/^	facette facettes[3];$/;"	m	struct:face	typeref:typename:facette[3]
+libXXXX.a	libs/Makefile	/^libXXXX.a: XXXX.o$/;"	t
+line_to_tok	src/object.c	/^void line_to_tok(char tokens[LINE_MAX_TOK][TOK_MAX_LEN], char *line) {$/;"	f	typeref:typename:void
+main	src/glfw_example.c	/^int main(void)$/;"	f	typeref:typename:int
+main	src/load_save.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+make_libs	Makefile	/^make_libs:$/;"	t
+n	src/object.h	/^	vector n;$/;"	m	struct:__anon932297490208	typeref:typename:vector
+n_comments	src/object.h	/^	int n_comments;$/;"	m	struct:object	typeref:typename:int
+n_faces	src/object.h	/^	int n_faces;$/;"	m	struct:object	typeref:typename:int
+n_normal	src/object.h	/^	int n_normal;$/;"	m	struct:object	typeref:typename:int
+n_textures	src/object.h	/^	int n_textures;$/;"	m	struct:object	typeref:typename:int
+n_vertex	src/object.h	/^	int n_vertex;$/;"	m	struct:object	typeref:typename:int
+name	src/object.h	/^	char name[OBJ_MAX_NAME_LEN];$/;"	m	struct:object	typeref:typename:char[]
+normal	src/object.h	/^	int normal;$/;"	m	struct:facette	typeref:typename:int
+normal	src/object.h	/^	vector normal[OBJ_MAX_NORMALS];$/;"	m	struct:object	typeref:typename:vector[]
+object	src/object.h	/^typedef struct object {$/;"	s
+object	src/object.h	/^} object;$/;"	t	typeref:struct:object
+object_init	src/object.c	/^void object_init(object *o) {$/;"	f	typeref:typename:void
+object_load	src/object.c	/^object *object_load(object *o, char *path, char *line,$/;"	f	typeref:typename:object *
+object_save	src/object.c	/^object *object_save(object *o, char *path) {$/;"	f	typeref:typename:object *
+p	src/object.h	/^	vector p[3];$/;"	m	struct:__anon932297490208	typeref:typename:vector[3]
+s	libs/macros.h	/^			LOG_E("failed to open file [%s]\\n", FO_path); \\$/;"	m
+s	libs/macros.h	/^			LOG_E("failed to open file [%s]\\n", O_path); \\$/;"	m
+s	libs/macros.h	/^		fprintf(LGM_stream, "%s:%s:%d:%s\\n", __FILE__, __func__, __LINE__, LGM_mess);$/;"	m
+s	libs/macros.h	/^		fprintf(LG_stream, "%s:%s:%d:" LG_fmt, __FILE__, __func__, __LINE__, __VA_ARGS__);$/;"	m
+tags	Makefile	/^tags: $/;"	t
+tags	libs/Makefile	/^tags: $/;"	t
+test/bin	Makefile	/^test\/bin:$/;"	t
+test/logs	Makefile	/^test\/logs:$/;"	t
+tests	Makefile	/^tests:$/;"	t
+texture	src/object.h	/^	int texture;$/;"	m	struct:facette	typeref:typename:int
+textures	src/object.h	/^	vector textures[OBJ_MAX_TEXTURES];$/;"	m	struct:object	typeref:typename:vector[]
+token_to_idx	src/object.c	/^void token_to_idx(char *token, int *v, int *t, int *n) {$/;"	f	typeref:typename:void
+tri_print	src/object.c	/^void tri_print(triangle t) {$/;"	f	typeref:typename:void
+tri_set	src/object.c	/^void tri_set(triangle *v, vector p[3]) {$/;"	f	typeref:typename:void
+tri_set_normal	src/object.c	/^void tri_set_normal(triangle *t) {$/;"	f	typeref:typename:void
+triangle	src/object.h	/^} triangle;$/;"	t	typeref:struct:__anon932297490208
+vect_diff	src/object.c	/^void vect_diff(vector *res, vector v1, vector v2) {$/;"	f	typeref:typename:void
+vect_normalize	src/object.c	/^void vect_normalize(vector *v) {$/;"	f	typeref:typename:void
+vect_set	src/object.c	/^void vect_set(vector *res, double values[3]) {$/;"	f	typeref:typename:void
+vect_set_prod	src/object.c	/^void vect_set_prod(vector *res, vector u, vector v) {$/;"	f	typeref:typename:void
+vector	src/object.h	/^} vector;$/;"	t	typeref:struct:__anon932297490108
+vertex	src/object.h	/^	int vertex;$/;"	m	struct:facette	typeref:typename:int
+vertex	src/object.h	/^	vector vertex[OBJ_MAX_VERTEX];$/;"	m	struct:object	typeref:typename:vector[]
+vertex_print	src/object.c	/^void vertex_print(vector *v, char *type) {$/;"	f	typeref:typename:void
+vertex_to_string	src/object.c	/^void vertex_to_string(char *s, vector v) {$/;"	f	typeref:typename:void
+x	src/object.h	/^	double x;$/;"	m	struct:__anon932297490108	typeref:typename:double
+y	src/object.h	/^	double y;$/;"	m	struct:__anon932297490108	typeref:typename:double
+z	src/object.h	/^	double z;$/;"	m	struct:__anon932297490108	typeref:typename:double

@@ -1,0 +1,163 @@
+Terminals unused in grammar
+
+    comments
+    lit_string
+
+
+State 8 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: file $end
+
+    1 property: comment
+    2         | var_name value
+
+    3 properties: properties property
+    4           | ε
+
+    5 group: '[' var_name ']' properties
+
+    6 file: file group
+    7     | file comment
+    8     | ε
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '[' (91) 5
+    ']' (93) 5
+    error (256)
+    comment <vstring> (258) 1 7
+    comments <vstring> (259)
+    lit_string <vstring> (260)
+    var_name <vstring> (261) 2 5
+    value <vstring> (262) 2
+
+
+Nonterminals, with rules where they appear
+
+    $accept (10)
+        on left: 0
+    property <varray> (11)
+        on left: 1 2
+        on right: 3
+    properties <varray> (12)
+        on left: 3 4
+        on right: 3 5
+    group <varray> (13)
+        on left: 5
+        on right: 6
+    file <varray> (14)
+        on left: 6 7 8
+        on right: 0 6 7
+
+
+State 0
+
+    0 $accept: • file $end
+
+    $default  reduce using rule 8 (file)
+
+    file  go to state 1
+
+
+State 1
+
+    0 $accept: file • $end
+    6 file: file • group
+    7     | file • comment
+
+    $end     shift, and go to state 2
+    comment  shift, and go to state 3
+    '['      shift, and go to state 4
+
+    group  go to state 5
+
+
+State 2
+
+    0 $accept: file $end •
+
+    $default  accept
+
+
+State 3
+
+    7 file: file comment •
+
+    $default  reduce using rule 7 (file)
+
+
+State 4
+
+    5 group: '[' • var_name ']' properties
+
+    var_name  shift, and go to state 6
+
+
+State 5
+
+    6 file: file group •
+
+    $default  reduce using rule 6 (file)
+
+
+State 6
+
+    5 group: '[' var_name • ']' properties
+
+    ']'  shift, and go to state 7
+
+
+State 7
+
+    5 group: '[' var_name ']' • properties
+
+    $default  reduce using rule 4 (properties)
+
+    properties  go to state 8
+
+
+State 8
+
+    3 properties: properties • property
+    5 group: '[' var_name ']' properties •
+
+    comment   shift, and go to state 9
+    var_name  shift, and go to state 10
+
+    comment   [reduce using rule 5 (group)]
+    $default  reduce using rule 5 (group)
+
+    property  go to state 11
+
+
+State 9
+
+    1 property: comment •
+
+    $default  reduce using rule 1 (property)
+
+
+State 10
+
+    2 property: var_name • value
+
+    value  shift, and go to state 12
+
+
+State 11
+
+    3 properties: properties property •
+
+    $default  reduce using rule 3 (properties)
+
+
+State 12
+
+    2 property: var_name value •
+
+    $default  reduce using rule 2 (property)

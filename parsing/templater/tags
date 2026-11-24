@@ -1,0 +1,168 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/mnt/c/Users/Mathieu/Documents/MEGA/Prog/C/parsing/templater/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+B	src/tnz_tpl.h	/^	SPACE, TAB, NL, B,$/;"	e	enum:__anon13d0f7fd0203
+CC	Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+COMP_BIN	Makefile	/^COMP_BIN=src\/templater.c build\/tokenizer.o build\/tnz_param.o build\/tnz_tpl.o build\/parser.o/;"	m
+COMP_PARAM	Makefile	/^COMP_PARAM=test\/src\/test_tokenizer_param.c build\/tokenizer.o build\/tnz_param.o build\/array./;"	m
+COMP_PARSER_PARAM	Makefile	/^COMP_PARSER_PARAM=test\/src\/test_parser_param.c build\/tokenizer.o build\/tnz_param.o build\/pa/;"	m
+COMP_PARSER_TPL	Makefile	/^COMP_PARSER_TPL=test\/src\/test_parser_tpl.c build\/tokenizer.o build\/tnz_tpl.o build\/parser.o/;"	m
+COMP_TPL	Makefile	/^COMP_TPL=test\/src\/test_tokenizer_tpl.c build\/tokenizer.o build\/tnz_tpl.o build\/array.o$/;"	m
+EQUAL	src/tnz_tpl.h	/^	EQUAL, SEMI$/;"	e	enum:__anon13d0f7fd0103
+IGNORE_TYPE1	src/parser.c	/^#define IGNORE_TYPE1(/;"	d	file:
+IGNORE_UNTIL	src/parser.c	/^#define IGNORE_UNTIL(/;"	d	file:
+LDFLAGS	Makefile	/^LDFLAGS=-I $(LIBS) -I src\/$/;"	m
+LIBS	Makefile	/^LIBS=..\/..\/libs$/;"	m
+NL	src/tnz_tpl.h	/^	SPACE, TAB, NL, B,$/;"	e	enum:__anon13d0f7fd0203
+P_NONE	src/parser.h	/^	P_NONE,$/;"	e	enum:__anon4611dbbf0103
+P_VARIABLE	src/parser.h	/^	P_VARIABLE,$/;"	e	enum:__anon4611dbbf0103
+P_WS	src/parser.h	/^	P_WS, $/;"	e	enum:__anon4611dbbf0103
+READ_OR_NULL	src/parser.c	/^#define READ_OR_NULL(/;"	d	file:
+READ_VALID_OR_NULL	src/parser.c	/^#define READ_VALID_OR_NULL(/;"	d	file:
+SEMI	src/tnz_tpl.h	/^	EQUAL, SEMI$/;"	e	enum:__anon13d0f7fd0103
+SPACE	src/tnz_tpl.h	/^	SPACE, TAB, NL, B,$/;"	e	enum:__anon13d0f7fd0203
+T1_NONE	src/tnz_tpl.h	/^	T1_NONE = 100,$/;"	e	enum:__anon13d0f7fd0103
+T2_NONE	src/tnz_tpl.h	/^	T2_NONE = 100,$/;"	e	enum:__anon13d0f7fd0203
+TAB	src/tnz_tpl.h	/^	SPACE, TAB, NL, B,$/;"	e	enum:__anon13d0f7fd0203
+TNZ_T1_NONE	src/tokenizer.h	/^	TNZ_T1_NONE = 0,$/;"	e	enum:__anon2924026d0103
+TNZ_T2_NONE	src/tokenizer.h	/^	TNZ_T2_NONE = 0,$/;"	e	enum:__anon2924026d0203
+VALUE	src/tnz_tpl.h	/^	VALUE,$/;"	e	enum:__anon13d0f7fd0103
+VALUE_STRING	src/tnz_tpl.h	/^	VALUE_STRING$/;"	e	enum:__anon13d0f7fd0203
+VAR_END	src/tnz_tpl.h	/^	VAR_START, VAR_END,$/;"	e	enum:__anon13d0f7fd0103
+VAR_START	src/tnz_tpl.h	/^	VAR_START, VAR_END,$/;"	e	enum:__anon13d0f7fd0103
+WS	src/tnz_tpl.h	/^	WS,$/;"	e	enum:__anon13d0f7fd0103
+__anon13d0f7fd0103	src/tnz_tpl.h	/^typedef enum {$/;"	g
+__anon13d0f7fd0203	src/tnz_tpl.h	/^typedef enum { $/;"	g
+__anon2924026d0103	src/tokenizer.h	/^typedef enum {$/;"	g
+__anon2924026d0203	src/tokenizer.h	/^typedef enum { $/;"	g
+__anon4611dbbf0103	src/parser.h	/^typedef enum {$/;"	g
+all	Makefile	/^all: dirs tags lexers_ok parsers_ok test\/results\/templater_out.txt$/;"	t
+blocks_param	src/tnz_param.c	/^const t_block blocks_param[] = {$/;"	v	typeref:typename:const t_block[]
+blocks_tpl	src/tnz_tpl.c	/^const t_block blocks_tpl[] = {$/;"	v	typeref:typename:const t_block[]
+build	Makefile	/^build: $/;"	t
+build/parser.o	Makefile	/^build\/parser.o: src\/parser.c src\/parser.h$/;"	t
+build/templater	Makefile	/^build\/templater: $(COMP_BIN)$/;"	t
+build/tnz_param.o	Makefile	/^build\/tnz_param.o: src\/tnz_param.c src\/tnz_param.h$/;"	t
+build/tnz_tpl.o	Makefile	/^build\/tnz_tpl.o: src\/tnz_tpl.c src\/tnz_tpl.h$/;"	t
+build/tokenizer.o	Makefile	/^build\/tokenizer.o: src\/tokenizer.c src\/tokenizer.h$/;"	t
+char_is_alnum	src/tokenizer.c	/^bool char_is_alnum(char c) {$/;"	f	typeref:typename:bool
+char_is_alpha	src/tokenizer.c	/^bool char_is_alpha(char c) {$/;"	f	typeref:typename:bool
+char_is_digit	src/tokenizer.c	/^bool char_is_digit(char c) {$/;"	f	typeref:typename:bool
+char_is_varname	src/tokenizer.c	/^bool char_is_varname(char c) {$/;"	f	typeref:typename:bool
+char_is_varname_first	src/tokenizer.c	/^bool char_is_varname_first(char c) {$/;"	f	typeref:typename:bool
+clean	Makefile	/^clean:$/;"	t
+content	src/tokenizer.h	/^	char *content;$/;"	m	struct:token	typeref:typename:char *
+content	src/tokenizer.h	/^	const char *content;$/;"	m	struct:t_reserved	typeref:typename:const char *
+dirs	Makefile	/^dirs: src build test test\/src test\/build test\/results$/;"	t
+end	src/parser.h	/^	token *end;$/;"	m	struct:p_struct	typeref:typename:token *
+end	src/tokenizer.h	/^	const char *end;$/;"	m	struct:t_block	typeref:typename:const char *
+find	src/tokenizer.c	/^const t_reserved *find(const t_reserved list[], char *search) {$/;"	f	typeref:typename:const t_reserved *
+lexers_ok	Makefile	/^lexers_ok: test\/results\/tokenizer_param_ok test\/results\/tokenizer_tpl_ok$/;"	t
+main	src/templater.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	test/src/test_parser_param.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	test/src/test_parser_tpl.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	test/src/test_tokenizer_param.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	test/src/test_tokenizer_tpl.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+make_libs	Makefile	/^make_libs:$/;"	t
+p_struct	src/parser.h	/^typedef struct p_struct {$/;"	s
+p_struct	src/parser.h	/^} p_struct;$/;"	t	typeref:struct:p_struct
+p_struct_as_string	src/parser.c	/^char *p_struct_as_string(p_struct *s) {$/;"	f	typeref:typename:char *
+p_struct_cpy	src/parser.c	/^p_struct *p_struct_cpy(p_struct *src) {$/;"	f	typeref:typename:p_struct *
+p_struct_set	src/parser.c	/^void p_struct_set(p_struct *dest, p_struct_type type, token *start, token *end) {$/;"	f	typeref:typename:void
+p_struct_type	src/parser.h	/^} p_struct_type;$/;"	t	typeref:enum:__anon4611dbbf0103
+param_get	src/parser.c	/^p_struct *param_get(array *params, char *search) {$/;"	f	typeref:typename:p_struct *
+param_get_value	src/parser.c	/^token *param_get_value(p_struct *param) {$/;"	f	typeref:typename:token *
+parse_and_replace	src/templater.c	/^int parse_and_replace(char *filepath_params, char *filepath_tpl, char *filepath_result) {$/;"	f	typeref:typename:int
+parse_param	src/parser.c	/^array *parse_param(array *dest, array *tokens) {$/;"	f	typeref:typename:array *
+parse_replace	src/parser.c	/^array *parse_replace(array *params, array *tpl) {$/;"	f	typeref:typename:array *
+parse_template	src/parser.c	/^array *parse_template(array *dest, array *tokens) {$/;"	f	typeref:typename:array *
+parsers_ok	Makefile	/^parsers_ok: test\/results\/parser_param_ok test\/results\/parser_tpl_ok$/;"	t
+pstruct_fprint	src/parser.c	/^void pstruct_fprint(void *p, FILE *out){$/;"	f	typeref:typename:void
+pstruct_fprint_formated	src/parser.c	/^void pstruct_fprint_formated(void *p, FILE *out){$/;"	f	typeref:typename:void
+pstruct_print	src/parser.c	/^void pstruct_print(void *p){$/;"	f	typeref:typename:void
+pstruct_print_formated	src/parser.c	/^void pstruct_print_formated(void *p){$/;"	f	typeref:typename:void
+pstructs_fprint	src/parser.c	/^void pstructs_fprint(array *a, FILE *out){$/;"	f	typeref:typename:void
+pstructs_fprint_formated	src/parser.c	/^void pstructs_fprint_formated(array *a, FILE *out){$/;"	f	typeref:typename:void
+pstructs_free	src/parser.c	/^void pstructs_free(array *a) {$/;"	f	typeref:typename:void
+pstructs_print	src/parser.c	/^void pstructs_print(array *a){$/;"	f	typeref:typename:void
+pstructs_print_formated	src/parser.c	/^void pstructs_print_formated(array *a){$/;"	f	typeref:typename:void
+read_a_block	src/tokenizer.c	/^const t_block *read_a_block(char *text, const t_block blocks[], int *len) {$/;"	f	typeref:typename:const t_block *
+read_block	src/tokenizer.c	/^const t_block *read_block(char *text, const t_block *b, int *len) {	$/;"	f	typeref:typename:const t_block *
+read_param	src/parser.c	/^p_struct *read_param(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+read_template_any	src/parser.c	/^p_struct *read_template_any(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+read_variable	src/parser.c	/^p_struct *read_variable(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+read_ws	src/parser.c	/^p_struct *read_ws(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+readfile	src/tokenizer.c	/^char *readfile(const char *filename) {$/;"	f	typeref:typename:char *
+reserved_param	src/tnz_param.c	/^const t_reserved reserved_param[] = {$/;"	v	typeref:typename:const t_reserved[]
+reserved_tpl	src/tnz_tpl.c	/^const t_reserved reserved_tpl[] = {$/;"	v	typeref:typename:const t_reserved[]
+src	Makefile	/^src: $/;"	t
+start	src/parser.h	/^	token *start;$/;"	m	struct:p_struct	typeref:typename:token *
+start	src/tokenizer.h	/^	const char *start;$/;"	m	struct:t_block	typeref:typename:const char *
+string_is_alnum	src/tokenizer.c	/^bool string_is_alnum(char *s, size_t len) {$/;"	f	typeref:typename:bool
+string_is_alpha	src/tokenizer.c	/^bool string_is_alpha(char *s, size_t len) {$/;"	f	typeref:typename:bool
+string_is_integer	src/tokenizer.c	/^bool string_is_integer(char *s, size_t len) {$/;"	f	typeref:typename:bool
+string_is_varname	src/tokenizer.c	/^bool string_is_varname(char *s, size_t len) {$/;"	f	typeref:typename:bool
+t_block	src/tokenizer.h	/^typedef struct t_block {$/;"	s
+t_block	src/tokenizer.h	/^} t_block;$/;"	t	typeref:struct:t_block
+t_block_null	src/tokenizer.c	/^const t_block t_block_null = { 0 };$/;"	v	typeref:typename:const t_block
+t_block_print	src/tokenizer.c	/^void t_block_print(const t_block *b) {$/;"	f	typeref:typename:void
+t_reserved	src/tokenizer.h	/^typedef struct t_reserved {$/;"	s
+t_reserved	src/tokenizer.h	/^} t_reserved;$/;"	t	typeref:struct:t_reserved
+t_reserved_null	src/tokenizer.c	/^const t_reserved t_reserved_null = { 0 };$/;"	v	typeref:typename:const t_reserved
+t_reserved_print	src/tokenizer.c	/^void t_reserved_print(const t_reserved *r) {$/;"	f	typeref:typename:void
+tags	Makefile	/^tags: $/;"	t
+test	Makefile	/^test: $/;"	t
+test/build	Makefile	/^test\/build: $/;"	t
+test/build/test_parser_param	Makefile	/^test\/build\/test_parser_param: $(COMP_PARSER_PARAM)$/;"	t
+test/build/test_parser_tpl	Makefile	/^test\/build\/test_parser_tpl: $(COMP_PARSER_TPL)$/;"	t
+test/build/test_tokenizer_param	Makefile	/^test\/build\/test_tokenizer_param: $(COMP_PARAM)$/;"	t
+test/build/test_tokenizer_tpl	Makefile	/^test\/build\/test_tokenizer_tpl: $(COMP_TPL)$/;"	t
+test/results	Makefile	/^test\/results:$/;"	t
+test/results/parser_param_ok	Makefile	/^test\/results\/parser_param_ok: .\/test\/ressources\/param.txt test\/results\/parser_param_out.t/;"	t
+test/results/parser_param_out.txt	Makefile	/^test\/results\/parser_param_out.txt: .\/test\/build\/test_parser_param .\/test\/ressources\/para/;"	t
+test/results/parser_tpl_ok	Makefile	/^test\/results\/parser_tpl_ok: .\/test\/ressources\/tpl.txt test\/results\/parser_tpl_out.txt$/;"	t
+test/results/parser_tpl_out.txt	Makefile	/^test\/results\/parser_tpl_out.txt: .\/test\/build\/test_parser_tpl .\/test\/ressources\/tpl.txt$/;"	t
+test/results/templater_out.txt	Makefile	/^test\/results\/templater_out.txt: .\/build\/templater .\/test\/ressources\/param.txt .\/test\/re/;"	t
+test/results/tokenizer_param_ok	Makefile	/^test\/results\/tokenizer_param_ok: .\/test\/ressources\/param.txt test\/results\/tokenizer_param/;"	t
+test/results/tokenizer_param_out.txt	Makefile	/^test\/results\/tokenizer_param_out.txt: .\/test\/build\/test_tokenizer_param .\/test\/ressources/;"	t
+test/results/tokenizer_tpl_ok	Makefile	/^test\/results\/tokenizer_tpl_ok: .\/test\/ressources\/tpl.txt test\/results\/tokenizer_tpl_out.t/;"	t
+test/results/tokenizer_tpl_out.txt	Makefile	/^test\/results\/tokenizer_tpl_out.txt: .\/test\/build\/test_tokenizer_tpl .\/test\/ressources\/tp/;"	t
+test/src	Makefile	/^test\/src: $/;"	t
+tnz_param	src/tnz_param.c	/^array *tnz_param(char *filepath) {$/;"	f	typeref:typename:array *
+tnz_tpl	src/tnz_tpl.c	/^array *tnz_tpl(char *filepath) {$/;"	f	typeref:typename:array *
+tnz_type_1	src/tokenizer.h	/^} tnz_type_1;$/;"	t	typeref:enum:__anon2924026d0103
+tnz_type_2	src/tokenizer.h	/^} tnz_type_2;$/;"	t	typeref:enum:__anon2924026d0203
+token	src/tokenizer.h	/^typedef struct token {$/;"	s
+token	src/tokenizer.h	/^} token;$/;"	t	typeref:struct:token
+token_fprint	src/tokenizer.c	/^void token_fprint(void *tok, FILE *out) {$/;"	f	typeref:typename:void
+token_fprint_formated	src/tokenizer.c	/^void token_fprint_formated(void *tok, FILE *out) {$/;"	f	typeref:typename:void
+token_free	src/tokenizer.c	/^void token_free(void *tok) {$/;"	f	typeref:typename:void
+token_is_varname	src/parser.c	/^bool token_is_varname(token *t) {$/;"	f	typeref:typename:bool
+token_print	src/tokenizer.c	/^void token_print(void *tok) {$/;"	f	typeref:typename:void
+token_print_formated	src/tokenizer.c	/^void token_print_formated(void *tok) {$/;"	f	typeref:typename:void
+token_set	src/tokenizer.c	/^void token_set(token *t, int type1, int type2, char *content, size_t len) {$/;"	f	typeref:typename:void
+tokenize	src/tokenizer.c	/^array *tokenize(array **dest, char *text, const t_block blocks[], const t_reserved reserved[]) {$/;"	f	typeref:typename:array *
+tokens_fprint	src/tokenizer.c	/^void tokens_fprint(array *tokens, FILE *out) {$/;"	f	typeref:typename:void
+tokens_fprint_formated	src/tokenizer.c	/^void tokens_fprint_formated(array *tokens, FILE *out) {$/;"	f	typeref:typename:void
+tokens_free	src/tokenizer.c	/^void tokens_free(array *tokens) {$/;"	f	typeref:typename:void
+tokens_print	src/tokenizer.c	/^void tokens_print(array *tokens) {$/;"	f	typeref:typename:void
+tokens_print_formated	src/tokenizer.c	/^void tokens_print_formated(array *tokens) {$/;"	f	typeref:typename:void
+type	src/parser.h	/^	p_struct_type type;$/;"	m	struct:p_struct	typeref:typename:p_struct_type
+type1	src/tokenizer.h	/^	int type1;$/;"	m	struct:t_block	typeref:typename:int
+type1	src/tokenizer.h	/^	int type1;$/;"	m	struct:t_reserved	typeref:typename:int
+type1	src/tokenizer.h	/^	int type1;$/;"	m	struct:token	typeref:typename:int
+type2	src/tokenizer.h	/^	int type2;$/;"	m	struct:t_block	typeref:typename:int
+type2	src/tokenizer.h	/^	int type2;$/;"	m	struct:t_reserved	typeref:typename:int
+type2	src/tokenizer.h	/^	int type2;$/;"	m	struct:token	typeref:typename:int
+type_1	src/tnz_tpl.h	/^} type_1;$/;"	t	typeref:enum:__anon13d0f7fd0103
+type_2	src/tnz_tpl.h	/^} type_2;$/;"	t	typeref:enum:__anon13d0f7fd0203
+word_cpy	src/tokenizer.c	/^char *word_cpy(char *word, int len) {$/;"	f	typeref:typename:char *

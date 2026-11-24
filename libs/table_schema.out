@@ -1,0 +1,7 @@
+table[name=person]
+col[type=ID][size=4][partitions=20][name=id]
+col[type=TEXT][size=16][partitions=0][name=firstname]
+col[type=TEXT][size=64][partitions=0][name=lastname]
+col[type=INT32][size=4][partitions=0][name=age]
+col[type=TEXT][size=256][partitions=0][name=email]
+col[type=CHAR][size=1][partitions=20][name=group]

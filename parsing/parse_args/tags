@@ -1,0 +1,83 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/mnt/c/Users/Mathieu/Documents/MEGA/Prog/C/parsing/parse_args/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+ARRAY_DO	libs/array.h	/^#define ARRAY_DO(/;"	d
+ARRAY_FREE	libs/array.h	/^#define ARRAY_FREE(/;"	d
+ARRAY_GET	libs/array.h	/^#define ARRAY_GET(/;"	d
+ARRAY_H	libs/array.h	/^#define ARRAY_H$/;"	d
+ARRAY_INIT_ALLOC	libs/array.h	/^#define ARRAY_INIT_ALLOC /;"	d
+ARRAY_REALLOC_COEF	libs/array.h	/^#define ARRAY_REALLOC_COEF /;"	d
+CC	Makefile	/^CC=gcc$/;"	m
+CC	libs/Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+CFLAGS	libs/Makefile	/^CFLAGS=-W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+CHAR	src/parse.h	/^	CHAR$/;"	e	enum:__anona50843ed0103
+DOUBLE	src/parse.h	/^	DOUBLE,$/;"	e	enum:__anona50843ed0103
+INTEGER	src/parse.h	/^	INTEGER,$/;"	e	enum:__anona50843ed0103
+LDFLAGS	Makefile	/^LDFLAGS=-I libs -I src\/ -L libs$/;"	m
+LDFLAGS	libs/Makefile	/^LDFLAGS=-I .\/$/;"	m
+STRING	src/parse.h	/^	STRING = 0,$/;"	e	enum:__anona50843ed0103
+STRING_LIT	src/parse.h	/^	STRING_LIT,$/;"	e	enum:__anona50843ed0103
+__anona50843ed0103	src/parse.h	/^typedef enum {$/;"	g
+all	Makefile	/^all: dirs tags test\/build\/test$/;"	t
+all	Makefile	/^all: make_libs$/;"	t
+all	libs/Makefile	/^all: tags array.o libarray.a$/;"	t
+array	libs/array.h	/^typedef struct array { $/;"	s
+array	libs/array.h	/^} array;$/;"	t	typeref:struct:array
+array.o	libs/Makefile	/^array.o: array.c array.h macros.h$/;"	t
+array_add	libs/array.c	/^array *array_add(array *a, void *item) {$/;"	f	typeref:typename:array *
+array_del	libs/array.c	/^array *array_del(array *a, void *data) {$/;"	f	typeref:typename:array *
+array_del_idx	libs/array.c	/^array *array_del_idx(array *a, size_t idx) {$/;"	f	typeref:typename:array *
+array_dump	libs/array.c	/^array *array_dump(array *a, FILE *fd, void *(*item_dump)(FILE *, void *)) {$/;"	f	typeref:typename:array *
+array_dump_infos	libs/array.c	/^array *array_dump_infos(array *a, FILE *fd) {$/;"	f	typeref:typename:array *
+array_dump_items	libs/array.c	/^array *array_dump_items(array *a, FILE *fd, void *(*item_dump)(FILE *, void *)) {$/;"	f	typeref:typename:array *
+array_find	libs/array.c	/^void *array_find(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:void *
+array_find_all	libs/array.c	/^array *array_find_all(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:array *
+array_find_all_idx	libs/array.c	/^array *array_find_all_idx(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:array *
+array_find_idx	libs/array.c	/^int array_find_idx(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:int
+array_find_rec	libs/array.c	/^void *array_find_rec(array *a, void *search, int (*cmp)(const void *, const void *), size_t *idx/;"	f	typeref:typename:void *
+array_find_rec_idx	libs/array.c	/^int array_find_rec_idx(array *a, void *search, int (*cmp)(const void *, const void *), size_t *i/;"	f	typeref:typename:int
+array_free	libs/array.c	/^void array_free(array *a) {$/;"	f	typeref:typename:void
+array_load	libs/array.c	/^array *array_load(FILE *fd, void (*item_load)(void *, FILE *)) {$/;"	f	typeref:typename:array *
+array_new	libs/array.c	/^array *array_new(size_t capacity, size_t item_size) {$/;"	f	typeref:typename:array *
+build	Makefile	/^build: $/;"	t
+build/parse.o	Makefile	/^build\/parse.o: src\/parse.c src\/parse.h$/;"	t
+capacity	libs/array.h	/^	size_t capacity;$/;"	m	struct:array	typeref:typename:size_t
+clean	Makefile	/^clean:$/;"	t
+clean	libs/Makefile	/^clean:$/;"	t
+count	libs/array.h	/^	size_t count;$/;"	m	struct:array	typeref:typename:size_t
+dirs	Makefile	/^dirs: src build test test\/src test\/build test\/results$/;"	t
+get_type	src/parse.c	/^value_type get_type(char *s, size_t len) {$/;"	f	typeref:typename:value_type
+is_double	src/parse.c	/^bool is_double(char *s, size_t len) {$/;"	f	typeref:typename:bool
+is_integer	src/parse.c	/^bool is_integer(char *s, size_t len) {$/;"	f	typeref:typename:bool
+item_size	libs/array.h	/^	size_t item_size;$/;"	m	struct:array	typeref:typename:size_t
+items	libs/array.h	/^	char *items;$/;"	m	struct:array	typeref:typename:char *
+libarray.a	libs/Makefile	/^libarray.a: array.o$/;"	t
+main	test/src/test.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+make_libs	Makefile	/^make_libs:$/;"	t
+readfile	src/parse.c	/^char *readfile(const char *filename) {$/;"	f	typeref:typename:char *
+readline	src/parse.c	/^char *readline(FILE *f, char *dest, size_t *len) {$/;"	f	typeref:typename:char *
+s	libs/macros.h	/^			LOG_E("failed to open file [%s]\\n", FO_path); \\$/;"	m
+s	libs/macros.h	/^			LOG_E("failed to open file [%s]\\n", O_path); \\$/;"	m
+s	libs/macros.h	/^		fprintf(LGM_stream, "%s:%s:%d:%s\\n", __FILE__, __func__, __LINE__, LGM_mess);$/;"	m
+s	libs/macros.h	/^		fprintf(LG_stream, "%s:%s:%d:" LG_fmt, __FILE__, __func__, __LINE__, __VA_ARGS__);$/;"	m
+src	Makefile	/^src: $/;"	t
+tags	Makefile	/^tags: $/;"	t
+tags	libs/Makefile	/^tags: $/;"	t
+test	Makefile	/^test: $/;"	t
+test/build	Makefile	/^test\/build: $/;"	t
+test/build/test	Makefile	/^test\/build\/test: test\/src\/test.c build\/parse.o$/;"	t
+test/results	Makefile	/^test\/results:$/;"	t
+test/src	Makefile	/^test\/src: $/;"	t
+test_1	test/src/test.c	/^int test_1() {$/;"	f	typeref:typename:int
+tokenize	src/parse.c	/^char **tokenize(char *text, size_t len) {$/;"	f	typeref:typename:char **
+type_to_s	src/parse.c	/^const char *type_to_s(value_type type) {$/;"	f	typeref:typename:const char *
+value_type	src/parse.h	/^} value_type;$/;"	t	typeref:enum:__anona50843ed0103

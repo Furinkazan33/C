@@ -1,0 +1,50 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/mnt/c/Users/Mathieu/Documents/MEGA/Prog/C/parsing/parse_args/libs/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+ARRAY_DO	array.h	/^#define ARRAY_DO(/;"	d
+ARRAY_FREE	array.h	/^#define ARRAY_FREE(/;"	d
+ARRAY_GET	array.h	/^#define ARRAY_GET(/;"	d
+ARRAY_H	array.h	/^#define ARRAY_H$/;"	d
+ARRAY_INIT_ALLOC	array.h	/^#define ARRAY_INIT_ALLOC /;"	d
+ARRAY_REALLOC_COEF	array.h	/^#define ARRAY_REALLOC_COEF /;"	d
+CC	Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=-I .\/$/;"	m
+all	Makefile	/^all: tags array.o libarray.a$/;"	t
+array	array.h	/^typedef struct array { $/;"	s
+array	array.h	/^} array;$/;"	t	typeref:struct:array
+array.o	Makefile	/^array.o: array.c array.h macros.h$/;"	t
+array_add	array.c	/^array *array_add(array *a, void *item) {$/;"	f	typeref:typename:array *
+array_del	array.c	/^array *array_del(array *a, void *data) {$/;"	f	typeref:typename:array *
+array_del_idx	array.c	/^array *array_del_idx(array *a, size_t idx) {$/;"	f	typeref:typename:array *
+array_dump	array.c	/^array *array_dump(array *a, FILE *fd, void *(*item_dump)(FILE *, void *)) {$/;"	f	typeref:typename:array *
+array_dump_infos	array.c	/^array *array_dump_infos(array *a, FILE *fd) {$/;"	f	typeref:typename:array *
+array_dump_items	array.c	/^array *array_dump_items(array *a, FILE *fd, void *(*item_dump)(FILE *, void *)) {$/;"	f	typeref:typename:array *
+array_find	array.c	/^void *array_find(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:void *
+array_find_all	array.c	/^array *array_find_all(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:array *
+array_find_all_idx	array.c	/^array *array_find_all_idx(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:array *
+array_find_idx	array.c	/^int array_find_idx(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:int
+array_find_rec	array.c	/^void *array_find_rec(array *a, void *search, int (*cmp)(const void *, const void *), size_t *idx/;"	f	typeref:typename:void *
+array_find_rec_idx	array.c	/^int array_find_rec_idx(array *a, void *search, int (*cmp)(const void *, const void *), size_t *i/;"	f	typeref:typename:int
+array_free	array.c	/^void array_free(array *a) {$/;"	f	typeref:typename:void
+array_load	array.c	/^array *array_load(FILE *fd, void (*item_load)(void *, FILE *)) {$/;"	f	typeref:typename:array *
+array_new	array.c	/^array *array_new(size_t capacity, size_t item_size) {$/;"	f	typeref:typename:array *
+capacity	array.h	/^	size_t capacity;$/;"	m	struct:array	typeref:typename:size_t
+clean	Makefile	/^clean:$/;"	t
+count	array.h	/^	size_t count;$/;"	m	struct:array	typeref:typename:size_t
+item_size	array.h	/^	size_t item_size;$/;"	m	struct:array	typeref:typename:size_t
+items	array.h	/^	char *items;$/;"	m	struct:array	typeref:typename:char *
+libarray.a	Makefile	/^libarray.a: array.o$/;"	t
+s	macros.h	/^			LOG_E("failed to open file [%s]\\n", FO_path); \\$/;"	m
+s	macros.h	/^			LOG_E("failed to open file [%s]\\n", O_path); \\$/;"	m
+s	macros.h	/^		fprintf(LGM_stream, "%s:%s:%d:%s\\n", __FILE__, __func__, __LINE__, LGM_mess);$/;"	m
+s	macros.h	/^		fprintf(LG_stream, "%s:%s:%d:" LG_fmt, __FILE__, __func__, __LINE__, __VA_ARGS__);$/;"	m
+tags	Makefile	/^tags: $/;"	t

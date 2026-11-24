@@ -1,0 +1,19 @@
+/*
+types de base : int, float, string "", array []
+definition d'un nouveau type avec typedef
+*/
+
+
+typedef vehicle(string manufacturer, string model, array components)
+typedef motor(string manufacturer, string model)
+typedef tire(string manufacturer, int size)
+
+
+tire michelin = { "Michelin", 42 }
+motor ferrari = { "ferrari", "V8turbo" }
+string name = "205"
+vehicle car = { "Peugeot", name, [michelin, ferrari] }
+
+
+// box_root.children.add(box3)
+

@@ -1,0 +1,10 @@
+PARSER : file comment : [ commentaire sur une ligne]
+PARSER : file comment : [ commentaire suivant.]
+PARSER : property firstname=toto
+PARSER : property lastname=de nada
+PARSER : group group1
+PARSER : group comment [ commentaire du groupe 2]
+PARSER : property age=20
+PARSER : property ville=Bordeaux
+PARSER : property pseudo="la la la"
+PARSER : group group2

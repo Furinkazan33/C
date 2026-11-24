@@ -1,0 +1,7 @@
+
+
+J'ai ${N} oiseaux. Tous les ${N} sont heureux.
+
+
+Comment vas-tu ${PRENOM} ?
+

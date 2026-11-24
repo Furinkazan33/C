@@ -1,0 +1,14 @@
+
+
+; commentaire sur une ligne
+; commentaire suivant.
+[group1]
+firstname=toto
+lastname=de nada
+
+
+[group2]
+; commentaire du groupe 2
+age = 20
+ville=Bordeaux
+pseudo="la la la"

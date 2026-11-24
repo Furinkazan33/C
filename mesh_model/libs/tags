@@ -1,0 +1,23 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/mnt/c/Users/Mathieu/Documents/MEGA/Prog/C/mesh_model/libs/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+CC	Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=-I .\/$/;"	m
+XXXX.o	Makefile	/^XXXX.o: XXXX.c XXXX.h macros.h$/;"	t
+all	Makefile	/^all: tags$/;"	t
+clean	Makefile	/^clean:$/;"	t
+libXXXX.a	Makefile	/^libXXXX.a: XXXX.o$/;"	t
+s	macros.h	/^			LOG_E("failed to open file [%s]\\n", FO_path); \\$/;"	m
+s	macros.h	/^			LOG_E("failed to open file [%s]\\n", O_path); \\$/;"	m
+s	macros.h	/^		fprintf(LGM_stream, "%s:%s:%d:%s\\n", __FILE__, __func__, __LINE__, LGM_mess);$/;"	m
+s	macros.h	/^		fprintf(LG_stream, "%s:%s:%d:" LG_fmt, __FILE__, __func__, __LINE__, __VA_ARGS__);$/;"	m
+tags	Makefile	/^tags: $/;"	t

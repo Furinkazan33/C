@@ -1,0 +1,9 @@
+server_ip=localhost
+server_port=22
+
+
+# un commentaire
+user=mathieu=1
+
+pubkey=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINW/6NHtgIt04Gh1e+XdbSj0Z+KFOx+Ri2BOFpJMut13 mathieu@Furinkazan
+

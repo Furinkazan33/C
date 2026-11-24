@@ -1,0 +1,93 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/mnt/c/Users/Mathieu/Documents/MEGA/Prog/C/web_gen/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+ARRAY_DO	libs/array.h	/^#define ARRAY_DO(/;"	d
+ARRAY_FREE	libs/array.h	/^#define ARRAY_FREE(/;"	d
+ARRAY_GET	libs/array.h	/^#define ARRAY_GET(/;"	d
+ARRAY_H	libs/array.h	/^#define ARRAY_H$/;"	d
+ARRAY_INIT_ALLOC	libs/array.h	/^#define ARRAY_INIT_ALLOC /;"	d
+ARRAY_REALLOC_COEF	libs/array.h	/^#define ARRAY_REALLOC_COEF /;"	d
+CC	Makefile	/^CC=gcc -W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+CC	libs/Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=$/;"	m
+CFLAGS	libs/Makefile	/^CFLAGS=-W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+LDFLAGS	Makefile	/^LDFLAGS=-I libs -I src\/ -L libs$/;"	m
+LDFLAGS	libs/Makefile	/^LDFLAGS=-I .\/$/;"	m
+TAB	src/XXXX.h	/^#define TAB(/;"	d
+WG_H	src/XXXX.h	/^#define WG_H$/;"	d
+all	Makefile	/^all: dirs tags builds test_builds test_results$/;"	t
+all	Makefile	/^all: make_libs$/;"	t
+all	libs/Makefile	/^all: tags array.o libarray.a$/;"	t
+app	src/XXXX.h	/^typedef struct app {$/;"	s
+app	src/XXXX.h	/^} app;$/;"	t	typeref:struct:app
+array	libs/array.h	/^typedef struct array { $/;"	s
+array	libs/array.h	/^} array;$/;"	t	typeref:struct:array
+array.o	libs/Makefile	/^array.o: array.c array.h$/;"	t
+array_add	libs/array.c	/^array *array_add(array *a, void *item) {$/;"	f	typeref:typename:array *
+array_del	libs/array.c	/^array *array_del(array *a, void *data) {$/;"	f	typeref:typename:array *
+array_del_idx	libs/array.c	/^array *array_del_idx(array *a, size_t idx) {$/;"	f	typeref:typename:array *
+array_dump	libs/array.c	/^array *array_dump(array *a, FILE *fd, void *(*item_dump)(FILE *, void *)) {$/;"	f	typeref:typename:array *
+array_dump_infos	libs/array.c	/^array *array_dump_infos(array *a, FILE *fd) {$/;"	f	typeref:typename:array *
+array_dump_items	libs/array.c	/^array *array_dump_items(array *a, FILE *fd, void *(*item_dump)(FILE *, void *)) {$/;"	f	typeref:typename:array *
+array_find	libs/array.c	/^void *array_find(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:void *
+array_find_all	libs/array.c	/^array *array_find_all(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:array *
+array_find_all_idx	libs/array.c	/^array *array_find_all_idx(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:array *
+array_find_idx	libs/array.c	/^int array_find_idx(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:int
+array_find_rec	libs/array.c	/^void *array_find_rec(array *a, void *search, int (*cmp)(const void *, const void *), size_t *idx/;"	f	typeref:typename:void *
+array_find_rec_idx	libs/array.c	/^int array_find_rec_idx(array *a, void *search, int (*cmp)(const void *, const void *), size_t *i/;"	f	typeref:typename:int
+array_free	libs/array.c	/^void array_free(array *a) {$/;"	f	typeref:typename:void
+array_load	libs/array.c	/^array *array_load(FILE *fd, void (*item_load)(void *, FILE *)) {$/;"	f	typeref:typename:array *
+array_new	libs/array.c	/^array *array_new(size_t capacity, size_t item_size) {$/;"	f	typeref:typename:array *
+build	Makefile	/^build: $/;"	t
+build/XXXX.o	Makefile	/^build\/XXXX.o: src\/XXXX.c src\/XXXX.h$/;"	t
+builds	Makefile	/^builds: build\/XXXX.o$/;"	t
+capacity	libs/array.h	/^	size_t capacity;$/;"	m	struct:array	typeref:typename:size_t
+children	src/XXXX.h	/^	array *children;$/;"	m	struct:app	typeref:typename:array *
+clean	Makefile	/^clean:$/;"	t
+clean	libs/Makefile	/^clean:$/;"	t
+count	libs/array.h	/^	size_t count;$/;"	m	struct:array	typeref:typename:size_t
+data	src/XXXX.h	/^	void *data;$/;"	m	struct:data_source	typeref:typename:void *
+data_source	src/XXXX.h	/^typedef struct data_source {$/;"	s
+data_source	src/XXXX.h	/^} data_source;$/;"	t	typeref:struct:data_source
+dirs	Makefile	/^dirs: src build test test\/src test\/build test\/results$/;"	t
+gen	src/XXXX.c	/^char *gen(app *a) {$/;"	f	typeref:typename:char *
+gen_all	src/XXXX.c	/^char *gen_all(app *a, size_t tabs) {$/;"	f	typeref:typename:char *
+gen_table	src/XXXX.c	/^char *gen_table(app *a, size_t tabs) {$/;"	f	typeref:typename:char *
+gen_type	src/XXXX.c	/^char *gen_type(app *a, size_t tabs) {$/;"	f	typeref:typename:char *
+id	src/XXXX.h	/^	int id;$/;"	m	struct:app	typeref:typename:int
+id	src/XXXX.h	/^	int id;$/;"	m	struct:data_source	typeref:typename:int
+item_size	libs/array.h	/^	size_t item_size;$/;"	m	struct:array	typeref:typename:size_t
+items	libs/array.h	/^	char *items;$/;"	m	struct:array	typeref:typename:char *
+libarray.a	libs/Makefile	/^libarray.a: array.o$/;"	t
+main	test/src/test1.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+make_libs	Makefile	/^make_libs:$/;"	t
+name	src/XXXX.h	/^	char *name;$/;"	m	struct:app	typeref:typename:char *
+name	src/XXXX.h	/^	char *name;$/;"	m	struct:data_source	typeref:typename:char *
+parent	src/XXXX.h	/^	struct app *parent;$/;"	m	struct:app	typeref:struct:app *
+s	libs/macros.h	/^			LOG_E("failed to open file [%s]\\n", FO_path); \\$/;"	m
+s	libs/macros.h	/^			LOG_E("failed to open file [%s]\\n", O_path); \\$/;"	m
+s	libs/macros.h	/^		fprintf(LGM_stream, "%s:%s:%d:%s\\n", __FILE__, __func__, __LINE__, LGM_mess);$/;"	m
+s	libs/macros.h	/^		fprintf(LG_stream, "%s:%s:%d:" LG_fmt, __FILE__, __func__, __LINE__, __VA_ARGS__);$/;"	m
+src	Makefile	/^src: $/;"	t
+src	src/XXXX.h	/^	data_source *src;$/;"	m	struct:app	typeref:typename:data_source *
+tags	Makefile	/^tags: $/;"	t
+tags	libs/Makefile	/^tags: $/;"	t
+test	Makefile	/^test: $/;"	t
+test/build	Makefile	/^test\/build: $/;"	t
+test/build/test1	Makefile	/^test\/build\/test1: test\/src\/test1.c build\/XXXX.o$/;"	t
+test/results	Makefile	/^test\/results:$/;"	t
+test/results/ok_1	Makefile	/^test\/results\/ok_1: .\/test\/build\/test1$/;"	t
+test/src	Makefile	/^test\/src: $/;"	t
+test_1	test/src/test1.c	/^int test_1() {$/;"	f	typeref:typename:int
+test_2	test/src/test1.c	/^int test_2() {$/;"	f	typeref:typename:int
+test_builds	Makefile	/^test_builds: test\/build\/test1$/;"	t
+test_results	Makefile	/^test_results: test\/results\/ok_1$/;"	t
+type	src/XXXX.h	/^	char *type;$/;"	m	struct:app	typeref:typename:char *

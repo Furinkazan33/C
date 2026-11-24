@@ -1,0 +1,335 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/mnt/c/Users/Mathieu/Documents/MEGA/Prog/C/parsing/parser/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+ARRAY_DO	libs/array.h	/^#define ARRAY_DO(/;"	d
+ARRAY_FREE	libs/array.h	/^#define ARRAY_FREE(/;"	d
+ARRAY_GET	libs/array.h	/^#define ARRAY_GET(/;"	d
+ARRAY_H	libs/array.h	/^#define ARRAY_H$/;"	d
+ARRAY_INIT_ALLOC	libs/array.h	/^#define ARRAY_INIT_ALLOC /;"	d
+ARRAY_REALLOC_COEF	libs/array.h	/^#define ARRAY_REALLOC_COEF /;"	d
+CC	Makefile	/^CC=gcc$/;"	m
+CC	libs/Makefile	/^CC=gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS=-W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+CFLAGS	libs/Makefile	/^CFLAGS=-W -Wall -ansi -std=c17 -Wextra -pedantic $(flags)$/;"	m
+COMP_LEX_C	Makefile	/^COMP_LEX_C=test\/src\/test_tokenizer_c.c build\/tokenizer.o build\/tnz_c.o$/;"	m
+COMP_LEX_DEF	Makefile	/^COMP_LEX_DEF=test\/src\/test_tokenizer.c build\/tokenizer.o build\/tnz_default.o$/;"	m
+COMP_LEX_HTML	Makefile	/^COMP_LEX_HTML=test\/src\/test_tokenizer_html.c build\/tokenizer.o build\/tnz_html.o$/;"	m
+COMP_PARSER	Makefile	/^COMP_PARSER=test\/src\/test_parser_c.c build\/tokenizer.o build\/tnz_c.o build\/c_parser.o$/;"	m
+C_LEX_AMP	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_AND	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_B	src/tnz_c.h	/^	C_LEX_SPACE, C_LEX_TAB, C_LEX_NL, C_LEX_B, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_CASE	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_CHAR	src/tnz_c.h	/^	C_LEX_STATIC, C_LEX_INT, C_LEX_CHAR, C_LEX_FLOAT, C_LEX_CONST, C_LEX_DOUBLE,$/;"	e	enum:__anonf7ca0b100203
+C_LEX_COLON	src/tnz_c.h	/^	C_LEX_COMMA, C_LEX_DOT, C_LEX_SEMI, C_LEX_COLON, C_LEX_DQUOTE, C_LEX_QUOTE, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_COMMA	src/tnz_c.h	/^	C_LEX_COMMA, C_LEX_DOT, C_LEX_SEMI, C_LEX_COLON, C_LEX_DQUOTE, C_LEX_QUOTE, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_CONST	src/tnz_c.h	/^	C_LEX_STATIC, C_LEX_INT, C_LEX_CHAR, C_LEX_FLOAT, C_LEX_CONST, C_LEX_DOUBLE,$/;"	e	enum:__anonf7ca0b100203
+C_LEX_DEFINE	src/tnz_c.h	/^	C_LEX_DEFINE, C_LEX_INCLUDE, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_DOT	src/tnz_c.h	/^	C_LEX_COMMA, C_LEX_DOT, C_LEX_SEMI, C_LEX_COLON, C_LEX_DQUOTE, C_LEX_QUOTE, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_DOUBLE	src/tnz_c.h	/^	C_LEX_STATIC, C_LEX_INT, C_LEX_CHAR, C_LEX_FLOAT, C_LEX_CONST, C_LEX_DOUBLE,$/;"	e	enum:__anonf7ca0b100203
+C_LEX_DQUOTE	src/tnz_c.h	/^	C_LEX_COMMA, C_LEX_DOT, C_LEX_SEMI, C_LEX_COLON, C_LEX_DQUOTE, C_LEX_QUOTE, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_EQUAL	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_FLOAT	src/tnz_c.h	/^	C_LEX_STATIC, C_LEX_INT, C_LEX_CHAR, C_LEX_FLOAT, C_LEX_CONST, C_LEX_DOUBLE,$/;"	e	enum:__anonf7ca0b100203
+C_LEX_INCLUDE	src/tnz_c.h	/^	C_LEX_DEFINE, C_LEX_INCLUDE, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_INF	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_INT	src/tnz_c.h	/^	C_LEX_STATIC, C_LEX_INT, C_LEX_CHAR, C_LEX_FLOAT, C_LEX_CONST, C_LEX_DOUBLE,$/;"	e	enum:__anonf7ca0b100203
+C_LEX_LBRACK	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_LHOOK	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_LPAREN	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_NL	src/tnz_c.h	/^	C_LEX_SPACE, C_LEX_TAB, C_LEX_NL, C_LEX_B, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_OPERATOR	src/tnz_c.h	/^	C_LEX_OPERATOR,$/;"	e	enum:__anonf7ca0b100103
+C_LEX_PREPROC	src/tnz_c.h	/^	C_LEX_PREPROC,$/;"	e	enum:__anonf7ca0b100103
+C_LEX_QUOTE	src/tnz_c.h	/^	C_LEX_COMMA, C_LEX_DOT, C_LEX_SEMI, C_LEX_COLON, C_LEX_DQUOTE, C_LEX_QUOTE, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_RBRACK	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_RETURN	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_RHOOK	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_RPAREN	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_SEMI	src/tnz_c.h	/^	C_LEX_COMMA, C_LEX_DOT, C_LEX_SEMI, C_LEX_COLON, C_LEX_DQUOTE, C_LEX_QUOTE, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_SEPARATOR	src/tnz_c.h	/^	C_LEX_SEPARATOR,$/;"	e	enum:__anonf7ca0b100103
+C_LEX_SHARP	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_SPACE	src/tnz_c.h	/^	C_LEX_SPACE, C_LEX_TAB, C_LEX_NL, C_LEX_B, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_STAR	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_STATIC	src/tnz_c.h	/^	C_LEX_STATIC, C_LEX_INT, C_LEX_CHAR, C_LEX_FLOAT, C_LEX_CONST, C_LEX_DOUBLE,$/;"	e	enum:__anonf7ca0b100203
+C_LEX_SUP	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_SWITCH	src/tnz_c.h	/^	C_LEX_SHARP, C_LEX_EQUAL, C_LEX_AND, C_LEX_AMP, C_LEX_STAR, C_LEX_LPAREN, C_LEX_RPAREN, C_LEX_L/;"	e	enum:__anonf7ca0b100203
+C_LEX_T1_NONE	src/tnz_c.h	/^	C_LEX_T1_NONE = 100,$/;"	e	enum:__anonf7ca0b100103
+C_LEX_T2_NONE	src/tnz_c.h	/^	C_LEX_T2_NONE = 100,$/;"	e	enum:__anonf7ca0b100203
+C_LEX_TAB	src/tnz_c.h	/^	C_LEX_SPACE, C_LEX_TAB, C_LEX_NL, C_LEX_B, $/;"	e	enum:__anonf7ca0b100203
+C_LEX_TYPE	src/tnz_c.h	/^	C_LEX_TYPE,$/;"	e	enum:__anonf7ca0b100103
+C_LEX_VALUE	src/tnz_c.h	/^	C_LEX_VALUE,$/;"	e	enum:__anonf7ca0b100103
+C_LEX_VALUE_STRING	src/tnz_c.h	/^	C_LEX_VALUE_STRING,$/;"	e	enum:__anonf7ca0b100203
+C_LEX_WS	src/tnz_c.h	/^	C_LEX_WS,$/;"	e	enum:__anonf7ca0b100103
+HTML_AMP	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_AND	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_B	src/tnz_html.h	/^	HTML_SPACE, HTML_TAB, HTML_NL, HTML_B, $/;"	e	enum:__anon723bff220203
+HTML_CHAR	src/tnz_html.h	/^	HTML_STATIC, HTML_INT, HTML_CHAR, HTML_FLOAT, HTML_CONST, HTML_DOUBLE, $/;"	e	enum:__anon723bff220203
+HTML_COLON	src/tnz_html.h	/^	HTML_COMMA, HTML_DOT, HTML_SEMI, HTML_COLON, HTML_DQUOTE, HTML_QUOTE, $/;"	e	enum:__anon723bff220203
+HTML_COMMA	src/tnz_html.h	/^	HTML_COMMA, HTML_DOT, HTML_SEMI, HTML_COLON, HTML_DQUOTE, HTML_QUOTE, $/;"	e	enum:__anon723bff220203
+HTML_COMMENT	src/tnz_html.h	/^	HTML_COMMENT,$/;"	e	enum:__anon723bff220103
+HTML_CONST	src/tnz_html.h	/^	HTML_STATIC, HTML_INT, HTML_CHAR, HTML_FLOAT, HTML_CONST, HTML_DOUBLE, $/;"	e	enum:__anon723bff220203
+HTML_DOT	src/tnz_html.h	/^	HTML_COMMA, HTML_DOT, HTML_SEMI, HTML_COLON, HTML_DQUOTE, HTML_QUOTE, $/;"	e	enum:__anon723bff220203
+HTML_DOUBLE	src/tnz_html.h	/^	HTML_STATIC, HTML_INT, HTML_CHAR, HTML_FLOAT, HTML_CONST, HTML_DOUBLE, $/;"	e	enum:__anon723bff220203
+HTML_DQUOTE	src/tnz_html.h	/^	HTML_COMMA, HTML_DOT, HTML_SEMI, HTML_COLON, HTML_DQUOTE, HTML_QUOTE, $/;"	e	enum:__anon723bff220203
+HTML_EQUAL	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_FLOAT	src/tnz_html.h	/^	HTML_STATIC, HTML_INT, HTML_CHAR, HTML_FLOAT, HTML_CONST, HTML_DOUBLE, $/;"	e	enum:__anon723bff220203
+HTML_INF	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_INT	src/tnz_html.h	/^	HTML_STATIC, HTML_INT, HTML_CHAR, HTML_FLOAT, HTML_CONST, HTML_DOUBLE, $/;"	e	enum:__anon723bff220203
+HTML_LBRACK	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_LHOOK	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_LPAREN	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_NL	src/tnz_html.h	/^	HTML_SPACE, HTML_TAB, HTML_NL, HTML_B, $/;"	e	enum:__anon723bff220203
+HTML_OPERATOR	src/tnz_html.h	/^	HTML_OPERATOR,$/;"	e	enum:__anon723bff220103
+HTML_QUOTE	src/tnz_html.h	/^	HTML_COMMA, HTML_DOT, HTML_SEMI, HTML_COLON, HTML_DQUOTE, HTML_QUOTE, $/;"	e	enum:__anon723bff220203
+HTML_RBRACK	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_RHOOK	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_RPAREN	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_SEMI	src/tnz_html.h	/^	HTML_COMMA, HTML_DOT, HTML_SEMI, HTML_COLON, HTML_DQUOTE, HTML_QUOTE, $/;"	e	enum:__anon723bff220203
+HTML_SEPARATOR	src/tnz_html.h	/^	HTML_SEPARATOR,$/;"	e	enum:__anon723bff220103
+HTML_SHARP	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_SLASH	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_SPACE	src/tnz_html.h	/^	HTML_SPACE, HTML_TAB, HTML_NL, HTML_B, $/;"	e	enum:__anon723bff220203
+HTML_STAR	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_STATIC	src/tnz_html.h	/^	HTML_STATIC, HTML_INT, HTML_CHAR, HTML_FLOAT, HTML_CONST, HTML_DOUBLE, $/;"	e	enum:__anon723bff220203
+HTML_SUP	src/tnz_html.h	/^	HTML_SLASH, HTML_SHARP, HTML_EQUAL, HTML_AND, HTML_AMP, HTML_STAR, HTML_LPAREN, HTML_RPAREN, HT/;"	e	enum:__anon723bff220203
+HTML_T1_NONE	src/tnz_html.h	/^	HTML_T1_NONE = 0,$/;"	e	enum:__anon723bff220103
+HTML_T2_NONE	src/tnz_html.h	/^	HTML_T2_NONE = 0,$/;"	e	enum:__anon723bff220203
+HTML_TAB	src/tnz_html.h	/^	HTML_SPACE, HTML_TAB, HTML_NL, HTML_B, $/;"	e	enum:__anon723bff220203
+HTML_TAG	src/tnz_html.h	/^	HTML_TAG,$/;"	e	enum:__anon723bff220103
+HTML_VALUE	src/tnz_html.h	/^	HTML_VALUE,$/;"	e	enum:__anon723bff220103
+HTML_VALUE_INT	src/tnz_html.h	/^	HTML_VALUE_STRING, HTML_VALUE_INT$/;"	e	enum:__anon723bff220203
+HTML_VALUE_STRING	src/tnz_html.h	/^	HTML_VALUE_STRING, HTML_VALUE_INT$/;"	e	enum:__anon723bff220203
+HTML_WS	src/tnz_html.h	/^	HTML_WS,$/;"	e	enum:__anon723bff220103
+I	test/ressources/file.c	/^static const int I = 0;$/;"	v	typeref:typename:const int	file:
+I	test/results/parser_c_out.c	/^static const int I = 0;$/;"	v	typeref:typename:const int	file:
+I	test/results/tokenizer_c_out.c	/^static const int I = 0;$/;"	v	typeref:typename:const int	file:
+I	test/results/tokenizer_out.c	/^static const int I = 0;$/;"	v	typeref:typename:const int	file:
+IGNORE_C_LEX_WS	src/c_parser.c	/^#define IGNORE_C_LEX_WS(/;"	d	file:
+IGNORE_UNTIL	src/c_parser.c	/^#define IGNORE_UNTIL(/;"	d	file:
+LDFLAGS	Makefile	/^LDFLAGS=-I libs -I src\/ -L libs$/;"	m
+LDFLAGS	libs/Makefile	/^LDFLAGS=-I .\/$/;"	m
+LEX_DEFAULT_AMP	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_AND	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_B	src/tnz_default.h	/^	LEX_DEFAULT_SPACE, LEX_DEFAULT_TAB, LEX_DEFAULT_NL, LEX_DEFAULT_B, $/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_COLON	src/tnz_default.h	/^	LEX_DEFAULT_COMMA, LEX_DEFAULT_DOT, LEX_DEFAULT_SEMI, LEX_DEFAULT_COLON, LEX_DEFAULT_DQUOTE, LE/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_COMMA	src/tnz_default.h	/^	LEX_DEFAULT_COMMA, LEX_DEFAULT_DOT, LEX_DEFAULT_SEMI, LEX_DEFAULT_COLON, LEX_DEFAULT_DQUOTE, LE/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_DOT	src/tnz_default.h	/^	LEX_DEFAULT_COMMA, LEX_DEFAULT_DOT, LEX_DEFAULT_SEMI, LEX_DEFAULT_COLON, LEX_DEFAULT_DQUOTE, LE/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_DQUOTE	src/tnz_default.h	/^	LEX_DEFAULT_COMMA, LEX_DEFAULT_DOT, LEX_DEFAULT_SEMI, LEX_DEFAULT_COLON, LEX_DEFAULT_DQUOTE, LE/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_EQUAL	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_INF	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_LBRACK	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_LHOOK	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_LPAREN	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_NL	src/tnz_default.h	/^	LEX_DEFAULT_SPACE, LEX_DEFAULT_TAB, LEX_DEFAULT_NL, LEX_DEFAULT_B, $/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_OPERATOR	src/tnz_default.h	/^	LEX_DEFAULT_OPERATOR,$/;"	e	enum:__anon3efd8f920103
+LEX_DEFAULT_QUOTE	src/tnz_default.h	/^	LEX_DEFAULT_COMMA, LEX_DEFAULT_DOT, LEX_DEFAULT_SEMI, LEX_DEFAULT_COLON, LEX_DEFAULT_DQUOTE, LE/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_RBRACK	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_RHOOK	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_RPAREN	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_SEMI	src/tnz_default.h	/^	LEX_DEFAULT_COMMA, LEX_DEFAULT_DOT, LEX_DEFAULT_SEMI, LEX_DEFAULT_COLON, LEX_DEFAULT_DQUOTE, LE/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_SEPARATOR	src/tnz_default.h	/^	LEX_DEFAULT_SEPARATOR,$/;"	e	enum:__anon3efd8f920103
+LEX_DEFAULT_SHARP	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_SLASH	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_SPACE	src/tnz_default.h	/^	LEX_DEFAULT_SPACE, LEX_DEFAULT_TAB, LEX_DEFAULT_NL, LEX_DEFAULT_B, $/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_STAR	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_SUP	src/tnz_default.h	/^	LEX_DEFAULT_SLASH, LEX_DEFAULT_SHARP, LEX_DEFAULT_EQUAL, LEX_DEFAULT_AND, LEX_DEFAULT_AMP, LEX_/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_T1_NONE	src/tnz_default.h	/^	LEX_DEFAULT_T1_NONE = 50,$/;"	e	enum:__anon3efd8f920103
+LEX_DEFAULT_T2_NONE	src/tnz_default.h	/^	LEX_DEFAULT_T2_NONE = 50,$/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_TAB	src/tnz_default.h	/^	LEX_DEFAULT_SPACE, LEX_DEFAULT_TAB, LEX_DEFAULT_NL, LEX_DEFAULT_B, $/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_VALUE	src/tnz_default.h	/^	LEX_DEFAULT_VALUE,$/;"	e	enum:__anon3efd8f920103
+LEX_DEFAULT_VALUE_INT	src/tnz_default.h	/^	LEX_DEFAULT_VALUE_STRING, LEX_DEFAULT_VALUE_INT,$/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_VALUE_STRING	src/tnz_default.h	/^	LEX_DEFAULT_VALUE_STRING, LEX_DEFAULT_VALUE_INT,$/;"	e	enum:__anon3efd8f920203
+LEX_DEFAULT_WS	src/tnz_default.h	/^	LEX_DEFAULT_WS,$/;"	e	enum:__anon3efd8f920103
+LEX_DEFAULT_type_1	src/tnz_default.h	/^} LEX_DEFAULT_type_1;$/;"	t	typeref:enum:__anon3efd8f920103
+LEX_DEFAULT_type_2	src/tnz_default.h	/^} LEX_DEFAULT_type_2;$/;"	t	typeref:enum:__anon3efd8f920203
+P_BLOCK	src/c_parser.h	/^	P_BLOCK,$/;"	e	enum:__anond0dd19e10103
+P_FUNC	src/c_parser.h	/^	P_FUNC$/;"	e	enum:__anond0dd19e10103
+P_SIMPLE_STATEMENT	src/c_parser.h	/^	P_SIMPLE_STATEMENT,$/;"	e	enum:__anond0dd19e10103
+READ_OR_NULL	src/c_parser.c	/^#define READ_OR_NULL(/;"	d	file:
+READ_S_OR_NULL	src/c_parser.c	/^#define READ_S_OR_NULL(/;"	d	file:
+READ_VALID_OR_NULL	src/c_parser.c	/^#define READ_VALID_OR_NULL(/;"	d	file:
+TNZ_T1_NONE	src/tokenizer.h	/^	TNZ_T1_NONE = 0,$/;"	e	enum:__anon2924026d0103
+TNZ_T2_NONE	src/tokenizer.h	/^	TNZ_T2_NONE = 0,$/;"	e	enum:__anon2924026d0203
+TOTO	test/ressources/file.c	/^#define TOTO /;"	d	file:
+TOTO	test/results/parser_c_out.c	/^#define TOTO /;"	d	file:
+TOTO	test/results/tokenizer_c_out.c	/^#define TOTO /;"	d	file:
+TOTO	test/results/tokenizer_out.c	/^#define TOTO /;"	d	file:
+__anon2924026d0103	src/tokenizer.h	/^typedef enum {$/;"	g
+__anon2924026d0203	src/tokenizer.h	/^typedef enum { $/;"	g
+__anon3efd8f920103	src/tnz_default.h	/^typedef enum {$/;"	g
+__anon3efd8f920203	src/tnz_default.h	/^typedef enum { $/;"	g
+__anon723bff220103	src/tnz_html.h	/^typedef enum {$/;"	g
+__anon723bff220203	src/tnz_html.h	/^typedef enum { $/;"	g
+__anond0dd19e10103	src/c_parser.h	/^typedef enum {$/;"	g
+__anonf7ca0b100103	src/tnz_c.h	/^typedef enum {$/;"	g
+__anonf7ca0b100203	src/tnz_c.h	/^typedef enum { $/;"	g
+all	Makefile	/^all: dirs tags all_ok$/;"	t
+all	Makefile	/^all: make_libs$/;"	t
+all	libs/Makefile	/^all: tags array.o libarray.a$/;"	t
+all_ok	Makefile	/^all_ok: lexers_ok parsers_ok$/;"	t
+array	libs/array.h	/^typedef struct array { $/;"	s
+array	libs/array.h	/^} array;$/;"	t	typeref:struct:array
+array.o	libs/Makefile	/^array.o: array.c array.h macros.h$/;"	t
+array_add	libs/array.c	/^array *array_add(array *a, void *item) {$/;"	f	typeref:typename:array *
+array_del	libs/array.c	/^array *array_del(array *a, void *data) {$/;"	f	typeref:typename:array *
+array_del_idx	libs/array.c	/^array *array_del_idx(array *a, size_t idx) {$/;"	f	typeref:typename:array *
+array_dump	libs/array.c	/^array *array_dump(array *a, FILE *fd, void *(*item_dump)(FILE *, void *)) {$/;"	f	typeref:typename:array *
+array_dump_infos	libs/array.c	/^array *array_dump_infos(array *a, FILE *fd) {$/;"	f	typeref:typename:array *
+array_dump_items	libs/array.c	/^array *array_dump_items(array *a, FILE *fd, void *(*item_dump)(FILE *, void *)) {$/;"	f	typeref:typename:array *
+array_find	libs/array.c	/^void *array_find(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:void *
+array_find_all	libs/array.c	/^array *array_find_all(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:array *
+array_find_all_idx	libs/array.c	/^array *array_find_all_idx(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:array *
+array_find_idx	libs/array.c	/^int array_find_idx(array *a, void *search, int (*cmp)(const void *, const void *)) {$/;"	f	typeref:typename:int
+array_find_rec	libs/array.c	/^void *array_find_rec(array *a, void *search, int (*cmp)(const void *, const void *), size_t *idx/;"	f	typeref:typename:void *
+array_find_rec_idx	libs/array.c	/^int array_find_rec_idx(array *a, void *search, int (*cmp)(const void *, const void *), size_t *i/;"	f	typeref:typename:int
+array_free	libs/array.c	/^void array_free(array *a) {$/;"	f	typeref:typename:void
+array_load	libs/array.c	/^array *array_load(FILE *fd, void (*item_load)(void *, FILE *)) {$/;"	f	typeref:typename:array *
+array_new	libs/array.c	/^array *array_new(size_t capacity, size_t item_size) {$/;"	f	typeref:typename:array *
+blocks	src/tnz_c.c	/^const t_block blocks[] = {$/;"	v	typeref:typename:const t_block[]
+blocks	src/tnz_default.c	/^const t_block blocks[] = {$/;"	v	typeref:typename:const t_block[]
+blocks	src/tnz_html.c	/^const t_block blocks[] = {$/;"	v	typeref:typename:const t_block[]
+build	Makefile	/^build: $/;"	t
+build/c_parser.o	Makefile	/^build\/c_parser.o: src\/c_parser.c src\/c_parser.h$/;"	t
+build/tnz_c.o	Makefile	/^build\/tnz_c.o: src\/tnz_c.c src\/tnz_c.h$/;"	t
+build/tnz_default.o	Makefile	/^build\/tnz_default.o: src\/tnz_default.c src\/tnz_default.h$/;"	t
+build/tnz_html.o	Makefile	/^build\/tnz_html.o: src\/tnz_html.c src\/tnz_html.h$/;"	t
+build/tokenizer.o	Makefile	/^build\/tokenizer.o: src\/tokenizer.c src\/tokenizer.h$/;"	t
+capacity	libs/array.h	/^	size_t capacity;$/;"	m	struct:array	typeref:typename:size_t
+char_is_alnum	src/tokenizer.c	/^bool char_is_alnum(char c) {$/;"	f	typeref:typename:bool
+char_is_alpha	src/tokenizer.c	/^bool char_is_alpha(char c) {$/;"	f	typeref:typename:bool
+char_is_digit	src/tokenizer.c	/^bool char_is_digit(char c) {$/;"	f	typeref:typename:bool
+char_is_varname	src/tokenizer.c	/^bool char_is_varname(char c) {$/;"	f	typeref:typename:bool
+char_is_varname_first	src/tokenizer.c	/^bool char_is_varname_first(char c) {$/;"	f	typeref:typename:bool
+clean	Makefile	/^clean:$/;"	t
+clean	libs/Makefile	/^clean:$/;"	t
+content	src/tokenizer.h	/^	char *content;$/;"	m	struct:token	typeref:typename:char *
+content	src/tokenizer.h	/^	const char *content;$/;"	m	struct:t_reserved	typeref:typename:const char *
+count	libs/array.h	/^	size_t count;$/;"	m	struct:array	typeref:typename:size_t
+dirs	Makefile	/^dirs: src build test test\/src test\/build test\/results$/;"	t
+end	src/c_parser.h	/^	token *end;$/;"	m	struct:p_struct	typeref:typename:token *
+end	src/tokenizer.h	/^	const char *end;$/;"	m	struct:t_block	typeref:typename:const char *
+find	src/tokenizer.c	/^const t_reserved *find(const t_reserved list[], char *search) {$/;"	f	typeref:typename:const t_reserved *
+item_size	libs/array.h	/^	size_t item_size;$/;"	m	struct:array	typeref:typename:size_t
+items	libs/array.h	/^	char *items;$/;"	m	struct:array	typeref:typename:char *
+lexers_ok	Makefile	/^lexers_ok: test\/results\/tokenizer_ok test\/results\/tokenizer_c_ok test\/results\/tokenizer_ht/;"	t
+libarray.a	libs/Makefile	/^libarray.a: array.o$/;"	t
+main	test/ressources/file.c	/^int main() {$/;"	f	typeref:typename:int
+main	test/results/parser_c_out.c	/^int main() {$/;"	f	typeref:typename:int
+main	test/results/tokenizer_c_out.c	/^int main() {$/;"	f	typeref:typename:int
+main	test/results/tokenizer_out.c	/^int main() {$/;"	f	typeref:typename:int
+main	test/src/test_parser_c.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	test/src/test_tokenizer.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	test/src/test_tokenizer_c.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+main	test/src/test_tokenizer_html.c	/^int main(int argc, char **argv) {$/;"	f	typeref:typename:int
+make_libs	Makefile	/^make_libs:$/;"	t
+p_struct	src/c_parser.h	/^typedef struct p_struct {$/;"	s
+p_struct	src/c_parser.h	/^} p_struct;$/;"	t	typeref:struct:p_struct
+p_struct_as_string	src/c_parser.c	/^char *p_struct_as_string(p_struct *s) {$/;"	f	typeref:typename:char *
+p_struct_cpy	src/c_parser.c	/^p_struct *p_struct_cpy(p_struct *src) {$/;"	f	typeref:typename:p_struct *
+p_struct_free	src/c_parser.c	/^void p_struct_free(void *s) {$/;"	f	typeref:typename:void
+p_struct_new	src/c_parser.c	/^p_struct *p_struct_new(p_struct_type type, token *start, token *end) {$/;"	f	typeref:typename:p_struct *
+p_struct_set	src/c_parser.c	/^void p_struct_set(p_struct *dest, p_struct_type type, token *start, token *end) {$/;"	f	typeref:typename:void
+p_struct_type	src/c_parser.h	/^} p_struct_type;$/;"	t	typeref:enum:__anond0dd19e10103
+parse	src/c_parser.c	/^array *parse(array **dest, array *tokens) {$/;"	f	typeref:typename:array *
+parser_fprint	src/c_parser.c	/^void parser_fprint(void *p, FILE *out){$/;"	f	typeref:typename:void
+parser_fprint_formated	src/c_parser.c	/^void parser_fprint_formated(void *p, FILE *out){$/;"	f	typeref:typename:void
+parser_print	src/c_parser.c	/^void parser_print(void *p){$/;"	f	typeref:typename:void
+parser_print_formated	src/c_parser.c	/^void parser_print_formated(void *p){$/;"	f	typeref:typename:void
+parsers_ok	Makefile	/^parsers_ok: test\/results\/parser_c_ok$/;"	t
+read_a_block	src/tokenizer.c	/^const t_block *read_a_block(char *text, const t_block blocks[], int *len) {$/;"	f	typeref:typename:const t_block *
+read_any	src/c_parser.c	/^p_struct *read_any(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+read_block	src/tokenizer.c	/^const t_block *read_block(char *text, const t_block *b, int *len) {	$/;"	f	typeref:typename:const t_block *
+read_function	src/c_parser.c	/^p_struct *read_function(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+read_preproc	src/c_parser.c	/^p_struct *read_preproc(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+read_varassign	src/c_parser.c	/^p_struct *read_varassign(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+read_vardecl	src/c_parser.c	/^p_struct *read_vardecl(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+read_vardeclassign	src/c_parser.c	/^p_struct *read_vardeclassign(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+read_ws	src/c_parser.c	/^p_struct *read_ws(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+read_ws_s	src/c_parser.c	/^p_struct *read_ws_s(p_struct *dest, token *last, token **start) {$/;"	f	typeref:typename:p_struct *
+readfile	src/tokenizer.c	/^char *readfile(const char *filename) {$/;"	f	typeref:typename:char *
+reserved	src/tnz_c.c	/^const t_reserved reserved[] = {$/;"	v	typeref:typename:const t_reserved[]
+reserved	src/tnz_default.c	/^const t_reserved reserved[] = {$/;"	v	typeref:typename:const t_reserved[]
+reserved	src/tnz_html.c	/^const t_reserved reserved[] = {$/;"	v	typeref:typename:const t_reserved[]
+s	libs/macros.h	/^			LOG_E("failed to open file [%s]\\n", FO_path); \\$/;"	m
+s	libs/macros.h	/^			LOG_E("failed to open file [%s]\\n", O_path); \\$/;"	m
+s	libs/macros.h	/^		fprintf(LGM_stream, "%s:%s:%d:%s\\n", __FILE__, __func__, __LINE__, LGM_mess);$/;"	m
+s	libs/macros.h	/^		fprintf(LG_stream, "%s:%s:%d:" LG_fmt, __FILE__, __func__, __LINE__, __VA_ARGS__);$/;"	m
+src	Makefile	/^src: $/;"	t
+start	src/c_parser.h	/^	token *start;$/;"	m	struct:p_struct	typeref:typename:token *
+start	src/tokenizer.h	/^	const char *start;$/;"	m	struct:t_block	typeref:typename:const char *
+string_is_alnum	src/tokenizer.c	/^bool string_is_alnum(char *s, size_t len) {$/;"	f	typeref:typename:bool
+string_is_alpha	src/tokenizer.c	/^bool string_is_alpha(char *s, size_t len) {$/;"	f	typeref:typename:bool
+string_is_integer	src/tokenizer.c	/^bool string_is_integer(char *s, size_t len) {$/;"	f	typeref:typename:bool
+string_is_varname	src/tokenizer.c	/^bool string_is_varname(char *s, size_t len) {$/;"	f	typeref:typename:bool
+t_block	src/tokenizer.h	/^typedef struct t_block {$/;"	s
+t_block	src/tokenizer.h	/^} t_block;$/;"	t	typeref:struct:t_block
+t_block_null	src/tokenizer.c	/^const t_block t_block_null = { 0 };$/;"	v	typeref:typename:const t_block
+t_block_print	src/tokenizer.c	/^void t_block_print(const t_block *b) {$/;"	f	typeref:typename:void
+t_reserved	src/tokenizer.h	/^typedef struct t_reserved {$/;"	s
+t_reserved	src/tokenizer.h	/^} t_reserved;$/;"	t	typeref:struct:t_reserved
+t_reserved_null	src/tokenizer.c	/^const t_reserved t_reserved_null = { 0 };$/;"	v	typeref:typename:const t_reserved
+t_reserved_print	src/tokenizer.c	/^void t_reserved_print(const t_reserved *r) {$/;"	f	typeref:typename:void
+tags	Makefile	/^tags: $/;"	t
+tags	libs/Makefile	/^tags: $/;"	t
+test	Makefile	/^test: $/;"	t
+test/build	Makefile	/^test\/build: $/;"	t
+test/build/test_parser_c	Makefile	/^test\/build\/test_parser_c: $(COMP_PARSER)$/;"	t
+test/build/test_tokenizer	Makefile	/^test\/build\/test_tokenizer: $(COMP_LEX_DEF)$/;"	t
+test/build/test_tokenizer_c	Makefile	/^test\/build\/test_tokenizer_c: $(COMP_LEX_C)$/;"	t
+test/build/test_tokenizer_html	Makefile	/^test\/build\/test_tokenizer_html: $(COMP_LEX_HTML)$/;"	t
+test/results	Makefile	/^test\/results:$/;"	t
+test/results/parser_c_ok	Makefile	/^test\/results\/parser_c_ok: .\/test\/ressources\/file.c test\/results\/parser_c_out.c  $/;"	t
+test/results/parser_c_out.c	Makefile	/^test\/results\/parser_c_out.c: .\/test\/build\/test_parser_c .\/test\/ressources\/file.c$/;"	t
+test/results/tokenizer_c_ok	Makefile	/^test\/results\/tokenizer_c_ok: .\/test\/ressources\/file.c test\/results\/tokenizer_c_out.c  $/;"	t
+test/results/tokenizer_c_out.c	Makefile	/^test\/results\/tokenizer_c_out.c: .\/test\/build\/test_tokenizer_c .\/test\/ressources\/file.c$/;"	t
+test/results/tokenizer_html_ok	Makefile	/^test\/results\/tokenizer_html_ok: .\/test\/ressources\/file.html test\/results\/tokenizer_html_o/;"	t
+test/results/tokenizer_html_out.html	Makefile	/^test\/results\/tokenizer_html_out.html: .\/test\/build\/test_tokenizer_html .\/test\/ressources\//;"	t
+test/results/tokenizer_ok	Makefile	/^test\/results\/tokenizer_ok: .\/test\/ressources\/file.c test\/results\/tokenizer_out.c$/;"	t
+test/results/tokenizer_out.c	Makefile	/^test\/results\/tokenizer_out.c: .\/test\/build\/test_tokenizer .\/test\/ressources\/file.c$/;"	t
+test/src	Makefile	/^test\/src: $/;"	t
+test_1	test/src/test_parser_c.c	/^int test_1(char *filepath, char *fileresult) {$/;"	f	typeref:typename:int
+test_1	test/src/test_tokenizer.c	/^int test_1(char *filepath, char *fileresult) {$/;"	f	typeref:typename:int
+test_1	test/src/test_tokenizer_c.c	/^int test_1(char *filepath, char *fileresult) {$/;"	f	typeref:typename:int
+test_1	test/src/test_tokenizer_html.c	/^int test_1(char *filepath, char *fileresult) {$/;"	f	typeref:typename:int
+tnz_c	src/tnz_c.c	/^array *tnz_c(char *filepath) {$/;"	f	typeref:typename:array *
+tnz_c_fprint	src/tnz_c.c	/^void tnz_c_fprint(array *tokens, FILE *out) {$/;"	f	typeref:typename:void
+tnz_c_free	src/tnz_c.c	/^void tnz_c_free(array *tokens) {$/;"	f	typeref:typename:void
+tnz_default	src/tnz_default.c	/^array *tnz_default(char *filepath) {$/;"	f	typeref:typename:array *
+tnz_default_fprint	src/tnz_default.c	/^void tnz_default_fprint(array *tokens, FILE *out) {$/;"	f	typeref:typename:void
+tnz_default_free	src/tnz_default.c	/^void tnz_default_free(array *tokens) {$/;"	f	typeref:typename:void
+tnz_html	src/tnz_html.c	/^array *tnz_html(char *filepath) {$/;"	f	typeref:typename:array *
+tnz_html_fprint	src/tnz_html.c	/^void tnz_html_fprint(array *tokens, FILE *out) {$/;"	f	typeref:typename:void
+tnz_html_free	src/tnz_html.c	/^void tnz_html_free(array *tokens) {$/;"	f	typeref:typename:void
+tnz_type_1	src/tokenizer.h	/^} tnz_type_1;$/;"	t	typeref:enum:__anon2924026d0103
+tnz_type_2	src/tokenizer.h	/^} tnz_type_2;$/;"	t	typeref:enum:__anon2924026d0203
+token	src/tokenizer.h	/^typedef struct token {$/;"	s
+token	src/tokenizer.h	/^} token;$/;"	t	typeref:struct:token
+token_fprint	src/tokenizer.c	/^void token_fprint(void *tok, FILE *out) {$/;"	f	typeref:typename:void
+token_fprint_formated	src/tokenizer.c	/^void token_fprint_formated(void *tok, FILE *out) {$/;"	f	typeref:typename:void
+token_is_varname	src/c_parser.c	/^bool token_is_varname(token *t) {$/;"	f	typeref:typename:bool
+token_print	src/tokenizer.c	/^void token_print(void *tok) {$/;"	f	typeref:typename:void
+token_print_formated	src/tokenizer.c	/^void token_print_formated(void *tok) {$/;"	f	typeref:typename:void
+tokenize	src/tokenizer.c	/^array *tokenize(array **dest, char *text, const t_block blocks[], const t_reserved reserved[]) {$/;"	f	typeref:typename:array *
+tokenizer_token_new	src/tokenizer.c	/^token *tokenizer_token_new(int type1, int type2, char *content, size_t len) {$/;"	f	typeref:typename:token *
+toto	test/ressources/file.c	/^const char *toto = "contenue string lit";$/;"	v	typeref:typename:const char *
+toto	test/results/parser_c_out.c	/^const char *toto = "contenue string lit";$/;"	v	typeref:typename:const char *
+toto	test/results/tokenizer_c_out.c	/^const char *toto = "contenue string lit";$/;"	v	typeref:typename:const char *
+toto	test/results/tokenizer_out.c	/^const char *toto = "contenue string lit";$/;"	v	typeref:typename:const char *
+type	src/c_parser.h	/^	p_struct_type type;$/;"	m	struct:p_struct	typeref:typename:p_struct_type
+type1	src/tokenizer.h	/^	int type1;$/;"	m	struct:t_block	typeref:typename:int
+type1	src/tokenizer.h	/^	int type1;$/;"	m	struct:t_reserved	typeref:typename:int
+type1	src/tokenizer.h	/^	int type1;$/;"	m	struct:token	typeref:typename:int
+type2	src/tokenizer.h	/^	int type2;$/;"	m	struct:t_block	typeref:typename:int
+type2	src/tokenizer.h	/^	int type2;$/;"	m	struct:t_reserved	typeref:typename:int
+type2	src/tokenizer.h	/^	int type2;$/;"	m	struct:token	typeref:typename:int
+type_1	src/tnz_c.h	/^} type_1;$/;"	t	typeref:enum:__anonf7ca0b100103
+type_1	src/tnz_html.h	/^} type_1;$/;"	t	typeref:enum:__anon723bff220103
+type_2	src/tnz_c.h	/^} type_2;$/;"	t	typeref:enum:__anonf7ca0b100203
+type_2	src/tnz_html.h	/^} type_2;$/;"	t	typeref:enum:__anon723bff220203
+word_cpy	src/tokenizer.c	/^char *word_cpy(char *word, int len) {$/;"	f	typeref:typename:char *

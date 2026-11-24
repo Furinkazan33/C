@@ -1,0 +1,101 @@
+Grammar
+
+    0 $accept: file $end
+
+    1 file: lines
+
+    2 lines: lines line
+    3      | ε
+
+    4 line: line separator value
+    5     | value
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    value <vstring> (258) 4 5
+    separator (259) 4
+
+
+Nonterminals, with rules where they appear
+
+    $accept (5)
+        on left: 0
+    file (6)
+        on left: 1
+        on right: 0
+    lines <varray> (7)
+        on left: 2 3
+        on right: 1 2
+    line <varray> (8)
+        on left: 4 5
+        on right: 2 4
+
+
+State 0
+
+    0 $accept: • file $end
+
+    $default  reduce using rule 3 (lines)
+
+    file   go to state 1
+    lines  go to state 2
+
+
+State 1
+
+    0 $accept: file • $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    1 file: lines •
+    2 lines: lines • line
+
+    value  shift, and go to state 4
+
+    $default  reduce using rule 1 (file)
+
+    line  go to state 5
+
+
+State 3
+
+    0 $accept: file $end •
+
+    $default  accept
+
+
+State 4
+
+    5 line: value •
+
+    $default  reduce using rule 5 (line)
+
+
+State 5
+
+    2 lines: lines line •
+    4 line: line • separator value
+
+    separator  shift, and go to state 6
+
+    $default  reduce using rule 2 (lines)
+
+
+State 6
+
+    4 line: line separator • value
+
+    value  shift, and go to state 7
+
+
+State 7
+
+    4 line: line separator value •
+
+    $default  reduce using rule 4 (line)

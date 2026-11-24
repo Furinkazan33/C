@@ -1,0 +1,28 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include "macros.h"
+
+#define CHECK(var, mess) if(!var) { LOG_E(mess); return 1; }
+
+
+
+
+#define ARRAY_INIT_SIZE 10
+
+typedef struct type_array {
+	size_t size;
+	size_t n;
+	void **data;
+} type_array;
+
+type_array *array_new();
+type_array *array_new_from(void *e);
+type_array *array_add(type_array *a, void *e);
+type_array *array_add_first(type_array *a, void *p);
+void array_map(type_array *a, void (*user_print)(void *));
+
+void array_print(type_array *array);
+void arrays_print(type_array *arrays);
+
+void array_fprint(type_array *l, FILE *out);
+void arrays_fprint(type_array *l, FILE *out);
