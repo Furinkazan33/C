@@ -22,23 +22,26 @@ typedef enum hashtable_type {
 typedef struct hashtable_entry {
 	void *key;
 	void *data;
-	struct hashtable_entry *next; // if non-unicity on key
+	
+	// if non-unicity on key
+	struct hashtable_entry *prec;
+	struct hashtable_entry *next;
 } hashtable_entry;
 
 typedef struct hashtable {
 	hashtable_entry **entries;
 	size_t partitions;
 	int64_t (*cmp)(void *, void *);
-	size_t (*hash)(struct hashtable *ht, void *key);
+	size_t (*hash)(struct hashtable *t, void *key);
 	hashtable_type type;
 	char pad[4];
 } hashtable;
 
-hashtable_entry *hashtable_entry_new(hashtable *t, void *key, void *data);
 
 hashtable *hashtable_new(hashtable_type type, size_t partitions);
-void hashtable_free(hashtable *ht);
-hashtable *hashtable_add(hashtable *ht, void *key, void *data);
-void **hashtable_find(hashtable *ht, void *value, bool find_all, size_t *n_found, size_t init_alloc_found);
-void hashtable_log_as_int(hashtable *ht, bool all);
-void hashtable_log_as_str(hashtable *ht, bool all);
+void hashtable_free(hashtable *t);
+hashtable *hashtable_add(hashtable *t, void *key, void *data);
+void **hashtable_find(hashtable *t, void *key, size_t *n_found, size_t init_alloc_found);
+void hashtable_delete(hashtable *t, void *key);
+void hashtable_log_as_int(hashtable *t, bool all);
+void hashtable_log_as_str(hashtable *t, bool all);

@@ -20,7 +20,7 @@ int test_char() {
 	size_t n_found;
 	
 	for(int i = 0; i < 5; i++) {
-		char **found = (char **) hashtable_find(ht, &keys[i], true, &n_found, 1); if(!found) { return 1; }
+		char **found = (char **) hashtable_find(ht, &keys[i], &n_found, 1); if(!found) { return 1; }
 		
 		LOG_S("n_found:[%ld]\n", n_found);
 		
@@ -30,6 +30,9 @@ int test_char() {
 		
 		free(found);
 	}
+	
+	hashtable_delete(ht, &keys[4]);
+	hashtable_log_as_str(ht, true);
 
 	hashtable_free(ht);
 	
@@ -51,7 +54,7 @@ int test_str() {
 	size_t n_found;
 	
 	for(int i = 0; i < 5; i++) {
-		char **found = (char **) hashtable_find(ht, keys[i], true, &n_found, 1); if(!found) { return 1; }
+		char **found = (char **) hashtable_find(ht, keys[i], &n_found, 1); if(!found) { return 1; }
 		
 		LOG_S("n_found:[%ld]\n", n_found);
 		
@@ -61,6 +64,11 @@ int test_str() {
 		
 		free(found);
 	}
+	
+	
+	hashtable_delete(ht, keys[4]);
+	hashtable_log_as_str(ht, true);
+	
 
 	hashtable_free(ht);
 	
@@ -82,7 +90,7 @@ int test_int64() {
 	size_t n_found;
 	
 	for(int i = 0; i < 3; i++) {
-		char **found = (char **) hashtable_find(ht, &keys[i], true, &n_found, 1); if(!found) { return 1; }
+		char **found = (char **) hashtable_find(ht, &keys[i], &n_found, 1); if(!found) { return 1; }
 		
 		LOG_S("n_found:[%ld]\n", n_found);
 		
@@ -93,6 +101,9 @@ int test_int64() {
 		free(found);
 	}
 
+	hashtable_delete(ht, &keys[2]);
+	hashtable_log_as_str(ht, true);
+	
 	hashtable_free(ht);
 	
 	return 0;
@@ -100,10 +111,19 @@ int test_int64() {
 
 
 int main() {
+	puts("=========================");
+	puts("test_char");
+	puts("=========================");
 	if(test_char() != 0) return 1;
 	
+	puts("=========================");
+	puts("test_str");
+	puts("=========================");
 	if(test_str() != 0) return 1;
 	
+	puts("=========================");
+	puts("test_int64");
+	puts("=========================");
 	if(test_int64() != 0) return 1;
 	
 	

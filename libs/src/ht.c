@@ -11,30 +11,30 @@
 	hash functions
 */
 
-size_t hash_int16_to_idx(hashtable *ht, void *key) {
-	return (* (int16_t *) key) % ht->partitions;
+size_t hash_int16_to_idx(hashtable *t, void *key) {
+	return (* (int16_t *) key) % t->partitions;
 }
 
-size_t hash_int32_to_idx(hashtable *ht, void *key) {
-	return (* (int32_t *) key) % ht->partitions;
+size_t hash_int32_to_idx(hashtable *t, void *key) {
+	return (* (int32_t *) key) % t->partitions;
 }
 
-size_t hash_int64_to_idx(hashtable *ht, void *key) {
-	return (* (int64_t *) key) % ht->partitions;
+size_t hash_int64_to_idx(hashtable *t, void *key) {
+	return (* (int64_t *) key) % t->partitions;
 }
 
 // on se base sur le premier char pour choisir la partition
-size_t hash_str_to_idx(hashtable *ht, void *key) {
+size_t hash_str_to_idx(hashtable *t, void *key) {
 	unsigned char c = *(char *) key;
 	
 	// valeurs les plus utilisees pour du texte [32, 127]
 	if(c >= 32 && c <= 127) {
 		c -= 32;
-		return c % ht->partitions;
+		return c % t->partitions;
 	}
 	else {
 		// last partition for everything else
-		return ht->partitions - 1;
+		return t->partitions - 1;
 	}
 }
 
@@ -71,12 +71,18 @@ hashtable_entry *hashtable_entry_new(hashtable *t, void *key, void *data) {
 	MALLOC(res->key, size_of_key, return NULL, )
 	memcpy(res->key, key, size_of_key);
 	res->data = data;
+	res->prec = NULL;
 	res->next = NULL;
 	
 	return res;
 }
 
 void hashtable_entry_free(hashtable_entry *e) {
+	free(e->key);
+	free(e);
+}
+
+void hashtable_entry_free_all(hashtable_entry *e) {
 	while(e) {
 		hashtable_entry *p = e->next;
 		free(e->key);
@@ -84,6 +90,29 @@ void hashtable_entry_free(hashtable_entry *e) {
 		e = p;
 	}
 }
+
+// remove from list
+void hashtable_entry_remove(hashtable *t, int idx, hashtable_entry *e) {
+	if(e->prec) {
+		e->prec->next = e->next;
+	}
+	else {
+		t->entries[idx] = e->next;
+	}
+	if(e->next) {
+		e->next->prec = e->prec;
+	}
+	
+	e->prec = NULL;
+	e->next = NULL;
+}
+
+// remove and free
+void hashtable_entry_delete(hashtable *t, int idx, hashtable_entry *e) {
+	hashtable_entry_remove(t, idx, e);
+	hashtable_entry_free(e);
+}
+
 
 int64_t hashtable_entry_cmp_char(void *p, void *key) {
 	return *(char *) p - *(char *) key;
@@ -138,9 +167,6 @@ hashtable *hashtable_new(hashtable_type type, size_t partitions) {
 			res->cmp = hashtable_entry_cmp_char;
 			res->hash = hash_str_to_idx;
 			break;
-		default:
-			LOG_E("no such type:[%d]\n", type);
-			return NULL;
 	}
 	
 	MALLOC(res->entries, sizeof(*res->entries) * partitions, return NULL, )
@@ -152,11 +178,11 @@ hashtable *hashtable_new(hashtable_type type, size_t partitions) {
 	return res;
 }
 
-void hashtable_free(hashtable *ht) {
-	for(size_t p = 0; p < ht->partitions; p++) {
-		hashtable_entry_free(ht->entries[p]);
+void hashtable_free(hashtable *t) {
+	for(size_t p = 0; p < t->partitions; p++) {
+		hashtable_entry_free_all(t->entries[p]);
 	}
-	free(ht);
+	free(t);
 }
 
 hashtable *hashtable_add(hashtable *t, void *key, void *data) {
@@ -210,34 +236,34 @@ hashtable *hashtable_add(hashtable *t, void *key, void *data) {
 	// adding new entry as head
 	if(t->entries[idx]) {
 		entry->next = t->entries[idx];
+		t->entries[idx]->prec = entry;
 	}
 	t->entries[idx] = entry;
 
 	return t;
 }
 
-hashtable_entry *hashtable_get_partition(hashtable *ht, void *key) {
-	unsigned int idx = ht->hash(ht, key);
-	return ht->entries[idx];
+hashtable_entry *hashtable_get_partition(hashtable *t, void *key) {
+	unsigned int idx = t->hash(t, key);
+	return t->entries[idx];
 }
 
-void **hashtable_find(hashtable *ht, void *key, bool find_all, size_t *n_found, size_t init_alloc_found) {
-	if(!ht->cmp) {
-		LOG_E("Missing compare function")
-		return NULL;
-	}
+void **hashtable_find(hashtable *t, void *key, size_t *n_found, size_t init_alloc_found) {
+	int idx = t->hash(t, key);
 	
-	int idx = ht->hash(ht, key);
+	#ifdef HT_DEBUG
+		LOG_S("searching on partition [%d]\n", idx);
+	#endif
 	
 	*n_found = 0;
 	void **res;
 	size_t res_alloc = init_alloc_found;
 	MALLOC(res, sizeof(*res) * res_alloc, LOG_E_MESS("failed to alloc results\n"); return NULL;, )
 	
-	hashtable_entry *e = ht->entries[idx];
+	hashtable_entry *e = t->entries[idx];
 	
 	while(e) {
-		if(!ht->cmp(e->key, key)) {
+		if(!t->cmp(e->key, key)) {
 			// realloc results
 			if(*n_found == res_alloc) {
 				#ifdef HT_DEBUG
@@ -249,27 +275,34 @@ void **hashtable_find(hashtable *ht, void *key, bool find_all, size_t *n_found, 
 			}
 			
 			res[(*n_found)++] = e->data;
-			
-			#ifdef HT_DEBUG
-				LOG_S("found [%ld]\n", *n_found);
-			#endif
-			
-			if(!find_all) {
-				return res;
-			}
 		}
 		e = e->next;
 	}
 	
+	#ifdef HT_DEBUG
+		LOG_S("found [%ld]\n", *n_found);
+	#endif
+	
 	return res;
 }
 
-void hashtable_log_as_int(hashtable *ht, bool all) {
-	LOG_S("[%ld] partitions\n", ht->partitions);
+void hashtable_delete(hashtable *t, void *key) {
+	int idx = t->hash(t, key);
+	hashtable_entry *e = t->entries[idx];
 	
-	for(size_t i = 0; i < ht->partitions; i++) {
+	while(e && !t->cmp(e->key, key)) {
+		hashtable_entry *next = e->next;
+		hashtable_entry_delete(t, idx, e);
+		e = next;
+	}
+}
+
+void hashtable_log_as_int(hashtable *t, bool all) {
+	LOG_S("[%ld] partitions\n", t->partitions);
+	
+	for(size_t i = 0; i < t->partitions; i++) {
 		
-		hashtable_entry *e = ht->entries[i];
+		hashtable_entry *e = t->entries[i];
 		
 		if(e) {
 			LOG_S("[%ld]=>", i)
@@ -302,11 +335,11 @@ void hashtable_log_as_int(hashtable *ht, bool all) {
 	}
 }
 
-void hashtable_log_as_str(hashtable *ht, bool all) {
-	LOG_S("[%ld] partitions\n", ht->partitions);
+void hashtable_log_as_str(hashtable *t, bool all) {
+	LOG_S("[%ld] partitions\n", t->partitions);
 	
-	for(size_t i = 0; i < ht->partitions; i++) {
-		hashtable_entry *e = ht->entries[i];
+	for(size_t i = 0; i < t->partitions; i++) {
+		hashtable_entry *e = t->entries[i];
 		
 		if(e) {
 			LOG_S("[%ld]=>", i)

@@ -112,13 +112,13 @@ ht_result=tests/ok_ht
 
 db_bin=tests/bin_db
 db_srcs=tests/test_db.c
-db_deps=build/libdb.a
+db_deps=build/libdb.a build/libht.a
 db_libs=-ldb -lht
 db_result=tests/ok_db
 
 db2_bin=tests/bin_db2
 db2_srcs=tests/test_db2.c
-db2_deps=build/libdb.a
+db2_deps=build/libdb.a build/libht.a
 db2_libs=-ldb -lht
 db2_result=tests/ok_db2
 

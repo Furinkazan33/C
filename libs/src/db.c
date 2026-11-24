@@ -558,7 +558,7 @@ char **table_get_line_ptr_by(table *t, const char *colname, void *value, size_t 
 			LOG_S_MESS("DEBUG: getting line from index\n")
 		#endif
 		
-		found = (char **) hashtable_find(t->columns[col_idx]->index, value, true, n_found, 32); if(!found) { LOG_E_MESS("ERROR: failed to search in hashtable\n"); return NULL; }
+		found = (char **) hashtable_find(t->columns[col_idx]->index, value, n_found, 32); if(!found) { LOG_E_MESS("ERROR: failed to search in hashtable\n"); return NULL; }
 		
 		return found;
 	}
